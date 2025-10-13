@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GOFUNWITH Admin | Theme Preview</title>
+  <link rel="stylesheet" href="/themes/base.css" />
+  <link rel="stylesheet" href="/themes/theme-sand.css" />
+  <link rel="stylesheet" href="/themes/theme-forest.css" />
+  <link rel="stylesheet" href="/themes/theme-ocean.css" />
+  <script src="/config/theme-config.js"></script>
+  <script defer src="./admin.js"></script>
+
+  <style>
+    .theme-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin: 2rem auto;
+      max-width: 1000px;
+    }
+    .theme-card {
+      border: 2px solid var(--color-border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .theme-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .theme-card h3 { margin-top: 1rem; }
+    .status {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.95rem;
+    }
+    #tokenInput {
+      width: 360px;
+      margin: 12px auto;
+      padding: 8px 12px;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header container">
+    <div class="logo">GOFUNWITH – Theme Admin</div>
+  </header>
+
+  <main class="container">
+    <h1>테마 미리보기 & 적용</h1>
+    <p>현재 활성 테마: <strong id="activeTheme"></strong></p>
+
+    <label for="tokenInput">🔑 GitHub Personal Access Token (관리자용)</label>
+    <input id="tokenInput" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxx" />
+
+    <section class="theme-preview">
+      <div class="theme-card" data-theme="light" style="background:#f8f8f8;color:#1E2A3A;">
+        <h3>Light Theme</h3>
+        <p>기본 화이트 기반 테마</p>
+      </div>
+      <div class="theme-card" data-theme="sand" style="background:#F9F5EF;color:#2B2B28;">
+        <h3>Sand Theme</h3>
+        <p>따뜻하고 감성적인 테마</p>
+      </div>
+      <div class="theme-card" data-theme="forest" style="background:#F2F5F3;color:#1B3326;">
+        <h3>Forest Theme</h3>
+        <p>자연, 캠핑, 휴식 감성</p>
+      </div>
+      <div class="theme-card" data-theme="ocean" style="background:#E8F2F8;color:#0E2A45;">
+        <h3>Ocean Theme</h3>
+        <p>시원하고 모던한 블루 계열</p>
+      </div>
+    </section>
+
+    <div class="status" id="status">🔍 테마를 클릭하여 미리보거나 변경하세요.</div>
+  </main>
+</body>
+</html>
