@@ -1,76 +1,49 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GoFunWith Tech Blog | Flutter · OCI · n8n</title>
-    <meta name="description" content="Flutter · OCI Free Tier · n8n 자동화 기반 무료 클라우드 개발 블로그">
-    <meta name="keywords" content="Flutter, GitHub Actions, OCI Free Tier, n8n, GitHub Pages, Cloudflare, DevOps">
-    <meta property="og:title" content="GoFunWith Tech Blog">
-    <meta property="og:description" content="무료 클라우드로 배우는 개발 자동화 가이드">
-    <meta property="og:url" content="https://blog.gofunwith.com">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="/assets/cover.png">
-    <link rel="icon" href="/assets/favicon.ico" />
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GOFUNWITH – Explore. Create. Share.</title>
+  <link rel="stylesheet" href="/themes/base.css" />
+  <script defer src="/themes/theme-toggle.js"></script>
+</head>
 
-    <!-- ✅ Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R7N7G7QPBF"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-R7N7G7QPBF'); // ← 실제 GA4 측정ID로 교체
-    </script>
+<body>
+  <header class="header container">
+    <div class="logo">ⓖOFUNWITH</div>
+    <nav class="nav">
+      <a href="#" aria-current="page">홈</a>
+      <a href="#">카테고리</a>
+      <a href="#">프로젝트</a>
+      <a href="#">About</a>
+    </nav>
+    <div class="controls">
+      <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">🌗</button>
+      <select id="langSelect" aria-label="Change language">
+        <option value="ko">🇰🇷 KO</option>
+        <option value="en">🇺🇸 EN</option>
+      </select>
+    </div>
+  </header>
 
-    <!-- ✅ Cloudflare Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
-      data-cf-beacon='{"token": "c7db8999eee4466bab1893a2361aed10"}'></script>
+  <main class="container">
+    <section class="posts">
+      <article class="card">
+        <img src="https://picsum.photos/600/400" alt="Sample" />
+        <div class="card-body">
+          <h2 class="card-title" lang="ko">기술로 삶을 즐겁게 만드는 법</h2>
+          <h2 class="card-title" lang="en" hidden>How to make life fun with tech</h2>
+          <p class="card-meta">2025.10.13 | Tech & DIY</p>
+          <p lang="ko">자동화, DIY, 캠핑을 통해 삶을 더 효율적이고 즐겁게 만드는 경험을 공유합니다.</p>
+          <p lang="en" hidden>Sharing ideas on making life more efficient and fun through automation, DIY, and camping.</p>
+        </div>
+      </article>
+    </section>
+  </main>
 
-    <link rel="stylesheet" href="/assets/style.css">
-  </head>
-
-  <body>
-    <header>
-      <h1>⚙️ Gofunwith Tech Blog</h1>
-      <p>by Eric Moon ｜ GitHub Pages × Flutter × n8n × OCI Free Tier</p>
-      <nav>
-        <a href="/">홈</a> |
-        <a href="/about">소개</a> |
-        <a href="/posts">블로그</a> |
-        <a href="https://github.com/gosungjinmoon" target="_blank">GitHub</a>
-      </nav>
-      <hr>
-    </header>
-
-    <main>
-      <h2>📢 최신 포스트</h2>
-      <ul>
-        <li><a href="/2025/10/13/first-post.html">GitHub Pages로 블로그 만들기</a></li>
-      </ul>
-
-      <section>
-        <h2>🔥 주요 주제</h2>
-        <ul>
-          <li>Flutter 자동화 빌드 & 배포</li>
-          <li>OCI Free Tier 무료 서버 구성</li>
-          <li>n8n 워크플로우 자동화</li>
-          <li>스포츠 테크 비즈니스 전략</li>
-        </ul>
-      </section>
-
-      <section id="subscribe">
-        <h2>📬 구독하기</h2>
-        <form action="https://formspree.io/f/xyz123" method="POST">
-          <input type="email" name="email" placeholder="이메일 입력" required>
-          <button type="submit">구독</button>
-        </form>
-        <p>새 글이 올라오면 이메일로 알려드려요 🚀</p>
-      </section>
-    </main>
-
-    <footer>
-      <hr>
-      <p>© 2025 gofunwith.com | Powered by GitHub Pages + Cloudflare</p>
-    </footer>
-  </body>
+  <footer class="footer">
+    <p>© 2025 GOFUNWITH. All rights reserved.</p>
+    <p>Explore · Create · Share.</p>
+  </footer>
+</body>
 </html>
