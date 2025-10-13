@@ -1,0 +1,14 @@
+# _config.yml
+
+title: 나의 첫 블로그 # 블로그 제목을 입력하세요.
+author: 제미니 # 작성자 이름을 입력하세요.
+description: > # 블로그 설명을 입력하세요.
+  GitHub Pages로 만든 기술 블로그입니다.
+  차근차근 배워나가요!
+
+# 테마 설정 (가장 기본적인 minima 테마)
+theme: jekyll-theme-minima
+
+# 플러그인 (GitHub Pages에서 기본 지원)
+plugins:
+  - jekyll-feed
