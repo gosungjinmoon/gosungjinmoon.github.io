@@ -3,14 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GoFunWith Tech Blog</title>
-    <meta name="description" content="무료로 배우는 개발·자동화·스포츠테크 블로그">
+    <title>GoFunWith Tech Blog | Flutter · OCI · n8n</title>
+    <meta name="description" content="Flutter · OCI Free Tier · n8n 자동화 기반 무료 클라우드 개발 블로그">
+    <meta name="keywords" content="Flutter, GitHub Actions, OCI Free Tier, n8n, GitHub Pages, Cloudflare, DevOps">
+    <meta property="og:title" content="GoFunWith Tech Blog">
+    <meta property="og:description" content="무료 클라우드로 배우는 개발 자동화 가이드">
+    <meta property="og:url" content="https://blog.gofunwith.com">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/assets/cover.png">
+    <link rel="icon" href="/assets/favicon.ico" />
+
+    <!-- ✅ Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R7N7G7QPBF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-R7N7G7QPBF'); // ← 실제 GA4 측정ID로 교체
+    </script>
+
+    <!-- ✅ Cloudflare Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+      data-cf-beacon='{"token": "c7db8999eee4466bab1893a2361aed10"}'></script>
+
     <link rel="stylesheet" href="/assets/style.css">
   </head>
 
   <body>
     <header>
-      <h1>⚙️ GoFunWith Blog</h1>
+      <h1>⚙️ Gofunwith Tech Blog</h1>
       <p>by Eric Moon ｜ GitHub Pages × Flutter × n8n × OCI Free Tier</p>
       <nav>
         <a href="/">홈</a> |
@@ -30,17 +51,26 @@
       <section>
         <h2>🔥 주요 주제</h2>
         <ul>
-          <li>Flutter 개발 및 자동 배포 (GitHub Actions)</li>
-          <li>OCI Free Tier 무료 서버 구축</li>
+          <li>Flutter 자동화 빌드 & 배포</li>
+          <li>OCI Free Tier 무료 서버 구성</li>
           <li>n8n 워크플로우 자동화</li>
-          <li>스포츠 테크 비즈니스 트렌드</li>
+          <li>스포츠 테크 비즈니스 전략</li>
         </ul>
+      </section>
+
+      <section id="subscribe">
+        <h2>📬 구독하기</h2>
+        <form action="https://formspree.io/f/xyz123" method="POST">
+          <input type="email" name="email" placeholder="이메일 입력" required>
+          <button type="submit">구독</button>
+        </form>
+        <p>새 글이 올라오면 이메일로 알려드려요 🚀</p>
       </section>
     </main>
 
     <footer>
       <hr>
-      <p>© 2025 GoFunWith.com | Powered by GitHub Pages</p>
+      <p>© 2025 gofunwith.com | Powered by GitHub Pages + Cloudflare</p>
     </footer>
   </body>
 </html>
