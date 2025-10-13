@@ -1,14 +1,24 @@
-# _config.yml
+title: "GoFunWith Tech Blog"
+description: "무료로 배우는 개발 · 자동화 · DIY · 스포츠테크 블로그"
+url: "https://gosungjinmoon.github.io"
+theme: jekyll-theme-cayman
+author: "Eric Moon"
+email: "moon.sungjin@gmail.com"  # <- 실제 이메일 대신 익명화
+lang: ko
+markdown: kramdown
+timezone: Asia/Seoul
 
-title: 나의 첫 블로그 # 블로그 제목을 입력하세요.
-author: 제미니 # 작성자 이름을 입력하세요.
-description: > # 블로그 설명을 입력하세요.
-  GitHub Pages로 만든 기술 블로그입니다.
-  차근차근 배워나가요!
-
-# 테마 설정 (가장 기본적인 minima 테마)
-theme: jekyll-theme-minima
-
-# 플러그인 (GitHub Pages에서 기본 지원)
+# Plugins (SEO / sitemap / feed)
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Navigation links
+nav_links:
+  - title: "홈"
+    url: "/"
+  - title: "소개"
+    url: "/about"
+  - title: "블로그"
+    url: "/posts"
