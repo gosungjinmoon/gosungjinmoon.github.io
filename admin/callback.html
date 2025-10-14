@@ -20,7 +20,7 @@
       }
 
       try {
-        const res = await fetch(`https://gfw-oauth-exchange.gosungjinmoon.workers.dev?code=${code}`);
+        const res = await fetch(`https://gfw-oauth-exchange-v2.gosungjinmoon.workers.dev?code=${code}`);
         const data = await res.json();
 
         if (data.access_token) {
