@@ -1,6 +1,6 @@
 window.__GFW_THEME__ = {
   default: "light",
-  activeTheme: "forest",
+  activeTheme: "light",
   allowUserToggle: false,
   allowLangToggle: true
 };
