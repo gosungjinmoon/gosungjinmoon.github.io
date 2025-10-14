@@ -67,8 +67,8 @@
 
           const updateRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
             method: "PUT",
-            headers: { "Authorization": \`token \${token}\`, "Content-Type": "application/json" },
-            body: JSON.stringify({ message: \`Update theme to \${theme}\`, content: encoded, sha: data.sha, branch: BRANCH })
+            headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
+            body: JSON.stringify({ message: `Update theme to ${theme}`, content: encoded, sha: data.sha, branch: BRANCH })
           });
           if (!updateRes.ok) throw new Error("업데이트 실패");
           status.textContent = `✅ ${theme} 테마가 GitHub에 반영되었습니다!`;
