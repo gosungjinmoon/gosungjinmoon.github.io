@@ -1,6 +1,1 @@
-window.__GFW_THEME__ = {
-  default: "light",
-  activeTheme: "forest",
-  allowUserToggle: false,
-  allowLangToggle: true
-};
+window.__GFW_THEME__ = { default: "light", activeTheme: "sand", allowUserToggle: false, allowLangToggle: true };
