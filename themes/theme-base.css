@@ -1,0 +1,29 @@
+:root {
+  --font-main: "Poppins", "Pretendard", sans-serif;
+  --color-primary: #1E2A3A;
+  --color-accent: #FF7B54;
+  --color-bg: #F8F8F8;
+}
+
+body {
+  font-family: var(--font-main);
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  color: var(--color-primary);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+}
