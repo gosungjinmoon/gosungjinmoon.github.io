@@ -1,28 +1,26 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GOFUNWITH Admin | Theme Preview</title>
-
   <link rel="stylesheet" href="../themes/theme-base.css" />
   <link rel="stylesheet" href="../themes/theme-light.css" />
   <link rel="stylesheet" href="../themes/theme-sand.css" />
   <link rel="stylesheet" href="../themes/theme-forest.css" />
   <link rel="stylesheet" href="../themes/theme-ocean.css" />
-
   <style>
-    .theme-card { border: 2px solid #ccc; border-radius: 8px; padding: 1rem; text-align: center; cursor: pointer; }
-    .theme-card.active { border-color: #0095ff; box-shadow: 0 0 8px rgba(0,149,255,0.4); }
-    .status { margin-top: 1rem; text-align: center; }
+    .theme-card {border:2px solid #ccc;border-radius:8px;padding:1rem;text-align:center;cursor:pointer;}
+    .theme-card.active {border-color:#0095ff;box-shadow:0 0 8px rgba(0,149,255,0.4);}
+    .status {margin-top:1rem;text-align:center;}
   </style>
 </head>
 <body>
   <header style="display:flex;justify-content:space-between;align-items:center;padding:1rem;background:#1E2A3A;color:white;">
     <div>GOFUNWITH – Theme Admin</div>
-    <button id="loginBtn" style="padding:0.5rem 1rem;">Sign in with GitHub</button>
+    <button id="loginBtn" style="padding:.5rem 1rem;">Sign in with GitHub</button>
   </header>
-
   <main>
     <h2 style="text-align:center;">테마 미리보기 & 적용</h2>
     <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;padding:1rem;">
@@ -33,7 +31,6 @@
     </section>
     <div id="status" class="status">🔍 테마를 클릭하여 미리보거나 변경하세요.</div>
   </main>
-
   <script>
   document.addEventListener("DOMContentLoaded", async () => {
     const status = document.getElementById("status");
@@ -48,8 +45,6 @@
         const theme = card.dataset.theme;
         cards.forEach(c => c.classList.remove("active"));
         card.classList.add("active");
-
-        // ✅ CSS 반영
         document.body.className = "";
         document.body.classList.add(`theme-${theme}`);
         status.textContent = `🎨 ${theme} 테마 미리보기 중...`;
@@ -61,10 +56,8 @@
             headers: { Authorization: `token ${token}` }
           });
           const data = await res.json();
-
           const newConfig = `window.__GFW_THEME__ = { default: "light", activeTheme: "${theme}", allowUserToggle: false, allowLangToggle: true };`;
           const encoded = btoa(unescape(encodeURIComponent(newConfig)));
-
           const updateRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
             method: "PUT",
             headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
