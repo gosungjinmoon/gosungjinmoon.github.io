@@ -1,0 +1,23 @@
+{% assign theme = site.data.theme %}
+{% assign nav = site.data.nav %}
+<header class="container">
+  <div class="header">
+    <div class="brand">
+      <span class="logo"></span>
+      <a href="{{ '/' | relative_url }}" style="color:inherit">{{ theme.brand.logo_text }}</a>
+      <span class="tagline">{% if page.lang == 'en' %}{{ theme.brand.tagline_en }}{% else %}{{ theme.brand.tagline_ko }}{% endif %}</span>
+    </div>
+    <div class="lang-switch">
+      <a href="{{ '/ko/' | relative_url }}" class="{% if page.lang == 'ko' %}active{% endif %}">한글</a>
+      <a href="{{ '/en/' | relative_url }}" class="{% if page.lang == 'en' %}active{% endif %}">EN</a>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+      <button id="hamburger" class="hamburger">☰</button>
+    </div>
+  </div>
+  <nav id="mainNav" class="nav">
+    {% assign items = nav[page.lang | default: site.lang] %}
+    {% for item in items %}
+      <a href="{{ item.url | relative_url }}" class="{% if page.url == item.url %}active{% endif %}">{{ item.title }}</a>
+    {% endfor %}
+  </nav>
+</header>
