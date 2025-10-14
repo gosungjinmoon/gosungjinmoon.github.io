@@ -1,0 +1,14 @@
+name = "gfw-oauth-exchange"
+main = "exchange.js"
+compatibility_date = "2025-10-14"
+
+[vars]
+CLIENT_ID = "Ov23liqsljSBAqajz2eu"
+CLIENT_SECRET = "ff98bc67ded5bcd60684312c69c08525bb2cac35"
+
+[triggers]
+crons = []
+
+[env.production]
+route = ""
+zone_id = ""
