@@ -1,39 +1,17 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <title>GOFUNWITH OAuth Callback</title>
-  <style>
-    body { font-family: Pretendard, sans-serif; background:#fafafa; text-align:center; padding-top:20%; color:#1E2A3A; }
-  </style>
-</head>
-<body>
-  <h2>GitHub 로그인 처리 중...</h2>
-  <p id="status">잠시만 기다려주세요.</p>
 
-  <script>
-    (async () => {
-      const code = new URL(window.location.href).searchParams.get("code");
-      if (!code) {
-        document.getElementById("status").textContent = "❌ code 파라미터 없음";
-        return;
-      }
-
-      try {
-        const res = await fetch(`https://gfw-oauth-exchange.eric-moon.workers.dev?code=${code}`);
-        const data = await res.json();
-
-        if (data.access_token) {
-          sessionStorage.setItem("github_token", data.access_token);
-          document.getElementById("status").textContent = "✅ 로그인 성공! 관리자 페이지로 이동 중...";
-          setTimeout(() => (window.location.href = "/admin/theme-preview.html"), 1500);
-        } else {
-          document.getElementById("status").textContent = "⚠️ 로그인 실패: " + (data.error_description || data.error || "unknown");
-        }
-      } catch (e) {
-        document.getElementById("status").textContent = "🚫 네트워크 오류: " + e.message;
-      }
-    })();
-  </script>
-</body>
-</html>
+<!DOCTYPE html><html><body>
+<script>
+(async function(){
+  const code = new URLSearchParams(location.search).get('code');
+  const proxy = "https://YOUR_OAUTH_PROXY.example.com/api/github-oauth"; // TODO: implement
+  const r = await fetch(proxy + "?code=" + encodeURIComponent(code));
+  const j = await r.json();
+  if(j.access_token){
+    localStorage.setItem('github_token', j.access_token);
+    location.href = "/admin/theme-preview.html";
+  } else {
+    document.body.innerHTML = "OAuth 실패: " + JSON.stringify(j);
+  }
+})();
+</script>
+</body></html>
