@@ -1,5 +1,14 @@
-<svg width="200" height="80" viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="40" cy="40" r="34" stroke="#333333" stroke-width="12"/>
-<circle cx="160" cy="40" r="34" stroke="#333333" stroke-width="12"/>
-<path d="M78 25L122 35" stroke="#333333" stroke-width="12" stroke-linecap="round"/>
+<svg width="300" height="100" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 심볼: 반짝임 (위치 조정) -->
+  <g fill="#FFC107">
+    <rect x="153" y="2" width="4" height="12" rx="2" transform="rotate(-45 153 2)"/>
+    <rect x="163" y="4" width="4" height="12" rx="2" transform="rotate(45 163 4)"/>
+    <rect x="158" y="-3" width="4" height="12" rx="2" transform="rotate(90 158 -3)"/>
+  </g>
+
+  <!-- 워드마크: gofunwith. -->
+  <text x="0" y="45" font-family="Baloo 2, sans-serif" font-size="38" font-weight="bold" fill="#FFFFFF">gofunwith.</text>
+
+  <!-- 슬로건: Explore. Create. Share. -->
+  <text x="0" y="80" font-family="Baloo 2, sans-serif" font-size="16" font-weight="normal" fill="#FFFFFF">Explore. Create. Share.</text>
 </svg>
