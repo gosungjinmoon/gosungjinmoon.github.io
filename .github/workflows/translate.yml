@@ -1,0 +1,13 @@
+name: Translate KO Posts
+on:
+  push:
+    paths:
+      - "_posts/*.ko.md"
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify n8n to translate
+        run: |
+          curl -X POST "https://n8n.gofunwith.com/webhook/translate"           -H "Content-Type: application/json"           -d '{"repo":"${{ github.repository }}","commit":"${{ github.sha }}"}'
