@@ -1,13 +1,22 @@
 title: "GoFunWith Tech Blog"
 description: "무료로 배우는 개발 · 자동화 · DIY · 스포츠테크 블로그"
 url: "https://gosungjinmoon.github.io"
-theme: jekyll-theme-cayman
+baseurl: ""
+theme: minima
 author: "Eric Moon"
 email: "moon.sungjin@gmail.com"  # <- 실제 이메일 대신 익명화
 lang: ko
 markdown: kramdown
 timezone: Asia/Seoul
 
+collections:
+  ko:
+    output: true
+    permalink: /ko/:title/
+  en:
+    output: true
+    permalink: /en/:title/
+    
 # Plugins (SEO / sitemap / feed)
 plugins:
   - jekyll-feed
@@ -15,10 +24,25 @@ plugins:
   - jekyll-sitemap
 
 # Navigation links
-nav_links:
-  - title: "홈"
-    url: "/"
-  - title: "소개"
-    url: "/about"
-  - title: "블로그"
-    url: "/posts"
+defaults:
+  - scope:
+      path: ""
+      type: "ko"
+    values:
+      layout: post
+      lang: ko
+  - scope:
+      path: ""
+      type: "en"
+    values:
+      layout: post
+      lang: en
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+exclude:
+  - README.md
+  - package.json
+  - node_modules
