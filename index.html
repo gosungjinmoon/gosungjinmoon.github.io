@@ -1,18 +1,19 @@
 ---
-permalink: /
-title: "GoFunWith — Global Tech Blog"
 layout: default
-lang: ko
+title: GoFunWith
 ---
-<script>
-  try {
-    var lang = (navigator.language || '').toLowerCase();
-    if (lang.startsWith('en')) window.location.replace('{{ '/en/' | relative_url }}');
-    else window.location.replace('{{ '/ko/' | relative_url }}');
-  } catch (e) {
-    window.location.replace('{{ '/ko/' | relative_url }}');
-  }
-</script>
-<noscript>
-  <meta http-equiv="refresh" content="0; url={{ '/ko/' | relative_url }}" />
-</noscript>
+<section class="grid">
+  <a class="card" href="/posts.html">
+    <h3>최신 글 보기 / View Posts</h3>
+    <p>아이디어와 기록을 담는 글로벌 저널</p>
+  </a>
+  <a class="card" href="/about.html">
+    <h3>소개</h3>
+    <p>GoFunWith — 기록하고, 나누고, 자동화합니다.</p>
+  </a>
+  <a class="card" href="/admin/theme-preview.html">
+    <h3>관리자 설정</h3>
+    <p>테마/언어/브랜드 설정 변경</p>
+  </a>
+</section>
+<script src="/assets/js/translator.js"></script>
