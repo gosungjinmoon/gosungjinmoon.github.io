@@ -1,155 +1,76 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GOFUNWITH Admin | Theme Preview</title>
+
   <link rel="stylesheet" href="../themes/theme-base.css" />
+  <link rel="stylesheet" href="../themes/theme-light.css" />
+  <link rel="stylesheet" href="../themes/theme-sand.css" />
+  <link rel="stylesheet" href="../themes/theme-forest.css" />
   <link rel="stylesheet" href="../themes/theme-ocean.css" />
+
   <style>
-    .theme-preview {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin: 2rem auto;
-      max-width: 1000px;
-    }
-    .theme-card {
-      border: 2px solid var(--color-border, #ddd);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .theme-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    }
-    .theme-card h3 { margin-top: 1rem; }
-    .theme-card.active {
-      border: 2px solid var(--color-primary, #0095ff);
-      box-shadow: 0 0 8px rgba(0,149,255,0.4);
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(90deg, #1E2A3A, #0095ff);
-      color: #fff;
-      padding: 1rem 2rem;
-    }
-    .github-login-btn {
-      background: #fff;
-      color: #1E2A3A;
-      border: none;
-      border-radius: 6px;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 600;
-    }
-    .github-login-btn.signed {
-      background-color: #1E2A3A;
-      color: #fff;
-      opacity: 0.9;
-      cursor: default;
-    }
-    .status { text-align: center; margin-top: 2rem; font-size: 0.95rem; }
+    .theme-card { border: 2px solid #ccc; border-radius: 8px; padding: 1rem; text-align: center; cursor: pointer; }
+    .theme-card.active { border-color: #0095ff; box-shadow: 0 0 8px rgba(0,149,255,0.4); }
+    .status { margin-top: 1rem; text-align: center; }
   </style>
 </head>
-
 <body>
-  <header>
-    <div class="logo">GOFUNWITH – Theme Admin</div>
-    <button class="github-login-btn" id="loginBtn">
-      <svg viewBox="0 0 16 16" aria-hidden="true" width="16"><path
-        d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07A2.12 2.12 0 0 0 2.5 11c-.72-.49.05-.48.05-.48.8.06 1.23.83 1.23.83a1.75 1.75 0 0 0 2.39.68 1.77 1.77 0 0 1 .52-1.1c-1.78-.2-3.64-.89-3.64-3.95a3.1 3.1 0 0 1 .82-2.15 2.9 2.9 0 0 1 .08-2.12s.67-.21 2.2.82A7.54 7.54 0 0 1 8 3.4c.68.01 1.37.09 2.01.26 1.53-1.03 2.2-.82 2.2-.82.36.87.13 1.77.07 2.12a3.1 3.1 0 0 1 .82 2.15c0 3.07-1.87 3.74-3.65 3.94.29.25.55.74.55 1.5v2.22c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
-      Sign in with GitHub
-    </button>
+  <header style="display:flex;justify-content:space-between;align-items:center;padding:1rem;background:#1E2A3A;color:white;">
+    <div>GOFUNWITH – Theme Admin</div>
+    <button id="loginBtn" style="padding:0.5rem 1rem;">Sign in with GitHub</button>
   </header>
 
-  <main class="container">
-    <h1>테마 미리보기 & 적용</h1>
-    <p>현재 활성 테마: <strong id="activeTheme"></strong></p>
-
-    <section class="theme-preview">
-      <div class="theme-card" data-theme="light" style="background:#f8f8f8;color:#1E2A3A;">
-        <h3>Light Theme</h3><p>기본 화이트 기반 테마</p>
-      </div>
-      <div class="theme-card" data-theme="sand" style="background:#F9F5EF;color:#2B2B28;">
-        <h3>Sand Theme</h3><p>따뜻하고 감성적인 테마</p>
-      </div>
-      <div class="theme-card" data-theme="forest" style="background:#F2F5F3;color:#1B3326;">
-        <h3>Forest Theme</h3><p>자연, 캠핑, 휴식 감성</p>
-      </div>
-      <div class="theme-card" data-theme="ocean" style="background:#E8F2F8;color:#0E2A45;">
-        <h3>Ocean Theme</h3><p>시원하고 모던한 블루 계열</p>
-      </div>
+  <main>
+    <h2 style="text-align:center;">테마 미리보기 & 적용</h2>
+    <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;padding:1rem;">
+      <div class="theme-card" data-theme="light" style="background:#f8f8f8;">🌤 Light</div>
+      <div class="theme-card" data-theme="sand" style="background:#F9F5EF;">🏖 Sand</div>
+      <div class="theme-card" data-theme="forest" style="background:#F2F5F3;">🌿 Forest</div>
+      <div class="theme-card" data-theme="ocean" style="background:#E8F2F8;">🌊 Ocean</div>
     </section>
-
-    <div class="status" id="status">🔍 테마를 클릭하여 미리보거나 변경하세요.</div>
+    <div id="status" class="status">🔍 테마를 클릭하여 미리보거나 변경하세요.</div>
   </main>
 
   <script>
   document.addEventListener("DOMContentLoaded", async () => {
-    const loginBtn = document.getElementById("loginBtn");
     const status = document.getElementById("status");
     const cards = document.querySelectorAll(".theme-card");
     const token = sessionStorage.getItem("github_token");
-
     const REPO = "gosungjinmoon/gosungjinmoon.github.io";
     const FILE_PATH = "config/theme-config.js";
     const BRANCH = "main";
-
-    if (token) {
-      loginBtn.textContent = "✅ Signed in";
-      loginBtn.classList.add("signed");
-      loginBtn.disabled = true;
-      status.textContent = "✅ GitHub 인증 완료. 테마를 클릭하세요.";
-    } else {
-      status.textContent = "⚠️ GitHub 로그인 필요.";
-    }
 
     cards.forEach(card => {
       card.addEventListener("click", async () => {
         const theme = card.dataset.theme;
         cards.forEach(c => c.classList.remove("active"));
         card.classList.add("active");
+
+        // ✅ CSS 반영
         document.body.className = "";
         document.body.classList.add(`theme-${theme}`);
         status.textContent = `🎨 ${theme} 테마 미리보기 중...`;
 
         if (!token) return;
+
         try {
           const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}?ref=${BRANCH}`, {
             headers: { Authorization: `token ${token}` }
           });
           const data = await res.json();
-          if (!data.content) throw new Error("theme-config.js를 불러올 수 없습니다.");
 
           const newConfig = `window.__GFW_THEME__ = { default: "light", activeTheme: "${theme}", allowUserToggle: false, allowLangToggle: true };`;
           const encoded = btoa(unescape(encodeURIComponent(newConfig)));
 
           const updateRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
             method: "PUT",
-            headers: {
-              "Authorization": `token ${token}`,
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              message: `Update theme to ${theme}`,
-              content: encoded,
-              sha: data.sha,
-              branch: BRANCH
-            })
+            headers: { "Authorization": \`token \${token}\`, "Content-Type": "application/json" },
+            body: JSON.stringify({ message: \`Update theme to \${theme}\`, content: encoded, sha: data.sha, branch: BRANCH })
           });
-
           if (!updateRes.ok) throw new Error("업데이트 실패");
-
           status.textContent = `✅ ${theme} 테마가 GitHub에 반영되었습니다!`;
         } catch (err) {
           console.error(err);
