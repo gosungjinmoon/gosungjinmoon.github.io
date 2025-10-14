@@ -1,2 +1,6 @@
-<script src="/config/theme-config.js"></script>
-<script defer src="/themes/theme-toggle.js"></script>
+window.__GFW_THEME__ = {
+  default: "light",
+  activeTheme: "ocean",
+  allowUserToggle: false,
+  allowLangToggle: true
+};
