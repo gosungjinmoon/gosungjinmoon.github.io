@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko" data-theme="light">
 <head>
@@ -6,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GOFUNWITH – Explore. Create. Share.</title>
 
-  <!-- ✅ CSS 경로 수정 -->
+  <!-- ✅ CSS -->
   <link rel="stylesheet" href="./themes/theme-base.css" />
+  <link rel="stylesheet" href="./themes/theme-light.css" />
+  <link rel="stylesheet" href="./themes/theme-sand.css" />
+  <link rel="stylesheet" href="./themes/theme-forest.css" />
   <link rel="stylesheet" href="./themes/theme-ocean.css" />
 
-  <!-- ✅ Theme Toggle Script -->
-  <script defer src="./themes/theme-toggle.js"></script>
-
+  <!-- ✅ 테마 설정 자동 적용 -->
   <script src="./config/theme-config.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -34,7 +34,7 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-R7N7G7QPBF'); // ← GA4 측정ID
+    gtag('config', 'G-R7N7G7QPBF');
   </script>
 
   <!-- ✅ Cloudflare Analytics -->
@@ -51,26 +51,14 @@
       <a href="#">프로젝트</a>
       <a href="#">About</a>
     </nav>
-    <div class="controls">
-      <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">🌗</button>
-      <select id="langSelect" aria-label="Change language">
-        <option value="ko">🇰🇷 KO</option>
-        <option value="en">🇺🇸 EN</option>
-      </select>
-    </div>
   </header>
 
   <main class="container">
     <section class="posts">
       <article class="card">
-        <img src="https://picsum.photos/600/400" alt="Sample" />
-        <div class="card-body">
-          <h2 class="card-title" lang="ko">기술로 삶을 즐겁게 만드는 법</h2>
-          <h2 class="card-title" lang="en" hidden>How to make life fun with tech</h2>
-          <p class="card-meta">2025.10.13 | Tech & DIY</p>
-          <p lang="ko">자동화, DIY, 캠핑을 통해 삶을 더 효율적이고 즐겁게 만드는 경험을 공유합니다.</p>
-          <p lang="en" hidden>Sharing ideas on making life more efficient and fun through automation, DIY, and camping.</p>
-        </div>
+        <h2 class="card-title">기술로 삶을 즐겁게 만드는 법</h2>
+        <p class="card-meta">2025.10.13 | Tech & DIY</p>
+        <p>자동화, DIY, 캠핑을 통해 삶을 더 효율적이고 즐겁게 만드는 경험을 공유합니다.</p>
       </article>
     </section>
   </main>
