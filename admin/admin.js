@@ -1,68 +1,38 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  const token = sessionStorage.getItem("github_token");
-  const status = document.getElementById("status");
-  const cards = document.querySelectorAll(".theme-card");
-
-  const REPO = "gosungjinmoon/gosungjinmoon.github.io";
-  const FILE_PATH = "config/theme-config.js";
-  const BRANCH = "main";
-
-  if (!token) {
-    status.textContent = "⚠️ GitHub 로그인 필요";
-    return;
-  }
-
-  status.textContent = "✅ GitHub 인증 완료. 테마를 클릭하세요.";
-
-  // 테마 클릭 이벤트
-  cards.forEach(card => {
-    card.addEventListener("click", async () => {
-      const theme = card.dataset.theme;
-      status.textContent = `🎨 ${theme} 테마로 변경 중...`;
-
-      try {
-        // ① 현재 파일 내용 조회
-        const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}?ref=${BRANCH}`, {
-          headers: { Authorization: `token ${token}` }
-        });
-
-        const data = await res.json();
-        if (!data.content) throw new Error("theme-config.js를 불러올 수 없습니다.");
-
-        // ② 새로운 파일 내용 생성
-        const newConfig = `window.__GFW_THEME__ = {
-  default: "light",
-  activeTheme: "${theme}",
-  allowUserToggle: false,
-  allowLangToggle: true
-};`;
-
-        const encoded = btoa(unescape(encodeURIComponent(newConfig)));
-
-        // ③ GitHub API로 업데이트 (PUT)
-        const updateRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
-          method: "PUT",
-          headers: {
-            "Authorization": `token ${token}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            message: `Update theme to ${theme}`,
-            content: encoded,
-            sha: data.sha,
-            branch: BRANCH
-          })
-        });
-
-        if (!updateRes.ok) throw new Error("업데이트 실패");
-
-        status.textContent = `✅ ${theme} 테마가 적용되었습니다! (GitHub 반영 완료)`;
-        document.body.className = "";
-        document.body.classList.add(`theme-${theme}`);
-      } catch (err) {
-        console.error(err);
-        status.textContent = "🚫 테마 업데이트 실패: " + err.message;
-      }
+(function(){
+  const current = (window.themeConfig && window.themeConfig.current) || 'light';
+  document.getElementById('currentTheme').textContent = current;
+  let selected = current;
+  document.querySelectorAll('.theme-btn').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      selected = b.dataset.theme;
+      document.body.setAttribute('data-theme', selected);
+      document.getElementById('currentTheme').textContent = selected;
+      const link = document.querySelector('link[href*="theme-"]');
+      if(link) link.href = `/assets/css/theme-${selected}.css`;
     });
   });
-});
+  document.getElementById('saveBtn').addEventListener('click', async ()=>{
+    const token = localStorage.getItem('github_token');
+    if(!token){ alert('GitHub 로그인 필요 (OAuth 프록시 구축 후 사용)'); return; }
+    const config = { current: selected, available: ["light","dark","mint","sunset"], updated: new Date().toISOString() };
+    const repo = "gosungjinmoon/gosungjinmoon.github.io";
+    const path = "config/theme-config.js";
+    async function getSha(){
+      const r = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`);
+      const j = await r.json();
+      return j.sha;
+    }
+    const body = {
+      message: `chore(admin): theme -> ${selected}`,
+      content: btoa(`window.themeConfig = ${JSON.stringify(config,null,2)};`),
+      sha: await getSha()
+    };
+    const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
+      method:'PUT',
+      headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},
+      body: JSON.stringify(body)
+    });
+    if(res.ok){ alert('테마 저장 완료! 새로고침하면 적용됩니다.'); }
+    else { alert('실패: 토큰/권한 확인'); }
+  });
+})();
