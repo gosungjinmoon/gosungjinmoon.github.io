@@ -1,17 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>GoFunWith OAuth Callback</title>
+  <style>
+    body { 
+      font-family: Pretendard, sans-serif; 
+      background:#f9fafb; 
+      text-align:center; 
+      padding-top:20%; 
+      color:#1e293b;
+    }
+  </style>
+</head>
+<body>
+  <h2>🔐 GitHub 로그인 처리 중...</h2>
+  <p id="status">잠시만 기다려주세요.</p>
 
-<!DOCTYPE html><html><body>
-<script>
-(async function(){
-  const code = new URLSearchParams(location.search).get('code');
-  const proxy = "https://YOUR_OAUTH_PROXY.example.com/api/github-oauth"; // TODO: implement
-  const r = await fetch(proxy + "?code=" + encodeURIComponent(code));
-  const j = await r.json();
-  if(j.access_token){
-    localStorage.setItem('github_token', j.access_token);
-    location.href = "/admin/theme-preview.html";
-  } else {
-    document.body.innerHTML = "OAuth 실패: " + JSON.stringify(j);
-  }
-})();
-</script>
-</body></html>
+  <script>
+    (async () => {
+      const code = new URL(window.location.href).searchParams.get("code");
+      const status = document.getElementById("status");
+
+      if (!code) {
+        status.textContent = "❌ 인증 코드(code) 누락됨.";
+        return;
+      }
+
+      try {
+        const proxy = "https://gfw-oauth-exchange.eric-moon.workers.dev"; // Cloudflare Worker endpoint
+        const res = await fetch(`${proxy}?code=${code}`);
+        const data = await res.json();
+
+        if (data.access_token) {
+          sessionStorage.setItem("github_token", data.access_token);
+          status.textContent = "✅ 로그인 성공! 관리자 페이지로 이동 중...";
+          setTimeout(() => window.location.href = "/admin/theme-preview.html", 1500);
+        } else {
+          status.textContent = "⚠️ 로그인 실패: " + (data.error_description || data.error || "unknown error");
+        }
+      } catch (e) {
+        status.textContent = "🚫 네트워크 오류: " + e.message;
+      }
+    })();
+  </script>
+</body>
+</html>
