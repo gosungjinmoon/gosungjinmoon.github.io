@@ -4,10 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GOFUNWITH – Explore. Create. Share.</title>
+
   <!-- ✅ CSS 경로 수정 -->
   <link rel="stylesheet" href="./themes/theme-base.css" />
   <link rel="stylesheet" href="./themes/theme-ocean.css" />
+
+  <!-- ✅ Theme Toggle Script -->
   <script defer src="./themes/theme-toggle.js"></script>
+
+  <!-- ✅ Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R7N7G7QPBF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-R7N7G7QPBF'); // ← GA4 측정ID
+  </script>
+
+  <!-- ✅ Cloudflare Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token": "c7db8999eee4466bab1893a2361aed10"}'></script>
 </head>
 
 <body>
