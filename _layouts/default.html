@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang }}">
+<html lang="{{ page.lang | default: 'ko' }}">
   <head>
-    {% include head.html %}
+    {% include components/head.html %}
   </head>
   <body>
-    {% include header.html %}
+    {% include components/header.html %}
     <main class="container">
       {{ content }}
     </main>
-    {% include footer.html %}
+    {% include components/footer.html %}
   </body>
 </html>
