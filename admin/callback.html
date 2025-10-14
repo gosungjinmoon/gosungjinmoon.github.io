@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>GOFUNWITH OAuth Callback</title>
   <style>
-    body { font-family: Pretendard, sans-serif; background: #fafafa; color: #1E2A3A; text-align: center; padding-top: 15%; }
+    body { font-family: Pretendard, sans-serif; background:#fafafa; text-align:center; padding-top:20%; color:#1E2A3A; }
   </style>
 </head>
 <body>
@@ -15,7 +15,7 @@
     (async () => {
       const code = new URL(window.location.href).searchParams.get("code");
       if (!code) {
-        document.getElementById("status").textContent = "❌ code 매개변수가 없습니다.";
+        document.getElementById("status").textContent = "❌ code 파라미터 없음";
         return;
       }
 
@@ -28,10 +28,10 @@
           document.getElementById("status").textContent = "✅ 로그인 성공! 관리자 페이지로 이동 중...";
           setTimeout(() => (window.location.href = "/admin/theme-preview.html"), 1500);
         } else {
-          document.getElementById("status").textContent = "⚠️ 로그인 실패: " + (data.error || "unknown");
+          document.getElementById("status").textContent = "⚠️ 로그인 실패: " + (data.error_description || data.error || "unknown");
         }
-      } catch (err) {
-        document.getElementById("status").textContent = "🚫 네트워크 오류: " + err.message;
+      } catch (e) {
+        document.getElementById("status").textContent = "🚫 네트워크 오류: " + e.message;
       }
     })();
   </script>
