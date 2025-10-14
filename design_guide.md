@@ -11,7 +11,8 @@
 **Motto:** Explore · Create · Share  
 **Tone:** Modern, Human, Curious, Global  
 **Target:** Tech·DIY·Life·Travel creators sharing insight in KR/EN.
-
+**Logo:**
+![image](./assets/images/logo.png)
 ---
 
 ## 🧩 Core Design Principles
