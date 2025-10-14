@@ -9,23 +9,27 @@
   font-family: "Poppins", "Pretendard", sans-serif;
   font-weight: 600;
   border-radius: 999px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border: 2px solid transparent;
+  padding: 0.6rem 1.4rem;
+  font-size: 0.95rem;
+  border: none;
   transition: all 0.25s ease;
   cursor: pointer;
 }
 .github-login-btn:hover {
-  background: #FF7B54; /* 브랜드 포인트 */
+  background: #FF7B54;
   box-shadow: 0 4px 12px rgba(255, 123, 84, 0.3);
   transform: translateY(-2px);
 }
-.github-login-btn:active {
-  transform: translateY(0);
-  box-shadow: none;
-}
 .github-login-btn svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   fill: #fff;
 }
+[data-theme="dark"] .github-login-btn {
+  background: #fff;
+  color: #1E2A3A;
+}
+[data-theme="dark"] .github-login-btn svg {
+  fill: #1E2A3A;
+}
+
