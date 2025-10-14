@@ -1,0 +1,18 @@
+@import "./theme-base.css";
+
+:root {
+  --color-bg: #e8f1ff;
+  --color-primary: #143b6b;
+  --color-accent: #0095ff;
+}
+
+header {
+  background: linear-gradient(90deg, #143b6b, #0095ff);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+a {
+  color: var(--color-accent);
+}
