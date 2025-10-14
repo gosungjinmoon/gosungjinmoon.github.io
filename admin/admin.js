@@ -5,8 +5,8 @@ const statusEl = document.getElementById("status");
 const activeThemeEl = document.getElementById("activeTheme");
 const tokenInput = document.getElementById("tokenInput");
 
-const repoOwner = "YOUR_GITHUB_USERNAME";     // 👈 수정
-const repoName = "YOUR_REPOSITORY_NAME";      // 👈 수정
+const repoOwner = "gosungjinmoon";     // 👈 수정
+const repoName = "gosungjinmoon.github.io";      // 👈 수정
 const configPath = "config/theme-config.js";  // 수정하지 말 것
 const branch = "main";                        // or 'master'
 
