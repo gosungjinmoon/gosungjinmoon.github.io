@@ -1,0 +1,29 @@
+brand:
+  name: "GoFunWith"
+  tagline_ko: "글로벌 트렌드 개발·자동화 블로그"
+  tagline_en: "Global trends in dev & automation"
+  logo_text: "GoFunWith"
+
+colors:
+  primary: "#0a84ff"
+  accent: "#8b5cf6"
+  bg: "#ffffff"
+  text: "#222222"
+  muted: "#666666"
+  dark_bg: "#0b0f14"
+  dark_text: "#e6e6e6"
+
+layout:
+  max_width: "980px"
+
+ga4:
+  measurement_id: "G-R7N7G7QPBF"
+
+cloudflare:
+  beacon_token: ""
+
+social:
+  github: "https://github.com/gosungjinmoon"
+  twitter: ""
+  youtube: ""
+  email: "contact@example.com"
