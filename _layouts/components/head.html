@@ -1,0 +1,23 @@
+{% assign meta = site.static_files | where: 'path','/config/meta.json' %}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{{ page.title | default: site.title | default: 'GoFunWith' }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/base.css" />
+<script src="/config/theme-config.js"></script>
+<script src="/config/lang-config.js"></script>
+<script>
+  (function() {
+    // Apply theme CSS dynamically
+    var theme = (window.themeConfig && window.themeConfig.current) || 'light';
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/assets/css/theme-' + theme + '.css';
+    document.head.appendChild(link);
+  })();
+</script>
+{% if site.google_analytics or site.ga4 or site.data.theme.ga4 or true %}
+  <!-- GA4 placeholder: set in config/meta.json if needed -->
+{% endif %}
