@@ -13,6 +13,21 @@
   <!-- ✅ Theme Toggle Script -->
   <script defer src="./themes/theme-toggle.js"></script>
 
+  <script src="./config/theme-config.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      try {
+        const cfg = window.__GFW_THEME__;
+        if (cfg && cfg.activeTheme) {
+          document.documentElement.dataset.theme = cfg.activeTheme;
+          document.body.classList.add(`theme-${cfg.activeTheme}`);
+        }
+      } catch (e) {
+        console.warn("테마 설정 불러오기 실패:", e);
+      }
+    });
+  </script>
+
   <!-- ✅ Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-R7N7G7QPBF"></script>
   <script>
