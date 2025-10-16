@@ -1,0 +1,13 @@
+{% seo %}
+<meta name="theme-color" content="#1e2a3a" />
+<link rel="icon" href="/assets/themes/{{ site.data.theme.active_theme }}/images/logo.svg" />
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.data.theme.ga4_measurement_id }}"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date()); gtag('config','{{ site.data.theme.ga4_measurement_id }}');
+</script>
+{% if site.data.theme.cloudflare_beacon_token %}
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token":"{{ site.data.theme.cloudflare_beacon_token }}"}'></script>
+{% endif %}
