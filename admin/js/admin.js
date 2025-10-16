@@ -1,75 +1,20 @@
-const PAGES = [...document.querySelectorAll('.sidebar li')];
-const SECTIONS = [...document.querySelectorAll('.page')];
+const worker="{{ site.data.theme.cloudflare_worker_endpoint }}";const OAuthClientID="{{ site.data.theme.github_oauth_client_id | default: '' }}";const redirectUri=location.origin+"/admin/oauth/callback.html";function updateAuthUI(){const t=sessionStorage.getItem("github_token");document.getElementById("loginBtn").style.display=t?"none":"inline-block";document.getElementById("logoutBtn").style.display=t?"inline-block":"none"}document.getElementById("loginBtn").addEventListener("click",()=>{if(!OAuthClientID){alert("OAuth Client ID가 설정되지 않았습니다. _data/theme.yml을 확인하세요.");return;}const u="https://github.com/login/oauth/authorize?client_id="+encodeURIComponent(OAuthClientID)+"&scope=repo%20user&redirect_uri="+encodeURIComponent(redirectUri);location.href=u});document.getElementById("logoutBtn").addEventListener("click",()=>{sessionStorage.removeItem("github_token");alert("로그아웃 되었습니다.");updateAuthUI()});updateAuthUI();document.querySelectorAll(".sidebar li").forEach(li=>{li.addEventListener("click",()=>{document.querySelectorAll(".sidebar li").forEach(x=>x.classList.remove("active"));li.classList.add("active");const t=li.dataset.page;document.querySelectorAll(".page").forEach(p=>p.classList.remove("visible"));document.getElementById("page-"+t).classList.add("visible")})});async function workerSave(path,data,message){const token=sessionStorage.getItem("github_token");const r=await fetch(worker+"/api/save",{method:"POST",headers:{"content-type":"application/json",...(token?{Authorization:"Bearer "+token}:{})},body:JSON.stringify({path,data,message})});if(!r.ok)throw new Error(await r.text());return r.json()}async function workerRead(path){const r=await fetch(worker+"/api/read?path="+encodeURIComponent(path));if(!r.ok)throw new Error(await r.text());return r.json()}async function workerList(dir){const r=await fetch(worker+"/api/list?dir="+encodeURIComponent(dir));if(!r.ok)throw new Error(await r.text());return r.json()}const brandName=document.getElementById("brandName"),brandTagline=document.getElementById("brandTagline"),ga4=document.getElementById("ga4"),n8n=document.getElementById("n8n"),activeTheme=document.getElementById("activeTheme");document.getElementById("loadTheme").addEventListener("click",async()=>{try{const res=await workerRead("_data/theme.yml");const y=res.yaml||{};brandName.value=y.brand||"";brandTagline.value="Go have fun with tech, tools, and life.";ga4.value=y.ga4_measurement_id||"";n8n.value=y.n8n_webhook_subscribe||"";activeTheme.value=y.active_theme||"default";alert("로드 완료")}catch(e){alert("로드 실패: "+e.message)}});document.getElementById("saveTheme").addEventListener("click",async()=>{try{await workerSave("_data/theme.yml",{brand:brandName.value||"GOFUNWITH – Explore. Create. Share.",ga4_measurement_id:ga4.value,n8n_webhook_subscribe:n8n.value,active_theme:activeTheme.value},"chore(admin): update theme config");alert("저장 완료! 잠시 후 새로고침하면 반영됩니다.");document.getElementById("preview").contentWindow.location.reload()}catch(e){alert("저장 실패: "+e.message)}});document.getElementById("loadConfig").addEventListener("click",async()=>{try{const res=await workerRead("_data/config.yml");const y=res.yaml||{};document.getElementById("langDefault").value=(y.site&&y.site.language_default)||"ko";document.getElementById("postsPerPage").value=(y.site&&y.site.posts_per_page)||10;alert("로드 완료")}catch(e){alert("로드 실패: "+e.message)}});document.getElementById("saveConfig").addEventListener("click",async()=>{try{await workerSave("_data/config.yml",{site:{posts_per_page:Number(document.getElementById("postsPerPage").value||10),language_default:document.getElementById("langDefault").value,languages:["ko","en"]}},"chore(admin): update site config");alert("저장 완료")}catch(e){alert("저장 실패: "+e.message)}});document.getElementById("createFromTemplate").addEventListener("click",()=>{const title=document.getElementById("newPostTitle").value.trim();if(!title){alert("제목을 입력하세요.");return;}const lang=document.getElementById("newPostLang").value;const date=new Date().toISOString().slice(0,10);const slug=title.replace(/\s+/g,"-").replace(/[^a-zA-Z0-9가-힣-]/g,"");const filename=`${date}-${slug}.md`;const canonical=`https://blog.gofunwith.com/${lang}/${slug}`;const tpl=`---
+layout: post
+title: "${title}"
+subtitle: ""
+description: ""
+author: "Eric Moon"
+date: ${date}
+lang: ${lang}
+tags:
+  - Tech
+cover_image: "/assets/images/posts/default-cover.webp"
+featured: false
+reading_time: 5
+canonical_url: "${canonical}"
+---
 
-PAGES.forEach(li => li.addEventListener('click', () => {
-  PAGES.forEach(x => x.classList.remove('active'));
-  li.classList.add('active');
-  const id = 'page-' + li.dataset.page;
-  SECTIONS.forEach(sec => sec.classList.toggle('visible', sec.id === id));
-}));
+# ${title}
 
-// OAuth
-document.getElementById('loginBtn').addEventListener('click', () => {
-  const clientId = 'Ov23liqsljSBAqajz2eu'; // 공개 가능
-  const redirectUri = location.origin + '/admin/oauth/callback.html';
-  const scope = 'repo';
-  const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}`;
-  location.href = authUrl;
-});
-document.getElementById('logoutBtn').addEventListener('click', () => {
-  sessionStorage.removeItem('github_token');
-  alert('로그아웃 되었습니다.');
-});
-
-import { loadTheme, saveTheme } from './theme-service.js';
-import { loadConfig, saveConfig, listPosts, createFromTemplate } from './config-service.js';
-
-document.getElementById('loadTheme').addEventListener('click', async () => {
-  const data = await loadTheme();
-  if (!data) return;
-  document.getElementById('brandName').value = data.brand || '';
-  document.getElementById('brandTagline').value = (data.brand_tagline || 'Go have fun with tech, tools, and life.');
-  document.getElementById('ga4').value = data.ga4_measurement_id || '';
-  document.getElementById('n8n').value = data.n8n_webhook_subscribe || '';
-});
-document.getElementById('saveTheme').addEventListener('click', async () => {
-  const body = {
-    brand: document.getElementById('brandName').value,
-    brand_tagline: document.getElementById('brandTagline').value,
-    ga4_measurement_id: document.getElementById('ga4').value,
-    n8n_webhook_subscribe: document.getElementById('n8n').value
-  };
-  const ok = await saveTheme(body);
-  if (ok) {
-    alert('테마 저장 완료!');
-    document.getElementById('preview').contentWindow.location.reload();
-  }
-});
-
-document.getElementById('loadConfig').addEventListener('click', async () => {
-  const cfg = await loadConfig();
-  if (!cfg) return;
-  document.getElementById('langDefault').value = cfg.site?.language_default || 'ko';
-  document.getElementById('postsPerPage').value = cfg.site?.posts_per_page ?? 10;
-});
-document.getElementById('saveConfig').addEventListener('click', async () => {
-  const cfg = {
-    site: {
-      language_default: document.getElementById('langDefault').value,
-      posts_per_page: parseInt(document.getElementById('postsPerPage').value || '10', 10)
-    }
-  };
-  const ok = await saveConfig(cfg);
-  if (ok) alert('환경설정 저장 완료!');
-});
-
-document.getElementById('listPosts')?.addEventListener('click', async () => {
-  const res = await listPosts();
-  document.getElementById('postsResult').textContent = JSON.stringify(res, null, 2);
-});
-document.getElementById('createFromTemplate')?.addEventListener('click', async () => {
-  const name = prompt('파일명(예: 2025-10-15-new-post.md)');
-  if (!name) return;
-  const ok = await createFromTemplate(name);
-  if (ok) alert('템플릿으로 생성 완료!');
-});
+본문을 여기에 작성하세요.
+`;const blob=new Blob([tpl],{type:"text/markdown"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=filename;a.click();alert(`파일 생성됨: _${lang}/${filename} 에 업로드하세요.`)});document.getElementById("listPosts").addEventListener("click",async()=>{const out=document.getElementById("postsResult");try{const ko=await workerList("_ko");const en=await workerList("_en");out.textContent=JSON.stringify({ko,en},null,2)}catch(e){out.textContent="목록 실패: "+e.message+"\n(Worker의 /api/list 구현이 필요합니다)"}});document.getElementById("testWebhook").addEventListener("click",async()=>{const url=document.getElementById("webhookUrl").value.trim();const out=document.getElementById("webhookResult");if(!url){alert("URL을 입력하세요.");return;}try{const r=await fetch(url,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({ping:true,ts:Date.now()})});const t=await r.text();out.textContent="응답: "+t}catch(e){out.textContent="실패: "+e.message}});
