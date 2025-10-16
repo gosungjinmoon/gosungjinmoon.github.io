@@ -1,48 +1,26 @@
-title: "GoFunWith Tech Blog"
-description: "무료로 배우는 개발 · 자동화 · DIY · 스포츠테크 블로그"
-url: "https://gosungjinmoon.github.io"
-baseurl: ""
-theme: minima
-author: "Eric Moon"
-email: "moon.sungjin@gmail.com"  # <- 실제 이메일 대신 익명화
-lang: ko
+title: "GOFUNWITH"
+description: "Go have fun with tech, tools, and life."
 markdown: kramdown
+theme: minima
 timezone: Asia/Seoul
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-sitemap
 
+languages: ["ko", "en"]
+default_lang: "ko"
+exclude:
+  - node_modules/
+  - _secrets/
+  - README.md
+  - LICENSE
+
+# 각 언어별 디렉토리 빌드 설정
 collections:
   ko:
     output: true
-    permalink: /ko/:title/
+    permalink: /ko/:path/
   en:
     output: true
-    permalink: /en/:title/
-    
-# Plugins (SEO / sitemap / feed)
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
-
-# Navigation links
-defaults:
-  - scope:
-      path: ""
-      type: "ko"
-    values:
-      layout: post
-      lang: ko
-  - scope:
-      path: ""
-      type: "en"
-    values:
-      layout: post
-      lang: en
-  - scope:
-      path: ""
-    values:
-      layout: default
-
-exclude:
-  - README.md
-  - package.json
-  - node_modules
+    permalink: /en/:path/
