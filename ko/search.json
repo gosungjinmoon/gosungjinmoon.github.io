@@ -1,0 +1,6 @@
+[
+{% assign list = site.ko %}
+{% for p in list %}{% unless forloop.first %},
+{% endunless %}{ "url": "{{ p.url }}", "title": "{{ p.title | escape }}", "content": "{{ p.content | strip_html | strip_newlines | escape }}" }
+{% endfor %}
+]
