@@ -1,11 +1,5 @@
-{% assign theme = site.data.theme %}
-<footer class="container footer">
-  <p>© {{ site.time | date: '%Y' }} {{ theme.brand.name }} — Powered by GitHub Pages</p>
-  <p>
-    <a href="{{ theme.social.github }}" target="_blank">GitHub</a>
-    {%- if theme.social.twitter %} · <a href="{{ theme.social.twitter }}" target="_blank">Twitter</a>{% endif -%}
-    {%- if theme.social.youtube %} · <a href="{{ theme.social.youtube }}" target="_blank">YouTube</a>{% endif -%}
-    {%- if theme.social.email %} · <a href="mailto:{{ theme.social.email }}">Email</a>{% endif -%}
-  </p>
-  <script src="{{ '/assets/js/site.js' | relative_url }}"></script>
+<footer class="site-footer">
+  <div class="container">
+    <p>© {{ 'now' | date: '%Y' }} GOFUNWITH – Explore. Create. Share.</p>
+  </div>
 </footer>
