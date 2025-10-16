@@ -1,0 +1,8 @@
+---
+layout: default
+---
+<section class="search-page">
+  <h1>{% if page.lang == 'en' %}Search{% else %}검색{% endif %}</h1>
+  {% include search-box.html %}
+</section>
+<script src="/assets/themes/{{ site.data.theme.active_theme }}/js/search.js"></script>
