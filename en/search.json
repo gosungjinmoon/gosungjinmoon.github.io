@@ -1,6 +1,1 @@
-[
-{% assign list = site.en %}
-{% for p in list %}{% unless forloop.first %},
-{% endunless %}{ "url": "{{ p.url }}", "title": "{{ p.title | escape }}", "content": "{{ p.content | strip_html | strip_newlines | escape }}" }
-{% endfor %}
-]
+[\n{% assign list = site.en %}\n{% for p in list %}{% unless forloop.first %},\n{% endunless %}{ \"url\": \"{{ p.url }}\", \"title\": \"{{ p.title | escape }}\", \"content\": \"{{ p.content | strip_html | strip_newlines | escape }}\" }\n{% endfor %}\n]
