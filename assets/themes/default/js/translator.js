@@ -1,22 +1,24 @@
 // assets/themes/default/js/translator.js
+
 (function(){
-  const current = window.location.pathname.startsWith("/en/") ? "en" : "ko";
-  const saved = localStorage.getItem("lang");
-  const browserLang = navigator.language.startsWith("ko") ? "ko" : "en";
-
-  const targetLang = saved || browserLang;
-  if (!window.location.pathname.startsWith("/" + targetLang + "/")) {
-    window.location.href = "/" + targetLang + "/";
-  }
-
-  // 언어 토글 버튼 핸들러
-  document.addEventListener("DOMContentLoaded", () => {
-    const toggle = document.getElementById("langToggle");
-    if (!toggle) return;
-    toggle.addEventListener("click", () => {
-      const newLang = current === "ko" ? "en" : "ko";
-      localStorage.setItem("lang", newLang);
-      window.location.href = "/" + newLang + "/";
+  try{
+    const path = location.pathname;
+    const current = path.startsWith('/en/') ? 'en' : (path.startsWith('/ko/') ? 'ko' : null);
+    const stored = localStorage.getItem('lang');
+    if (!current){
+      const target = stored || (navigator.language && navigator.language.startsWith('ko') ? 'ko' : 'en');
+      location.replace('/' + target + '/');
+      return;
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('langToggle');
+      if (btn){
+        btn.addEventListener('click', () => {
+          const next = current === 'ko' ? 'en' : 'ko';
+          localStorage.setItem('lang', next);
+          location.href = '/' + next + '/';
+        });
+      }
     });
-  });
+  }catch(e){ console.warn(e); }
 })();
