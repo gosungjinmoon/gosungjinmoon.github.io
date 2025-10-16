@@ -1,1 +1,1 @@
-console.log('GOFUNWITH theme loaded');
+console.log('GOFUNWITH theme: default');
