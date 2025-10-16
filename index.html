@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=/ko/">
-<script>
-  const lang = navigator.language.startsWith('ko') ? 'ko' : 'en';
-  window.location.href = '/' + lang + '/';
-</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="refresh" content="0; url=/ko/" />
+  <title>GOFUNWITH – Redirect</title>
+  <script>
+    (function(){
+      const pref = localStorage.getItem("lang");
+      const guess = navigator.language && navigator.language.startsWith("ko") ? "ko" : "en";
+      const lang = pref || guess || "ko";
+      window.location.replace("/" + lang + "/");
+    })();
+  </script>
 </head>
-<body>
-Redirecting to your language version...
-</body>
+<body>Redirecting…</body>
 </html>
