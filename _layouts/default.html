@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: 'ko' }}">
-  <head>
-    {% include components/head.html %}
-  </head>
-  <body>
-    {% include components/header.html %}
-    <main class="container">
-      {{ content }}
-    </main>
-    {% include components/footer.html %}
-  </body>
+<html lang="{{ page.lang | default: site.data.theme.default_language }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ page.title | default: site.title }}</title>
+  {% include seo.html %}
+  <link rel="stylesheet" href="/assets/themes/{{ site.data.theme.active_theme }}/css/style.css">
+</head>
+<body>
+  {% include header.html %}
+  <main class="container">
+    {{ content }}
+  </main>
+  {% include footer.html %}
+  <script src="/assets/themes/{{ site.data.theme.active_theme }}/js/translator.js"></script>
+  <script src="/assets/themes/{{ site.data.theme.active_theme }}/js/main.js"></script>
+</body>
 </html>
