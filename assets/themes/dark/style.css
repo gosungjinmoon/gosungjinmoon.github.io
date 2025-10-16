@@ -1,0 +1,9 @@
+:root{--bg:#000;--fg:#f3f3f3;--muted:#aaa;--card:#0a0a0a;--primary:#9b6bff;--border:#222}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
+.container{max-width:1080px;margin:0 auto;padding:22px}
+.site-header{position:sticky;top:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);z-index:10}
+.brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none;font-weight:800;letter-spacing:.2px}
+.site-nav a{color:var(--fg);text-decoration:none;margin-right:14px;opacity:.9}.site-nav a:hover{opacity:1}
+.lang-switch a{color:var(--fg);padding:6px 10px;border:1px solid var(--border);border-radius:999px}
+.home-hero{padding:56px 20px}
+.post-list li{padding:14px 0;border-bottom:1px dashed var(--border)}
