@@ -1,0 +1,6 @@
+<!-- _includes/tag-cloud.html -->
+<div class="tag-cloud">
+  {% for tag in site.data.tags %}
+    <a href="/{{ page.lang }}/tags/{{ tag[0] }}/" class="tag">{{ tag[1] }}</a>
+  {% endfor %}
+</div>
