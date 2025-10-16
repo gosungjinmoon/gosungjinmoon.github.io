@@ -1,5 +1,3 @@
-// assets/themes/default/js/translator.js
-
 (function(){
   try{
     const path = location.pathname;
@@ -7,8 +5,7 @@
     const stored = localStorage.getItem('lang');
     if (!current){
       const target = stored || (navigator.language && navigator.language.startsWith('ko') ? 'ko' : 'en');
-      location.replace('/' + target + '/');
-      return;
+      location.replace('/' + target + '/'); return;
     }
     document.addEventListener('DOMContentLoaded', () => {
       const btn = document.getElementById('langToggle');
