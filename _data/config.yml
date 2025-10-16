@@ -1,0 +1,16 @@
+# 사이트 전역 환경설정 (운영자 콘솔에서 관리 확장용)
+site:
+  language_default: "ko"
+  languages:
+    - ko
+    - en
+  posts_per_page: 10
+
+integrations:
+  ga4_measurement_id: "G-R7N7G7QPBF"
+  cloudflare_beacon_token: "c7db8999eee4466bab1893a2361aed10"
+  n8n_webhook_subscribe: "https://n8n.gofunwith.com/webhook/subscribe"
+
+brand:
+  name: "GOFUNWITH – Explore. Create. Share."
+  tagline: "Go have fun with tech, tools, and life."
