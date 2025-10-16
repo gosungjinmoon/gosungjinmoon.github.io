@@ -1,22 +1,48 @@
 # GoFunWith Blog v6 – Admin Console 포함판
 
-이 패키지는 GitHub Pages 블로그 + 운영자 콘솔(Admin) + 보안 구조를 포함합니다.
+**브랜드:** GOFUNWITH – Explore. Create. Share.  
+**도메인:** [blog.gofunwith.com](https://blog.gofunwith.com)
 
 ## 📂 구조
-- `/admin/` : 운영자 콘솔 SPA
-  - `index.html` : 메인 (탭 UI)
-  - `theme-preview.html` : 테마 미리보기
-  - `settings.html` : 환경설정 안내
-  - `oauth/callback.html` : GitHub OAuth 콜백
-  - `js/admin.js` : 콘솔 UI
-  - `js/theme-service.js` : 테마 읽기/쓰기
-  - `js/config-service.js` : 환경설정/포스트 API
-  - `js/worker-client.js` : Cloudflare Worker 프록시 클라이언트
-  - `css/admin.css` : 다크 테마 UI
-- `/_data/theme.yml` : 사이트 브랜드/통합 설정
-- `/_data/config.yml` : 사이트 전역 설정
-- `/_posts/template.md` : SEO 포함 포스트 템플릿
-- `/_secrets/.env.example` : 민감정보 예시 (실제 .env는 커밋 금지)
+gofunwith_blog/
+├── _config.yml
+├── _data/
+│   └── theme.yml                # 설정 반영 (GA4, Cloudflare, OAuth 등)
+│   └── config.yml` : 사이트 전역 설정
+├── _includes/
+│   ├── header.html
+│   ├── footer.html
+│   ├── seo.html
+│   └── tag-cloud.html
+├── _layouts/
+│   ├── default.html
+│   ├── post.html
+│   ├── home.html
+│   └── page.html
+├── _posts/
+│   └── template.md              # 콘텐츠 작성 표준 템플릿 (SEO+태그 자동)
+├── _secrets/
+│   └── .env.example             # 실제 .env 참고용 (커밋 제외)
+├── assets/
+│   ├── css/
+│   ├── js/
+│   └── images/
+├── admin/                          # 운영자 콘솔 SPA
+│   ├── index.html                  # 메인 콘솔 (테마 + 환경 설정)
+│   ├── theme-preview.html          # 테마 미리보기
+│   ├── settings.html               # 사이트 전역 환경설정 (GA, n8n, Cloudflare 등)
+│   ├── js/
+│   │   ├── admin.js                # 공통 UI 로직 (탭, 알림, 로딩)
+│   │   ├── theme-service.js        # 테마 CRUD (fetch + OAuth 인증)
+│   │   └── config-service.js       # 환경 설정 CRUD (YAML/JSON 관리)
+│   ├── css/
+│   │   └── admin.css               # 다크모드 + 반응형 스타일
+│   └── oauth/
+│   │   └── callback.html           # GitHub OAuth 콜백
+├── .gitignore                   # _secrets/ 및 .env 제외
+├── CNAME                        # blog.gofunwith.com
+├── README.md                    # 상세 설치 및 배포 안내
+└── index.html                   # 랜딩 페이지
 
 ## 🔒 보안
 - OAuth Secret은 리포지토리에 커밋하지 않습니다.
