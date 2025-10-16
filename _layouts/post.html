@@ -2,11 +2,14 @@
 layout: default
 ---
 <article class="post">
-  <header class="post-header">
+  <header>
     <h1>{{ page.title }}</h1>
-    <div class="meta">{{ page.date | date: "%Y-%m-%d" }}</div>
+    <p class="meta">{{ page.date | date: "%Y-%m-%d" }}</p>
   </header>
-  <section class="post-content">
+  <div class="content">
     {{ content }}
-  </section>
+  </div>
+  <footer>
+    {% include lang-switch.html %}
+  </footer>
 </article>
