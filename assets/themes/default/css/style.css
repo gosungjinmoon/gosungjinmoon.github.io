@@ -1,15 +1,1 @@
-:root{--bg:#0b1220;--fg:#e6eefb;--muted:#9db4d6;--card:#0f172a;--primary:#4a8fe7;--border:#1f2a44}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
-.container{max-width:1024px;margin:0 auto;padding:20px}
-.site-header{position:sticky;top:0;background:rgba(11,18,32,.8);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);z-index:10}
-.site-header .container{display:flex;align-items:center;gap:16px}
-.brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none;font-weight:700}
-.site-nav a{color:var(--fg);text-decoration:none;margin-right:12px;opacity:.9}.site-nav a:hover{opacity:1}
-.lang-switch{margin-left:auto;display:flex;gap:8px;align-items:center}
-.lang-switch a{color:var(--fg);text-decoration:none;padding:6px 8px;border:1px solid var(--border);border-radius:8px}
-.lang-switch a.active{background:rgba(74,143,231,.18)}
-.home-hero{padding:40px 20px}
-.post-list ul{list-style:none;padding:0}.post-list li{padding:10px 0;border-bottom:1px solid var(--border)}
-.tags em{font-style:normal;opacity:.8;margin-left:6px}
-.site-footer{border-top:1px solid var(--border);margin-top:40px}
-@media (max-width:768px){ .container{padding:14px} }
+:root{--bg:#0b1220;--fg:#e6eefb;--border:#1f2a44;--primary:#4a8fe7}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}.container{max-width:1080px;margin:0 auto;padding:22px}.site-header{position:sticky;top:0;background:rgba(0,0,0,.3);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);z-index:10}.brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none;font-weight:800}.site-nav a{color:var(--fg);text-decoration:none;margin-right:14px;opacity:.9}.site-nav a:hover{opacity:1}.lang-switch a{color:var(--fg);padding:6px 10px;border:1px solid var(--border);border-radius:999px}.home-hero{padding:56px 20px}.post-list li{padding:14px 0;border-bottom:1px solid var(--border)}.subtitle{opacity:.75;margin-top:-6px}
