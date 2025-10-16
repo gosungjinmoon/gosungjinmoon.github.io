@@ -3,3 +3,4 @@ _secrets/
 _site/
 *.log
 *.tmp
+.DS_Store
