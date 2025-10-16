@@ -1,50 +1,65 @@
-# GoFunWith Blog v6 – Admin Console 포함판
+# GoFunWith Blog
 
 **브랜드:** GOFUNWITH – Explore. Create. Share.  
 **도메인:** [blog.gofunwith.com](https://blog.gofunwith.com)
 
 ## 📂 구조
 ```
-gofunwith_blog/
-├── _config.yml
-├── _data/
-│   ├── theme.yml                # 설정 반영 (GA4, Cloudflare, OAuth 등)
-│   └── config.yml               # 사이트 전역 설정
-├── _includes/
-│   ├── header.html
-│   ├── footer.html
-│   ├── seo.html
-│   └── tag-cloud.html
-├── _layouts/
-│   ├── default.html
-│   ├── post.html
-│   ├── home.html
-│   └── page.html
-├── _posts/
-│   └── template.md              # 콘텐츠 작성 표준 템플릿 (SEO+태그 자동)
-├── _secrets/
-│   └── .env.example             # 실제 .env 참고용 (커밋 제외)
-├── assets/
-│   ├── css/
-│   ├── js/
-│   └── images/
-├── admin/                       # 운영자 콘솔 SPA
-│   ├── index.html               # 메인 콘솔 (테마 + 환경 설정)
-│   ├── theme-preview.html       # 테마 미리보기
-│   ├── settings.html            # 사이트 전역 환경설정 (GA, n8n, Cloudflare 등)
-│   ├── js/
-│   │   ├── admin.js             # 공통 UI 로직 (탭, 알림, 로딩)
-│   │   ├── theme-service.js     # 테마 CRUD (fetch + OAuth 인증)
-│   │   └── config-service.js    # 환경 설정 CRUD (YAML/JSON 관리)
-│   ├── css/
-│   │   └── admin.css            # 다크모드 + 반응형 스타일
-│   └── oauth/
-│       └── callback.html        # GitHub OAuth 콜백
-├── .gitignore                   # _secrets/ 및 .env 제외
-├── CNAME                        # blog.gofunwith.com
-├── README.md                    # 상세 설치 및 배포 안내
-└── index.html                   # 랜딩 페이지
+gofunwith_blog_v6.1_international/
+├─ index.html                  # 언어 자동 감지 → /ko/ 또는 /en/
+├─ _config.yml                 # Jekyll/다국어/컬렉션/플러그인 설정
+├─ CNAME                       # blog.gofunwith.com
+├─ .gitignore
+├─ README.md
+
+├─ _data/
+│  ├─ theme.yml                # 브랜드·도메인·GA4·n8n·테마 설정
+│  └─ config.yml               # 사이트 전역 설정
+
+├─ _includes/                  # 템플릿 조각
+│  ├─ header.html              # 브랜드/네비/언어스위치
+│  ├─ footer.html
+│  ├─ seo.html                 # SEO/OG/Twitter/GA4/Beacon
+│  ├─ nav.html
+│  └─ lang-switch.html
+
+├─ _layouts/                   # 레이아웃
+│  ├─ default.html             # 공통 레이아웃
+│  ├─ home.html                # 언어별 최신글 리스트
+│  └─ post.html                # 포스트 뷰
+
+├─ _ko/                        # 🇰🇷 한국어 컬렉션 (공개: /ko/)
+│  └─ 2025-10-15-hello.md
+├─ _en/                        # 🇺🇸 영어 컬렉션 (공개: /en/)
+│  └─ 2025-10-15-hello.md
+
+├─ ko/
+│  └─ index.html               # 한국어 홈 (layout: home, lang: ko)
+├─ en/
+│  └─ index.html               # 영어 홈 (layout: home, lang: en)
+
+├─ assets/
+│  └─ themes/
+│     └─ default/
+│        ├─ css/style.css
+│        ├─ js/
+│        │  ├─ translator.js   # 저장된 언어/브라우저 언어 기반 전환
+│        │  ├─ main.js
+│        │  └─ ui.js
+│        └─ images/logo.svg
+
+└─ admin/
+   ├─ index.html               # Admin 셸 (확장 예정)
+   ├─ css/admin.css
+   └─ oauth/callback.html      # Cloudflare Worker OAuth 교환 → /admin 리다이렉트
 ```
+## 📝 글 작성
+- 한국어: `_ko/2025-10-20-title.md`
+- 영어: `_en/2025-10-20-title.md`
+
+## 🔧 커스터마이즈
+- `_data/theme.yml`에서 브랜드/도메인/GA4/n8n/테마 설정
+- 테마는 `/assets/themes/<name>/`로 추가하고 `active_theme` 변경
 
 ## 🔒 보안
 - OAuth Secret은 리포지토리에 커밋하지 않습니다.
