@@ -1,6 +1,10 @@
-<!-- _layouts/search.html  버전 정보_202510171345 -->
 ---
+# /* _layouts/search.html  v6.3.5_202510170000 */
 layout: default
 ---
-<h2>Search</h2>
-{% include search-box.html %}
+<section class="page">
+  <h1>Search</h1>
+  {% include search-box.html %}
+  <div id="search-results"></div>
+</section>
+<script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>
