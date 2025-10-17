@@ -1,2 +1,2 @@
-/* config/lang-config.js  버전 정보_202510171345 */
-window.__GFW_LANGS__ = { default: "ko", supported: ["ko","en"] };
+/* config/lang-config.js  v6.3.5_202510170000 */
+window.__LANG__ = { default: "ko", supported: ["ko","en"] };
