@@ -1,3 +1,9 @@
-/* _data/config.yml  버전 정보_202510171345 */
-site: { brand: "GOFUNWITH – Explore. Create. Share.", tagline: "Go have fun with tech, tools, and life.", default_lang: "ko", posts_per_page: 12 }
-features: { search: true, tags: true }
+site:
+  brand: "GOFUNWITH – Explore. Create. Share."
+  tagline: "Go have fun with tech, tools, and life."
+  default_lang: "ko"
+  posts_per_page: 12
+
+features:
+  search: true
+  tags: true
