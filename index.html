@@ -1,3 +1,41 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta http-equiv="refresh" content="0; url=/ko/"/><title>GOFUNWITH – Redirect</title>
-<script>(function(){const pref=localStorage.getItem("lang");const guess=(navigator.language||"").startsWith("ko")?"ko":"en";const lang=pref||guess||"ko";location.replace("/"+lang+"/");})();</script></head><body>Redirecting…</body></html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Go have fun with tech, tools, and life." />
+    <meta property="og:title" content="GOFUNWITH Blog" />
+    <meta property="og:image" content="https://blog.gofunwith.com/assets/themes/modern/images/logo.svg" />
+    <title>GOFUNWITH</title>
+    <style>
+      body {
+        background: #0b1220;
+        color: #e8ecf3;
+        font-family: system-ui, sans-serif;
+        text-align: center;
+        padding-top: 20%;
+      }
+      .spinner {
+        border: 4px solid #223155;
+        border-top: 4px solid #6aa1ff;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="spinner"></div>
+    <h2>Loading GOFUNWITH Blog...</h2>
+    <p>Redirecting to <strong>/ko/</strong></p>
+    <script>
+      setTimeout(() => (window.location.href = "/ko/"), 800);
+    </script>
+  </body>
+</html>
