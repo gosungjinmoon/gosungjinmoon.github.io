@@ -1,24 +1,71 @@
-/* admin/js/posts.js  버전 정보_202510171345 */
-import { callWorkerAPI } from "./github-api.js";
-export function openNewPostModal(){document.getElementById("newPostModal").classList.remove("hidden");}
-export function closeNewPostModal(){document.getElementById("newPostModal").classList.add("hidden");}
-export async function submitNewPost(){
-  const title=document.getElementById("newPostTitle").value.trim();
-  const lang=document.getElementById("newPostLang").value;
-  const tags=document.getElementById("newPostTags").value.trim();
-  const desc=document.getElementById("newPostDesc").value.trim();
-  if(!title)return alert("제목은 필수입니다!");
-  const today=new Date().toISOString().slice(0,10);
-  const safe=title.replace(/\s+/g,"-").replace(/[^\w가-힣-_]/g,"");
-  const filename=`${today}-${safe}.md`;
-  const fm=`---\nlayout: post\ntitle: "${title}"\ndate: ${today}\nlang: ${lang}\ntags:\n${tags.split(",").map(t=>`  - ${t.trim()}`).join("\n")}\ndescription: "${desc||title}"\ncover_image: "/assets/images/posts/default-cover.webp"\n---\n\n`;
-  const content=`${fm}# ${title}\n\n본문을 작성하세요.\n`;
-  const message=`chore(post): create ${filename}`;
-  const result=await callWorkerAPI("/api/new-post",{filename,content,message});
-  alert(result.pull_request_url?`PR 생성 완료:\n${result.pull_request_url}`:"PR 생성 완료");closeNewPostModal();
+/* admin/js/posts.js  v6.3.5_202510170000 */
+export function openNewPostModal() {
+  document.getElementById('newPostModal').classList.add('visible');
 }
-export async function listPosts(){
-  const pre=document.getElementById("postsResult");pre.textContent="불러오는 중...";
-  try{const xml=await fetch("/sitemap.xml").then(r=>r.text());const locs=Array.from(xml.matchAll(/<loc>(.*?)<\/loc>/g)).map(m=>m[1]);const posts=locs.filter(u=>/\d{4}\/\d{2}\/\d{2}/.test(u));pre.textContent=posts.join("\n");}
-  catch(e){pre.textContent="오류: "+e.message;}
+export function closeNewPostModal() {
+  document.getElementById('newPostModal').classList.remove('visible');
+}
+export async function createNewPost() {
+  const title = document.getElementById('npTitle').value.trim();
+  const lang = document.getElementById('npLang').value;
+  const tags = document.getElementById('npTags').value;
+  const desc = document.getElementById('npDesc').value;
+  if (!title) { alert('제목을 입력하세요'); return; }
+
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth()+1).padStart(2,'0');
+  const dd = String(today.getDate()).padStart(2,'0');
+
+  const safe = title.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9\-\\s]/g,'').trim().replace(/\\s+/g,'-').toLowerCase();
+  const fname = `${yyyy}-${mm}-${dd}-${safe}.md`;
+
+  const tagLines = (tags || '')
+    .split(',')
+    .map(t => t.trim())
+    .filter(Boolean)
+    .map(t => `  - ${t}`)
+    .join('\\n');
+
+  const fm = `---
+layout: post
+title: "${title}"
+subtitle: ""
+description: "${desc.replace(/"/g,'\\"')}"
+author: "GF Writer"
+date: ${yyyy}-${mm}-${dd}
+lang: ${lang}
+tags:
+${tagLines}
+cover_image: "/assets/images/posts/default-cover.webp"
+featured: false
+reading_time: 4
+canonical_url: ""
+---
+
+# ${title}
+
+내용을 여기에 작성하세요.
+`;
+
+  const endpoint = "{{ site.data.theme.cloudflare_worker_endpoint }}";
+  if (!endpoint) { alert('Worker endpoint를 찾을 수 없습니다. theme.yml을 확인하세요'); return; }
+
+  try {
+    const r = await fetch(endpoint + "/create", {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ path: `_posts/${fname}`, content: fm })
+    });
+    const j = await r.json();
+    if (j.ok) {
+      alert('생성 완료');
+      closeNewPostModal();
+      location.reload();
+    } else {
+      alert('생성 실패: ' + (j.error || 'unknown'));
+    }
+  } catch (e) {
+    alert('네트워크 오류: ' + e.message);
+  }
 }
