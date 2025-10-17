@@ -38,3 +38,19 @@ exclude:
   - package-lock.json
   - admin/README.md
   - cloudflare_worker.js
+
+markdown_ext: "md,markdown,mkdown,mkdn,mdown,mkdn"
+
+# HTML 파일도 Liquid 렌더링하도록
+include:
+  - _pages
+  - admin
+  - assets
+  - index.html
+
+# Liquid 미처리 방지
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
