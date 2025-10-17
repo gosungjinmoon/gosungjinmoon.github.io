@@ -1,10 +1,11 @@
-# /* _data/config.yml  v6.3.5_202510170000 */
+# /* _data/config.yml  v6.3.7_202510171349 */
 site:
   brand: "GOFUNWITH – Explore. Create. Share."
   tagline: "Go have fun with tech, tools, and life."
   default_lang: "ko"
   posts_per_page: 12
 
-features:
-  search: true
-  tags: true
+repo: "gosungjinmoon/gosungjinmoon.github.io"
+url: "https://gosungjinmoon.github.io"
+github: "https://github.com/gosungjinmoon"
+timezone: "Asia/Seoul"
