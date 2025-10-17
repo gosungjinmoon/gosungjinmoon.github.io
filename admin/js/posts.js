@@ -1,100 +1,24 @@
-// /admin/js/posts.js
+/* admin/js/posts.js  버전 정보_202510171345 */
 import { callWorkerAPI } from "./github-api.js";
-
-/**
- * 새 포스트 생성 (Cloudflare Worker 호출)
- */
-export async function createNewPost() {
-  const title = prompt("📝 새 포스트 제목을 입력하세요:");
-  if (!title) {
-    alert("제목은 필수입니다!");
-    return;
-  }
-
-  const lang = confirm("🇰🇷 한국어로 작성하시겠습니까?\n(취소 시 English)") ? "ko" : "en";
-  const today = new Date().toISOString().slice(0, 10);
-  const safeTitle = title.trim().replace(/\s+/g, "-").replace(/[^a-zA-Z0-9가-힣-_]/g, "");
-  const filename = `${today}-${safeTitle}.md`;
-  const subDir = lang === "ko" ? "_posts/ko" : "_posts/en";
-
-  // 템플릿 콘텐츠 자동 생성
-  const content = `---
-layout: post
-title: "${title}"
-subtitle: ""
-description: "A short summary for SEO (150 chars)"
-author: "Eric Moon"
-date: ${today}
-lang: ${lang}
-tags:
-  - Tech
-  - Automation
-cover_image: "/assets/images/posts/default-cover.webp"
-featured: false
-reading_time: 5
-canonical_url: "https://blog.gofunwith.com/${lang}/${today}-${safeTitle}"
----
-
-# ${title}
-
-여기에 본문을 작성하세요 ✨  
-(Write your post content here.)
-
-## 💡 작성 가이드
-- **title**: 포스트 제목
-- **description**: 검색 노출용 요약문
-- **tags**: 관련 주제 자동 연결
-- **cover_image**: SNS 썸네일
-- **canonical_url**: 중복 방지용 기준 URL
-
----
-
-> **© ${new Date().getFullYear()} GOFUNWITH – Explore. Create. Share.**
-`;
-
-  try {
-    const confirmMsg = `🗂️ 파일명: ${filename}\n📂 경로: ${subDir}\n\n이 내용으로 새 글을 생성할까요?`;
-    if (!confirm(confirmMsg)) return;
-
-    // Worker 호출
-    const result = await callWorkerAPI("/api/new-post", {
-      filename: `${subDir}/${filename}`,
-      content,
-      message: `new post: ${title}`,
-    });
-
-    if (result.success) {
-      alert(`✅ 새 포스트 생성 성공!\nPR이 자동 생성되었습니다.\n\n${result.pr.html_url}`);
-      window.open(result.pr.html_url, "_blank");
-    } else {
-      alert(`❌ 실패: ${result.error || "알 수 없는 오류"}`);
-    }
-  } catch (err) {
-    alert(`🚫 오류 발생: ${err.message}`);
-    console.error(err);
-  }
+export function openNewPostModal(){document.getElementById("newPostModal").classList.remove("hidden");}
+export function closeNewPostModal(){document.getElementById("newPostModal").classList.add("hidden");}
+export async function submitNewPost(){
+  const title=document.getElementById("newPostTitle").value.trim();
+  const lang=document.getElementById("newPostLang").value;
+  const tags=document.getElementById("newPostTags").value.trim();
+  const desc=document.getElementById("newPostDesc").value.trim();
+  if(!title)return alert("제목은 필수입니다!");
+  const today=new Date().toISOString().slice(0,10);
+  const safe=title.replace(/\s+/g,"-").replace(/[^\w가-힣-_]/g,"");
+  const filename=`${today}-${safe}.md`;
+  const fm=`---\nlayout: post\ntitle: "${title}"\ndate: ${today}\nlang: ${lang}\ntags:\n${tags.split(",").map(t=>`  - ${t.trim()}`).join("\n")}\ndescription: "${desc||title}"\ncover_image: "/assets/images/posts/default-cover.webp"\n---\n\n`;
+  const content=`${fm}# ${title}\n\n본문을 작성하세요.\n`;
+  const message=`chore(post): create ${filename}`;
+  const result=await callWorkerAPI("/api/new-post",{filename,content,message});
+  alert(result.pull_request_url?`PR 생성 완료:\n${result.pull_request_url}`:"PR 생성 완료");closeNewPostModal();
 }
-
-/**
- * 저장소 내 포스트 목록 불러오기
- */
-export async function listPosts() {
-  const res = await fetch("https://api.github.com/repos/gosungjinmoon/gosungjinmoon.github.io/contents/_posts");
-  const data = await res.json();
-  const output = data
-    .map(item => `📄 ${item.name}`)
-    .join("\n") || "포스트가 없습니다.";
-
-  const resultEl = document.getElementById("postsResult");
-  if (resultEl) resultEl.textContent = output;
+export async function listPosts(){
+  const pre=document.getElementById("postsResult");pre.textContent="불러오는 중...";
+  try{const xml=await fetch("/sitemap.xml").then(r=>r.text());const locs=Array.from(xml.matchAll(/<loc>(.*?)<\/loc>/g)).map(m=>m[1]);const posts=locs.filter(u=>/\d{4}\/\d{2}\/\d{2}/.test(u));pre.textContent=posts.join("\n");}
+  catch(e){pre.textContent="오류: "+e.message;}
 }
-
-/**
- * 이벤트 리스너 등록
- */
-document.addEventListener("DOMContentLoaded", () => {
-  const listBtn = document.getElementById("listPosts");
-  const createBtn = document.getElementById("createFromTemplate");
-  if (listBtn) listBtn.addEventListener("click", listPosts);
-  if (createBtn) createBtn.addEventListener("click", createNewPost);
-});
