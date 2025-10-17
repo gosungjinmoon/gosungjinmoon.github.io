@@ -1,13 +1,5 @@
-/* config/meta.json  버전 정보_202510171345 */
 {
-  "author": "GOFUNWITH",
-  "license": "CC-BY 4.0",
-  "keywords": [
-    "Tech",
-    "DIY",
-    "Automation",
-    "Flutter",
-    "OCI",
-    "Blog"
-  ]
+  "version": "6.3.5",
+  "build": "202510170000",
+  "name": "GoFunWith Blog"
 }
