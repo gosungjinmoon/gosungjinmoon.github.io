@@ -1,4 +1,4 @@
-# /* _data/tags.yml  v6.3.5_202510170000 */
+# /* _data/tags.yml  v6.3.7_202510171349 */
 defaults:
   - Tech
   - Automation
@@ -7,3 +7,7 @@ defaults:
   - Flutter
   - OCI
   - HowTo
+
+features:
+  search: true
+  tags: true
