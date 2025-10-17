@@ -1,7 +1,7 @@
-<!-- en/search.md  버전 정보_202510171345 -->
 ---
-layout: search
-title: 'Search (EN)'
+# /* en/tags.md  v6.3.5_202510170000 */
+layout: tags
+title: "#Tags (EN)"
 lang: en
-permalink: /en/search/
+permalink: /en/tags/
 ---
