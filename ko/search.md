@@ -1,7 +1,7 @@
-<!-- ko/search.md  버전 정보_202510171345 -->
 ---
+# /* ko/search.md  v6.3.5_202510170000 */
 layout: search
-title: 'Search (KO)'
+title: "검색"
 lang: ko
 permalink: /ko/search/
 ---
