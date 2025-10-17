@@ -1,1 +1,6 @@
-(function(){try{const p=location.pathname;const cur=p.startsWith('/en/')?'en':(p.startsWith('/ko/')?'ko':null);const st=localStorage.getItem('lang');if(!cur){const t=st||((navigator.language||'').startsWith('ko')?'ko':'en');location.replace('/'+t+'/');return;}document.addEventListener('DOMContentLoaded',()=>{const b=document.getElementById('langToggle');if(b){b.addEventListener('click',()=>{const n=cur==='ko'?'en':'ko';localStorage.setItem('lang',n);location.href='/'+n+'/';});}});}catch(e){}})();
+/* assets/js/translator.js  버전 정보_202510171235 */
+(function () {
+  const html = document.documentElement;
+  const lang = html.getAttribute("lang") || "ko";
+  console.log("[translator] current lang:", lang);
+})();
