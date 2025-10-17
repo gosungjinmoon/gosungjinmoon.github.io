@@ -1,1 +1,38 @@
-<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><title>OAuth Callback</title></head><body><p>GitHub OAuth 처리 중입니다...</p><script>(async()=>{const code=new URL(location.href).searchParams.get('code');if(!code){location.replace('/admin/');return;}try{const url='{{ site.data.theme.cloudflare_worker_endpoint }}?code='+encodeURIComponent(code);const r=await fetch(url);const data=await r.json();if(data.access_token){sessionStorage.setItem('github_token',data.access_token);}}catch(e){}location.replace('/admin/');})();</script></body></html>
+<!-- admin/callback.html  버전 정보_202510171235 -->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GOFUNWITH OAuth Callback</title>
+    <style>
+      body{font-family:Pretendard,system-ui,sans-serif;background:#0b1220;color:#e8ecf3;text-align:center;padding-top:20%}
+    </style>
+  </head>
+  <body>
+    <h2>GitHub 로그인 처리 중...</h2>
+    <p id="status">잠시만 기다려주세요.</p>
+    <script>
+      (async () => {
+        const code = new URL(window.location.href).searchParams.get("code");
+        const status = document.getElementById("status");
+        if (!code) { status.textContent = "❌ code 파라미터 없음"; return; }
+        try {
+          const url = "/_data/theme.yml";
+          const txt = await fetch(url).then(r=>r.text());
+          const endpoint = (txt.match(/cloudflare_worker_endpoint:\s*"(.*?)"/)||[])[1]||"";
+          if(!endpoint){ status.textContent="❌ Worker endpoint 미설정"; return; }
+          const res = await fetch(`${endpoint}?code=${encodeURIComponent(code)}`);
+          const data = await res.json().catch(()=>({}));
+          if (data.access_token) {
+            sessionStorage.setItem("github_token", data.access_token);
+            status.textContent = "✅ 로그인 성공! 관리자 페이지로 이동 중...";
+            setTimeout(()=>location.href="/admin/", 800);
+          } else {
+            status.textContent = "⚠️ 로그인 실패";
+          }
+        } catch(e){ status.textContent = "🚫 네트워크 오류: " + e.message; }
+      })();
+    </script>
+  </body>
+</html>
