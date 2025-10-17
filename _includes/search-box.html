@@ -1,5 +1,5 @@
-<!-- /* _includes/search-box.html  v6.3.5_202510170000 */ -->
-<form id="searchForm" action="{{ page.lang == 'en' | default: false | ternary: '/en/search/', '/ko/search/' | relative_url }}" method="get">
-  <input name="q" placeholder="Search..." aria-label="Search"/>
-  <button type="submit">Go</button>
+<!-- /* _includes/search-box.html  v6.3.7_202510171349 */ -->
+<form id="search-form" action="{{ page.lang | default: site.data.config.site.default_lang | prepend: '/' | append: '/search/' | relative_url }}" method="get" class="search-form">
+  <input type="text" name="q" placeholder="Search..." value="{{ page.q }}" />
+  <button type="submit">Search</button>
 </form>
