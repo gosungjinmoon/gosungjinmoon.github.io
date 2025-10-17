@@ -1,1 +1,16 @@
-window.__GFW_THEME__ = { default: "light", activeTheme: "ocean", allowUserToggle: false, allowLangToggle: true };
+/* config/theme-config.js  버전 정보_202510171345 */
+window.__GFW_CONFIG__ = {
+  brand: "GOFUNWITH – Explore. Create. Share.",
+  tagline: "Go have fun with tech, tools, and life.",
+  domain: "blog.gofunwith.com",
+  url: "https://gosungjinmoon.github.io",
+  repo: "gosungjinmoon/gosungjinmoon.github.io",
+  github: "https://github.com/gosungjinmoon",
+  ga4_measurement_id: "G-R7N7G7QPBF",
+  cloudflare_beacon_token: "c7db8999eee4466bab1893a2361aed10",
+  cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev",
+  n8n_webhook_subscribe: "https://n8n.gofunwith.com/webhook/subscribe",
+  active_theme: "modern",
+  default_lang: "ko",
+  posts_per_page: 12
+};
