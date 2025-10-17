@@ -1,8 +1,14 @@
-<!-- /* _includes/nav.html  v6.3.5_202510170000 */ -->
-<nav class="nav">
-  <a href="{{ '/ko/' | relative_url }}">KOR</a>
-  <a href="{{ '/en/' | relative_url }}">ENG</a>
-  <a href="{{ '/ko/search/' | relative_url }}">Search</a>
-  <a href="{{ '/ko/tags/' | relative_url }}">#Tags</a>
-  <a href="{{ '/admin/' | relative_url }}">Admin</a>
+<!-- /* _includes/nav.html  v6.3.7_202510171349 */ -->
+<nav class="site-nav">
+  <a class="brand" href="{{ '/' | relative_url }}">
+    <img src="{{ '/assets/themes/' | append: site.data.theme.theme | append: '/images/logo.svg' | relative_url }}" alt="logo" />
+    {{ site.data.config.site.brand }}
+  </a>
+  <ul>
+    <li><a href="{{ '/ko/' | relative_url }}">KO</a></li>
+    <li><a href="{{ '/en/' | relative_url }}">EN</a></li>
+    <li><a href="{{ page.lang | default: site.data.config.site.default_lang | prepend: '/' | append: '/search/' | relative_url }}">Search</a></li>
+    <li><a href="{{ page.lang | default: site.data.config.site.default_lang | prepend: '/' | append: '/tags/' | relative_url }}">#Tags</a></li>
+    <li><a href="{{ '/admin/' | relative_url }}">Admin</a></li>
+  </ul>
 </nav>
