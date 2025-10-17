@@ -1,10 +1,10 @@
-<!-- _layouts/tags.html  버전 정보_202510171235 -->
+<!-- _layouts/tags.html  버전 정보_202510171345 -->
 ---
 layout: default
 ---
 <h2>#Tags</h2>
 {% include tag-cloud.html %}
-<hr />
+<hr/>
 {% for t in site.tags %}
   <h3 id="tag-{{ t[0] | slugify }}">#{{ t[0] }}</h3>
   <ul class="tag-list">
