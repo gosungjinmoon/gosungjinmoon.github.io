@@ -1,4 +1,8 @@
-<!-- /* admin/oauth/callback.html  v6.3.5_202510170000 */ -->
+---
+#<!-- /* admin/oauth/callback.html  v6.3.5_202510170000 */ -->
+layout: none
+permalink: /admin/
+---
 <!doctype html>
 <html lang="ko">
   <head>
