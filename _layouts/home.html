@@ -1,20 +1,20 @@
+<!-- /* _layouts/home.html  v6.3.7_202510171349 */ -->
 ---
-# /* _layouts/home.html  v6.3.5_202510170000 */
 layout: default
 ---
 <section class="hero">
   <h1>{{ site.data.config.site.brand }}</h1>
   <p>{{ site.data.config.site.tagline }}</p>
-  {% include lang-switch.html %}
+  {% include search-box.html %}
 </section>
-
 <section class="posts">
-  <h2>Latest Posts</h2>
+  <h2>{% if page.lang == 'en' %}Latest Posts{% else %}최신 글{% endif %}</h2>
   <ul class="post-list">
-    {% for post in site.posts limit: site.data.config.site.posts_per_page %}
+    {% assign posts_coll = site.posts | where: 'lang', page.lang %}
+    {% for p in posts_coll limit: site.data.config.site.posts_per_page %}
     <li>
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      <small>{{ post.date | date: "%Y-%m-%d" }}</small>
+      <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+      <small>{{ p.date | date: "%Y-%m-%d" }}</small>
     </li>
     {% endfor %}
   </ul>
