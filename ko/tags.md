@@ -1,7 +1,7 @@
-<!-- ko/tags.md  버전 정보_202510171345 -->
 ---
+# /* ko/tags.md  v6.3.5_202510170000 */
 layout: tags
-title: 'Tags (KO)'
+title: "#Tags (KO)"
 lang: ko
 permalink: /ko/tags/
 ---
