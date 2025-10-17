@@ -1,9 +1,8 @@
 ---
+<!-- /* admin/index.html  v6.3.5_202510170000 */ -->
 layout: none
 permalink: /admin/
 ---
-
-<!-- /* admin/index.html  v6.3.5_202510170000 */ -->
 <!doctype html>
 <html lang="ko">
   <head>
