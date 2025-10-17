@@ -1,7 +1,8 @@
+/* _data/theme.yml  버전 정보_202510171235 */
 brand: "GOFUNWITH – Explore. Create. Share."
 active_theme: "modern"
 default_language: "ko"
-languages: ["ko", "en"]
+posts_per_page: 12
 domain: "blog.gofunwith.com"
 url: "https://gosungjinmoon.github.io"
 repo: "gosungjinmoon/gosungjinmoon.github.io"
