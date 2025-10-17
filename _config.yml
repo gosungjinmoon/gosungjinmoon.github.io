@@ -43,10 +43,12 @@ markdown_ext: "md,markdown,mkdown,mkdn,mdown,mkdn"
 
 # HTML 파일도 Liquid 렌더링하도록
 include:
-  - _pages
   - admin
-  - assets
   - index.html
+  - assets
+  - config
+  - ko
+  - en
 
 # Liquid 미처리 방지
 defaults:
