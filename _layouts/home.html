@@ -1,28 +1,22 @@
+<!-- _layouts/home.html  버전 정보_202510171235 -->
 ---
 layout: default
 ---
-<section class="home-hero">
+<section class="hero">
   <h1>{{ site.data.theme.brand }}</h1>
-  <p>Go have fun with tech, tools, and life.</p>
+  <p>{{ site.data.theme.tagline }}</p>
+  {% include search-box.html %}
 </section>
-
-<section class="post-list">
-  <div class="list-head">
-    <h2>{% if page.lang == 'en' %}Latest Posts{% else %}최신 글{% endif %}</h2>
-    {% include tag-cloud.html %}
-  </div>
-  <ul>
-  {% assign list = page.lang == 'en' | ternary: site.en, site.ko %}
-  {% for post in list reversed %}
-    <li>
-      <a href="{{ post.url }}">{{ post.title }}</a>
-      <span class="date">{{ post.date | date: "%Y-%m-%d" }}</span>
-      {% if post.tags %}
-        <span class="tags">
-        {% for tg in post.tags %}<em>#{{ tg }}</em>{% endfor %}
-        </span>
-      {% endif %}
-    </li>
+<section class="posts-grid">
+  {% assign per = site.data.theme.posts_per_page | default: 12 %}
+  {% for post in site.posts limit: per %}
+  <article class="card">
+    <a href="{{ post.url }}">
+      <img src="{{ post.cover_image | default: '/assets/images/posts/default-cover.webp' }}" alt="cover"/>
+      <h3>{{ post.title }}</h3>
+      <p>{{ post.subtitle | default: post.excerpt | strip_html | truncate: 110 }}</p>
+      <small>{{ post.date | date: "%Y-%m-%d" }}</small>
+    </a>
+  </article>
   {% endfor %}
-  </ul>
 </section>
