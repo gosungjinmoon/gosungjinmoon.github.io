@@ -1,6 +1,6 @@
-<!-- _includes/tag-cloud.html  버전 정보_202510171235 -->
+<!-- _includes/tag-cloud.html  버전 정보_202510171345 -->
 <ul class="tag-cloud">
-  {% for t in site.tags %}
-  <li><a href="/ko/tags/#tag-{{ t[0] | slugify }}">#{{ t[0] }} ({{ t[1].size }})</a></li>
-  {% endfor %}
+{% for t in site.tags %}
+<li><a href="/ko/tags/#tag-{{ t[0] | slugify }}">#{{ t[0] }} ({{ t[1].size }})</a></li>
+{% endfor %}
 </ul>
