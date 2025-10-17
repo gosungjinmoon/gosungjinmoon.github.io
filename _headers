@@ -1,0 +1,2 @@
+/*
+  Content-Security-Policy: default-src 'self' data: https://static.cloudflareinsights.com https://www.googletagmanager.com; script-src 'self' https://static.cloudflareinsights.com https://www.googletagmanager.com; img-src 'self' data: blob: https://www.google-analytics.com; style-src 'self' 'unsafe-inline';
