@@ -1,20 +1,19 @@
-/* admin/css/admin.css  버전 정보_202510171345 */
-:root{--bg:#0b1220;--fg:#e8ecf3;--card:#141c2b;--accent:#6aa1ff}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;height:100vh;display:flex}
-.admin-header{position:fixed;top:0;left:0;width:100%;height:60px;background:#111a2e;color:#fff;display:flex;align-items:center;gap:12px;padding:0 20px;z-index:10}
-.admin-header .spacer{flex:1}
-.sidebar{width:220px;background:#0f1628;border-right:1px solid #1a2541;margin-top:60px;height:calc(100vh - 60px);padding:12px 0}
-.sidebar ul{list-style:none;margin:0;padding:0}
-.sidebar li{padding:10px 16px;color:#cfe0ff;cursor:pointer}
-.sidebar li.active,.sidebar li:hover{background:#13203a}
-main{flex:1;margin-top:60px;padding:20px;overflow:auto}
-.page{display:none}.page.visible{display:block}
-.card{background:var(--card);border:1px solid #1b2742;border-radius:16px;padding:16px;margin-bottom:16px}
-label{display:block;margin:8px 0 6px}
-input,select,textarea{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #223155;background:#0f172a;color:#e8ecf3}
-.actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
-button{background:#14284a;color:#d7e6ff;border:1px solid #1a2a4d;border-radius:10px;padding:8px 12px;cursor:pointer}
-button.primary{background:#214d95}button.secondary{background:#2a2f3b}
-.hidden{display:none}.preview{width:100%;height:420px;border:1px solid #1a2a4d;border-radius:12px}.code{background:#0f172a;border:1px solid #1a2a4d;border-radius:10px;padding:12px}
-/* Modal */.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center}.modal.hidden{display:none}
-.modal-content{width:min(540px,92vw);background:#0f1628;border:1px solid #213157;border-radius:14px;padding:18px}.modal-content h3{margin:0 0 10px}
+/* admin/css/admin.css  v6.3.5_202510170000 */
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Malgun Gothic,Arial,sans-serif}
+.admin-header{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid #eee}
+.spacer{flex:1}
+.sidebar{position:fixed;top:56px;bottom:0;left:0;width:200px;border-right:1px solid #eee;padding:12px}
+.sidebar li{list-style:none;margin:8px 0;cursor:pointer}
+.sidebar li.active{font-weight:700}
+#content{margin-left:220px;padding:24px}
+.page{display:none}
+.page.visible{display:block}
+.card{border:1px solid #eee;border-radius:12px;padding:16px;max-width:680px}
+.card .actions{display:flex;gap:8px;margin-top:12px}
+.primary{background:#0a7;color:#fff;border:0;padding:8px 12px;border-radius:8px}
+.secondary{background:#eee;border:0;padding:8px 12px;border-radius:8px}
+.preview{width:100%;height:60vh;border:1px solid #eee;border-radius:12px;margin-top:16px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center}
+.modal.visible{display:flex}
+.modal-content{background:#fff;max-width:520px;width:92%;border-radius:12px;padding:16px}
+.code{background:#111;color:#eee;padding:12px;border-radius:8px;overflow:auto}
