@@ -1,2 +1,8 @@
-/* _data/tags.yml  버전 정보_202510171345 */
-defaults: [Tech, Automation, Cloud, DevOps, Flutter, OCI, HowTo]
+defaults:
+  - Tech
+  - Automation
+  - Cloud
+  - DevOps
+  - Flutter
+  - OCI
+  - HowTo
