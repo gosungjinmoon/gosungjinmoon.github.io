@@ -1,10 +1,8 @@
-<header class="site-header">
-  <div class="container">
-    <a class="brand" href="/{{ page.lang | default: 'ko' }}/">
-      <img src="/assets/themes/{{ site.data.theme.active_theme }}/images/logo.svg" alt="GOFUNWITH" />
-      <span>{{ site.data.theme.brand }}</span>
-    </a>
-    {% include nav.html %}
-    {% include lang-switch.html %}
-  </div>
+<header>
+  <nav>
+    <a href='/'>Home</a> | 
+    <a href='/ko/'>KO</a> | 
+    <a href='/en/'>EN</a> | 
+    <a href='/admin/'>Admin</a>
+  </nav>
 </header>
