@@ -1,4 +1,3 @@
-/* _data/theme.yml  버전 정보_202510171345 */
 brand: "GOFUNWITH – Explore. Create. Share."
 domain: "blog.gofunwith.com"
 ga4_measurement_id: "G-R7N7G7QPBF"
@@ -11,3 +10,7 @@ github_oauth_client_id: "Ov23liqsljSBAqajz2eu"
 github_oauth_client_secret: "ff98bc67ded5bcd60684312c69c08525bb2cac35"
 cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
 n8n_webhook_subscribe: "https://n8n.gofunwith.com/webhook/subscribe"
+
+brand_values:
+  vision: "Explore. Create. Share."
+  mission: "Go have fun with tech, tools, and life."
