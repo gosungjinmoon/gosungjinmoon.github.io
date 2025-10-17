@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Sample Post",
+    "url": "/en/sample/",
+    "tags": [
+      "Tech",
+      "Automation"
+    ],
+    "excerpt": "Getting started sample post",
+    "content": "This is a sample content to test search."
+  }
+]
