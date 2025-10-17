@@ -1,5 +1,5 @@
 ---
-<!-- /* admin/index.html  v6.3.5_202510170000 */ -->
+#<!-- /* admin/index.html  v6.3.5_202510170000 */ -->
 layout: none
 permalink: /admin/
 ---
