@@ -1,14 +1,21 @@
-<!-- _layouts/default.html  버전 정보_202510171345 -->
+<!-- /* _layouts/default.html  v6.3.5_202510170000 */ -->
 <!doctype html>
-<html lang="{{ page.lang | default: site.data.theme.default_lang | default: 'ko' }}">
-<head>
-  {% include seo.html %}
-  <link rel="stylesheet" href="/assets/themes/{{ site.data.theme.active_theme }}/css/style.css"/>
-</head>
-<body>
-  {% include header.html %}
-  <main class="container">{{ content }}</main>
-  {% include footer.html %}
-</body>
+<html lang="{{ page.lang | default: 'ko' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ page.title | default: site.title }}</title>
+    {% include seo.html %}
+    <link rel="icon" href="{{ '/assets/images/favicon.ico' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/themes/' | append: site.theme | append: '/css/style.css' | relative_url }}">
+    <script src="{{ '/assets/js/translator.js' | relative_url }}" defer></script>
+  </head>
+  <body>
+    {% include header.html %}
+    <main class="container">
+      {{ content }}
+    </main>
+    {% include footer.html %}
+    <script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
+  </body>
 </html>
-
