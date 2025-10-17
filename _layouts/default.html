@@ -1,13 +1,14 @@
-<!-- _layouts/default.html  버전 정보_202510171235 -->
-<!DOCTYPE html>
+<!-- _layouts/default.html  버전 정보_202510171345 -->
+<!doctype html>
 <html lang="{{ page.lang | default: site.data.theme.default_lang | default: 'ko' }}">
-  <head>
-    {% include seo.html %}
-    <link rel="stylesheet" href="/assets/themes/{{ site.data.theme.active_theme }}/css/style.css"/>
-  </head>
-  <body>
-    {% include header.html %}
-    <main class="container">{{ content }}</main>
-    {% include footer.html %}
-  </body>
+<head>
+  {% include seo.html %}
+  <link rel="stylesheet" href="/assets/themes/{{ site.data.theme.active_theme }}/css/style.css"/>
+</head>
+<body>
+  {% include header.html %}
+  <main class="container">{{ content }}</main>
+  {% include footer.html %}
+</body>
 </html>
+
