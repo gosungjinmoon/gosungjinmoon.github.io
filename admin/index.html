@@ -1,29 +1,103 @@
-<!-- admin/index.html  버전 정보_202510171345 -->
+<!-- /* admin/index.html  v6.3.5_202510170000 */ -->
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>GoFunWith Admin Console</title><link rel="stylesheet" href="css/admin.css"/>
-<script src="/config/theme-config.js"></script><script src="/config/lang-config.js"></script></head>
-<body>
-<header class="admin-header"><h1>⚙️ GoFunWith Admin</h1><div class="spacer"></div><button id="loginBtn">GitHub 로그인</button><button id="logoutBtn" class="secondary hidden">로그아웃</button></header>
-<nav class="sidebar"><ul><li data-page="theme" class="active">🎨 테마</li><li data-page="settings">🔧 환경설정</li><li data-page="posts">📝 포스트</li></ul></nav>
-<main id="content">
-<section id="page-theme" class="page visible"><h2>🎨 테마 설정</h2><div class="card">
-<label>브랜드명</label><input id="brandName" placeholder="GOFUNWITH – Explore. Create. Share."/>
-<label>태그라인</label><input id="brandTagline" placeholder="Go have fun with tech, tools, and life."/>
-<label>GA4 Measurement ID</label><input id="ga4" placeholder="G-XXXXXXXXXX"/>
-<label>n8n Subscribe URL</label><input id="n8n" placeholder="https://n8n.example.com/webhook/subscribe"/>
-<div class="actions"><button id="loadTheme">불러오기</button><button id="saveTheme" class="primary">저장 & 커밋</button></div></div>
-<iframe id="preview" src="/" class="preview"></iframe></section>
-<section id="page-settings" class="page"><h2>🔧 환경설정</h2><div class="card">
-<label>기본 언어</label><select id="langDefault"><option value="ko">한국어</option><option value="en">English</option></select>
-<label>페이지당 포스트 수</label><input id="postsPerPage" type="number" min="1" value="12"/>
-<div class="actions"><button id="loadConfig">불러오기</button><button id="saveConfig" class="primary">저장 & 커밋</button></div></div></section>
-<section id="page-posts" class="page"><h2>📝 포스트</h2><div class="actions"><button id="listPosts">목록 불러오기</button><button id="openNewPostModal" class="primary">새 글 작성</button></div><pre id="postsResult" class="code"></pre></section>
-</main>
-<div id="newPostModal" class="modal hidden"><div class="modal-content"><h3>새 글 작성</h3>
-<label>제목</label><input id="newPostTitle" placeholder="예: 나의 첫 자동화 프로젝트"/>
-<label>언어</label><select id="newPostLang"><option value="ko">한국어</option><option value="en">English</option></select>
-<label>태그 (쉼표 구분)</label><input id="newPostTags" placeholder="예: Tech, Automation"/>
-<label>요약 설명</label><textarea id="newPostDesc" rows="3" placeholder="검색 및 SNS에 표시될 요약문 (150자 이내)"></textarea>
-<div class="actions"><button id="cancelNewPost">취소</button><button id="submitNewPost" class="primary">작성하기</button></div></div></div>
-<script type="module" src="js/admin.js"></script></body></html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>GoFunWith Admin</title>
+    <link rel="stylesheet" href="{{ '/admin/css/admin.css' | relative_url }}">
+  </head>
+  <body>
+    <header class="admin-header">
+      <h1>⚙️ GoFunWith Admin</h1>
+      <div class="spacer"></div>
+      <button id="loginBtn">GitHub 로그인</button>
+      <button id="logoutBtn" class="secondary">로그아웃</button>
+    </header>
+
+    <nav class="sidebar">
+      <ul>
+        <li data-page="theme" class="active">🎨 테마</li>
+        <li data-page="settings">🔧 환경설정</li>
+        <li data-page="posts">📝 포스트</li>
+        <li data-page="automations">🤖 자동화</li>
+      </ul>
+    </nav>
+
+    <main id="content">
+      <section id="page-theme" class="page visible">
+        <h2>🎨 테마 설정</h2>
+        <div class="card">
+          <label>브랜드명</label>
+          <input id="brandName" placeholder="GOFUNWITH – Explore. Create. Share."/>
+          <label>태그라인</label>
+          <input id="brandTagline" placeholder="Go have fun with tech, tools, and life."/>
+          <label>GA4 Measurement ID</label>
+          <input id="ga4" placeholder="G-XXXXXXXXXX"/>
+          <label>n8n Subscribe URL</label>
+          <input id="n8n" placeholder="https://n8n.example.com/webhook/subscribe"/>
+          <div class="actions">
+            <button id="loadTheme">불러오기</button>
+            <button id="saveTheme" class="primary">저장 & 커밋</button>
+          </div>
+        </div>
+        <iframe id="preview" src="{{ '/' | relative_url }}" class="preview"></iframe>
+      </section>
+
+      <section id="page-settings" class="page">
+        <h2>🔧 환경설정</h2>
+        <div class="card">
+          <label>기본 언어</label>
+          <select id="langDefault">
+            <option value="ko">한국어</option>
+            <option value="en">English</option>
+          </select>
+          <label>페이지당 포스트 수</label>
+          <input id="postsPerPage" type="number" min="1" value="10"/>
+          <div class="actions">
+            <button id="loadConfig">불러오기</button>
+            <button id="saveConfig" class="primary">저장 & 커밋</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-posts" class="page">
+        <h2>📝 포스트</h2>
+        <div class="actions">
+          <button id="listPosts">목록 불러오기</button>
+          <button id="openNewPost" class="primary">새 글 작성</button>
+        </div>
+        <pre id="postsResult" class="code"></pre>
+      </section>
+
+      <section id="page-automations" class="page">
+        <h2>🤖 자동화</h2>
+        <p>n8n 상태 확인 및 Webhook 테스트 (v6.4 예정)</p>
+      </section>
+    </main>
+
+    <!-- New Post Modal -->
+    <div id="newPostModal" class="modal">
+      <div class="modal-content">
+        <h3>새 글 만들기</h3>
+        <label>제목</label>
+        <input id="npTitle" placeholder="포스트 제목"/>
+        <label>언어</label>
+        <select id="npLang">
+          <option value="ko">한국어</option>
+          <option value="en">English</option>
+        </select>
+        <label>태그 (쉼표로 구분)</label>
+        <input id="npTags" placeholder="Tech, Automation"/>
+        <label>요약</label>
+        <textarea id="npDesc" rows="3" placeholder="150자 이내 요약"></textarea>
+        <div class="actions">
+          <button id="createPost" class="primary">생성</button>
+          <button id="cancelPost">취소</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="{{ '/admin/js/admin.js' | relative_url }}"></script>
+  </body>
+</html>
