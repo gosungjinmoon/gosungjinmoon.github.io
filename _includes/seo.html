@@ -1,14 +1,14 @@
+<!-- _includes/seo.html  버전 정보_202510171235 -->
+{% if site.title %}<title>{{ page.title | default: site.title }}</title>{% endif %}
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="description" content="{{ page.description | default: site.description }}"/>
+<link rel="icon" href="/assets/themes/{{ site.data.theme.active_theme }}/images/logo.svg"/>
 {% seo %}
-<meta name="theme-color" content="#1e2a3a" />
-<link rel="icon" href="/assets/themes/{{ site.data.theme.active_theme }}/images/logo.svg" />
+{% if site.data.theme.ga4_measurement_id %}
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.data.theme.ga4_measurement_id }}"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date()); gtag('config','{{ site.data.theme.ga4_measurement_id }}');
-</script>
-{% if site.data.theme.cloudflare_beacon_token %}
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js"
-  data-cf-beacon='{"token":"{{ site.data.theme.cloudflare_beacon_token }}"}'></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.data.theme.ga4_measurement_id }}');</script>
 {% endif %}
-
+{% if site.data.theme.cloudflare_beacon_token %}
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"{{ site.data.theme.cloudflare_beacon_token }}"}'></script>
+{% endif %}
