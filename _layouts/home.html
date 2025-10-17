@@ -1,22 +1,21 @@
-<!-- _layouts/home.html  버전 정보_202510171345 -->
 ---
+# /* _layouts/home.html  v6.3.5_202510170000 */
 layout: default
 ---
 <section class="hero">
-  <h1>{{ site.data.theme.brand }}</h1>
-  <p>{{ site.data.theme.tagline }}</p>
-  {% include search-box.html %}
+  <h1>{{ site.data.config.site.brand }}</h1>
+  <p>{{ site.data.config.site.tagline }}</p>
+  {% include lang-switch.html %}
 </section>
-<section class="posts-grid">
-  {% assign per = site.data.theme.posts_per_page | default: 12 %}
-  {% for post in site.posts limit: per %}
-  <article class="card">
-    <a href="{{ post.url }}">
-      <img src="{{ post.cover_image | default: '/assets/images/posts/default-cover.webp' }}" alt="cover"/>
-      <h3>{{ post.title }}</h3>
-      <p>{{ post.subtitle | default: post.excerpt | strip_html | truncate: 110 }}</p>
+
+<section class="posts">
+  <h2>Latest Posts</h2>
+  <ul class="post-list">
+    {% for post in site.posts limit: site.data.config.site.posts_per_page %}
+    <li>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
       <small>{{ post.date | date: "%Y-%m-%d" }}</small>
-    </a>
-  </article>
-  {% endfor %}
+    </li>
+    {% endfor %}
+  </ul>
 </section>
