@@ -1,4 +1,5 @@
 ---
+# /* _posts/template.md  v6.3.5_202510170000 */
 layout: post
 title: "여기에 포스트 제목을 입력하세요"
 subtitle: "짧은 부제목 또는 문장"
@@ -26,14 +27,3 @@ canonical_url: "https://blog.gofunwith.com/ko/sample-post"
 - **tags:** 관련 글 자동 정렬 및 태그 페이지 자동 생성
 - **cover_image:** SNS, OpenGraph 썸네일 자동 표시
 - **canonical_url:** 중복 URL 방지를 위한 기준 경로
-
----
-
-## 예시 코드 블록
-```bash
-flutter build web
-git push origin main
-```
-
-## 마무리
-> **© 2025 GOFUNWITH – Explore. Create. Share.**
