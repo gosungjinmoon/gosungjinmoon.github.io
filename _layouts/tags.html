@@ -1,26 +1,15 @@
+<!-- _layouts/tags.html  버전 정보_202510171235 -->
 ---
 layout: default
 ---
-<section class="tags-page">
-  <h1>{% if page.lang == 'en' %}Tags{% else %}태그{% endif %}</h1>
-  {% include tag-cloud.html %}
-  <div class="tag-groups">
-    {% assign coll = page.lang == 'en' | ternary: site.en, site.ko %}
-    {% assign all = '' | split: '' %}
-    {% for p in coll %}
-      {% for t in p.tags %}
-        {% unless all contains t %}{% assign all = all | push: t %}{% endunless %}
-      {% endfor %}
-    {% endfor %}
-    {% for tg in all %}
-      <h2 id="{{ tg }}">#{{ tg }}</h2>
-      <ul>
-        {% for p in coll %}
-          {% if p.tags contains tg %}
-            <li><a href="{{ p.url }}">{{ p.title }}</a> <span class="date">{{ p.date | date: "%Y-%m-%d" }}</span></li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    {% endfor %}
-  </div>
-</section>
+<h2>#Tags</h2>
+{% include tag-cloud.html %}
+<hr />
+{% for t in site.tags %}
+  <h3 id="tag-{{ t[0] | slugify }}">#{{ t[0] }}</h3>
+  <ul class="tag-list">
+  {% for post in t[1] %}
+    <li><a href="{{ post.url }}">{{ post.title }}</a> <small>({{ post.date | date: "%Y-%m-%d" }})</small></li>
+  {% endfor %}
+  </ul>
+{% endfor %}
