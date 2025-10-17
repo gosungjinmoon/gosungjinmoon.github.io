@@ -1,14 +1,18 @@
 /* _data/theme.yml  버전 정보_202510171345 */
-brand: "GOFUNWITH – Explore. Create. Share."
-tagline: "Go have fun with tech, tools, and life."
+
+brand: GOFUNWITH – Explore. Create. Share.
 domain: "blog.gofunwith.com"
-url: "https://gosungjinmoon.github.io"
-repo: "gosungjinmoon/gosungjinmoon.github.io"
-github: "https://github.com/gosungjinmoon"
 ga4_measurement_id: "G-R7N7G7QPBF"
 cloudflare_beacon_token: "c7db8999eee4466bab1893a2361aed10"
+repo: "gosungjinmoon/gosungjinmoon.github.io"
+url: "https://gosungjinmoon.github.io"
+github: "https://github.com/gosungjinmoon"
+timezone: "Asia/Seoul"
+github_oauth_client_id: "Ov23liqsljSBAqajz2eu"
+github_oauth_client_secret: "ff98bc67ded5bcd60684312c69c08525bb2cac35"
 cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
 n8n_webhook_subscribe: "https://n8n.gofunwith.com/webhook/subscribe"
+brand_values: { vision: "Explore. Create. Share.", mission: "Go have fun with tech, tools, and life." }
 active_theme: "modern"
 default_lang: "ko"
 posts_per_page: 12
