@@ -1,13 +1,17 @@
-<!-- _includes/seo.html  버전 정보_202510171345 -->
-{% if site.title %}<title>{{ page.title | default: site.title }}</title>{% endif %}
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="description" content="{{ page.description | default: site.description }}"/>
-<link rel="icon" href="/assets/themes/{{ site.data.theme.active_theme }}/images/logo.svg"/>
+<!-- /* _includes/seo.html  v6.3.5_202510170000 */ -->
 {% seo %}
-{% if site.data.theme.ga4_measurement_id %}
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.data.theme.ga4_measurement_id }}"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.data.theme.ga4_measurement_id }}');</script>
+{% assign ga4 = site.data.theme.ga4_measurement_id %}
+{% if ga4 and ga4 != "" %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ ga4 }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ ga4 }}');
+</script>
 {% endif %}
-{% if site.data.theme.cloudflare_beacon_token %}
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"{{ site.data.theme.cloudflare_beacon_token }}"}'></script>
+
+{% assign cf = site.data.theme.cloudflare_beacon_token %}
+{% if cf and cf != "" %}
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ cf }}"}'></script>
 {% endif %}
