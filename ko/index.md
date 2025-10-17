@@ -1,6 +1,7 @@
-<!-- ko/index.md  버전 정보_202510171345 -->
 ---
+# /* ko/index.md  v6.3.5_202510170000 */
 layout: home
-title: 'GOFUNWITH (KO)'
+title: "GOFUNWITH – 한국어"
 lang: ko
+permalink: /ko/
 ---
