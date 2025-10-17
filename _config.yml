@@ -4,6 +4,8 @@ markdown: kramdown
 theme: null
 timezone: Asia/Seoul
 baseurl: ""
+url: "https://gosungjinmoon.github.io"
+paginate: 12
 
 plugins:
   - jekyll-seo-tag
@@ -26,3 +28,4 @@ exclude:
   - package.json
   - package-lock.json
   - admin/README.md
+  - cloudflare_worker.js
