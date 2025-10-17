@@ -1,2 +1,8 @@
-<!-- _includes/header.html  버전 정보_202510171345 -->
-<header class="site-header">{% include nav.html %}{% include lang-switch.html %}</header>
+<!-- /* _includes/header.html  v6.3.5_202510170000 */ -->
+<header class="site-header">
+  <a href="{{ '/' | relative_url }}" class="brand">
+    <img src="{{ '/assets/themes/' | append: site.theme | append: '/images/logo.svg' | relative_url }}" alt="{{ site.title }}" width="28" height="28"/>
+    <span>{{ site.title }}</span>
+  </a>
+  {% include nav.html %}
+</header>
