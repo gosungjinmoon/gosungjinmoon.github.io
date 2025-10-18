@@ -1,17 +1,5 @@
-<!-- /* _includes/seo.html  v6.3.5_202510170000 */ -->
-{% seo %}
-{% assign ga4 = site.data.theme.ga4_measurement_id %}
-{% if ga4 and ga4 != "" %}
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ ga4 }}"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', '{{ ga4 }}');
-</script>
-{% endif %}
+<!-- /* _includes/seo.html  v6.4.1_202510180200 */ -->
 
-{% assign cf = site.data.theme.cloudflare_beacon_token %}
-{% if cf and cf != "" %}
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ cf }}"}'></script>
-{% endif %}
+{% seo %}
+<link rel="icon" href="{{ '/assets/themes/light-mint/images/logo.svg' | relative_url }}">
+<meta name="theme-color" content="#2bd9c4">
