@@ -1,8 +1,7 @@
-<!-- /* ko/tags.md  v6.4.1_202510180200 */ -->
-
+<!-- /* ko/tags.md  v6.4.1_20251017 */ -->
 ---
 layout: tags
-title: "태그"
+title: "Tags"
 lang: ko
 permalink: /ko/tags/
 ---
