@@ -1,7 +1,8 @@
+<!-- /* ko/index.md  v6.3.7_202510171349 */ -->
 ---
 layout: home
+title: "GOFUNWITH — 한국어"
 lang: ko
-title: "GOFUNWITH"
-permalink: /
+permalink: /ko/
 ---
-<meta http-equiv="refresh" content="0; url=/ko/">
+{% include lang-switch.html %}
