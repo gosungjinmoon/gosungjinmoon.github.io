@@ -1,31 +1,10 @@
-/* admin/js/posts.js  v6.3.7_202510171349 */
-export async function createNewPost(title, lang) {
-  const token = sessionStorage.getItem('github_token');
-  if (!token) throw new Error("로그인이 필요합니다.");
-  const slug = title.trim().toLowerCase()
-    .replace(/\s+/g,'-')
-    .replace(/[^a-z0-9\-가-힣]/g,'');
-  const today = new Date().toISOString().slice(0,10);
-  const dir = lang === 'en' ? 'en/_posts' : 'ko/_posts';
-  const ext = lang === 'en' ? 'en' : 'ko';
-  const filename = `${today}-${slug}.${ext}.md`;
-  const path = `${dir}/${filename}`;
-  const content = `---\nlayout: post\ntitle: "${title}"\nlang: ${lang}\ndate: ${today}\ntags:\n  - Tech\n---\n\n콘텐츠를 여기에 작성하세요.\n`;
-  const b64 = btoa(unescape(encodeURIComponent(content)));
+/* admin/js/posts.js  v6.4.1_202510180200 */
 
-  const repo = "gosungjinmoon/gosungjinmoon.github.io"; // 필요시 수정
-  const url = "https://api.github.com/repos/" + repo + "/contents/" + path;
-  const res = await fetch(url, {
-    method: "PUT",
-    headers: {
-      "Authorization": "token " + token,
-      "Accept": "application/vnd.github+json"
-    },
-    body: JSON.stringify({
-      message: "chore(admin): create post " + filename,
-      content: b64
-    })
-  });
-  if (!res.ok) throw new Error("GitHub API 오류: " + (await res.text()));
-  return { path, filename };
+export function slugify(t){return t.toLowerCase().replace(/\s+/g,"-").replace(/[^a-z0-9\-]/g,"").replace(/\-+/g,"-").replace(/^-+|-+$/g,"")}
+export function buildFrontMatter({title,desc,lang,tags}){
+ const d=new Date().toISOString().slice(0,10);
+ const lines=["---","layout: post",`title: "{title}"`.replace("{{","").replace("}}",""),`description: "{desc}"`.replace("{{","").replace("}}",""),`lang: ${lang}`,"tags:",...(tags?tags.split(",").map(t=>"  - "+t.trim()).filter(Boolean):["  - Tech"]),`date: ${d}`,"---","","# 본문을 작성하세요"]; return lines.join("\n");
+}
+export function makeFilename(title,lang){
+ const d=new Date().toISOString().slice(0,10); const slug=slugify(title); const folder=lang==="en"?"_posts/en":"_posts/ko"; return `/${folder}/${d}-${slug}.md`;
 }
