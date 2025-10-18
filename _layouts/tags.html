@@ -1,20 +1,19 @@
-<!-- /* _layouts/tags.html  v6.4.1_202510180200 */ -->
-
-<h1>Tags</h1>
+<!-- /* _layouts/tags.html  v6.4.1_20251017 */ -->
+---
+layout: default
+---
+<h2>Tags</h2>
 {% include tag-cloud.html %}
-<hr />
-{% assign posts_lang = site.posts | where_exp:'p','p.lang == page.lang' %}
-{% assign tags = posts_lang | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
-{% for t in tags %}
-  {% assign t_trim = t | strip %}
-  {% if t_trim != '' %}
-  <h2 id="{{ t_trim | uri_escape }}">{{ t_trim }}</h2>
+
+{%- assign lang = page.lang | default: 'ko' -%}
+{%- for tag in site.data.tags.defaults -%}
+  <h3 id="{{ tag | slugify }}">#{{ tag }}</h3>
   <ul>
-    {% for p in posts_lang %}
-      {% if p.tags contains t_trim %}
+    {%- assign ps = site.posts | where: "lang", lang -%}
+    {%- for p in ps -%}
+      {%- if p.tags contains tag -%}
         <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a> <small>({{ p.date | date: "%Y-%m-%d" }})</small></li>
-      {% endif %}
-    {% endfor %}
+      {%- endif -%}
+    {%- endfor -%}
   </ul>
-  {% endif %}
-{% endfor %}
+{%- endfor -%}
