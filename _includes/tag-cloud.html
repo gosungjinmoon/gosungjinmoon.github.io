@@ -1,8 +1,6 @@
-	<!-- /* _includes/tag-cloud.html  v6.4.1_202510180200 */ -->
-
-	<ul class="tag-cloud">
-	  {% assign tlist = site.tags | sort %}
-	  {% for tag in tlist %}
-		<li><a href="{{ '/ko/tags/#' | relative_url }}{{ tag[0] | uri_escape }}">{{ tag[0] }} ({{ tag[1].size }})</a></li>
-	  {% endfor %}
-	</ul>
+{% assign tags = site.data.tags.tags %}
+<ul class="tag-cloud">
+  {% for tag in tags %}
+    <li><a href="{{ '/ko/tags/#' | relative_url }}{{ tag | uri_escape }}">{{ tag }}</a></li>
+  {% endfor %}
+</ul>
