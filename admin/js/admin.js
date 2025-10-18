@@ -1,31 +1,12 @@
-/* admin/js/posts.js  v6.3.7_202510171349 */
-export async function createNewPost(title, lang) {
-  const token = sessionStorage.getItem('github_token');
-  if (!token) throw new Error("로그인이 필요합니다.");
-  const slug = title.trim().toLowerCase()
-    .replace(/\s+/g,'-')
-    .replace(/[^a-z0-9\-가-힣]/g,'');
-  const today = new Date().toISOString().slice(0,10);
-  const dir = lang === 'en' ? 'en/_posts' : 'ko/_posts';
-  const ext = lang === 'en' ? 'en' : 'ko';
-  const filename = `${today}-${slug}.${ext}.md`;
-  const path = `${dir}/${filename}`;
-  const content = `---\nlayout: post\ntitle: "${title}"\nlang: ${lang}\ndate: ${today}\ntags:\n  - Tech\n---\n\n콘텐츠를 여기에 작성하세요.\n`;
-  const b64 = btoa(unescape(encodeURIComponent(content)));
+/* admin/js/admin.js  v6.4.1_202510180200 */
 
-  const repo = "gosungjinmoon/gosungjinmoon.github.io"; // 필요시 수정
-  const url = "https://api.github.com/repos/" + repo + "/contents/" + path;
-  const res = await fetch(url, {
-    method: "PUT",
-    headers: {
-      "Authorization": "token " + token,
-      "Accept": "application/vnd.github+json"
-    },
-    body: JSON.stringify({
-      message: "chore(admin): create post " + filename,
-      content: b64
-    })
-  });
-  if (!res.ok) throw new Error("GitHub API 오류: " + (await res.text()));
-  return { path, filename };
-}
+import {getThemeYaml,saveNewPostViaWorker} from "./github-api.js";
+import {buildFrontMatter,makeFilename} from "./posts.js";
+const navItems=document.querySelectorAll(".sidebar li"); const pages=document.querySelectorAll(".page");
+navItems.forEach(li=>li.addEventListener("click",()=>{navItems.forEach(x=>x.classList.remove("active")); li.classList.add("active"); const page=li.getAttribute("data-page"); pages.forEach(p=>p.classList.toggle("visible",p.id==="page-"+page));}));
+document.getElementById("loginBtn")?.addEventListener("click",()=>alert("OAuth는 Worker로 처리"));
+document.getElementById("logoutBtn")?.addEventListener("click",()=>{sessionStorage.clear(); location.reload();});
+document.getElementById("loadTheme")?.addEventListener("click",async()=>{const txt=await getThemeYaml(); alert("theme.yml loaded\n\n"+txt.slice(0,400)+(txt.length>400?"...":""));});
+document.getElementById("saveTheme")?.addEventListener("click",async()=>alert("PR 기반 저장은 다음 버전에서"));
+document.getElementById("newPostForm")?.addEventListener("submit",async e=>{e.preventDefault(); const title=document.getElementById("postTitle").value.trim(); const lang=document.getElementById("postLang").value; const tags=document.getElementById("postTags").value.trim(); const desc=document.getElementById("postDesc").value.trim(); if(!title) return alert("제목을 입력하세요."); const path=makeFilename(title,lang); const content=buildFrontMatter({title,desc,lang,tags}); try{const result=await saveNewPostViaWorker({ path, content, message: `chore(post): add ${title}` }); alert("PR 생성 완료: "+(result?.pr?.html_url||"확인 필요"));}catch(err){alert("오류: "+err.message);}});
+document.getElementById("listPosts")?.addEventListener("click",async()=>{const res=await fetch("/ko/search.json"); const list=await res.json(); document.getElementById("postsResult").textContent=list.map(p=>`${p.date}  ${p.title}  ${p.url}`).join("\n");});
