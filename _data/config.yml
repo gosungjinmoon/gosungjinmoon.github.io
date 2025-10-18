@@ -1,11 +1,21 @@
-# /* _data/config.yml  v6.3.7_202510171349 */
+# /* _data/config.yml  v6.4.1_202510180215 */
 site:
   brand: "GOFUNWITH – Explore. Create. Share."
   tagline: "Go have fun with tech, tools, and life."
   default_lang: "ko"
   posts_per_page: 12
+  repo: "gosungjinmoon/gosungjinmoon.github.io"
+  github: "https://github.com/gosungjinmoon"
+  timezone: "Asia/Seoul"
 
-repo: "gosungjinmoon/gosungjinmoon.github.io"
-url: "https://gosungjinmoon.github.io"
-github: "https://github.com/gosungjinmoon"
-timezone: "Asia/Seoul"
+integrations:
+  ga4_measurement_id: "G-R7N7G7QPBF"
+  cloudflare_beacon_token: "" # CSP 이슈로 기본 비활성
+  n8n_webhook_subscribe: "https://n8n.gofunwith.com/webhook/subscribe"
+  cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
+
+branding:
+  logo_path: "/assets/themes/light-mint/images/logo.svg"
+
+theme:
+  active: "light-mint"
