@@ -1,8 +1,8 @@
-<!-- /* en/index.md  v6.3.7_202510171349 */ -->
+<!-- /* en/index.md  v6.4.1_202510180200 */ -->
+
 ---
 layout: home
 title: "GOFUNWITH — English"
 lang: en
 permalink: /en/
 ---
-{% include lang-switch.html %}
