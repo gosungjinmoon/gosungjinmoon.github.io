@@ -1,28 +1,18 @@
-<!-- /* _layouts/post.html  v6.3.7_202510171349 */ -->
-<!DOCTYPE html>
-<html lang="{{ page.lang | default: site.data.config.site.default_lang }}">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ page.title }} | {{ site.title }}</title>
-  {% include seo.html %}
-  <link rel="stylesheet" href="{{ '/assets/themes/' | append: site.data.theme.theme | append: '/css/style.css' | relative_url }}">
-</head>
-<body>
-  {% include nav.html %}
-  <article class="post">
-    <header>
-      <h1>{{ page.title }}</h1>
-      {% if page.subtitle %}<p class="subtitle">{{ page.subtitle }}</p>{% endif %}
-      <small>{{ page.date | date: "%Y-%m-%d" }} • {{ page.reading_time | default: 5 }} min</small>
-    </header>
-    <div class="post-content">
-      {{ content }}
-    </div>
-    <footer class="post-tags">
-      {% for t in page.tags %}<a href="{{ '/' | append: page.lang | append: '/tags/#' | append: t | relative_url }}"># {{ t }}</a> {% endfor %}
-    </footer>
-  </article>
-  <script src="{{ '/assets/js/site.js' | relative_url }}"></script>
-</body>
-</html>
+<!-- /* _layouts/post.html  v6.4.1_202510180200 */ -->
+
+<article class="post">
+  <header class="post-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.subtitle %}<p class="sub">{{ page.subtitle }}</p>{% endif %}
+    <p class="meta">{{ page.date | date: "%Y-%m-%d" }} · {% if page.reading_time %}{{ page.reading_time }} min{% endif %}</p>
+    {% if page.cover_image %}<img class="cover" src="{{ page.cover_image | relative_url }}" alt="{{ page.title }}" />{% endif %}
+  </header>
+  <section class="content">
+    {{ content }}
+  </section>
+  {% if page.tags %}
+  <footer class="post-tags">
+    <strong>Tags:</strong> {{ page.tags | join: ', ' }}
+  </footer>
+  {% endif %}
+</article>
