@@ -1,29 +1,42 @@
-/* _config.yml  v6.4.1_202510180200 */
-
+# /* _config.yml  v6.4.1_202510180215 */
 title: "GOFUNWITH"
 description: "Go have fun with tech, tools, and life."
 markdown: kramdown
-theme: null
+theme:
 timezone: Asia/Seoul
+
+# 커스텀 도메인(CNAME) 사용 시 권장
+url: "https://blog.gofunwith.com"
 baseurl: ""
-url: "https://gosungjinmoon.github.io"
-permalink: /:categories/:year-:month-:day-:title/
+
+# GitHub Pages 지원 플러그인만 사용
 plugins:
   - jekyll-seo-tag
   - jekyll-feed
   - jekyll-sitemap
-  - jekyll-paginate
-paginate: 12
-paginate_path: "/page:num"
-include:
-  - admin
-  - ko
-  - en
+
+# 다국어(정적 디렉토리) + 포스트 기본 레이아웃
+collections:
+  ko:
+    output: true
+    permalink: /ko/:name/
+  en:
+    output: true
+    permalink: /en/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+# GitHub Pages에서 빌드 제외
 exclude:
   - node_modules/
   - _secrets/
   - README.md
-  - LICENSE
+  - cloudflare_worker.js
   - package.json
   - package-lock.json
-  - cloudflare_worker.js
+  - admin/README.md
