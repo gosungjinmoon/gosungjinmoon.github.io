@@ -1,19 +1,20 @@
----
-# /* _layouts/tags.html  v6.3.5_202510170000 */
-layout: default
----
-<section class="page">
-  <h1>#Tags</h1>
-  {% include tag-cloud.html %}
-  <div class="tags-section">
-    {% assign sorted_tags = site.tags | sort %}
-    {% for tag in sorted_tags %}
-      <h3 id="{{ tag[0] }}">#{{ tag[0] }}</h3>
-      <ul>
-        {% for post in tag[1] %}
-          <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a> <small>{{ post.date | date: "%Y-%m-%d" }}</small></li>
-        {% endfor %}
-      </ul>
+<!-- /* _layouts/tags.html  v6.4.1_202510180200 */ -->
+
+<h1>Tags</h1>
+{% include tag-cloud.html %}
+<hr />
+{% assign posts_lang = site.posts | where_exp:'p','p.lang == page.lang' %}
+{% assign tags = posts_lang | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
+{% for t in tags %}
+  {% assign t_trim = t | strip %}
+  {% if t_trim != '' %}
+  <h2 id="{{ t_trim | uri_escape }}">{{ t_trim }}</h2>
+  <ul>
+    {% for p in posts_lang %}
+      {% if p.tags contains t_trim %}
+        <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a> <small>({{ p.date | date: "%Y-%m-%d" }})</small></li>
+      {% endif %}
     {% endfor %}
-  </div>
-</section>
+  </ul>
+  {% endif %}
+{% endfor %}
