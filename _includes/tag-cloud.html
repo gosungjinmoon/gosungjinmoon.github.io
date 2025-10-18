@@ -1,6 +1,6 @@
-{% assign tags = site.data.tags.tags %}
+<!-- /* _includes/tag-cloud.html  v6.4.1_20251017 */ -->
 <ul class="tag-cloud">
-  {% for tag in tags %}
-    <li><a href="{{ '/ko/tags/#' | relative_url }}{{ tag | uri_escape }}">{{ tag }}</a></li>
-  {% endfor %}
+  {%- for tag in site.data.tags.defaults -%}
+  <li><a href="{{ (page.lang == 'en' ? '/en/tags/' : '/ko/tags/') | relative_url }}#{{ tag | slugify }}">{{ tag }}</a></li>
+  {%- endfor -%}
 </ul>
