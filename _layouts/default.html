@@ -1,19 +1,19 @@
-<!-- /* _layouts/default.html  v6.3.7_202510171349 */ -->
+<!-- /* _layouts/default.html  v6.4.1_202510180200 */ -->
+
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.data.config.site.default_lang }}">
+<html lang="{{ page.lang | default: site.default_lang | default: 'ko' }}">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ page.title | default: site.title }}</title>
   {% include seo.html %}
-  <link rel="stylesheet" href="{{ '/assets/themes/' | append: site.data.theme.theme | append: '/css/style.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/themes/light-mint/css/style.css' | relative_url }}" />
 </head>
-<body>
+<body class="theme-light-mint">
   {% include nav.html %}
   <main class="container">
     {{ content }}
   </main>
-  <script src="{{ '/assets/js/translator.js' | relative_url }}"></script>
-  <script src="{{ '/assets/js/site.js' | relative_url }}"></script>
+  {% include footer.html %}
 </body>
 </html>
