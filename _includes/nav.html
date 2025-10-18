@@ -1,14 +1,8 @@
-<!-- /* _includes/nav.html  v6.3.7_202510171349 */ -->
-<nav class="site-nav">
-  <a class="brand" href="{{ '/' | relative_url }}">
-    <img src="{{ '/assets/themes/' | append: site.data.theme.theme | append: '/images/logo.svg' | relative_url }}" alt="logo" />
-    {{ site.data.config.site.brand }}
-  </a>
-  <ul>
-    <li><a href="{{ '/ko/' | relative_url }}">KO</a></li>
-    <li><a href="{{ '/en/' | relative_url }}">EN</a></li>
-    <li><a href="{{ page.lang | default: site.data.config.site.default_lang | prepend: '/' | append: '/search/' | relative_url }}">Search</a></li>
-    <li><a href="{{ page.lang | default: site.data.config.site.default_lang | prepend: '/' | append: '/tags/' | relative_url }}">#Tags</a></li>
-    <li><a href="{{ '/admin/' | relative_url }}">Admin</a></li>
-  </ul>
-</nav>
+<!-- /* _includes/tag-cloud.html  v6.4.1_202510180200 */ -->
+
+<ul class="tag-cloud">
+  {% assign tlist = site.tags | sort %}
+  {% for tag in tlist %}
+    <li><a href="{{ '/ko/tags/#' | relative_url }}{{ tag[0] | uri_escape }}">{{ tag[0] }} ({{ tag[1].size }})</a></li>
+  {% endfor %}
+</ul>
