@@ -1,5 +1,7 @@
-<!-- /* _includes/search-box.html  v6.3.7_202510171349 */ -->
-<form id="search-form" action="{{ page.lang | default: site.data.config.site.default_lang | prepend: '/' | append: '/search/' | relative_url }}" method="get" class="search-form">
-  <input type="text" name="q" placeholder="Search..." value="{{ page.q }}" />
-  <button type="submit">Search</button>
-</form>
+<!-- /* _includes/search-box.html  v6.4.1_202510180200 */ -->
+
+<div class="search-box">
+  <input id="q" type="search" placeholder="Search posts…" aria-label="search" />
+  <button id="btnSearch" type="button">Search</button>
+</div>
+<div id="searchResults" class="search-results"></div>
