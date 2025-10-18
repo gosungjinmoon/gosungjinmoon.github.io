@@ -1,36 +1,6 @@
-<!-- /* admin/oauth/callback.html  v6.3.7_202510171349 */ -->
----
-layout: none
-permalink: /admin/oauth/callback/
----
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <title>OAuth Callback</title>
-  <style>body{font-family:sans-serif;padding:40px;}</style>
-</head>
-<body>
-  <h2>GitHub 로그인 처리 중...</h2>
-  <p id="status">잠시만 기다려주세요.</p>
-  <script>
-  (async () => {
-    const code = new URL(window.location.href).searchParams.get("code");
-    if (!code) { document.getElementById("status").textContent = "❌ code 파라미터 없음"; return; }
-    try {
-      const res = await fetch("https://gfw-oauth-exchange.eric-moon.workers.dev?code=" + encodeURIComponent(code));
-      const data = await res.json();
-      if (data.access_token) {
-        sessionStorage.setItem("github_token", data.access_token);
-        document.getElementById("status").textContent = "✅ 로그인 성공! 관리자 페이지로 이동 중...";
-        setTimeout(() => (window.location.href = "{{ '/admin/' | relative_url }}"), 1000);
-      } else {
-        document.getElementById("status").textContent = "⚠️ 로그인 실패: " + (data.error_description || data.error || "unknown");
-      }
-    } catch (e) {
-      document.getElementById("status").textContent = "🚫 네트워크 오류: " + e.message;
-    }
-  })();
-  </script>
-</body>
-</html>
+<!-- /* admin/oauth/callback.html  v6.4.1_202510180200 */ -->
+
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>OAuth Callback</title></head><body>
+<h2>GitHub 로그인 처리 중…</h2><p id="s">잠시만 기다려주세요.</p>
+<script>(async()=>{const c=new URL(location.href).searchParams.get("code"); if(!c) return (document.getElementById("s").textContent="code 파라미터 없음"); try{const r=await fetch("https://gfw-oauth-exchange.eric-moon.workers.dev?code="+c); const d=await r.json(); if(d.access_token){sessionStorage.setItem("github_token",d.access_token); document.getElementById("s").textContent="로그인 성공. Admin으로 이동합니다…"; setTimeout(()=>location.href="/admin/",1200);} else {document.getElementById("s").textContent="로그인 실패: "+(d.error||"unknown");}} catch(e){document.getElementById("s").textContent="네트워크 오류: "+e.message;}})();</script>
+</body></html>
