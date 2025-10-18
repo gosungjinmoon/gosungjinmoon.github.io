@@ -1,4 +1,5 @@
-# /* _config.yml  v6.3.5_202510170000 */
+/* _config.yml  v6.4.1_202510180200 */
+
 title: "GOFUNWITH"
 description: "Go have fun with tech, tools, and life."
 markdown: kramdown
@@ -6,29 +7,18 @@ theme: null
 timezone: Asia/Seoul
 baseurl: ""
 url: "https://gosungjinmoon.github.io"
-paginate: 12
-
+permalink: /:categories/:year-:month-:day-:title/
 plugins:
   - jekyll-seo-tag
   - jekyll-feed
   - jekyll-sitemap
-
-collections:
-  ko:
-    output: true
-    permalink: /ko/:name/
-  en:
-    output: true
-    permalink: /en/:name/
-
-defaults:
-  - scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "default"
-      lang: "ko"
-
+  - jekyll-paginate
+paginate: 12
+paginate_path: "/page:num"
+include:
+  - admin
+  - ko
+  - en
 exclude:
   - node_modules/
   - _secrets/
@@ -36,23 +26,4 @@ exclude:
   - LICENSE
   - package.json
   - package-lock.json
-  - admin/README.md
   - cloudflare_worker.js
-
-markdown_ext: "md,markdown,mkdown,mkdn,mdown,mkdn"
-
-# HTML 파일도 Liquid 렌더링하도록
-include:
-  - admin
-  - index.html
-  - assets
-  - config
-  - ko
-  - en
-
-# Liquid 미처리 방지
-defaults:
-  - scope:
-      path: ""
-    values:
-      layout: default
