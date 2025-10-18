@@ -1,17 +1,15 @@
-/* admin/css/admin.css  v6.3.7_202510171349 */
-body{margin:0;background:#0b1220;color:#e6edf3;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,'Apple SD Gothic Neo','NanumSquare',sans-serif}
-.admin-header{display:flex;gap:12px;align-items:center;padding:14px 20px;background:#121a2b;border-bottom:1px solid #20304b}
-.sidebar{position:fixed;top:60px;left:0;bottom:0;width:220px;background:#0f182a;border-right:1px solid #20304b}
-.sidebar ul{list-style:none;margin:0;padding:14px}
-.sidebar li{padding:10px 12px;border-radius:8px;cursor:pointer}
-.sidebar li.active,.sidebar li:hover{background:#16233a}
-main{margin-left:240px;padding:24px}
-.page{display:none}.page.visible{display:block}
-.card{background:#121a2b;padding:16px;border-radius:12px;margin:14px 0}
-label{display:block;margin:10px 0 6px;color:#9fb3c8}
-input,select{width:100%;padding:10px 12px;border:1px solid #24334e;border-radius:10px;background:#0f182a;color:#e6edf3}
-.actions{display:flex;gap:10px;margin-top:12px}
-button{padding:10px 14px;border-radius:10px;border:none;background:#6cf;color:#041018;font-weight:700;cursor:pointer}
-button.secondary{background:#24334e;color:#cfe2ff}
-.preview{width:100%;height:60vh;border:0;margin-top:12px;border-radius:12px;overflow:hidden}
-.code{background:#0f182a;padding:12px;border-radius:10px}
+/* admin/css/admin.css  v6.4.1_202510180200 */
+
+:root { --bg:#fff; --fg:#1e2a3a; --muted:#667085; --mint:#2bd9c4; --card:#f7fbfb; --line:#e6f4f2; }
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Pretendard,sans-serif;color:var(--fg)}
+.admin-header{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:10}
+.admin-header .spacer{flex:1} .sidebar{position:fixed;top:56px;left:0;bottom:0;width:200px;border-right:1px solid var(--line);background:#fff}
+.sidebar ul{list-style:none;margin:0;padding:8px} .sidebar li{padding:10px 12px;border-radius:8px;cursor:pointer}
+.sidebar li.active,.sidebar li:hover{background:var(--card)} main#content{margin-left:200px;padding:16px}
+.page{display:none} .page.visible{display:block} .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px} .form-grid label{grid-column:span 1;color:var(--muted);font-size:13px}
+.form-grid input,.form-grid select{grid-column:span 1;padding:10px;border:1px solid var(--line);border-radius:8px}
+.actions{display:flex;gap:10px;margin-top:10px} button{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer}
+button.primary{background:var(--mint);color:#113;border-color:transparent} .code{background:#0f172a;color:#e2e8f0;padding:12px;border-radius:10px;white-space:pre-wrap}
+.preview{width:100%;height:420px;border:1px solid var(--line);border-radius:10px}
+@media (max-width:900px){.form-grid{grid-template-columns:1fr} main#content{margin-left:0} .sidebar{position:static;width:auto;border:none}}
