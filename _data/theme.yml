@@ -1,16 +1,18 @@
-/* _data/theme.yml  v6.4.1_202510180200 */
-
-brand: "GOFUNWITH – Explore. Create. Share."
+# /* _data/theme.yml  v6.4.1_202510180240 */
+brand: "GOFUNWITH - Explore. Create. Share."
 tagline: "Go have fun with tech, tools, and life."
 domain: "blog.gofunwith.com"
-url: "https://gosungjinmoon.github.io"
+url: "https://blog.gofunwith.com"
 repo: "gosungjinmoon/gosungjinmoon.github.io"
 github: "https://github.com/gosungjinmoon"
 default_lang: "ko"
 posts_per_page: 12
-ga4_measurement_id: "G-R7N7G7QPBF"
-cloudflare_beacon_token: ""
-cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
-n8n_webhook_subscribe: "https://n8n.gofunwith.com/webhook/subscribe"
+
+integrations:
+  ga4_measurement_id: "G-R7N7G7QPBF"
+  cloudflare_beacon_token: ""
+  cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
+  n8n_webhook_subscribe: "https://n8n.gofunwith.com/webhook/subscribe"
+
 theme:
   active: "light-mint"
