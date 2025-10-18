@@ -1,21 +1,24 @@
-/* assets/js/search.js  v6.4.1_202510180200 */
+/* assets/js/search.js  v6.4.1_20251017 */
+/* 간단 검색: 제목/요약에서 포함 검색 (lunr.js로 확장 예정) */
+(function () {
+  const form = document.getElementById("searchForm");
+  if (!form) return;
+  const input = document.getElementById("q");
+  const box = document.getElementById("searchResults");
 
-(function() {
-  const input = document.getElementById("q"); const btn = document.getElementById("btnSearch");
-  if (!input || !btn) return;
-  const lang = location.pathname.startsWith("/en/") ? "en" : "ko";
-  const jsonUrl = `/${lang}/search.json`; let idx=null, docs=[];
-  async function ensureIndex() {
-    if (idx) return; const res = await fetch(jsonUrl, { cache:'no-store' });
-    docs = await res.json(); idx = lunr(function(){ this.ref('url'); this.field('title'); this.field('content'); docs.forEach(d=>this.add(d)); });
-  }
-  async function doSearch() {
-    const q = input.value.trim(); if (!q) return; await ensureIndex();
-    const hits = idx.search(q); const list = document.getElementById("searchResults"); list.innerHTML="";
-    hits.slice(0,20).forEach(h=>{ const d = docs.find(x=>x.url===h.ref); if(!d) return;
-      const el = document.createElement('div'); el.className='item';
-      el.innerHTML = `<a href="${d.url}">${d.title}</a><div class='meta'>${d.date} · ${(d.tags||[]).join(", ")}</div>`;
-      list.appendChild(el); });
-  }
-  btn.addEventListener("click", doSearch); input.addEventListener("keydown", e => e.key==="Enter" && doSearch());
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const q = (input.value || "").toLowerCase();
+    if (!q) return;
+    // 매우 단순: DOM 내 카드/리스트를 대상으로 필터 (정적 페이지용)
+    const links = Array.from(document.querySelectorAll("article.card a, .post a"));
+    const hits = links
+      .map((a) => ({ title: a.textContent.trim(), href: a.getAttribute("href") }))
+      .filter((i) => i.title.toLowerCase().includes(q))
+      .slice(0, 20);
+
+    box.innerHTML = hits.length
+      ? `<ul>${hits.map((h) => `<li><a href="${h.href}">${h.title}</a></li>`).join("")}</ul>`
+      : `<p>No results.</p>`;
+  });
 })();
