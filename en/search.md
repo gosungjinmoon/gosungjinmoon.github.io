@@ -1,5 +1,4 @@
-<!-- /* en/search.md  v6.4.1_202510180200 */ -->
-
+<!-- /* en/search.md  v6.4.1_20251017 */ -->
 ---
 layout: search
 title: "Search"
