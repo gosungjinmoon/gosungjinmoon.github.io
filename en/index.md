@@ -1,5 +1,4 @@
-<!-- /* en/index.md  v6.4.1_202510180200 */ -->
-
+<!-- /* en/index.md  v6.4.1_20251017 */ -->
 ---
 layout: home
 title: "GOFUNWITH — English"
