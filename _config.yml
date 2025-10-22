@@ -1,4 +1,4 @@
-# /* _config.yml  v6.4.1_20251017 */
+# /* _config.yml  v6.4.3_202510220627 */
 title: "GOFUNWITH"
 description: "Go have fun with tech, tools, and life."
 markdown: kramdown
@@ -11,6 +11,10 @@ plugins:
   - jekyll-seo-tag
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-paginate
+
+paginate: 12
+paginate_path: "/page:num/"
 
 # 다국어 컬렉션(출력)
 collections:
@@ -21,22 +25,11 @@ collections:
     output: true
     permalink: /en/:name/
 
-# 빌드에서 제외할 항목 (admin은 절대 제외하지 말 것)
 exclude:
   - node_modules/
   - _secrets/
   - README.md
   - LICENSE
-  - cloudflare_worker.js   # GH Pages 빌드는 제외, Worker용 소스만 보관
-
-# 정적 파일 permalink
-permalink: /:categories/:year-:month-:day-:title/
-
-# 문서 기본값
-defaults:
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: post
-      lang: ko
+  - package.json
+  - package-lock.json
+  - cloudflare_worker.js
