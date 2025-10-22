@@ -1,73 +1,36 @@
+/* admin/index.html  v202510221600 */
 ---
-# /* admin/index.html  v6.4.2_202510220213 */
-layout: admin
-title: "Admin Console"
-permalink: /admin/
+layout: none
 ---
-
-<section class="admin">
-  <header class="admin-header">
-    <h1>⚙️ GoFunWith Admin</h1>
-    <div class="spacer"></div>
-    <button id="loginBtn">GitHub 로그인</button>
-    <button id="logoutBtn" class="secondary">로그아웃</button>
-  </header>
-
-  <nav class="sidebar">
-    <ul>
-      <li data-page="theme" class="active">🎨 테마</li>
-      <li data-page="settings">🔧 환경설정</li>
-      <li data-page="posts">📝 포스트</li>
-    </ul>
-  </nav>
-
-  <main id="content">
-    <section id="page-theme" class="page visible">
-      <h2>🎨 테마 설정</h2>
-      <div class="card">
-        <label>브랜드명</label>
-        <input id="brandName" placeholder="GOFUNWITH – Explore. Create. Share." />
-        <label>태그라인</label>
-        <input id="brandTagline" placeholder="Go have fun with tech, tools, and life." />
-        <label>GA4 Measurement ID</label>
-        <input id="ga4" placeholder="G-XXXXXXX" />
-        <label>n8n Subscribe URL</label>
-        <input id="n8n" placeholder="https://n8n.example.com/webhook/subscribe" />
-        <div class="actions">
-          <button id="loadTheme">불러오기</button>
-          <button id="saveTheme" class="primary">저장 & 커밋</button>
-        </div>
-      </div>
-      <iframe id="preview" src="{ '{ "/" | relative_url }' }" class="preview"></iframe>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GOFUNWITH Admin</title>
+  <link rel="stylesheet" href="{'{'} '/admin/css/admin.css' | relative_url {'}'}" />
+</head>
+<body>
+  <main class="container">
+    <h1>Admin Console</h1>
+    <section>
+      <h2>New Post</h2>
+      <label>Language
+        <select id="lang"><option value="ko">KO</option><option value="en">EN</option></select>
+      </label>
+      <label>Title <input id="title" placeholder="Post title" /></label>
+      <label>Tags <input id="tags" placeholder="dev, diy, life" /></label>
+      <button id="create">Create Draft PR</button>
+      <p id="status" aria-live="polite"></p>
     </section>
-
-    <section id="page-settings" class="page">
-      <h2>🔧 환경설정</h2>
-      <div class="card">
-        <label>기본 언어</label>
-        <select id="langDefault"><option value="ko">한국어</option><option value="en">English</option></select>
-        <label>페이지당 포스트 수</label>
-        <input id="postsPerPage" type="number" min="1" value="12" />
-        <div class="actions">
-          <button id="loadConfig">불러오기</button>
-          <button id="saveConfig" class="primary">저장 & 커밋</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="page-posts" class="page">
-      <h2>📝 포스트</h2>
-      <div class="card">
-        <label>제목</label>
-        <input id="postTitle" placeholder="예: 스타터 가이드" />
-        <label>언어</label>
-        <select id="postLang"><option value="ko">한국어</option><option value="en">English</option></select>
-        <div class="actions">
-          <button id="createFromTemplate" class="primary">새 글 만들기 (PR)</button>
-          <button id="listPosts">목록 불러오기</button>
-        </div>
-      </div>
-      <pre id="postsResult" class="code"></pre>
+    <section>
+      <h2>Theme</h2>
+      <button id="preview">Preview Theme</button>
+      <pre id="theme"></pre>
     </section>
   </main>
-</section>
+  <script src="{'{'} '/admin/js/github-api.js' | relative_url {'}'}"></script>
+  <script src="{'{'} '/admin/js/posts.js' | relative_url {'}'}"></script>
+  <script src="{'{'} '/admin/js/admin.js' | relative_url {'}'}"></script>
+</body>
+</html>
