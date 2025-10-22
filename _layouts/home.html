@@ -1,24 +1,7 @@
-<!-- /* _layouts/home.html  v6.4.1_20251017 */ -->
----
-layout: default
----
-<section class="home-hero">
-  <h1>{{ site.data.config.site.brand }}</h1>
-  <p>{{ site.data.config.site.tagline }}</p>
-  {% include lang-switch.html %}
-  {% include nav.html %}
-</section>
-
-<section class="post-grid">
-  {%- assign lang = page.lang | default: 'ko' -%}
-  {%- assign posts = site.posts | where: "lang", lang | sort: "date" | reverse -%}
-  {%- for post in posts limit: site.data.config.site.posts_per_page -%}
-  <article class="card">
-    <a href="{{ post.url | relative_url }}">
-      <h3>{{ post.title }}</h3>
-      <p>{{ post.subtitle | default: post.excerpt | strip_html | truncate: 120 }}</p>
-      <span class="meta">{{ post.date | date: "%Y-%m-%d" }} · {{ post.reading_time | default: 5 }} min</span>
-    </a>
-  </article>
-  {%- endfor -%}
+<!-- /* _layouts/home.html  v6.4.2_202510220213 */ -->
+{% assign posts_col = site.posts | where_exp: 'p','p.lang == page.lang' %}
+<section class="posts-grid">
+  {% for post in posts_col limit: site.data.config.site.posts_per_page %}
+    {% include post-card.html post=post %}
+  {% endfor %}
 </section>
