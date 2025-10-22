@@ -1,17 +1,16 @@
-/* ko/search.json  v202510221600 */
-{% assign lang = 'ko' %}
+
+/* ko/search.json v1.0_202510220736 */
+layout: null
+
 [
-{% assign first = true %}
-{% for post in site.posts | where: "lang", lang %}
-  {% unless first %},{% endunless %}
-  {% assign first = false %}
-  {
-    "title": "{'{'} post.title | escape {'}'}",
-    "url": "{'{'} post.url | relative_url {'}'}",
-    "date": "{'{'} post.date | date: "%Y-%m-%d" {'}'}",
-    "tags": [{'{'} post.tags | join: '","' | prepend: '"' | append: '"' | strip_newlines {'}'}],
-    "lang": "{lang}",
-    "excerpt": "{'{'} post.excerpt | strip_newlines | strip | escape {'}'}"
-  }
-{% endfor %}
+  {%- assign posts_in_lang = site.posts | where: "lang", "ko" -%}
+  {%- for post in posts_in_lang -%}
+    {
+      "title": {{ post.title | jsonify }},
+      "url": {{ post.url | relative_url | jsonify }},
+      "date": {{ post.date | date: "%Y-%m-%d" | jsonify }},
+      "content": {{ post.content | strip_html | strip_newlines | jsonify }}
+    }
+    {%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
 ]
