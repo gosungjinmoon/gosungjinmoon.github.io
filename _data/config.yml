@@ -1,16 +1,6 @@
-# /* _data/config.yml  v6.4.2_202510220213 */
+# /* _data/config.yml  v6.4.3_202510220627 */
 site:
   brand: "GOFUNWITH – Explore. Create. Share."
   tagline: "Go have fun with tech, tools, and life."
   default_lang: "ko"
   posts_per_page: 12
-features:
-  search: true
-  tags: true
-nav:
-  - label: "홈"
-    url: "/"
-  - label: "Tags"
-    url: "/ko/tags/"
-  - label: "Search"
-    url: "/ko/search/"
