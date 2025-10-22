@@ -1,5 +1,8 @@
-/* _includes/lang-switch.html  v202510221600 */
-<div class="lang-switch">
-  <a href="{{ '/ko/' | relative_url }}">KO</a> /
-  <a href="{{ '/en/' | relative_url }}">EN</a>
+<!-- /* _includes/lang-switch.html v1.0_202510220736 */ -->
+<div class="lang-switcher">
+{% if page.lang == 'ko' %}
+  <a href="{{ '/en/' | relative_url }}" class="lang-option" lang="en">EN</a>
+{% else %}
+  <a href="{{ '/' | relative_url }}" class="lang-option" lang="ko">KO</a>
+{% endif %}
 </div>
