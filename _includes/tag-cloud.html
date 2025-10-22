@@ -1,7 +1,7 @@
-<!-- /* _includes/tag-cloud.html  v6.4.2_202510220213 */ -->
+/* _includes/tag-cloud.html  v202510221600 */
 <div class="tag-cloud">
-  {% assign all_tags = site.tags | sort %}
-  {% for tag in all_tags %}
-    <a class="tag" href="{{ '/ko/tags/#' | append: tag[0] | relative_url }}">{{ tag[0] }} ({{ tag[1].size }})</a>
+  {% assign tags = site.tags %}
+  {% for tag in tags %}
+    <a href="{{ '/ko/tags/#' | relative_url }}{'{'} tag[0] {'}'}" class="tag">{'{'} tag[0] {'}'} ({'{'} tag[1].size {'}'})</a>
   {% endfor %}
 </div>
