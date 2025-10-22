@@ -1,4 +1,4 @@
-/* assets/js/main.js  v6.4.1_20251017 */
-(function () {
-  console.log("[site] main loaded");
+/* assets/js/main.js  v6.4.2_202510220213 */
+(function() {
+  console.log("[main] init");
 })();
