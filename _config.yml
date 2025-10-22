@@ -1,21 +1,17 @@
-/* _config.yml  v202510221600 */
-
-title: GOFUNWITH – Explore. Create. Share.
-description: Journey-first tech & life experiments.
-url: https://gosungjinmoon.github.io
+title: "GOFUNWITH – Explore. Create. Share."
+description: "Journey-first tech & life experiments."
+url: "https://gosungjinmoon.github.io"
 baseurl: ""
 
-timezone: Asia/Seoul
-lang: ko
+timezone: "Asia/Seoul"
+lang: "ko"
 theme: minima
 
-# GitHub Pages-safe plugins
 plugins:
   - jekyll-seo-tag
   - jekyll-feed
   - jekyll-sitemap
 
-# Make sure admin is processed
 include:
   - admin
 
@@ -26,6 +22,7 @@ collections:
 permalink: /:categories/:year-:month-:day-:title/
 
 defaults:
-  - scope: { path: "" }
+  - scope:
+      path: ""
     values:
       layout: default
