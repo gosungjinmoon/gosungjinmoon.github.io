@@ -1,10 +1,5 @@
-/* assets/js/main.js  v202510221600 */
-(function() {
-  document.addEventListener('DOMContentLoaded', function() {
-    // Simple theme hooks & analytics helper
-    const beacon = '{'{'} site.data.theme.cloudflare_beacon_token {'}'}';
-    if (beacon) {
-      // Lightweight beacon (placeholder): could integrate CF Web Analytics if needed.
-    }
-  });
-})();
+/* assets/js/main.js v1.0_202510220736 */
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('GOFUNWITH Blog Initialized.');
+  // 향후 모바일 메뉴 토글 등 전역 UI 스크립트 추가
+});
