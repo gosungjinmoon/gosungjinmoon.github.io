@@ -1,16 +1,11 @@
-<!-- /* _includes/nav.html  v6.4.2_202510220213 */ -->
-{% assign theme = site.data.theme.theme %}
-{% assign theme_slug = theme.slug | default: 'modern-light' %}
-<header class="site-header">
-  <a class="brand" href="{{ '/' | relative_url }}">
-    <img src="{{ '/assets/themes/' | append: theme_slug | append: '/images/logo.svg' | relative_url }}" alt="logo" />
-    <span>{{ site.data.config.site.brand }}</span>
-  </a>
-  <nav class="gnb">
-    <a href="{{ '/ko/' | relative_url }}">홈</a>
-    <a href="{{ '/ko/tags/' | relative_url }}">Tags</a>
-    <a href="{{ '/ko/search/' | relative_url }}">Search</a>
-    <a href="{{ '/admin/' | relative_url }}" class="admin">Admin</a>
-  </nav>
-  {% include lang-switch.html %}
-</header>
+<!-- /* _includes/nav.html v1.0_202510220736 */ -->
+<ul>
+{%- assign nav_items = site.data.config.nav[page.lang] -%}
+{%- for item in nav_items -%}
+  <li>
+    <a href="{{ item.url | relative_url }}" {% if page.url == item.url %}class="active"{% endif %}>
+      {{ item.title }}
+    </a>
+  </li>
+{%- endfor -%}
+</ul>
