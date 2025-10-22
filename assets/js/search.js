@@ -1,24 +1,20 @@
-/* assets/js/search.js  v6.4.1_20251017 */
-/* 간단 검색: 제목/요약에서 포함 검색 (lunr.js로 확장 예정) */
-(function () {
+/* assets/js/search.js  v6.4.2_202510220213 */
+(function() {
   const form = document.getElementById("searchForm");
-  if (!form) return;
-  const input = document.getElementById("q");
-  const box = document.getElementById("searchResults");
+  const input = document.getElementById("searchInput");
+  const out = document.getElementById("searchResults");
+  if (!form || !input || !out) return;
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const q = (input.value || "").toLowerCase();
-    if (!q) return;
-    // 매우 단순: DOM 내 카드/리스트를 대상으로 필터 (정적 페이지용)
-    const links = Array.from(document.querySelectorAll("article.card a, .post a"));
-    const hits = links
-      .map((a) => ({ title: a.textContent.trim(), href: a.getAttribute("href") }))
-      .filter((i) => i.title.toLowerCase().includes(q))
-      .slice(0, 20);
+  async function getIndex() {
+    // build a tiny client-side index from site.pages + site.posts JSON (embedded in page as window.__IDX if needed)
+    const nodes = Array.from(document.querySelectorAll("a")).map(a => ({ url: a.href, text: a.textContent || "" }));
+    return nodes.filter(n => n.text.trim().length > 0);
+  }
 
-    box.innerHTML = hits.length
-      ? `<ul>${hits.map((h) => `<li><a href="${h.href}">${h.title}</a></li>`).join("")}</ul>`
-      : `<p>No results.</p>`;
+  form.querySelector("#searchBtn").addEventListener("click", async () => {
+    const q = (input.value || "").toLowerCase().trim();
+    const idx = await getIndex();
+    const res = idx.filter(n => n.text.toLowerCase().includes(q)).slice(0, 20);
+    out.innerHTML = res.map(r => `<div class="hit"><a href="${r.url}">${r.text}</a></div>`).join("") || "<p>결과 없음</p>";
   });
 })();
