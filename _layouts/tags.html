@@ -1,18 +1,22 @@
-/* _layouts/tags.html  v202510221600 */
----
-layout: default
----
-<h1>Tags</h1>
-<ul>
-{% assign lang = page.lang | default: 'ko' %}
-{% for tag in site.tags %}
-  <li id="{'{'} tag[0] {'}'}">
-    <strong>{'{'} tag[0] {'}'}</strong>
-    <ul>
-      {% for post in tag[1] | where: "lang", lang %}
-      <li><a href="{'{'} post.url | relative_url {'}'}">{'{'} post.title {'}'}</a></li>
-      {% endfor %}
-    </ul>
-  </li>
-{% endfor %}
-</ul>
+<!-- /* _layouts/tags.html v1.0_202510220736 */ -->
+<div class="tags-page">
+  <h1 class="page-title">{{ page.title }}</h1>
+  {%- assign tags = site.tags | sort -%}
+  {%- for tag in tags -%}
+    {%- assign tag_name = tag | first -%}
+    {%- assign posts_in_lang = tag | last | where: "lang", page.lang -%}
+    {%- if posts_in_lang.size > 0 -%}
+      <section id="{{ tag_name | slugify }}" class="tag-section">
+        <h2 class="tag-title">{{ tag_name }}</h2>
+        <ul class="post-list">
+          {%- for post in posts_in_lang -%}
+            <li>
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </section>
+    {%- endif -%}
+  {%- endfor -%}
+</div>
