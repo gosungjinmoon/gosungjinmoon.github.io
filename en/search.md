@@ -1,7 +1,5 @@
----
-# /* en/search.md  v6.4.2_202510220213 */
+/* en/search.md  v202510221600 */
 layout: search
-title: "Search"
-lang: en
+title: Search
 permalink: /en/search/
----
+lang: en
