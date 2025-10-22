@@ -1,7 +1,5 @@
----
-# /* en/index.md  v6.4.2_202510220213 */
+/* en/index.md  v202510221600 */
 layout: home
-title: "Home"
-lang: en
+title: Home
 permalink: /en/
----
+lang: en
