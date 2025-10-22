@@ -1,7 +1,19 @@
-/* admin/oauth/callback.html  v202510221600 */
----
-layout: none
----
+<!-- /* admin/oauth/callback.html v1.0_202510220736 */ -->
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>OAuth Callback</title></head>
-<body><p>Return to Admin…</p></body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GitHub Auth Callback</title>
+</head>
+<body>
+  <p>Authenticating... Please wait.</p>
+  <script>
+    const code = new URLSearchParams(window.location.search).get('code');
+    if (code) {
+      // The parent window (admin/index.html) will handle this message
+      window.opener.postMessage({ type: 'oauth_callback', code: code }, window.location.origin);
+    }
+    // This window will be closed by the parent
+  </script>
+</body>
+</html>
