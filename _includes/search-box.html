@@ -1,6 +1,6 @@
-<!-- /* _includes/search-box.html  v6.4.1_20251017 */ -->
-<form id="searchForm">
-  <input id="q" name="q" type="search" placeholder="Search..." />
-  <button type="submit">Go</button>
+<!-- /* _includes/search-box.html  v6.4.2_202510220213 */ -->
+<form id="searchForm" action="" onsubmit="return false;">
+  <input id="searchInput" type="search" placeholder="검색어를 입력하세요…" />
+  <button id="searchBtn" type="button">Search</button>
 </form>
-<div id="searchResults"></div>
+<div id="searchResults" class="search-results" aria-live="polite"></div>
