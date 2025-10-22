@@ -1,10 +1,25 @@
-/* _data/config.yml  v202510221600 */
+/* _data/config.yml v1.0_202510220736 */
+brand: GOFUNWITH – Explore. Create. Share.
+description: "기술, DIY, 캠핑, 자동화, 생활 실험 등 다양한 영역을 포괄하며, 그 과정 자체에서 오는 '여정'과 '실험'의 즐거움을 공유합니다."
+author: GOFUNWITH
+
+# 네비게이션 메뉴 (다국어 지원)
 nav:
-  - label: Home
-    href: "{{ '/ko/' | relative_url }}"
-  - label: EN
-    href: "{{ '/en/' | relative_url }}"
-  - label: Tags
-    href: "{{ '/ko/tags/' | relative_url }}"
-social:
-  github: "https://github.com/gosungjinmoon"
+  ko:
+    - title: "홈"
+      url: "/"
+    - title: "태그"
+      url: "/ko/tags/"
+    - title: "검색"
+      url: "/ko/search/"
+    - title: "관리자"
+      url: "/admin/"
+  en:
+    - title: "Home"
+      url: "/en/"
+    - title: "Tags"
+      url: "/en/tags/"
+    - title: "Search"
+      url: "/en/search/"
+    - title: "Admin"
+      url: "/admin/"
