@@ -1,5 +1,7 @@
-/* _includes/search-box.html  v202510221600 */
-<div class="search-box">
-  <input id="q" type="search" placeholder="Search…" aria-label="Search" />
-  <a class="search-link" href="{{ page.lang == 'en' | default: false | ternary: '/en/search/', '/ko/search/' | relative_url }}">Advanced</a>
+<!-- /* _includes/search-box.html v1.0_202510220736 */ -->
+<div class="search-container">
+  <form action="{{ '/search/' | prepend: page.lang | relative_url }}" method="get">
+    <input type="text" id="search-input" name="q" placeholder="Search..." />
+    <button type="submit">Go</button>
+  </form>
 </div>
