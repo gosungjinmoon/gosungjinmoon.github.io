@@ -1,7 +1,15 @@
-/* _includes/tag-cloud.html  v202510221600 */
+<!-- /* _includes/tag-cloud.html v1.0_202510220736 */ -->
 <div class="tag-cloud">
-  {% assign tags = site.tags %}
-  {% for tag in tags %}
-    <a href="{{ '/ko/tags/#' | relative_url }}{'{'} tag[0] {'}'}" class="tag">{'{'} tag[0] {'}'} ({'{'} tag[1].size {'}'})</a>
-  {% endfor %}
+  <h3>Tags</h3>
+  <ul>
+    {%- assign tags = site.tags | sort -%}
+    {%- for tag in tags -%}
+      {%- assign tag_name = tag | first -%}
+      <li>
+        <a href="{{ '/tags/' | prepend: page.lang | relative_url }}#{{ tag_name | slugify }}">
+          {{ tag_name }} ({{ tag | last | size }})
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
 </div>
