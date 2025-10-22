@@ -1,15 +1,13 @@
-<!-- /* _layouts/post.html  v6.4.1_20251017 */ -->
----
-layout: default
----
+<!-- /* _layouts/post.html  v6.4.2_202510220213 */ -->
 <article class="post">
-  <header class="post-header">
-    <h1>{{ page.title }}</h1>
-    {%- if page.subtitle -%}<p class="subtitle">{{ page.subtitle }}</p>{%- endif -%}
-    <p class="meta">{{ page.date | date: "%Y-%m-%d" }} · {{ page.reading_time | default: 5 }} min</p>
-    {% include tag-cloud.html %}
-  </header>
-  <section class="post-body">
+  {% if page.cover_image %}
+  <img class="cover" src="{{ page.cover_image | relative_url }}" alt="{{ page.title }}" />
+  {% endif %}
+  <div class="post-meta">
+    <span>{{ page.date | date: "%Y-%m-%d" }}</span>
+    {% if page.tags %}<span>•</span><span>{% for t in page.tags %}#{{ t }} {% endfor %}</span>{% endif %}
+  </div>
+  <div class="post-body">
     {{ content }}
-  </section>
+  </div>
 </article>
