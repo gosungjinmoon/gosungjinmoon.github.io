@@ -1,7 +1,5 @@
----
-# /* en/tags.md  v6.4.2_202510220213 */
+/* en/tags.md  v202510221600 */
 layout: tags
-title: "Tags"
-lang: en
+title: Tags
 permalink: /en/tags/
----
+lang: en
