@@ -1,0 +1,14 @@
+/* _includes/head.html  v202510221600 */
+{% assign theme = site.data.theme %}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="{{ '/assets/themes/modern-light/images/favicon.ico' | relative_url }}" />
+{% seo %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ theme.ga4_measurement_id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', '{{ theme.ga4_measurement_id }}');
+</script>
+<script defer src="{{ '/assets/js/main.js' | relative_url }}"></script>
