@@ -1,19 +1,12 @@
-<!-- /* _layouts/tags.html  v6.4.1_20251017 */ -->
----
-layout: default
----
-<h2>Tags</h2>
+<!-- /* _layouts/tags.html  v6.4.2_202510220213 */ -->
 {% include tag-cloud.html %}
-
-{%- assign lang = page.lang | default: 'ko' -%}
-{%- for tag in site.data.tags.defaults -%}
-  <h3 id="{{ tag | slugify }}">#{{ tag }}</h3>
-  <ul>
-    {%- assign ps = site.posts | where: "lang", lang -%}
-    {%- for p in ps -%}
-      {%- if p.tags contains tag -%}
-        <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a> <small>({{ p.date | date: "%Y-%m-%d" }})</small></li>
-      {%- endif -%}
-    {%- endfor -%}
-  </ul>
-{%- endfor -%}
+<section class="tag-list">
+  {% for post in site.posts %}
+    {% if post.tags %}
+      <article>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        <div class="tags">{% for t in post.tags %}<span>#{{ t }}</span> {% endfor %}</div>
+      </article>
+    {% endif %}
+  {% endfor %}
+</section>
