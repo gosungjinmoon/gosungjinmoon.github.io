@@ -1,14 +1,17 @@
-/* /* en/search.json  v6.4.1_202510180200 */ */
-
-{%- assign posts_lang = site.posts | where_exp:'p','p.lang == "en"' -%}
+/* en/search.json  v202510221600 */
+{% assign lang = 'en' %}
 [
-{%- for p in posts_lang -%}
+{% assign first = true %}
+{% for post in site.posts | where: "lang", lang %}
+  {% unless first %},{% endunless %}
+  {% assign first = false %}
   {
-    "title": {{ p.title | jsonify }},
-    "url": {{ p.url | relative_url | jsonify }},
-    "date": "{{ p.date | date: "%Y-%m-%d" }}",
-    "tags": {{ p.tags | jsonify }},
-    "content": {{ p.content | strip_html | normalize_whitespace | jsonify }}
-  }{%- unless forloop.last -%},{%- endunless -%}
-{%- endfor -%}
+    "title": "{'{'} post.title | escape {'}'}",
+    "url": "{'{'} post.url | relative_url {'}'}",
+    "date": "{'{'} post.date | date: "%Y-%m-%d" {'}'}",
+    "tags": [{'{'} post.tags | join: '","' | prepend: '"' | append: '"' | strip_newlines {'}'}],
+    "lang": "{lang}",
+    "excerpt": "{'{'} post.excerpt | strip_newlines | strip | escape {'}'}"
+  }
+{% endfor %}
 ]
