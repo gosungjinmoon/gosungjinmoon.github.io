@@ -1,7 +1,5 @@
-<!-- /* ko/index.md  v6.4.1_20251017 */ -->
----
+/* ko/index.md  v202510221600 */
 layout: home
-title: "GOFUNWITH — 한국어"
+title: 홈
+permalink: /
 lang: ko
-permalink: /ko/
----
