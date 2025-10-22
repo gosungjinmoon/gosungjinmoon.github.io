@@ -1,19 +1,20 @@
-/* _includes/header.html  v202510221600 */
-{% assign cfg = site.data.config %}
+<!-- /* _includes/header.html v1.0_202510220736 */ -->
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="{{ '/ko/' | relative_url }}">
-      <img src="{{ '/assets/themes/modern-light/images/logo.svg' | relative_url }}" alt="GOFUNWITH" />
-      <span>GOFUNWITH</span>
+    <a href="{{ '/' | relative_url }}" class="logo-link">
+      <img
+        src="{{ '/assets/themes/modern-light/images/logo.svg' | relative_url }}"
+        alt="{{ site.data.config.brand }}"
+        class="site-logo"
+      />
+      <h1>{{ site.data.theme.brand }}</h1>
     </a>
-    <nav>
-      <ul>
-      {% for item in cfg.nav %}
-        <li><a href="{{ item.href }}">{{ item.label }}</a></li>
-      {% endfor %}
-      </ul>
+    <nav class="site-nav">
+      {%- include nav.html -%}
     </nav>
-    {% include lang-switch.html %}
-    {% include search-box.html %}
+    <div class="header-utils">
+      {%- include search-box.html -%}
+      {%- include lang-switch.html -%}
+    </div>
   </div>
 </header>
