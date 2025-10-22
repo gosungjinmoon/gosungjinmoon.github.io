@@ -1,21 +1,20 @@
-/* _layouts/home.html  v202510221600 */
----
-layout: default
----
-<section class="hero">
-  <h1>{'{'} site.data.theme.brand {'}'}</h1>
-  <p>Go have fun with tech, tools, and life.</p>
-</section>
-
-<section class="posts">
-  <h2>Latest posts</h2>
+<!-- /* _layouts/home.html v1.0_202510220736 */ -->
+<div class="home">
+  <h1 class="page-title">{{ page.title }}</h1>
   <ul class="post-list">
-    {% assign lang = page.lang | default: 'ko' %}
-    {% for post in site.posts | where: "lang", lang | limit: 10 %}
-      <li>
-        <a href="{'{'} post.url | relative_url {'}'}">{'{'} post.title {'}'}</a>
-        <small>{'{'} post.date | date: "%Y-%m-%d" {'}'}</small>
-      </li>
-    {% endfor %}
+    {%- assign posts_in_lang = site.posts | where: "lang", page.lang -%}
+    {%- for post in posts_in_lang -%}
+    <li>
+      <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
+      <h2>
+        <a class="post-link" href="{{ post.url | relative_url }}">
+          {{ post.title | escape }}
+        </a>
+      </h2>
+      <div class="post-excerpt">
+        {{ post.excerpt | strip_html | truncatewords: 30 }}
+      </div>
+    </li>
+    {%- endfor -%}
   </ul>
-</section>
+</div>
