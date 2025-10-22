@@ -1,16 +1,6 @@
-/* admin/css/admin.css  v6.4.2_202510220213 */
-:root{--mint:#34c6b9;--ink:#111827;--border:#e5e7eb;--card:#f8fafc;}
-body{font-family:Inter,system-ui,Arial,sans-serif;background:#fff;color:#111;margin:0}
-.admin-header{display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--border);padding:12px 16px}
-.sidebar{position:sticky;top:0;float:left;width:200px;height:100vh;border-right:1px solid var(--border)}
-.sidebar ul{list-style:none;padding:16px;margin:0}
-.sidebar li{padding:8px 10px;border-radius:8px;cursor:pointer}
-.sidebar li.active, .sidebar li:hover{background:#eef}
-#content{margin-left:220px;padding:20px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin:14px 0;max-width:720px}
-.card input, .card select{width:100%;padding:10px;margin:6px 0 12px;border:1px solid var(--border);border-radius:8px}
-.actions{display:flex;gap:10px}
-.primary{background:var(--mint);border:0;color:#fff;padding:10px 14px;border-radius:8px;cursor:pointer}
-.secondary{background:#fff;border:1px solid var(--border);color:#111;padding:10px 14px;border-radius:8px;cursor:pointer}
-.preview{width:100%;height:480px;border:1px solid var(--border);border-radius:8px}
-.code{background:#0b1020;color:#e0e6ff;padding:12px;border-radius:8px;white-space:pre-wrap}
+/* admin/css/admin.css  v202510221600 */
+.container { max-width: 720px; margin: 0 auto; padding: 1rem; font-family: ui-sans-serif, system-ui, -apple-system; }
+label { display: block; margin: .5rem 0; }
+input, select, button { padding: .5rem .75rem; margin-top: .25rem; }
+button { cursor: pointer; }
+pre { background:#f7f7f7; padding:1rem; border-radius:.5rem; overflow:auto; }
