@@ -1,15 +1,14 @@
-/* _layouts/default.html  v202510221600 */
+<!-- /* _layouts/default.html v1.0_202510220736 */ -->
 <!DOCTYPE html>
-<html lang="{'{'} page.lang | default: 'ko' {'}'}">
-<head>
-  {% include head.html %}
-  <link rel="stylesheet" href="{{ '/assets/themes/modern-light/css/style.css' | relative_url }}" />
-</head>
-<body>
-  {% include header.html %}
-  <main class="container">
-    {'{'} content {'}'}
-  </main>
-  {% include footer.html %}
-</body>
+<html lang="{{ page.lang | default: 'ko' }}">
+  {%- include head.html -%}
+  <body>
+    {%- include header.html -%}
+    <main class="main-content">
+      <div class="container">
+        {{ content }}
+      </div>
+    </main>
+    {%- include footer.html -%}
+  </body>
 </html>
