@@ -1,0 +1,11 @@
+<!-- /* _includes/post-card.html  v6.4.2_202510220213 */ -->
+<article class="post-card">
+  <a href="{{ post.url | relative_url }}">
+    {% if post.cover_image %}
+    <img src="{{ post.cover_image | relative_url }}" alt="{{ post.title }}" />
+    {% endif %}
+    <h3>{{ post.title }}</h3>
+    {% if post.subtitle %}<p class="sub">{{ post.subtitle }}</p>{% endif %}
+    <p class="meta">{{ post.date | date: "%Y-%m-%d" }} — {% for t in post.tags %}#{{ t }} {% endfor %}</p>
+  </a>
+</article>
