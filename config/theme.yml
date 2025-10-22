@@ -1,0 +1,26 @@
+/* _data/theme.yml v1.0_202510220736 */
+#
+# 이 파일은 Jekyll 빌드와 Admin Console(JavaScript)에서 모두 사용됩니다.
+# Admin Console에서 JS로 이 파일을 fetch할 수 있도록 `assets/config/theme.yml`에 동일한 내용을 미러링해야 합니다.
+#
+
+# --- 사이트 기본 정보 ---
+brand: "GOFUNWITH – Explore. Create. Share."
+domain: "blog.gofunwith.com" # CNAME에 설정된 도메인
+repo: "gosungjinmoon/gosungjinmoon.github.io" # "owner/repo" 형식
+url: "https://gosungjinmoon.github.io" # GitHub Pages 기본 URL (CNAME 사용 시에도 필요)
+github: "https://github.com/gosungjinmoon" # GitHub 프로필 URL
+timezone: "Asia/Seoul"
+
+# --- 외부 서비스 연동 ---
+ga4_measurement_id: "G-R7N7G7QPBF"
+cloudflare_beacon_token: "c7db8999eee4466bab1893a2361aed10"
+n8n_webhook_subscribe: "https://n8n.gofunwith.com/webhook/subscribe"
+
+# --- Admin Console 및 Worker 연동 ---
+# GitHub OAuth App에서 발급받은 Client ID
+github_oauth_client_id: "Ov23liqsljSBAqajz2eu"
+
+# Cloudflare Worker 배포 후 얻은 엔드포인트 URL
+# 예: https://your-worker-name.your-account.workers.dev
+cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
