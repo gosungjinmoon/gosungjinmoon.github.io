@@ -1,5 +1,4 @@
-/* ko/tags.md  v202510221600 */
+/* ko/tags.md v1.0_202510220736 */
 layout: tags
-title: 태그
+title: 태그 목록
 permalink: /ko/tags/
-lang: ko
