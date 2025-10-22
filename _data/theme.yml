@@ -3,9 +3,6 @@
 # 이 파일은 Jekyll 빌드와 Admin Console(JavaScript)에서 모두 사용됩니다.
 # Admin Console에서 JS로 이 파일을 fetch할 수 있도록 `assets/config/theme.yml`에 동일한 내용을 미러링해야 합니다.
 #
-# !! 중요 !!
-# 아래 값들을 자신의 환경에 맞게 수정해주세요.
-#
 
 # --- 사이트 기본 정보 ---
 brand: "GOFUNWITH – Explore. Create. Share."
