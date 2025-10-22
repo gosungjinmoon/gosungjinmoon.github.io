@@ -1,28 +1,45 @@
-title: "GOFUNWITH – Explore. Create. Share."
-description: "Journey-first tech & life experiments."
-url: "https://gosungjinmoon.github.io"
-baseurl: ""
+/* _config.yml v1.0_202510220736 */
+title: GOFUNWITH Blog
+description: "Explore. Create. Share."
+baseurl: "" # CNAME을 사용하므로 비워둡니다.
+url: "https://blog.gofunwith.com"
+timezone: Asia/Seoul
 
-timezone: "Asia/Seoul"
-lang: "ko"
-theme: minima
-
+# Jekyll 플러그인 (GitHub Pages 호환)
 plugins:
-  - jekyll-seo-tag
   - jekyll-feed
+  - jekyll-seo-tag
   - jekyll-sitemap
 
+# 빌드 설정
+markdown: kramdown
 include:
-  - admin
+  - "admin" # _site 폴더에 admin 디렉토리를 포함시킵니다.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - cloudflare_worker.js
+  - README.md
 
-collections:
-  posts:
-    output: true
-
-permalink: /:categories/:year-:month-:day-:title/
-
+# 기본 Front Matter 설정
 defaults:
   - scope:
       path: ""
+      type: "posts"
     values:
-      layout: default
+      layout: "post"
+      author: "GOFUNWITH"
+      comments: true
+  - scope:
+      path: "ko"
+    values:
+      lang: "ko"
+  - scope:
+      path: "en"
+    values:
+      lang: "en"
