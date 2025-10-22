@@ -1,19 +1,14 @@
-<!-- /* _layouts/default.html  v6.4.2_202510220213 */ -->
+/* _layouts/default.html  v202510221600 */
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="{'{'} page.lang | default: 'ko' {'}'}">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  {% include seo.html %}
-  {% assign theme = site.data.theme.theme %}
-  {% assign theme_slug = theme.slug | default: 'modern-light' %}
-  <link rel="stylesheet" href="{{ '/assets/themes/' | append: theme_slug | append: '/css/style.css' | relative_url }}" />
+  {% include head.html %}
+  <link rel="stylesheet" href="{{ '/assets/themes/modern-light/css/style.css' | relative_url }}" />
 </head>
-<body class="{{ theme_slug }}">
+<body>
   {% include header.html %}
   <main class="container">
-    {% if page.title %}<h1 class="page-title">{{ page.title }}</h1>{% endif %}
-    {{ content }}
+    {'{'} content {'}'}
   </main>
   {% include footer.html %}
 </body>
