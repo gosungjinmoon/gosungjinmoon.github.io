@@ -1,11 +1,12 @@
-/* _includes/footer.html  v202510221600 */
-{% assign theme = site.data.theme %}
+<!-- /* _includes/footer.html v1.0_202510220736 */ -->
 <footer class="site-footer">
   <div class="container">
-    <p>© {'{'} site.time | date: '%Y' {'}'} GOFUNWITH — Explore. Create. Share.</p>
-    <p><a href="{{ theme.github }}" target="_blank" rel="noopener">GitHub</a></p>
+    <p>
+      &copy; {{ 'now' | date: '%Y' }} {{ site.data.theme.brand }}. All rights reserved.
+    </p>
+    <p>
+      <a href="{{ site.data.theme.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+      | Powered by Jekyll &amp; GitHub Pages.
+    </p>
   </div>
 </footer>
-<script defer src="{{ '/assets/js/translator.js' | relative_url }}"></script>
-<script defer src="{{ '/assets/js/search.js' | relative_url }}"></script>
-<script defer src="{{ '/assets/js/lunr.min.js' | relative_url }}"></script>
