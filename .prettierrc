@@ -1,5 +1,8 @@
+/* .prettierrc v1.0_202510220736 */
 {
-  "printWidth": 100,
+  "semi": true,
   "singleQuote": true,
+  "tabWidth": 2,
+  "printWidth": 100,
   "trailingComma": "es5"
 }
