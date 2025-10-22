@@ -1,26 +1,8 @@
-/* _layouts/search.html  v202510221600 */
----
-layout: default
----
-<h1>Search</h1>
-<input id="search-input" type="search" placeholder="Type to search…" />
-<ul id="results"></ul>
-<script>
-  (function() {
-    const lang = '{'{'} page.lang | default: 'ko' {'}'}';
-    const url = lang === 'en' ? "{'{'} '/en/search.json' | relative_url {'}'}" : "{'{'} '/ko/search.json' | relative_url {'}'}";
-    fetch(url).then(r => r.json()).then(index => {
-      const input = document.getElementById('search-input');
-      const results = document.getElementById('results');
-      const render = (items) => {
-        results.innerHTML = items.map(i => `<li><a href="${i.url}">${i.title}</a> <small>${i.date}</small></li>`).join('');
-      };
-      input.addEventListener('input', () => {
-        const q = input.value.toLowerCase();
-        const items = index.filter(p => (p.title + ' ' + (p.tags||[]).join(' ')).toLowerCase().includes(q));
-        render(items);
-      });
-      render(index.slice(0, 20));
-    });
-  })();
-</script>
+<!-- /* _layouts/search.html v1.0_202510220736 */ -->
+<div class="search-page">
+  <h1 class="page-title">Search Results</h1>
+  <div id="search-results">
+    <p>Loading...</p>
+  </div>
+</div>
+<script src="{{ '/assets/js/search.js' | relative_url }}"></script>
