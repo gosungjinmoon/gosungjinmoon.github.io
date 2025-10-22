@@ -1,15 +1,12 @@
-# /* _data/theme.yml  v6.4.2_202510220213 */
-theme:
-  slug: "modern-light"  # used for assets path
-  brand: "GOFUNWITH – Explore. Create. Share."
-  domain: "blog.gofunwith.com"
-  ga4_measurement_id: "G-R7N7G7QPBF"
-  cloudflare_beacon_token: ""
-  repo: "gosungjinmoon/gosungjinmoon.github.io"
-  url: "https://gosungjinmoon.github.io"
-  github: "https://github.com/gosungjinmoon"
-  github_oauth_client_id: "Ov23liqsljSBAqajz2eu"
-  cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
-  n8n_webhook_subscribe: "https://n8n.gofunwith.com/webhook/subscribe"
-assets:
-  theme_base: "/assets/themes"
+/* _data/theme.yml  v202510221600 */
+brand: "GOFUNWITH – Explore. Create. Share."
+domain: "blog.gofunwith.com"
+ga4_measurement_id: "G-R7N7G7QPBF"
+cloudflare_beacon_token: "c7db8999eee4466bab1893a2361aed10"
+repo: "gosungjinmoon/gosungjinmoon.github.io"
+url: "https://gosungjinmoon.github.io"
+github: "https://github.com/gosungjinmoon"
+timezone: "Asia/Seoul"
+github_oauth_client_id: "Ov23liqsljSBAqajz2eu"
+cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
+n8n_webhook_subscribe: "https://n8n.gofunwith.com/webhook/subscribe"
