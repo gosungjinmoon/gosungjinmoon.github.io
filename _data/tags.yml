@@ -1,4 +1,4 @@
-# /* _data/tags.yml  v6.4.1_20251017 */
+# /* _data/tags.yml  v6.4.2_202510220213 */
 defaults:
   - Tech
   - Automation
@@ -7,3 +7,6 @@ defaults:
   - Flutter
   - OCI
   - HowTo
+aliases:
+  howto: HowTo
+  devops: DevOps
