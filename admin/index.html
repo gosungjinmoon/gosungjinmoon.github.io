@@ -1,36 +1,39 @@
-/* admin/index.html  v202510221600 */
 ---
+/* admin/index.html v1.0_202510220736 */
 layout: none
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GOFUNWITH Admin</title>
-  <link rel="stylesheet" href="{'{'} '/admin/css/admin.css' | relative_url {'}'}" />
+  <link rel="stylesheet" href="{{ '/admin/css/admin.css' | relative_url }}">
 </head>
 <body>
-  <main class="container">
-    <h1>Admin Console</h1>
-    <section>
-      <h2>New Post</h2>
-      <label>Language
-        <select id="lang"><option value="ko">KO</option><option value="en">EN</option></select>
-      </label>
-      <label>Title <input id="title" placeholder="Post title" /></label>
-      <label>Tags <input id="tags" placeholder="dev, diy, life" /></label>
-      <button id="create">Create Draft PR</button>
-      <p id="status" aria-live="polite"></p>
-    </section>
-    <section>
-      <h2>Theme</h2>
-      <button id="preview">Preview Theme</button>
-      <pre id="theme"></pre>
-    </section>
-  </main>
-  <script src="{'{'} '/admin/js/github-api.js' | relative_url {'}'}"></script>
-  <script src="{'{'} '/admin/js/posts.js' | relative_url {'}'}"></script>
-  <script src="{'{'} '/admin/js/admin.js' | relative_url {'}'}"></script>
+  <div id="admin-container">
+    <header>
+      <h1>GOFUNWITH Admin Console</h1>
+      <div id="auth-status">
+        <button id="login-btn">Login with GitHub</button>
+        <div id="user-info" style="display: none;">
+          <span id="username"></span>
+          <button id="logout-btn">Logout</button>
+        </div>
+      </div>
+    </header>
+    <main id="main-content" style="display: none;">
+      <nav class="tabs">
+        <button data-tab="theme-preview" class="active">Theme Preview</button>
+        <button data-tab="create-post">Create New Post</button>
+      </nav>
+      <div id="tab-content">
+        <!-- Content will be loaded here -->
+      </div>
+    </main>
+  </div>
+  <script src="{{ '/admin/js/github-api.js' | relative_url }}"></script>
+  <script src="{{ '/admin/js/posts.js' | relative_url }}"></script>
+  <script src="{{ '/admin/js/admin.js' | relative_url }}"></script>
 </body>
 </html>
