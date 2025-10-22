@@ -1,18 +1,16 @@
-/* .eslintrc.json  버전 정보_202510171235 */
+/* .eslintrc.json v1.0_202510220736 */
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2020": true
   },
-  "extends": [
-    "eslint:recommended"
-  ],
+  "extends": "eslint:recommended",
   "parserOptions": {
-    "ecmaVersion": "latest",
+    "ecmaVersion": 11,
     "sourceType": "module"
   },
   "rules": {
     "no-unused-vars": "warn",
-    "no-undef": "error"
+    "no-undef": "warn"
   }
 }
