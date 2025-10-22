@@ -1,3 +1,19 @@
-<!-- /* _includes/header.html  v6.4.2_202510220213 */ -->
-{% include nav.html %}
-
+/* _includes/header.html  v202510221600 */
+{% assign cfg = site.data.config %}
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="{{ '/ko/' | relative_url }}">
+      <img src="{{ '/assets/themes/modern-light/images/logo.svg' | relative_url }}" alt="GOFUNWITH" />
+      <span>GOFUNWITH</span>
+    </a>
+    <nav>
+      <ul>
+      {% for item in cfg.nav %}
+        <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+      {% endfor %}
+      </ul>
+    </nav>
+    {% include lang-switch.html %}
+    {% include search-box.html %}
+  </div>
+</header>
