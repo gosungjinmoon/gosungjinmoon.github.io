@@ -1,8 +1,11 @@
-<!-- /* _includes/footer.html  v6.4.2_202510220213 */ -->
+/* _includes/footer.html  v202510221600 */
+{% assign theme = site.data.theme %}
 <footer class="site-footer">
-  <p>© 2025 GOFUNWITH – Explore. Create. Share.</p>
+  <div class="container">
+    <p>© {'{'} site.time | date: '%Y' {'}'} GOFUNWITH — Explore. Create. Share.</p>
+    <p><a href="{{ theme.github }}" target="_blank" rel="noopener">GitHub</a></p>
+  </div>
 </footer>
-<script src="{{ '/assets/js/lunr.min.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/translator.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/search.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/js/translator.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/js/search.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/js/lunr.min.js' | relative_url }}"></script>
