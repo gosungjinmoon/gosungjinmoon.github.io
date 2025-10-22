@@ -1,12 +1,5 @@
-# /* _data/tags.yml  v6.4.2_202510220213 */
-defaults:
-  - Tech
-  - Automation
-  - Cloud
-  - DevOps
-  - Flutter
-  - OCI
-  - HowTo
+/* _data/tags.yml  v202510221600 */
 aliases:
-  howto: HowTo
-  devops: DevOps
+  dev: ["개발","development"]
+  diy: ["메이킹","maker"]
+  life: ["라이프","일상"]
