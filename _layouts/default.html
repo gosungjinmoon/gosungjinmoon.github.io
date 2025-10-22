@@ -1,15 +1,20 @@
-<!-- /* _layouts/default.html  v6.4.1_20251017 */ -->
+<!-- /* _layouts/default.html  v6.4.2_202510220213 */ -->
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: 'ko' }}">
-  <head>
-    {% include head-seo.html %}
-    <link rel="stylesheet" href="{{ '/assets/themes/' | append: site.data.theme.theme.slug | append: '/css/style.css' | relative_url }}" />
-  </head>
-  <body class="theme-{{ site.data.theme.theme.slug }}">
-    {% include header.html %}
-    <main class="container">
-      {{ content }}
-    </main>
-    {% include footer.html %}
-  </body>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {% include seo.html %}
+  {% assign theme = site.data.theme.theme %}
+  {% assign theme_slug = theme.slug | default: 'modern-light' %}
+  <link rel="stylesheet" href="{{ '/assets/themes/' | append: theme_slug | append: '/css/style.css' | relative_url }}" />
+</head>
+<body class="{{ theme_slug }}">
+  {% include header.html %}
+  <main class="container">
+    {% if page.title %}<h1 class="page-title">{{ page.title }}</h1>{% endif %}
+    {{ content }}
+  </main>
+  {% include footer.html %}
+</body>
 </html>
