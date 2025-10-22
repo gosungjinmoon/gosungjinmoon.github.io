@@ -1,5 +1,29 @@
-/* _data/tags.yml  v202510221600 */
-aliases:
-  dev: ["개발","development"]
-  diy: ["메이킹","maker"]
-  life: ["라이프","일상"]
+/* _data/tags.yml v1.0_202510220736 */
+
+slug: url-friendly-name
+name: Display Name
+description: "Optional description"
+
+slug: "tech"
+name: "Tech"
+description: "기술 관련 포스트"
+
+slug: "diy"
+name: "DIY"
+description: "직접 만드는 즐거움"
+
+slug: "life"
+name: "Life"
+description: "생활 속 실험과 팁"
+
+slug: "automation"
+name: "Automation"
+description: "자동화 및 효율성"
+
+slug: "jekyll"
+name: "Jekyll"
+description: "Jekyll 블로그 개발"
+
+slug: "cloudflare"
+name: "Cloudflare"
+description: "Cloudflare Workers & Pages"
