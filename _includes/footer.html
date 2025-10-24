@@ -1,12 +1,29 @@
-<!-- /* _includes/footer.html v1.0_202510220736 */ -->
+{% assign lang_code = page.lang | default: "ko" %}
+{% assign t = site.data.config[lang_code] %}
+{% assign theme = site.data.theme %}
+
 <footer class="site-footer">
   <div class="container">
-    <p>
-      &copy; {{ 'now' | date: '%Y' }} {{ site.data.theme.brand }}. All rights reserved.
-    </p>
-    <p>
-      <a href="{{ site.data.theme.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
-      | Powered by Jekyll &amp; GitHub Pages.
-    </p>
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p>{{ t.footer.copyright }}</p>
+      </div>
+      <div class="footer-col">
+        <ul class="social-media-list">
+          {% if theme.github %}
+          <li>
+            <a href="{{ theme.github | escape }}" target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+          </li>
+          {% endif %}
+          <li>
+            <a href="{{ '/feed.xml' | relative_url }}" target="_blank">
+              RSS
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </footer>
