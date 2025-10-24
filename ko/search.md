@@ -1,4 +1,7 @@
-/* ko/search.md v1.0_202510220736 */
+---
+/* ko/search.md v1.0.0_202510221638 */
 layout: search
-title: 검색
+lang: "ko"
+title: "검색"
 permalink: /ko/search/
+---
