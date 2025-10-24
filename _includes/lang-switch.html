@@ -1,13 +1,13 @@
-{% assign lang_code = page.lang | default: "ko" %}
-{% assign t_ko = site.data.config.ko %}
-{% assign t_en = site.data.config.en %}
-
 <div class="lang-switch">
-  {% if lang_code == 'ko' %}
-    <span class="lang-active">{{ t_ko.lang_name }}</span>
-    <a href="{{ '/en/' | relative_url }}" class="lang-inactive">{{ t_en.lang_name }}</a>
+  {% if page.lang == 'en' %}
+  <a href="{{ page.url | remove: '/en' | relative_url }}" class="lang-item"
+    >🇰🇷 KO</a
+  >
+  <span class="lang-item active">🇺🇸 EN</span>
   {% else %}
-    <a href="{{ '/' | relative_url }}" class="lang-inactive">{{ t_ko.lang_name }}</a>
-    <span class="lang-active">{{ t_en.lang_name }}</span>
+  <span class="lang-item active">🇰🇷 KO</span>
+  <a href="{{ '/en' | append: page.url | relative_url }}" class="lang-item"
+    >🇺🇸 EN</a
+  >
   {% endif %}
 </div>
