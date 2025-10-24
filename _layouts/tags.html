@@ -1,39 +1,35 @@
-{% assign lang_code = page.lang | default: "ko" %}
-{% assign t = site.data.config[lang_code].tags %}
+<div class="tags-layout">
+  <h1 class="page-heading">{{ page.title }}</h1>
 
-<div class="tags-page">
-  <h1>{{ t.title }}</h1>
-  
-  <h2>{{ t.all_tags }}</h2>
-  {% include tag-cloud.html lang_code=lang_code %}
+  <div class="tag-cloud-page">
+    {% assign current_lang = page.lang | default: 'ko' %} {% assign tags = site.tags |
+    sort %} {% for tag in tags %} {% assign tag_name = tag | first %} {% assign
+    tag_posts = tag | last %} {% assign lang_posts = tag_posts | where: "lang",
+    current_lang %} {% if lang_posts.size > 0 %}
+    <a
+      href="#{{ tag_name | slugify }}"
+      class="tag-item"
+      style="font-size: {{ lang_posts.size | times: 2 | plus: 12 }}px;"
+      >{{ tag_name }} ({{ lang_posts.size }})</a
+    >
+    {% endif %} {% endfor %}
+  </div>
 
   <hr />
 
   <div class="tag-post-list">
-    {% assign tags = site.tags | sort %}
-    {% for tag in tags %}
-      {% assign tag_name = tag[0] %}
-      {% assign tag_posts = tag[1] %}
-
-      {% assign lang_posts = "" | split: "" %}
-      {% for post in tag_posts %}
-        {% if post.lang == lang_code %}
-          {% assign lang_posts = lang_posts | push: post %}
-        {% endif %}
+    {% for tag in tags %} {% assign tag_name = tag | first %} {% assign tag_posts =
+    tag | last %} {% assign lang_posts = tag_posts | where: "lang", current_lang %}
+    {% if lang_posts.size > 0 %}
+    <h2 id="{{ tag_name | slugify }}">{{ tag_name }}</h2>
+    <ul class="post-list-by-tag">
+      {% for post in lang_posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </li>
       {% endfor %}
-      
-      {% if lang_posts.size > 0 %}
-        {% assign tag_data = site.data.tags[tag_name] %}
-        <h2 id="{{ tag_name | slugify }}">{{ tag_data.name | default: tag_name }}</h2>
-        <ul class="post-list-by-tag">
-          {% for post in lang_posts reversed %}
-            <li>
-              <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
-              <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endfor %}
+    </ul>
+    {% endif %} {% endfor %}
   </div>
 </div>
