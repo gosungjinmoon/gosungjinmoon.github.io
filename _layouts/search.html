@@ -1,23 +1,16 @@
-{% assign lang_code = page.lang | default: "ko" %}
-{% assign t_search = site.data.config[lang_code].search %}
+<div class="search-layout">
+  <h1 class="page-heading">{{ page.title }}</h1>
 
-<div class="search-page">
-  <h1>{{ t_search.button }}</h1>
-  
-  {% include search-box.html lang_code=lang_code %}
+  <div class="search-page-form">
+    {% comment %} The form is pre-filled by URL parameters via search.js
+    {% endcomment %} {% include search-box.html %}
+  </div>
 
   <div id="search-results-container">
-    <p id="search-status" data-loading="Loading..." data-no-results="{{ t_search.no_results }}"></p>
-    <ul id="search-results-list"></ul>
+    <h2 id="search-results-title"></h2>
+    <ul id="search-results" class="post-list">
+      <li id="search-loading">Loading...</li>
+      <li id="search-no-results" style="display: none">No results found.</li>
+    </ul>
   </div>
 </div>
-
-<script>
-  // search.js가 로드된 후 이 함수를 즉시 실행
-  document.addEventListener('DOMContentLoaded', function () {
-    // search.js에서 window.initSearch 함수를 노출한다고 가정
-    if (window.initSearch) {
-      window.initSearch('{{ lang_code }}');
-    }
-  });
-</script>
