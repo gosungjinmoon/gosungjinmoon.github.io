@@ -1,20 +1,33 @@
-<!-- /* _layouts/home.html v1.0_202510220736 */ -->
 <div class="home">
-  <h1 class="page-title">{{ page.title }}</h1>
-  <ul class="post-list">
-    {%- assign posts_in_lang = site.posts | where: "lang", page.lang -%}
-    {%- for post in posts_in_lang -%}
-    <li>
-      <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
-      <h2>
-        <a class="post-link" href="{{ post.url | relative_url }}">
-          {{ post.title | escape }}
-        </a>
-      </h2>
-      <div class="post-excerpt">
-        {{ post.excerpt | strip_html | truncatewords: 30 }}
-      </div>
-    </li>
-    {%- endfor -%}
-  </ul>
+  {% assign lang_code = page.lang | default: "ko" %}
+
+  {% assign lang_posts = site.posts | where: "lang", lang_code | sort: "date" | reverse %}
+
+  {% if lang_posts.size > 0 %}
+    <ul class="post-list">
+      {% for post in lang_posts %}
+        <li>
+          <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
+          <h2>
+            <a class="post-link" href="{{ post.url | relative_url }}">
+              {{ post.title | escape }}
+            </a>
+          </h2>
+          <div class="post-excerpt">
+            {{ post.excerpt | strip_html | normalize_whitespace | truncate: 200 }}
+          </div>
+          <div class="post-tags">
+            {% for tag in post.tags %}
+              {% assign tag_data = site.data.tags[tag] %}
+              <a class="tag-pill" href="{{ '/tags/' | prepend: lang_code | relative_url }}#{{ tag | slugify }}">
+                {{ tag_data.name | default: tag }}
+              </a>
+            {% endfor %}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No posts found for this language.</p>
+  {% endif %}
 </div>
