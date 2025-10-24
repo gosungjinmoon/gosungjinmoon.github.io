@@ -1,62 +1,21 @@
-/* _data/config.yml v1.0.0_202510221638 */
+/* _data/config.yml v1.0.0_202510250840 */
+# 사이트 UI 및 네비게이션 설정
+nav:
+  - name:
+      ko: "소개"
+      en: "About"
+    url: "/about/" # (페이지 생성 필요)
+  - name:
+      ko: "태그"
+      en: "Tags"
+    url: "/tags/"
+  - name:
+      ko: "검색"
+      en: "Search"
+    url: "/search/"
 
-# 블로그의 기본 네비게이션과 UI 텍스트를 정의합니다.
-# 다국어 지원을 위해 ko/en 구조로 분리합니다.
-
-ko:
-  lang_code: "ko"
-  lang_name: "한국어"
-  nav:
-    - title: "홈"
-      url: "/"
-    - title: "태그"
-      url: "/ko/tags/"
-    - title: "검색"
-      url: "/ko/search/"
-    - title: "Admin"
-      url: "/admin/"
-      
-  search:
-    placeholder: "검색어를 입력하세요..."
-    button: "검색"
-    no_results: "검색 결과가 없습니다."
-
-  tags:
-    title: "태그"
-    all_tags: "모든 태그"
-
-  footer:
-    copyright: "© 2025 GOFUNWITH. All rights reserved."
-
-  posts:
-    back_to_list: "목록으로"
-    published: "발행일"
-
-en:
-  lang_code: "en"
-  lang_name: "English"
-  nav:
-    - title: "Home"
-      url: "/en/"
-    - title: "Tags"
-      url: "/en/tags/"
-    - title: "Search"
-      url: "/en/search/"
-    - title: "Admin"
-      url: "/admin/"
-
-  search:
-    placeholder: "Enter search query..."
-    button: "Search"
-    no_results: "No results found."
-
-  tags:
-    title: "Tags"
-    all_tags: "All Tags"
-
-  footer:
-    copyright: "© 2025 GOFUNWITH. All rights reserved."
-
-  posts:
-    back_to_list: "Back to list"
-    published: "Published on"
+footer_links:
+  - name: "Admin"
+    url: "/admin/"
+  - name: "GitHub"
+    url: "https://github.com/gosungjinmoon" # theme.yml의 github 값으로 대체 가능
