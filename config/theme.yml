@@ -1,26 +1,34 @@
-/* _data/theme.yml v1.0_202510220736 */
-#
-# 이 파일은 Jekyll 빌드와 Admin Console(JavaScript)에서 모두 사용됩니다.
-# Admin Console에서 JS로 이 파일을 fetch할 수 있도록 `assets/config/theme.yml`에 동일한 내용을 미러링해야 합니다.
+/* _data/theme.yml v1.0.0_202510221638 */
+# 
+# ⭐️ 중요: 이 파일은 Admin JS가 fetch할 수 있도록
+# ⭐️ 반드시 'assets/config/theme.yml' 파일에 그대로 복사되어야 합니다.
+# ⭐️ This file MUST be mirrored to 'assets/config/theme.yml'
 #
 
-# --- 사이트 기본 정보 ---
+# --- Site Identity (Jekyll 'site' object overrides) ---
 brand: "GOFUNWITH – Explore. Create. Share."
-domain: "blog.gofunwith.com" # CNAME에 설정된 도메인
-repo: "gosungjinmoon/gosungjinmoon.github.io" # "owner/repo" 형식
-url: "https://gosungjinmoon.github.io" # GitHub Pages 기본 URL (CNAME 사용 시에도 필요)
-github: "https://github.com/gosungjinmoon" # GitHub 프로필 URL
+url: "https://gosungjinmoon.github.io" # Jekyll 'site.url' (GitHub Pages URL)
+domain: "blog.gofunwith.com" # Custom Domain
 timezone: "Asia/Seoul"
 
-# --- 외부 서비스 연동 ---
+# --- Repository Info ---
+repo: "gosungjinmoon/gosungjinmoon.github.io"
+github: "https://github.com/gosungjinmoon"
+
+# --- Theme Selection ---
+# assets/themes/ 하위의 테마 폴더명
+theme_slug: "modern-light"
+
+# --- Analytics & Services ---
 ga4_measurement_id: "G-R7N7G7QPBF"
 cloudflare_beacon_token: "c7db8999eee4466bab1893a2361aed10"
-n8n_webhook_subscribe: "https://n8n.gofunwith.com/webhook/subscribe"
 
-# --- Admin Console 및 Worker 연동 ---
-# GitHub OAuth App에서 발급받은 Client ID
+# --- Admin Console & API Endpoints ---
+# 1. GitHub OAuth App (Admin 인증용)
 github_oauth_client_id: "Ov23liqsljSBAqajz2eu"
 
-# Cloudflare Worker 배포 후 얻은 엔드포인트 URL
-# 예: https://your-worker-name.your-account.workers.dev
+# 2. Cloudflare Worker (OAuth Code -> Token 교환)
 cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
+
+# 3. n8n Webhook (새 포스트 생성 트리거)
+n8n_webhook_subscribe: "https://n8n.gofunwith.com/webhook/subscribe"
