@@ -1,34 +1,23 @@
-/* _data/theme.yml v1.0.0_202510221638 */
-# 
-# ⭐️ 중요: 이 파일은 Admin JS가 fetch할 수 있도록
-# ⭐️ 반드시 'assets/config/theme.yml' 파일에 그대로 복사되어야 합니다.
-# ⭐️ This file MUST be mirrored to 'assets/config/theme.yml'
-#
+/* _data/theme.yml v1.0.0_202510250840 */
+# ⭐️ 사이트의 모든 핵심 환경변수
+# ⭐️ 중요: 이 파일 수정 시, 반드시 'assets/config/theme.yml'에도 복사해야 합니다.
 
-# --- Site Identity (Jekyll 'site' object overrides) ---
 brand: "GOFUNWITH – Explore. Create. Share."
-url: "https://gosungjinmoon.github.io" # Jekyll 'site.url' (GitHub Pages URL)
-domain: "blog.gofunwith.com" # Custom Domain
-timezone: "Asia/Seoul"
-
-# --- Repository Info ---
+domain: "blog.gofunwith.com"
+url: "https://gosungjinmoon.github.io" # Jekyll의 {{ site.url }}이 CNAME을 따르지 않을 경우 대비
 repo: "gosungjinmoon/gosungjinmoon.github.io"
 github: "https://github.com/gosungjinmoon"
+timezone: "Asia/Seoul"
 
-# --- Theme Selection ---
-# assets/themes/ 하위의 테마 폴더명
-theme_slug: "modern-light"
-
-# --- Analytics & Services ---
+# Google Analytics & Cloudflare
 ga4_measurement_id: "G-R7N7G7QPBF"
 cloudflare_beacon_token: "c7db8999eee4466bab1893a2361aed10"
 
-# --- Admin Console & API Endpoints ---
-# 1. GitHub OAuth App (Admin 인증용)
-github_oauth_client_id: "Ov23liqsljSBAqajz2eu"
-
-# 2. Cloudflare Worker (OAuth Code -> Token 교환)
+# Admin Console & API Endpoints
+# ❗️ Cloudflare Worker 배포 후 생성된 URL로 변경하세요.
 cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
-
-# 3. n8n Webhook (새 포스트 생성 트리거)
+# ❗️ n8n Webhook 생성 후 생성된 URL로 변경하세요.
 n8n_webhook_subscribe: "https://n8n.gofunwith.com/webhook/subscribe"
+
+# ❗️ GitHub OAuth App 생성 후 발급된 Client ID로 변경하세요.
+github_oauth_client_id: "Ov23liqsljSBAqajz2eu"
