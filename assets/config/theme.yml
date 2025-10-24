@@ -1,8 +1,7 @@
-/* _data/theme.yml v1.0.0_202510221638 */
+/* assets/config/theme.yml v1.0.0_202510221638 */
 # 
-# ⭐️ 중요: 이 파일은 Admin JS가 fetch할 수 있도록
-# ⭐️ 반드시 'assets/config/theme.yml' 파일에 그대로 복사되어야 합니다.
-# ⭐️ This file MUST be mirrored to 'assets/config/theme.yml'
+# ⭐️ 중요: 이 파일은 '_data/theme.yml'의 정확한 복사본(미러)이어야 합니다.
+# ⭐️ Admin JS가 클라이언트 사이드에서 fetch하기 위해 사용됩니다.
 #
 
 # --- Site Identity (Jekyll 'site' object overrides) ---
