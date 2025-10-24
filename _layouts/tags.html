@@ -1,22 +1,39 @@
-<!-- /* _layouts/tags.html v1.0_202510220736 */ -->
+{% assign lang_code = page.lang | default: "ko" %}
+{% assign t = site.data.config[lang_code].tags %}
+
 <div class="tags-page">
-  <h1 class="page-title">{{ page.title }}</h1>
-  {%- assign tags = site.tags | sort -%}
-  {%- for tag in tags -%}
-    {%- assign tag_name = tag | first -%}
-    {%- assign posts_in_lang = tag | last | where: "lang", page.lang -%}
-    {%- if posts_in_lang.size > 0 -%}
-      <section id="{{ tag_name | slugify }}" class="tag-section">
-        <h2 class="tag-title">{{ tag_name }}</h2>
-        <ul class="post-list">
-          {%- for post in posts_in_lang -%}
+  <h1>{{ t.title }}</h1>
+  
+  <h2>{{ t.all_tags }}</h2>
+  {% include tag-cloud.html lang_code=lang_code %}
+
+  <hr />
+
+  <div class="tag-post-list">
+    {% assign tags = site.tags | sort %}
+    {% for tag in tags %}
+      {% assign tag_name = tag[0] %}
+      {% assign tag_posts = tag[1] %}
+
+      {% assign lang_posts = "" | split: "" %}
+      {% for post in tag_posts %}
+        {% if post.lang == lang_code %}
+          {% assign lang_posts = lang_posts | push: post %}
+        {% endif %}
+      {% endfor %}
+      
+      {% if lang_posts.size > 0 %}
+        {% assign tag_data = site.data.tags[tag_name] %}
+        <h2 id="{{ tag_name | slugify }}">{{ tag_data.name | default: tag_name }}</h2>
+        <ul class="post-list-by-tag">
+          {% for post in lang_posts reversed %}
             <li>
-              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
               <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
+              <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
             </li>
-          {%- endfor -%}
+          {% endfor %}
         </ul>
-      </section>
-    {%- endif -%}
-  {%- endfor -%}
+      {% endif %}
+    {% endfor %}
+  </div>
 </div>
