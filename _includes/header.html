@@ -1,23 +1,24 @@
-{% assign lang_code = page.lang | default: "ko" %}
-{% assign theme = site.data.theme %}
-
 <header class="site-header">
-  <div class="container">
-    <a class="site-title" href="{{ '/' | relative_url }}">
+  <div class="wrapper">
+    <a
+      class="site-title"
+      rel="author"
+      href="{{ '/' | relative_url | replace: '//', '/' }}"
+    >
       <img
-        src="{{ '/assets/themes/' | append: theme.theme_slug | append: '/images/logo.svg' | relative_url }}"
-        alt="{{ theme.brand }} Logo"
+        src="{{ '/assets/themes/modern-light/images/logo.svg' | relative_url }}"
+        alt="{{ site.data.theme.brand | escape }}"
         class="site-logo"
       />
-      </a>
+      <span class="brand-text">{{ site.data.theme.brand }}</span>
+    </a>
 
     <nav class="site-nav">
-      {% include nav.html lang_code=lang_code %}
+      <div class="nav-trigger">&#9776;</div>
+      <div class="nav-menu">
+        {% include nav.html %} {% include search-box.html %} {% include
+        lang-switch.html %}
+      </div>
     </nav>
-    
-    <div class="header-utils">
-      {% include search-box.html lang_code=lang_code %}
-      {% include lang-switch.html %}
-    </div>
   </div>
 </header>
