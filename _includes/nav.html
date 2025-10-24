@@ -1,12 +1,22 @@
-{% assign lang_code = include.lang_code | default: "ko" %}
-{% assign t_nav = site.data.config[lang_code].nav %}
-
-<ul class="nav-list">
-  {% for item in t_nav %}
-    <li class="nav-item">
-      <a class="nav-link {% if page.url == item.url %}active{% endif %}" href="{{ item.url | relative_url }}">
-        {{ item.title | escape }}
-      </a>
-    </li>
+{% assign current_lang = page.lang | default: 'ko' %}
+<ul class="nav-links">
+  {% for item in site.data.config.nav %} {% assign item_name = item.name[current_lang]
+  | default: item.name['ko'] %} {% assign item_url = item.url %} {% comment %}
+  다국어 경로 처리 {% endcomment %} {% if current_lang != 'ko' and item_url
+  contains '/tags/' %} {% assign item_url = item_url | replace: '/tags/',
+  (current_lang | prepend: '/') | append: '/tags/' %} {% elsif current_lang != 'ko'
+  and item_url contains '/search/' %} {% assign item_url = item_url | replace:
+  '/search/', (current_lang | prepend: '/') | append: '/search/' %} {% elsif
+  current_lang != 'ko' and item_url contains '/about/' %} {% assign item_url =
+  item_url | replace: '/about/', (current_lang | prepend: '/') | append: '/about/'
+  %} {% endif %}
+  <li>
+    <a
+      class="page-link"
+      href="{{ item_url | relative_url }}"
+      title="{{ item_name }}"
+      >{{ item_name }}</a
+    >
+  </li>
   {% endfor %}
 </ul>
