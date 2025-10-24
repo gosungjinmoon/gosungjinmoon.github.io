@@ -1,8 +1,9 @@
-/* .eslintrc.json v1.0_202510220736 */
+/* .eslintrc.json v1.0.0_202510221638 */
 {
   "env": {
     "browser": true,
-    "es2020": true
+    "es2020": true,
+    "node": true
   },
   "extends": "eslint:recommended",
   "parserOptions": {
@@ -10,7 +11,14 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-unused-vars": "warn",
-    "no-undef": "warn"
+    "no-unused-vars": ["warn", { "args": "none" }],
+    "no-undef": "error",
+    "no-console": "warn",
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"]
+  },
+  "globals": {
+    "lunr": "readonly",
+    "siteData": "readonly"
   }
 }
