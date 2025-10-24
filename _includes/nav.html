@@ -1,11 +1,12 @@
-<!-- /* _includes/nav.html v1.0_202510220736 */ -->
-<ul>
-{%- assign nav_items = site.data.config.nav[page.lang] -%}
-{%- for item in nav_items -%}
-  <li>
-    <a href="{{ item.url | relative_url }}" {% if page.url == item.url %}class="active"{% endif %}>
-      {{ item.title }}
-    </a>
-  </li>
-{%- endfor -%}
+{% assign lang_code = include.lang_code | default: "ko" %}
+{% assign t_nav = site.data.config[lang_code].nav %}
+
+<ul class="nav-list">
+  {% for item in t_nav %}
+    <li class="nav-item">
+      <a class="nav-link {% if page.url == item.url %}active{% endif %}" href="{{ item.url | relative_url }}">
+        {{ item.title | escape }}
+      </a>
+    </li>
+  {% endfor %}
 </ul>
