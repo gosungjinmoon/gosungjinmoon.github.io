@@ -1,30 +1,68 @@
-/* _config.yml v1.0.0_202510241805 */
-title: "GOFUNWITH Blog"
-description: "Explore. Create. Share. 기술, DIY, 캠핑, 자동화, 생활 실험 등 즐거운 창작과 도전의 여정을 기록합니다."
-baseurl: "" # GitHub Pages CNAME 사용 시 비워둡니다.
+# /* _config.yml v1.0.0_202510241810 */
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that.
+# For technical details, see: https://jekyllrb.com/docs/configuration/
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+# -------------------------------------------------------------------
+# ⭐️ 404 오류 방지를 위한 핵심 설정
+# CNAME (blog.gofunwith.com)을 사용하므로 url은 CNAME 도메인으로,
+# baseurl은 반드시 빈 문자열 "" 로 설정해야 합니다.
+# -------------------------------------------------------------------
 url: "https://blog.gofunwith.com" # CNAME 도메인
-timezone: "Asia/Seoul"
+baseurl: "" # ⭐️ 루트에서 호스팅되므로 반드시 "" (빈 문자열)
 
-# 플러그인 (GitHub Pages 호환)
-plugins:
-  - jekyll-seo-tag
-  - jekyll-feed
-  - jekyll-sitemap
+# -------------------------------------------------------------------
+# ⭐️ 환경 변수 (모든 민감 정보와 설정은 _data/theme.yml 로 이동)
+# -------------------------------------------------------------------
+# site.data.theme.brand, site.data.theme.domain 등으로 Liquid에서 사용
+timezone: Asia/Seoul
 
-# 빌드 설정
+# Build settings
 markdown: kramdown
+theme: null # 테마를 사용하지 않고 직접 빌드
 kramdown:
   input: GFM
   syntax_highlighter: rouge
 
-# Jekyll이 admin 폴더를 빌드에 포함하도록 설정 (필수)
+# -------------------------------------------------------------------
+# ⭐️ Admin UI 및 Jekyll이 무시하는 폴더 포함
+# -------------------------------------------------------------------
+# Jekyll 4.0+ 부터는 명시적으로 include 해야 _site에 포함됩니다.
 include:
   - "admin"
+  - ".nojekyll" # (필요시)
 
-# 기본값 설정
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+  - cloudflare_worker.js
+  - .prettierrc
+  - .eslintrc.json
+
+# Plugins (GitHub Pages supported)
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Default values
 defaults:
   - scope:
-      path: "" # 사이트 전체
+      path: "" # all files
     values:
       layout: "default"
   - scope:
@@ -33,14 +71,23 @@ defaults:
     values:
       layout: "post"
   - scope:
-      path: "ko"
+      path: "ko/*"
     values:
       lang: "ko"
   - scope:
-      path: "en"
+      path: "en/*"
+    values:
+      lang: "en"
+  - scope:
+      path: "_posts/ko/*"
+    values:
+      lang: "ko"
+  - scope:
+      path: "_posts/en/*"
     values:
       lang: "en"
 
-# Front Matter에서 layout: none을 허용하기 위함
-# (admin/ 파일들이 _layouts/default.html을 상속받지 않도록)
-layouts_dir: _layouts
+# Sass/SCSS
+sass:
+  sass_dir: _sass
+  style: compressed
