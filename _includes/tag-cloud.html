@@ -1,29 +1,14 @@
-{% assign lang_code = include.lang_code | default: "ko" %}
-
-{% assign tags = site.tags | sort %}
-{% if tags.size > 0 %}
-  <div class="tag-cloud">
-    {% for tag in tags %}
-      {% assign tag_name = tag[0] %}
-      {% assign tag_posts = tag[1] %}
-      
-      {% assign lang_posts = "" | split: "" %}
-      {% for post in tag_posts %}
-        {% if post.lang == lang_code %}
-          {% assign lang_posts = lang_posts | push: post %}
-        {% endif %}
-      {% endfor %}
-
-      {% if lang_posts.size > 0 %}
-        {% assign tag_data = site.data.tags[tag_name] %}
-        <a 
-          href="{{ '/tags/' | prepend: lang_code | relative_url }}#{{ tag_name | slugify }}" 
-          class="tag-pill" 
-          style="font-size: {{ lang_posts.size | times: 2 | plus: 10 }}px;"
-        >
-          {{ tag_data.name | default: tag_name }} ({{ lang_posts.size }})
-        </a>
-      {% endif %}
-    {% endfor %}
-  </div>
-{% endif %}
+<div class="tag-cloud">
+  <h3>Tags</h3>
+  {% assign current_lang = page.lang | default: 'ko' %} {% assign tags = site.tags |
+  sort %} {% for tag in tags %} {% assign tag_name = tag | first %} {% assign
+  tag_posts = tag | last %} {% assign lang_posts = tag_posts | where: "lang",
+  current_lang %} {% if lang_posts.size > 0 %}
+  <a
+    href="{{ '/tags/' | relative_url }}#{{ tag_name | slugify }}"
+    class="tag-item"
+    style="font-size: {{ lang_posts.size | times: 2 | plus: 10 }}px;"
+    >{{ tag_name }} ({{ lang_posts.size }})</a
+  >
+  {% endif %} {% endfor %}
+</div>
