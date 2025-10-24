@@ -1,15 +1,39 @@
-{% assign lang_code = include.lang_code | default: "ko" %}
-{% assign t_search = site.data.config[lang_code].search %}
-
 <div class="search-box">
-  <form id="search-form-{{ lang_code }}" action="{{ '/search/' | prepend: lang_code | relative_url }}" method="get">
+  <form
+    id="search-form"
+    role="search"
+    action="{{ '/search/' | relative_url }}"
+    method="get"
+  >
+    {% if page.lang == 'en' %}
     <input
-      type="text"
-      id="search-input-{{ lang_code }}"
+      type="search"
+      id="search-input"
       name="q"
-      placeholder="{{ t_search.placeholder }}"
-      aria-label="{{ t_search.placeholder }}"
+      placeholder="Search..."
+      aria-label="Search"
     />
-    <button type="submit" aria-label="{{ t_search.button }}">🔍</button>
+    <input
+      type="hidden"
+      name="lang"
+      value="en"
+      id="search-lang"
+    />
+    {% else %}
+    <input
+      type="search"
+      id="search-input"
+      name="q"
+      placeholder="검색..."
+      aria-label="검색"
+    />
+    <input
+      type="hidden"
+      name="lang"
+      value="ko"
+      id="search-lang"
+    />
+    {% endif %}
+    <button type="submit" class="search-submit">🔍</button>
   </form>
 </div>
