@@ -1,21 +1,16 @@
-/* _data/tags.yml v1.0.0_202510221638 */
-
-# 태그의 메타데이터를 정의합니다.
-# 태그 클라우드 표시 이름이나 설명을 추가할 수 있습니다.
-# key: 태그 slug (포스트 front matter에 사용)
-# name: 태그 페이지에 표시될 이름
-
-tech:
-  name: "Tech"
-diy:
-  name: "DIY"
-camping:
-  name: "Camping"
-automation:
-  name: "Automation"
-experiment:
-  name: "Experiment"
-n8n:
-  name: "n8n"
-jekyll:
-  name: "Jekyll"
+/* _data/tags.yml v1.0.0_202510250840 */
+# 태그 메타데이터 (향후 태그 설명 페이지 등에 활용)
+- name: "Tech"
+  description: "기술 관련 포스트"
+- name: "DIY"
+  description: "직접 만드는 즐거움"
+- name: "Camping"
+  description: "캠핑 및 아웃도어"
+- name: "Automation"
+  description: "자동화 및 n8n"
+- name: "Life"
+  description: "생활 실험"
+- name: "Experiment"
+  description: "도전과 실험"
+- name: "Journey"
+  description: "경험의 여정"
