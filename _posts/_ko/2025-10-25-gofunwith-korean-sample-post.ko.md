@@ -1,5 +1,4 @@
 ---
-/* _posts/ko/2025-10-25-gofunwith-korean-sample-post.ko.md v1.0.0_202510250840 */
 layout: post
 title: "GOFUNWITH 블로그 샘플 포스트입니다"
 date: 2025-10-25 08:40:00 +0900
