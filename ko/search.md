@@ -1,6 +1,6 @@
 ---
 layout: search
-lang: "ko"
-title: "검색"
+lang: ko
 permalink: /ko/search/
+title: 검색
 ---
