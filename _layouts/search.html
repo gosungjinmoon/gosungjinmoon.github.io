@@ -1,9 +1,11 @@
+---
+layout: default
+---
 <div class="search-layout">
   <h1 class="page-heading">{{ page.title }}</h1>
 
   <div class="search-page-form">
-    {% comment %} The form is pre-filled by URL parameters via search.js
-    {% endcomment %} {% include search-box.html %}
+    {% include search-box.html %}
   </div>
 
   <div id="search-results-container">
