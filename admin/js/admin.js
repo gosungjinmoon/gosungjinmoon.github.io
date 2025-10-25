@@ -1,7 +1,6 @@
-/* admin/js/admin.js v1.0.0_202510250840 */
+/* admin/js/admin.js v1.0.7_202510251100 */
 /*
  * Admin UI/UX 로직 (탭 전환, 폼 제출 등)
- * 이 파일은 githubApi, postCreator 객체에 의존합니다.
  */
 (function (githubApi, postCreator) {
   'use strict';
@@ -113,7 +112,24 @@
 
   // 이벤트 리스너 바인딩
   function bindEvents() {
-    elements.loginBtn.addEventListener('click', () => githubApi.login());
+    // ⭐️ V1.0.7 수정: 로그인 버튼 리스너
+    elements.loginBtn.addEventListener('click', () => {
+      showLoading('Redirecting to GitHub...');
+      githubApi
+        .login()
+        .then((userData) => {
+          // 로그인 성공 시 (팝업이 닫힌 후)
+          updateUIForLogin(userData);
+          hideLoading();
+        })
+        .catch((error) => {
+          // 로그인 실패 또는 팝업 닫힘
+          console.error('Login failed:', error);
+          alert('Login failed: ' + error.message);
+          hideLoading();
+        });
+    });
+
     elements.logoutBtn.addEventListener('click', () => githubApi.logout());
     elements.newPostForm.addEventListener('submit', handlePostSubmit);
 
