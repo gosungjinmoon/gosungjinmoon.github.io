@@ -1,45 +1,58 @@
-# /* _config.yml v1.0.11_202510251330 - 재확인 */
+# /* _config.yml v1.0.12_202510251400 */
 
-# Basic settings required by Jekyll/GitHub Pages
+# --- Required by GitHub Pages ---
+# If you deploy to user/organization pages (like gosungjinmoon.github.io):
+# baseurl must be "" or /. No leading slash needed for url.
+# If you deploy to project pages (like user.github.io/repo):
+# baseurl must be "/repo".
 title: GOFUNWITH Blog
-url: "https://blog.gofunwith.com"
-baseurl: "" # Keep empty for CNAME root domain
+url: "https://blog.gofunwith.com" # Your custom domain
+baseurl: "" # For user/organization pages repository
 
-# --- Core Fixes ---
-# 1. Disable GitHub's default theme (CRITICAL for using _layouts)
+# --- Critical: Use local layouts, disable default theme ---
 theme: null
 
-# 2. Ensure Jekyll processes the /admin folder
+# --- Ensure admin folder is processed ---
 include:
   - "admin"
 
-# 3. Required plugins when theme is null
+# --- Required Plugins (when theme: null) ---
+# Keep only the absolute essentials for now
 plugins:
   - jekyll-seo-tag
-  - jekyll-feed
-  - jekyll-sitemap
+  # - jekyll-feed # Temporarily disable to reduce complexity
+  # - jekyll-sitemap # Temporarily disable to reduce complexity
 
-# --- Minimal Defaults ---
-# Apply default layout to everything unless specified otherwise
+# --- Default Layout ---
+# Apply default layout from _layouts folder to all pages/posts
 defaults:
   - scope:
       path: ""
     values:
       layout: "default"
   - scope:
-      path: "_posts" # Ensure posts use the 'post' layout
+      path: "_posts"
       type: "posts"
     values:
-      layout: "post"
+      layout: "post" # Ensure posts use the post layout
 
-# Exclude files (keep this minimal for now)
+# --- Exclusions ---
+# Minimal exclusions
 exclude:
   - README.md
-  - cloudflare_worker.js
-  - node_modules
   - Gemfile
   - Gemfile.lock
-  - .prettierrc
-  - .eslintrc.json
+  - node_modules
   - vendor/bundle/
   - .github/
+  # Keep potentially problematic files excluded
+  - cloudflare_worker.js
+  - .prettierrc
+  - .eslintrc.json
+  - themes/
+  - assets/style.css
+  - assets/theme.yml
+  - config/
+  - cloudflare/
+  - _secrets/
+  - design_guide.md
