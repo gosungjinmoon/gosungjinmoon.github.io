@@ -2,7 +2,7 @@
   <form
     id="search-form"
     role="search"
-    action="{{ '/search/' | relative_url }}"
+    action="/search/"
     method="get"
   >
     {% if page.lang == 'en' %}
@@ -13,12 +13,7 @@
       placeholder="Search..."
       aria-label="Search"
     />
-    <input
-      type="hidden"
-      name="lang"
-      value="en"
-      id="search-lang"
-    />
+    <input type="hidden" name="lang" value="en" id="search-lang" />
     {% else %}
     <input
       type="search"
@@ -27,12 +22,7 @@
       placeholder="검색..."
       aria-label="검색"
     />
-    <input
-      type="hidden"
-      name="lang"
-      value="ko"
-      id="search-lang"
-    />
+    <input type="hidden" name="lang" value="ko" id="search-lang" />
     {% endif %}
     <button type="submit" class="search-submit">🔍</button>
   </form>
