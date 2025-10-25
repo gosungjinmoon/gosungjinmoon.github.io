@@ -1,4 +1,4 @@
-/* admin/js/admin.js v1.0.7_202510251100 */
+/* admin/js/admin.js v1.0.9_202510251140 */
 /*
  * Admin UI/UX 로직 (탭 전환, 폼 제출 등)
  */
@@ -79,7 +79,7 @@
     } catch (error) {
       console.error('Error loading theme config:', error);
       elements.themeConfigDisplay.value =
-        'Error loading config: ' + error.message;
+        'Error loading config: 'm' + error.message;
     }
   }
 
