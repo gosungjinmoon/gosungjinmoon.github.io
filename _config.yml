@@ -1,4 +1,4 @@
-/* _config.yml v1.0.0_202510250840 */
+# /* _config.yml v1.0.1_202510250910 */
 title: GOFUNWITH Blog
 description: "Go have fun with tech, tools, and life. 경험 중심, 도전과 실험, 즐거운 창작"
 baseurl: "" # CNAME을 사용하므로 비워둡니다.
