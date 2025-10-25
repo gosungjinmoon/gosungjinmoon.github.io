@@ -83,7 +83,7 @@
       Jekyll은 callback.html을 /callback/index.html로 빌드합니다.
       따라서 .html 확장자 대신 / (폴더)로 끝나야 합니다.
     */
-    const redirectUri = `${window.location.origin}/admin/oauth/callback.html/`;
+    const redirectUri = `${window.location.origin}/admin/oauth/callback.html`;
 
     const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
       redirectUri,
