@@ -1,5 +1,4 @@
 ---
-/* _posts/en/2025-10-22-gofunwith-english-sample-post.en.md v1.0.0_202510221638 */
 layout: post
 title: "Starting GOFUNWITH: A Journey of Fun with Tech and Life"
 date: 2025-10-22 16:30:00 +0900
