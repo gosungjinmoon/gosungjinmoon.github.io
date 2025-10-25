@@ -1,15 +1,27 @@
 {% assign current_lang = page.lang | default: 'ko' %}
 <ul class="nav-links">
-  {% for item in site.data.config.nav %} {% assign item_name = item.name[current_lang]
-  | default: item.name['ko'] %} {% assign item_url = item.url %} {% comment %}
-  다국어 경로 처리 {% endcomment %} {% if current_lang != 'ko' and item_url
-  contains '/tags/' %} {% assign item_url = item_url | replace: '/tags/',
-  (current_lang | prepend: '/') | append: '/tags/' %} {% elsif current_lang != 'ko'
-  and item_url contains '/search/' %} {% assign item_url = item_url | replace:
-  '/search/', (current_lang | prepend: '/') | append: '/search/' %} {% elsif
-  current_lang != 'ko' and item_url contains '/about/' %} {% assign item_url =
-  item_url | replace: '/about/', (current_lang | prepend: '/') | append: '/about/'
-  %} {% endif %}
+  
+  {% for item in site.data.config.nav %} 
+    {% assign item_name = item.name[current_lang] | default: item.name['ko'] %} 
+    {% assign item_url = item.url %} 
+    
+    {% comment %} 
+      V1.0.4: 다국어 경로 처리 수정 
+      config.yml의 /tags/ 같은 기본 URL에
+      현재 언어에 맞는 접두사(/ko 또는 /en)를 붙입니다.
+      단, 한국어(ko)는 루트(/)를 사용하므로 접두사를 붙이지 않습니다.
+    {% endcomment %}
+    
+    {% if current_lang != 'ko' %}
+      {% if item.url == '/tags/' or item.url == '/search/' or item.url == '/about/' %}
+         {% assign item_url = item.url | prepend: ('/' | append: current_lang) %}
+      {% endif %}
+    {% else %}
+      {% if item.url == '/tags/' or item.url == '/search/' or item.url == '/about/' %}
+         {% assign item_url = item.url | prepend: '/ko' %}
+      {% endif %}
+    {% endif %}
+
   <li>
     <a
       class="page-link"
