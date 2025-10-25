@@ -1,4 +1,4 @@
-/* admin/js/admin.js v1.0.12_202510251400 */
+/* admin/js/admin.js v1.0.13_202510251430 */
 (function (githubApi, postCreator) {
   'use strict';
 
@@ -28,7 +28,10 @@
     e.target.classList.add('active');
 
     elements.tabContents.forEach(content => {
-      content.classList.toggle('active', content.id === `tab-${targetTab}`);
+      // Ensure content element exists before accessing id
+      if (content) {
+        content.classList.toggle('active', content.id === `tab-${targetTab}`);
+      }
     });
 
     if (targetTab === 'settings') loadAndDisplayConfig();
@@ -54,7 +57,6 @@
      if (!elements.themeConfigDisplay) return;
     try {
       showLoading('Loading config...');
-      // Ensure githubApi is loaded and function exists
       if (typeof githubApi?.fetchThemeConfigYaml !== 'function') {
          throw new Error("GitHub API module not loaded correctly.");
       }
@@ -62,7 +64,7 @@
       elements.themeConfigDisplay.value = configYaml;
     } catch (error) {
       console.error('Error loading theme config:', error);
-      // Corrected syntax error from V1.0.10 check
+      // V1.0.13: Ensure correct error message assignment
       elements.themeConfigDisplay.value = 'Error loading config: ' + error.message;
     } finally {
        hideLoading();
@@ -76,17 +78,21 @@
     elements.createPostBtn.disabled = true;
 
     try {
-      // Ensure form elements exist before accessing value
       const title = document.getElementById('post-title')?.value;
       const lang = document.getElementById('post-lang')?.value;
       const tags = document.getElementById('post-tags')?.value;
       const content = document.getElementById('post-content')?.value;
 
-      if (!title || !lang || content === undefined) {
+      if (!title || !lang || content === undefined || content === null) { // More robust check
          throw new Error("Title, Language, and Content are required.");
       }
 
-      const response = await postCreator.createNewPost(title, lang, tags ?? '', content); // Use empty string if tags is null/undefined
+      // Ensure postCreator module is available
+      if (typeof postCreator?.createNewPost !== 'function'){
+          throw new Error("Post creation module not available.");
+      }
+
+      const response = await postCreator.createNewPost(title, lang, tags ?? '', content);
 
       alert(
         `Successfully created Pull Request!\nPR URL: ${response.prUrl}\n\nReview and merge it on GitHub.`
@@ -97,7 +103,8 @@
       alert('Error creating post: ' + (error.message || "Unknown error"));
     } finally {
       hideLoading();
-      elements.createPostBtn.disabled = false;
+      // Ensure button exists before enabling
+      if (elements.createPostBtn) elements.createPostBtn.disabled = false;
     }
   }
 
@@ -105,7 +112,6 @@
     if (elements.loginBtn) {
       elements.loginBtn.addEventListener('click', () => {
         showLoading('Redirecting to GitHub...');
-        // Ensure githubApi is loaded
         if (typeof githubApi?.login !== 'function') {
            alert("Initialization error. Cannot log in.");
            hideLoading();
@@ -114,7 +120,7 @@
         githubApi.login()
           .then(userData => {
             if (userData) updateUIForLogin(userData);
-            else updateUIForLogout(); // Handle popup close without success
+            else updateUIForLogout();
           })
           .catch(error => {
             console.error('Login failed:', error);
@@ -128,6 +134,7 @@
     if (elements.logoutBtn) {
       elements.logoutBtn.addEventListener('click', () => {
          if (typeof githubApi?.logout === 'function') githubApi.logout();
+         else console.error("Logout function not found.");
       });
     } else { console.error("Logout button not found."); }
 
@@ -141,7 +148,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Cache DOM elements
+    // Cache DOM elements robustly
     elements.loginBtn = document.getElementById('login-btn');
     elements.logoutBtn = document.getElementById('logout-btn');
     elements.authStatus = document.getElementById('auth-status');
@@ -157,11 +164,13 @@
     elements.themeConfigDisplay = document.getElementById('theme-config-display');
     elements.sidebarNav = document.querySelector('.admin-sidebar nav');
 
-    // Check if essential modules loaded
-    if (!window.githubApi || !window.postCreator) {
-       console.error("Critical JS modules (githubApi or postCreator) failed to load.");
-       alert("Admin panel initialization failed. Please check console errors.");
-       hideLoading(); // Ensure loading is hidden
+    // Check if essential modules loaded IMMEDIATELY
+    if (typeof window.githubApi === 'undefined' || typeof window.postCreator === 'undefined') {
+       console.error("Critical JS modules (githubApi or postCreator) failed to load. Check script tags in admin/index.html and previous JS errors.");
+       alert("Admin panel initialization failed. Cannot proceed. Please check console errors.");
+       // Attempt to hide loading anyway
+       const loadingEl = document.getElementById('loading-overlay');
+       if(loadingEl) loadingEl.classList.add('hidden');
        return; // Stop initialization
     }
 
@@ -173,8 +182,11 @@
       .then(userData => {
         if (userData) {
           updateUIForLogin(userData);
-          // Load config if settings tab is active initially (or based on hash)
           const initialTab = window.location.hash.substring(1) || 'new-post';
+          // Activate initial tab content
+          document.querySelectorAll('.tab-content').forEach(tc => tc.classList.toggle('active', tc.id === `tab-${initialTab}`));
+          // Activate initial nav item
+          document.querySelector(`.nav-item[data-tab="${initialTab}"]`)?.classList.add('active');
           if(initialTab === 'settings') loadAndDisplayConfig();
         } else {
           updateUIForLogout();
@@ -186,5 +198,5 @@
       })
       .finally(() => hideLoading());
   });
-// Ensure modules are available globally or passed correctly
+// Pass modules explicitly if they are not global (though they are in this setup)
 })(window.githubApi, window.postCreator);
