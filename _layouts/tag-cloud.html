@@ -1,7 +1,7 @@
 <div class="tag-cloud">
   <h3>Tags</h3>
   {% assign current_lang = page.lang | default: 'ko' %}
-  
+
   {% if current_lang == 'en' %}
     {% assign tag_base_path = '/en/tags/' %}
   {% else %}
