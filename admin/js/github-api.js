@@ -29,7 +29,6 @@
         throw new Error(`Failed to fetch config: ${response.statusText}`);
       }
       // YAML 파서는 용량을 위해 제외하고, 간단한 정규식으로 주요 값만 추출합니다.
-      // (프로덕션에서는 js-yaml 라이브러리를 포함하는 것을 권장합니다)
       const yamlText = await response.text();
       configCache = parseSimpleYaml(yamlText);
 
@@ -131,3 +130,110 @@
               resolve(userData); // 성공 (admin.js로 userData 반환)
             } catch (error) {
               reject(error); // 실패 (admin.js로 error 반환)
+            }
+          }
+        }
+      };
+      // 메시지 리스너 등록
+      window.addEventListener('message', messageListener);
+    });
+  }
+
+  // 로그아웃
+  function logout() {
+    localStorage.removeItem(TOKEN_KEY);
+    window.location.reload(); // 페이지 새로고침으로 로그인 상태 반영
+  }
+
+  // OAuth code를 Access Token으로 교환 (Cloudflare Worker 사용)
+  async function exchangeCodeForToken(code) {
+    const config = await loadThemeConfig();
+    const workerEndpoint = config.cloudflare_worker_endpoint;
+
+    const response = await fetch(workerEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code }),
+    });
+
+    const data = await response.json();
+    if (!response.ok || data.error) {
+      throw new Error(data.error || 'Failed to exchange token');
+    }
+    return data; // { access_token: "..." }
+  }
+
+  // -----------------------------------------------------------------
+  // 3. Token & User Management
+  // -----------------------------------------------------------------
+
+  function setToken(token) {
+    localStorage.setItem(TOKEN_KEY, token);
+  }
+
+  function getToken() {
+    return localStorage.getItem(TOKEN_KEY);
+  }
+
+  // GitHub API 호출 래퍼
+  async function githubApiFetch(url, options = {}) {
+    const token = getToken();
+    if (!token) throw new Error('Not authenticated');
+
+    const headers = {
+      Authorization: `token ${token}`,
+      Accept: 'application/vnd.github.v3+json',
+      ...options.headers,
+    };
+
+    // GitHub API 기본 URL에 요청 URL 결합
+    const response = await fetch(`https://api.github.com${url}`, {
+      ...options,
+      headers,
+    });
+
+    if (response.status === 401) {
+      // Token expired or invalid
+      logout(); // 자동 로그아웃 처리
+      throw new Error('Authentication expired. Please login again.');
+    }
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || `GitHub API error: ${response.status}`);
+    }
+
+    return response;
+  }
+
+  // 인증된 사용자 정보 가져오기
+  async function getUser() {
+    try {
+      const response = await githubApiFetch('/user');
+      return await response.json(); // { login: "username", ... }
+    } catch (error) {
+      console.error('Failed to get user:', error);
+      return null; // 실패 시 null 반환
+    }
+  }
+
+  // 인증 상태 확인 (페이지 로드 시)
+  async function checkAuth() {
+    const token = getToken();
+    if (!token) return null;
+    return await getUser(); // getUser가 토큰 유효성 검사 및 사용자 정보 반환
+  }
+
+  // -----------------------------------------------------------------
+  // 4. Public API (다른 JS 파일에서 사용할 수 있도록 노출)
+  // -----------------------------------------------------------------
+  window.githubApi = {
+    login,
+    logout,
+    checkAuth,
+    getToken,
+    githubApiFetch, // post.js에서 사용할 수 있도록 노출
+    loadThemeConfig, // post.js에서 사용할 수 있도록 노출
+    fetchThemeConfigYaml, // admin.js에서 사용할 수 있도록 노출
+  };
+})();
