@@ -1,28 +1,24 @@
-# /* _config.yml v1.0.13_202510251430 */
+# /* _config.yml v1.0.12_202510251400 - RECONFIRM */
 
-# Basic settings
+# --- Required by GitHub Pages ---
 title: GOFUNWITH Blog
 url: "https://blog.gofunwith.com"
 baseurl: ""
 
 # --- Critical: Use local layouts, disable default theme ---
-theme: null # DO NOT REMOVE OR CHANGE THIS
+theme: null # MUST BE PRESENT AND CORRECT
 
 # --- Ensure admin folder is processed ---
 include:
   - "admin"
 
-# --- Plugins ---
-# Use Bundler/Gemfile to manage plugins for reliability
-# The plugins listed here are still recommended for SEO/Feed/Sitemap
-# but `bundle exec jekyll build` will use Gemfile versions.
+# --- Required Plugins (when theme: null) ---
 plugins:
   - jekyll-seo-tag
-  - jekyll-feed
-  - jekyll-sitemap
+  # - jekyll-feed # Keep disabled for now
+  # - jekyll-sitemap # Keep disabled for now
 
-# --- Defaults ---
-# Apply default layout from _layouts folder to all pages/posts
+# --- Default Layout ---
 defaults:
   - scope:
       path: ""
@@ -35,7 +31,6 @@ defaults:
       layout: "post"
 
 # --- Exclusions ---
-# Minimal exclusions for stability
 exclude:
   - README.md
   - Gemfile
@@ -43,14 +38,14 @@ exclude:
   - node_modules
   - vendor/bundle/
   - .github/
-  - cloudflare_worker.js # Not part of the Jekyll site
+  - cloudflare_worker.js
   - .prettierrc
   - .eslintrc.json
-  # Temporarily keep potentially problematic files excluded
-  # - themes/
-  # - assets/style.css
-  # - assets/theme.yml
-  # - config/
-  # - cloudflare/
-  # - _secrets/
-  # - design_guide.md
+  # Keep others excluded
+  - themes/
+  - assets/style.css
+  - assets/theme.yml
+  - config/
+  - cloudflare/
+  - _secrets/
+  - design_guide.md
