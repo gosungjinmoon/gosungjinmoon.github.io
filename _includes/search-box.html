@@ -1,11 +1,19 @@
 <div class="search-box">
+  {% assign current_lang = page.lang | default: 'ko' %}
+  
+  {% if current_lang == 'en' %}
+    {% assign search_path = '/en/search/' %}
+  {% else %}
+    {% assign search_path = '/ko/search/' %}
+  {% endif %}
+
   <form
     id="search-form"
     role="search"
-    action="/search/"
+    action="{{ search_path }}"
     method="get"
   >
-    {% if page.lang == 'en' %}
+    {% if current_lang == 'en' %}
     <input
       type="search"
       id="search-input"
@@ -13,7 +21,12 @@
       placeholder="Search..."
       aria-label="Search"
     />
-    <input type="hidden" name="lang" value="en" id="search-lang" />
+    <input
+      type="hidden"
+      name="lang"
+      value="en"
+      id="search-lang"
+    />
     {% else %}
     <input
       type="search"
@@ -22,7 +35,12 @@
       placeholder="검색..."
       aria-label="검색"
     />
-    <input type="hidden" name="lang" value="ko" id="search-lang" />
+    <input
+      type="hidden"
+      name="lang"
+      value="ko"
+      id="search-lang"
+    />
     {% endif %}
     <button type="submit" class="search-submit">🔍</button>
   </form>
