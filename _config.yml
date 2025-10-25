@@ -11,6 +11,7 @@ baseurl: ""
 theme: null
 
 # 2. Specify repository for jekyll-seo-tag plugin (Fixes build error)
+#    형식: username/repository-name
 repository: gosungjinmoon/gosungjinmoon.github.io # IMPORTANT!
 
 # 3. Ensure admin folder is processed
@@ -47,10 +48,10 @@ exclude:
   - .prettierrc
   - .eslintrc.json
   # Keep potentially problematic files excluded
-  - themes/
-  - assets/style.css
-  - assets/theme.yml
-  - config/
-  - cloudflare/
-  - _secrets/
-  - design_guide.md
+  # - themes/
+  # - assets/style.css
+  # - assets/theme.yml
+  # - config/
+  # - cloudflare/
+  # - _secrets/
+  # - design_guide.md
