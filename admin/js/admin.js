@@ -1,99 +1,165 @@
-/* admin/js/admin.js v1.0_202510220736 */
-document.addEventListener('DOMContentLoaded', async () => {
-  const loginBtn = document.getElementById('login-btn');
-  const logoutBtn = document.getElementById('logout-btn');
-  const mainContent = document.getElementById('main-content');
-  const authStatus = document.getElementById('auth-status');
-  const userInfo = document.getElementById('user-info');
-  const usernameSpan = document.getElementById('username');
-  const tabContainer = document.querySelector('.tabs');
-  const tabContent = document.getElementById('tab-content');
+/* admin/js/admin.js v1.0.0_202510250840 */
+/*
+ * Admin UI/UX 로직 (탭 전환, 폼 제출 등)
+ * 이 파일은 githubApi, postCreator 객체에 의존합니다.
+ */
+(function (githubApi, postCreator) {
+  'use strict';
 
-  const githubApi = new GitHubAPI();
-  const postHandler = new PostHandler(githubApi);
+  // DOM 요소 캐시
+  const elements = {
+    loginBtn: null,
+    logoutBtn: null,
+    authStatus: null,
+    userInfo: null,
+    userName: null,
+    adminMain: null,
+    loadingOverlay: null,
+    loadingMessage: null,
+    navItems: null,
+    tabContents: null,
+    newPostForm: null,
+    createPostBtn: null,
+    themeConfigDisplay: null,
+  };
 
-  async function init() {
-    await githubApi.loadConfig();
-    const token = githubApi.getToken();
+  function showLoading(message) {
+    elements.loadingMessage.textContent = message || 'Processing...';
+    elements.loadingOverlay.classList.remove('hidden');
+  }
 
-    if (token) {
-      try {
-        const user = await githubApi.getUser();
-        showLoggedIn(user.login);
-        loadTab('theme-preview');
-      } catch (error) {
-        console.error('Auth error:', error);
-        showLoggedOut();
-      }
-    } else {
-      showLoggedOut();
+  function hideLoading() {
+    elements.loadingOverlay.classList.add('hidden');
+  }
+
+  // 탭 전환 로직
+  function handleTabClick(e) {
+    e.preventDefault();
+    const targetTab = e.target.dataset.tab;
+
+    if (!targetTab) return;
+
+    // Nav 활성화
+    elements.navItems.forEach((item) => item.classList.remove('active'));
+    e.target.classList.add('active');
+
+    // Content 활성화
+    elements.tabContents.forEach((content) => {
+      content.id === `tab-${targetTab}`
+        ? content.classList.add('active')
+        : content.classList.remove('active');
+    });
+
+    // 설정 탭 클릭 시 config 로드
+    if (targetTab === 'settings') {
+      loadAndDisplayConfig();
     }
   }
 
-  function showLoggedIn(username) {
-    loginBtn.style.display = 'none';
-    userInfo.style.display = 'block';
-    usernameSpan.textContent = `Welcome, ${username}`;
-    mainContent.style.display = 'block';
+  // 로그인 상태에 따른 UI 업데이트
+  function updateUIForLogin(userData) {
+    elements.loginBtn.classList.add('hidden');
+    elements.userInfo.style.display = 'flex';
+    elements.userName.textContent = userData.login;
+    elements.adminMain.classList.remove('hidden');
   }
 
-  function showLoggedOut() {
-    githubApi.logout();
-    loginBtn.style.display = 'block';
-    userInfo.style.display = 'none';
-    mainContent.style.display = 'none';
+  // 로그아웃 상태에 따른 UI 업데이트
+  function updateUIForLogout() {
+    elements.loginBtn.classList.remove('hidden');
+    elements.userInfo.style.display = 'none';
+    elements.userName.textContent = '';
+    elements.adminMain.classList.add('hidden');
   }
 
-  async function loadTab(tabName) {
-    let html = '';
-    switch (tabName) {
-      case 'theme-preview':
-        html = await fetch('theme-preview.html').then((res) => res.text());
-        tabContent.innerHTML = html;
-        const themeContainer = document.getElementById('theme-data-container');
-        themeContainer.textContent = JSON.stringify(githubApi.config, null, 2);
-        break;
-      case 'create-post':
-        html = postHandler.getFormHtml();
-        tabContent.innerHTML = html;
-        postHandler.attachFormListener();
-        break;
+  // 설정 탭에 theme.yml 내용 표시
+  async function loadAndDisplayConfig() {
+    try {
+      const configYaml = await githubApi.fetchThemeConfigYaml();
+      elements.themeConfigDisplay.value = configYaml;
+    } catch (error) {
+      console.error('Error loading theme config:', error);
+      elements.themeConfigDisplay.value =
+        'Error loading config: ' + error.message;
     }
   }
 
-  loginBtn.addEventListener('click', () => githubApi.login());
-  logoutBtn.addEventListener('click', () => showLoggedOut());
+  // 새 포스트 폼 제출 처리
+  async function handlePostSubmit(e) {
+    e.preventDefault();
+    showLoading('Creating new post PR...');
+    elements.createPostBtn.disabled = true;
 
-  tabContainer.addEventListener('click', (e) => {
-    if (e.target.tagName === 'BUTTON') {
-      const tabName = e.target.dataset.tab;
-      document.querySelector('.tabs button.active').classList.remove('active');
-      e.target.classList.add('active');
-      loadTab(tabName);
+    try {
+      const title = document.getElementById('post-title').value;
+      const lang = document.getElementById('post-lang').value;
+      const tags = document.getElementById('post-tags').value;
+      const content = document.getElementById('post-content').value;
+
+      const response = await postCreator.createNewPost(title, lang, tags, content);
+
+      alert(
+        `Successfully created Pull Request!\nPR URL: ${response.prUrl}\n\nReview and merge it on GitHub.`,
+      );
+      elements.newPostForm.reset();
+    } catch (error) {
+      console.error('Error creating post:', error);
+      alert('Error creating post: ' + error.message);
+    } finally {
+      hideLoading();
+      elements.createPostBtn.disabled = false;
     }
-  });
+  }
 
-  // OAuth Callback 핸들러
-  window.addEventListener(
-    'message',
-    async (event) => {
-      if (event.origin !== window.location.origin) return;
-      if (event.data.type === 'oauth_callback' && event.data.code) {
-        try {
-          // Worker를 통해 토큰 교환
-          await githubApi.exchangeCodeForToken(event.data.code);
-          // 팝업 창 닫기
-          if (event.source) event.source.close();
-          // UI 새로고침
-          init();
-        } catch (error) {
-          console.error('Failed to exchange code for token:', error);
-          alert('Authentication failed.');
+  // 이벤트 리스너 바인딩
+  function bindEvents() {
+    elements.loginBtn.addEventListener('click', () => githubApi.login());
+    elements.logoutBtn.addEventListener('click', () => githubApi.logout());
+    elements.newPostForm.addEventListener('submit', handlePostSubmit);
+
+    document
+      .querySelector('.admin-sidebar nav')
+      .addEventListener('click', handleTabClick);
+  }
+
+  // DOM 로드 완료 시 실행
+  document.addEventListener('DOMContentLoaded', () => {
+    // DOM 요소 캐시
+    elements.loginBtn = document.getElementById('login-btn');
+    elements.logoutBtn = document.getElementById('logout-btn');
+    elements.authStatus = document.getElementById('auth-status');
+    elements.userInfo = document.getElementById('user-info');
+    elements.userName = document.getElementById('user-name');
+    elements.adminMain = document.getElementById('admin-main');
+    elements.loadingOverlay = document.getElementById('loading-overlay');
+    elements.loadingMessage = document.getElementById('loading-message');
+    elements.navItems = document.querySelectorAll('.nav-item');
+    elements.tabContents = document.querySelectorAll('.tab-content');
+    elements.newPostForm = document.getElementById('new-post-form');
+    elements.createPostBtn = document.getElementById('create-post-btn');
+    elements.themeConfigDisplay = document.getElementById(
+      'theme-config-display',
+    );
+
+    bindEvents();
+
+    // 페이지 로드 시 인증 상태 확인
+    showLoading('Checking authentication...');
+    githubApi
+      .checkAuth()
+      .then((userData) => {
+        if (userData) {
+          updateUIForLogin(userData);
+        } else {
+          updateUIForLogout();
         }
-      }
-    },
-    false
-  );
-
-  init();
-});
+      })
+      .catch((error) => {
+        console.error('Auth check failed:', error);
+        updateUIForLogout();
+      })
+      .finally(() => {
+        hideLoading();
+      });
+  });
+})(window.githubApi, window.postCreator);
