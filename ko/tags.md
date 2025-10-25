@@ -1,6 +1,6 @@
 ---
 layout: tags
-lang: "ko"
-title: "태그 목록"
+lang: ko
 permalink: /ko/tags/
+title: 태그
 ---
