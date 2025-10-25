@@ -1,17 +1,14 @@
 # /* Gemfile v1.0.13_202510251430 */
 source "https://rubygems.org"
 
-# Specify Jekyll version used by GitHub Pages
-gem "jekyll", "~> 3.9.0" # Or the version matching github-pages gem
+# Specify Jekyll version (use a version compatible with github-pages gem if unsure)
+# gem "jekyll", "~> 3.9.0" # Might conflict, let github-pages decide
 
-# Specify the GitHub Pages gem itself (includes common plugins)
+# Specify the GitHub Pages gem itself (includes common plugins and locks versions)
+# This is generally the most reliable approach for GitHub Pages builds
 gem "github-pages", group: :jekyll_plugins
 
-# Explicitly list required plugins (even if included by github-pages)
-# This ensures they are available when theme: null is set.
+# Explicitly list required plugins again for clarity with theme: null
 gem "jekyll-seo-tag", group: :jekyll_plugins
 gem "jekyll-feed", group: :jekyll_plugins
 gem "jekyll-sitemap", group: :jekyll_plugins
-
-# Optional: Add other plugins here if needed later
-# gem "jekyll-paginate", group: :jekyll_plugins
