@@ -1,9 +1,0 @@
-:root {
-  --color-bg: #ffffff;
-  --color-text: #1E2A3A;
-}
-body.theme-light {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  transition: background 0.4s ease, color 0.4s ease;
-}
