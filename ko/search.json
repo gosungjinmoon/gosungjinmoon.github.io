@@ -1,4 +1,5 @@
 ---
+# /* ko/search.json v1.0.2_202510250915 */
 layout: none
 ---
 [
@@ -6,7 +7,7 @@ layout: none
   {% for post in posts_in_lang %}
     {
       "title": {{ post.title | jsonify }},
-      "url": {{ post.url | relative_url | jsonify }},
+      "url": {{ post.url | jsonify }},
       "content": {{ post.content | strip_html | strip_newlines | replace: "
 ", " " | jsonify }},
       "tags": {{ post.tags | jsonify }},
