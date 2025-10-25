@@ -1,6 +1,6 @@
 ---
 layout: tags
-lang: "en"
-title: "Tags List"
+lang: en
 permalink: /en/tags/
+title: Tags
 ---
