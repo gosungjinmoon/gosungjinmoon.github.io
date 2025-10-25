@@ -6,8 +6,8 @@ layout: default
   <h1 class="page-heading">Posts</h1>
 
   <ul class="post-list">
-    {% assign posts_in_lang = site.posts | where: "lang", current_lang %} {% for post
-    in posts_in_lang %}
+    {% assign posts_in_lang = site.posts | where: "lang", current_lang %}
+    {% for post in posts_in_lang %}
     <li>
       <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
       <h2>
