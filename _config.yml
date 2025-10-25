@@ -1,15 +1,22 @@
-# /* _config.yml v1.0.6_202510251040 */
+# /* _config.yml v1.0.9_202510251140 */
 title: GOFUNWITH Blog
 description: "Go have fun with tech, tools, and life. 경험 중심, 도전과 실험, 즐거운 창작"
-baseurl: "" 
+baseurl: ""
 url: "https://blog.gofunwith.com"
 timezone: Asia/Seoul
 
-# ⭐️ V1.0.6 수정: GitHub 기본 테마(primer)를 비활성화하고 로컬 레이아웃을 사용하도록 강제
+# ⭐️ V1.0.9 수정: GitHub Pages가 _posts 폴더를 기본으로 읽지 못하는 문제를 해결하기 위해
+# posts 컬렉션을 명시적으로 정의합니다.
+collections:
+  posts:
+    output: true
+    permalink: /:categories/:year/:month/:day/:title/
+
+# GitHub 기본 테마 비활성화
 theme: null
 
 # Jekyll 기본 설정
-permalink: /:categories/:year/:month/:day/:title/
+# permalink: /:categories/:year/:month/:day/:title/ # 컬렉션 설정으로 이동
 exclude:
   - README.md
   - cloudflare_worker.js
@@ -18,12 +25,19 @@ exclude:
   - Gemfile.lock
   - .prettierrc
   - .eslintrc.json
+  # V1.0.9 추가: 불필요한 파일 제외
+  - design_guide.md
+  - themes/
+  - assets/style.css # modern-light 테마 사용
+  - assets/theme.yml # config로 이동
+  - config/
+  - cloudflare/
 
 # Admin 대시보드를 Jekyll 빌드에 포함
 include:
   - "admin"
 
-# ⭐️ V1.0.6 수정: theme: null을 사용할 때 필수 플러그인을 명시적으로 선언
+# 필수 플러그인 명시적 선언
 plugins:
   - jekyll-seo-tag
   - jekyll-feed
@@ -36,7 +50,12 @@ defaults:
     values:
       layout: "default"
   - scope:
+      # V1.0.9 수정: type: "posts" 대신 컬렉션 이름 사용
       path: ""
-      type: "posts"
+      type: "posts" # Jekyll 3.x 호환성을 위해 유지, 컬렉션이 우선 적용됨
+    values:
+      layout: "post"
+  - scope: # 컬렉션 기본값 명시 (더 확실하게)
+      type: posts
     values:
       layout: "post"
