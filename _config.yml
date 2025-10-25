@@ -1,36 +1,45 @@
-# /* _config.yml v1.0.9_202510251140 */
+# /* _config.yml v1.0.11_202510251315 */
+
+# --- Basic Settings ---
 title: GOFUNWITH Blog
 description: "Go have fun with tech, tools, and life. 경험 중심, 도전과 실험, 즐거운 창작"
 url: "https://blog.gofunwith.com"
-timezone: Asia/Seoul
-baseurl: "" # CNAME 사용 시 비워둡니다.
+baseurl: "" # Keep empty for root domain
 
-# GitHub 기본 테마 비활성화 (필수)
+# --- Critical Settings for GitHub Pages Custom Layout ---
+# 1. Disable GitHub's default theme (Absolutely necessary)
 theme: null
 
-# Admin 폴더 포함
+# 2. Tell Jekyll where your source files are (Optional but good practice)
+source: .
+# 3. Tell Jekyll where to build the site (Standard for GitHub Pages)
+destination: ./_site
+
+# 4. Include the admin folder in the build process
 include:
   - "admin"
 
-# 필수 플러그인
+# 5. Required plugins when theme is null
 plugins:
   - jekyll-seo-tag
   - jekyll-feed
   - jekyll-sitemap
 
-# 기본 레이아웃 설정
+# --- Defaults ---
+# Ensure all pages/posts try to use layouts from the _layouts folder
 defaults:
   - scope:
-      path: "" # 모든 파일에 기본 적용
+      path: "" # Apply to all files
     values:
-      layout: "default"
+      layout: "default" # Default layout for everything
   - scope:
-      path: "_posts" # _posts 폴더 안 파일에만 적용
+      path: "_posts" # Apply specifically to posts
       type: "posts"
     values:
-      layout: "post"
+      layout: "post" # Layout for posts
 
-# 불필요 파일 제외 (정리)
+# --- Exclusions ---
+# Keep this list clean and only exclude what's necessary
 exclude:
   - README.md
   - cloudflare_worker.js
@@ -39,12 +48,22 @@ exclude:
   - Gemfile.lock
   - .prettierrc
   - .eslintrc.json
-  - design_guide.md
-  - themes/
-  - assets/style.css
-  - assets/theme.yml
-  - config/
-  - cloudflare/
-  - _secrets/
   - vendor/bundle/
-  - .github/ # GitHub Actions 워크플로우는 빌드 제외
+  - .github/
+  # Temporarily removing other excludes to minimize conflicts
+  # - design_guide.md
+  # - themes/
+  # - assets/style.css
+  # - assets/theme.yml
+  # - config/
+  # - cloudflare/
+  # - _secrets/
+
+# Optional: Markdown processor (GitHub Pages default is kramdown)
+# markdown: kramdown
+# kramdown:
+#   input: GFM
+#   hard_wrap: false
+
+# Optional: Timezone (If needed by plugins, otherwise safe to remove)
+# timezone: Asia/Seoul
