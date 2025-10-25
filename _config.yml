@@ -1,22 +1,27 @@
-# /* _config.yml v1.0.12_202510251400 - RECONFIRM */
+# /* _config.yml v1.0.15_202510251530 */
 
-# --- Required by GitHub Pages ---
+# Basic settings
 title: GOFUNWITH Blog
+description: "Go have fun with tech, tools, and life. 경험 중심, 도전과 실험, 즐거운 창작" # SEO tag will use this
 url: "https://blog.gofunwith.com"
 baseurl: ""
 
-# --- Critical: Use local layouts, disable default theme ---
-theme: null # MUST BE PRESENT AND CORRECT
+# --- Critical Fixes ---
+# 1. Disable GitHub's default theme
+theme: null
 
-# --- Ensure admin folder is processed ---
+# 2. Specify repository for jekyll-seo-tag plugin (Fixes build error)
+repository: gosungjinmoon/gosungjinmoon.github.io # IMPORTANT!
+
+# 3. Ensure admin folder is processed
 include:
   - "admin"
 
-# --- Required Plugins (when theme: null) ---
+# --- Plugins (Managed by Gemfile) ---
 plugins:
   - jekyll-seo-tag
-  # - jekyll-feed # Keep disabled for now
-  # - jekyll-sitemap # Keep disabled for now
+  - jekyll-feed
+  - jekyll-sitemap
 
 # --- Default Layout ---
 defaults:
@@ -41,7 +46,7 @@ exclude:
   - cloudflare_worker.js
   - .prettierrc
   - .eslintrc.json
-  # Keep others excluded
+  # Keep potentially problematic files excluded
   - themes/
   - assets/style.css
   - assets/theme.yml
