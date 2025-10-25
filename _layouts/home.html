@@ -15,7 +15,13 @@ layout: default
           >{{ post.title | escape }}</a
         >
       </h2>
-      <div class="post-excerpt">{{ post.excerpt | strip_html }}</div>
+      <div class="post-excerpt">
+        {% if post.excerpt %}
+          {{ post.excerpt | strip_html }}
+        {% else %}
+          {{ post.content | strip_html | truncatewords: 50 }}
+        {% endif %}
+      </div>
       <div class="post-tags">
         {% for tag in post.tags %}
         {% if current_lang == 'en' %}
