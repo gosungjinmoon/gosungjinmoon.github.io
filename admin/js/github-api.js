@@ -1,81 +1,39 @@
 /* admin/js/github-api.js v1.0.2_202510250915 */
+/*
+ * GitHub OAuth 인증 및 토큰 관리, API 호출 로직
+ * ⭐️ 아키텍처 핵심 ⭐️
+ * 이 파일은 정적 JS이며, 'window.GOFUNWITH_ADMIN' 객체를 참조하여
+ * theme.yml 경로와 Cloudflare Worker 엔드포인트를 가져옵니다.
+ */
 (function () {
   'use strict';
 
-  // ... (Config Loader, parseSimpleYaml 등은 변경 없음) ...
-
-  // -----------------------------------------------------------------
-  // 2. OAuth Flow
-  // -----------------------------------------------------------------
-  // ... (oauthPopup, messageListener 변수는 변경 없음) ...
-
-  // GitHub 로그인 시작
-  async function login() {
-    const config = await loadThemeConfig();
-    const clientId = config.github_oauth_client_id;
-
-    /* ⭐️ 수정: GOFUNWITH_ADMIN.base_url이 '/'로 고정되었으므로
-       경로 조합을 단순화하고 이중 슬래시(//)를 방지합니다. */
-    const redirectUri = `${window.location.origin}/admin/oauth/callback.html`;
-
-    const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
-      redirectUri,
-    )}&scope=repo,user:email`;
-
-    // ... (팝업 열기 및 메시지 리스너 로직은 변경 없음) ...
-    // (이하 나머지 코드는 이전 답변과 동일하게 유지합니다.)
-    if (oauthPopup) oauthPopup.close();
-    oauthPopup = window.open(authUrl, '_blank', 'width=600,height=700');
-    return new Promise((resolve, reject) => {
-      if (messageListener) {
-        window.removeEventListener('message', messageListener);
-      }
-      messageListener = async (event) => {
-        if (event.origin !== window.location.origin) return;
-        if (event.data && event.data.type === 'oauth-callback') {
-          window.removeEventListener('message', messageListener);
-          if (oauthPopup) oauthPopup.close();
-          if (event.data.error) {
-            reject(new Error(`OAuth Error: ${event.data.error}`));
-          } else if (event.data.code) {
-            try {
-              const tokenData = await exchangeCodeForToken(event.data.code);
-              setToken(tokenData.access_token);
-              const userData = await getUser();
-              resolve(userData);
-            } catch (error) {
-              reject(error);
-            }
-          }
-        }
-      };
-      window.addEventListener('message', messageListener);
-    });
-  }
-
-  // ... (loadThemeConfig, parseSimpleYaml, logout, exchangeCodeForToken, 
-  //      setToken, getToken, githubApiFetch, getUser, checkAuth 등
-  //      이전 답변의 나머지 JS 코드는 그대로 유지합니다.)
-
-  // (나머지 함수들 복사)
   const TOKEN_KEY = 'gofunwith_github_token';
   let configCache = null;
-  let oauthPopup = null;
-  let messageListener = null;
+
+  // -----------------------------------------------------------------
+  // 1. Config Loader (theme.yml)
+  // -----------------------------------------------------------------
 
   async function loadThemeConfig() {
     if (configCache) return configCache;
+
     if (!window.GOFUNWITH_ADMIN || !window.GOFUNWITH_ADMIN.theme_config_path) {
       throw new Error('Global admin config (GOFUNWITH_ADMIN) not found.');
     }
     const path = window.GOFUNWITH_ADMIN.theme_config_path;
+
     try {
       const response = await fetch(path);
       if (!response.ok) {
         throw new Error(`Failed to fetch config: ${response.statusText}`);
       }
+      // YAML 파서는 용량을 위해 제외하고, 간단한 정규식으로 주요 값만 추출합니다.
+      // (프로덕션에서는 js-yaml 라이브러리를 포함하는 것을 권장합니다)
       const yamlText = await response.text();
       configCache = parseSimpleYaml(yamlText);
+
+      // 필수 값 체크
       if (
         !configCache.github_oauth_client_id ||
         !configCache.cloudflare_worker_endpoint ||
@@ -86,6 +44,7 @@
           'One or more required keys are missing from theme.yml.',
         );
       }
+
       return configCache;
     } catch (error) {
       console.error('Failed to load or parse theme.yml:', error);
@@ -94,6 +53,7 @@
   }
 
   async function fetchThemeConfigYaml() {
+    // admin.js에서 설정 탭에 원본 YAML을 표시하기 위해 사용
     const path = window.GOFUNWITH_ADMIN.theme_config_path;
     const response = await fetch(path);
     if (!response.ok) {
@@ -102,6 +62,7 @@
     return await response.text();
   }
 
+  // 간단한 YAML 파서 (key: "value" 또는 key: value 형식)
   function parseSimpleYaml(yaml) {
     const config = {};
     const lines = yaml.split('\n');
@@ -115,80 +76,58 @@
     return config;
   }
 
-  function logout() {
-    localStorage.removeItem(TOKEN_KEY);
-    window.location.reload();
-  }
+  // -----------------------------------------------------------------
+  // 2. OAuth Flow
+  // -----------------------------------------------------------------
 
-  async function exchangeCodeForToken(code) {
+  let oauthPopup = null;
+  let messageListener = null;
+
+  // GitHub 로그인 시작
+  async function login() {
     const config = await loadThemeConfig();
-    const workerEndpoint = config.cloudflare_worker_endpoint;
-    const response = await fetch(workerEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code }),
-    });
-    const data = await response.json();
-    if (!response.ok || data.error) {
-      throw new Error(data.error || 'Failed to exchange token');
-    }
-    return data;
-  }
+    const clientId = config.github_oauth_client_id;
 
-  function setToken(token) {
-    localStorage.setItem(TOKEN_KEY, token);
-  }
+    /* ⭐️ 수정된 부분 ⭐️
+      GOFUNWITH_ADMIN.base_url이 '/'로 고정되었으므로
+      경로 조합을 단순화하고 이중 슬래시(//)를 방지합니다.
+      window.location.origin은 'https://blog.gofunwith.com'이 됩니다.
+    */
+    const redirectUri = `${window.location.origin}/admin/oauth/callback.html`;
 
-  function getToken() {
-    return localStorage.getItem(TOKEN_KEY);
-  }
+    const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+      redirectUri,
+    )}&scope=repo,user:email`;
 
-  async function githubApiFetch(url, options = {}) {
-    const token = getToken();
-    if (!token) throw new Error('Not authenticated');
-    const headers = {
-      Authorization: `token ${token}`,
-      Accept: 'application/vnd.github.v3+json',
-      ...options.headers,
-    };
-    const response = await fetch(`https://api.github.com${url}`, {
-      ...options,
-      headers,
-    });
-    if (response.status === 401) {
-      logout();
-      throw new Error('Authentication expired. Please login again.');
-    }
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || `GitHub API error: ${response.status}`);
-    }
-    return response;
-  }
+    // 팝업 창 열기
+    if (oauthPopup) oauthPopup.close();
+    oauthPopup = window.open(authUrl, '_blank', 'width=600,height=700');
 
-  async function getUser() {
-    try {
-      const response = await githubApiFetch('/user');
-      return await response.json();
-    } catch (error) {
-      console.error('Failed to get user:', error);
-      return null;
-    }
-  }
+    // 팝업 창으로부터 메시지(code) 수신 대기
+    return new Promise((resolve, reject) => {
+      // 기존 리스너 제거
+      if (messageListener) {
+        window.removeEventListener('message', messageListener);
+      }
 
-  async function checkAuth() {
-    const token = getToken();
-    if (!token) return null;
-    return await getUser();
-  }
+      messageListener = async (event) => {
+        // 보안: origin이 일치하는지 확인
+        if (event.origin !== window.location.origin) return;
 
-  window.githubApi = {
-    login,
-    logout,
-    checkAuth,
-    getToken,
-    githubApiFetch,
-    loadThemeConfig,
-    fetchThemeConfigYaml,
-  };
-})();
+        if (event.data && event.data.type === 'oauth-callback') {
+          // 리스너 즉시 제거
+          window.removeEventListener('message', messageListener);
+          if (oauthPopup) oauthPopup.close();
+
+          if (event.data.error) {
+            reject(new Error(`OAuth Error: ${event.data.error}`));
+          } else if (event.data.code) {
+            try {
+              // 코드를 토큰으로 교환
+              const tokenData = await exchangeCodeForToken(event.data.code);
+              setToken(tokenData.access_token);
+              // 사용자 정보 가져오기
+              const userData = await getUser();
+              resolve(userData); // 성공 (admin.js로 userData 반환)
+            } catch (error) {
+              reject(error); // 실패 (admin.js로 error 반환)
