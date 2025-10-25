@@ -1,161 +1,147 @@
-/* admin/js/admin.js v1.0.10_202510251300 */
-/*
- * Admin UI/UX 로직 (탭 전환, 폼 제출 등)
- */
+/* admin/js/admin.js v1.0.12_202510251400 */
 (function (githubApi, postCreator) {
   'use strict';
 
-  // DOM 요소 캐시
   const elements = {
-    loginBtn: null,
-    logoutBtn: null,
-    authStatus: null,
-    userInfo: null,
-    userName: null,
-    adminMain: null,
-    loadingOverlay: null,
-    loadingMessage: null,
-    navItems: null,
-    tabContents: null,
-    newPostForm: null,
-    createPostBtn: null,
-    themeConfigDisplay: null,
-    sidebarNav: null, // V1.0.10: Added for event delegation
+    loginBtn: null, logoutBtn: null, authStatus: null, userInfo: null,
+    userName: null, adminMain: null, loadingOverlay: null, loadingMessage: null,
+    navItems: null, tabContents: null, newPostForm: null, createPostBtn: null,
+    themeConfigDisplay: null, sidebarNav: null,
   };
 
-  function showLoading(message) {
-    elements.loadingMessage.textContent = message || 'Processing...';
-    elements.loadingOverlay.classList.remove('hidden');
+  function showLoading(message = 'Processing...') {
+    if (elements.loadingMessage) elements.loadingMessage.textContent = message;
+    if (elements.loadingOverlay) elements.loadingOverlay.classList.remove('hidden');
   }
 
   function hideLoading() {
-    elements.loadingOverlay.classList.add('hidden');
+    if (elements.loadingOverlay) elements.loadingOverlay.classList.add('hidden');
   }
 
-  // 탭 전환 로직
   function handleTabClick(e) {
-    // V1.0.10: Check if the clicked element is actually a nav item link
-    if (!e.target.classList.contains('nav-item')) {
-      return;
-    }
+    if (!e.target.classList.contains('nav-item')) return;
     e.preventDefault();
     const targetTab = e.target.dataset.tab;
-
     if (!targetTab) return;
 
-    // Nav 활성화
-    elements.navItems.forEach((item) => item.classList.remove('active'));
+    elements.navItems.forEach(item => item.classList.remove('active'));
     e.target.classList.add('active');
 
-    // Content 활성화
-    elements.tabContents.forEach((content) => {
-      content.id === `tab-${targetTab}`
-        ? content.classList.add('active')
-        : content.classList.remove('active');
+    elements.tabContents.forEach(content => {
+      content.classList.toggle('active', content.id === `tab-${targetTab}`);
     });
 
-    // 설정 탭 클릭 시 config 로드
-    if (targetTab === 'settings') {
-      loadAndDisplayConfig();
-    }
+    if (targetTab === 'settings') loadAndDisplayConfig();
   }
 
-  // 로그인 상태에 따른 UI 업데이트
   function updateUIForLogin(userData) {
+    if (!userData || !elements.loginBtn || !elements.userInfo || !elements.userName || !elements.adminMain) return;
     elements.loginBtn.classList.add('hidden');
     elements.userInfo.style.display = 'flex';
     elements.userName.textContent = userData.login;
-    elements.adminMain.classList.remove('hidden'); // Show main content
+    elements.adminMain.classList.remove('hidden');
   }
 
-  // 로그아웃 상태에 따른 UI 업데이트
   function updateUIForLogout() {
+     if (!elements.loginBtn || !elements.userInfo || !elements.userName || !elements.adminMain) return;
     elements.loginBtn.classList.remove('hidden');
     elements.userInfo.style.display = 'none';
     elements.userName.textContent = '';
-    elements.adminMain.classList.add('hidden'); // Hide main content
+    elements.adminMain.classList.add('hidden');
   }
 
-  // 설정 탭에 theme.yml 내용 표시
   async function loadAndDisplayConfig() {
+     if (!elements.themeConfigDisplay) return;
     try {
       showLoading('Loading config...');
+      // Ensure githubApi is loaded and function exists
+      if (typeof githubApi?.fetchThemeConfigYaml !== 'function') {
+         throw new Error("GitHub API module not loaded correctly.");
+      }
       const configYaml = await githubApi.fetchThemeConfigYaml();
       elements.themeConfigDisplay.value = configYaml;
-      hideLoading();
     } catch (error) {
       console.error('Error loading theme config:', error);
-      // ⭐️ V1.0.10: Corrected syntax error ('m')
-      elements.themeConfigDisplay.value =
-        'Error loading config: ' + error.message;
-      hideLoading();
+      // Corrected syntax error from V1.0.10 check
+      elements.themeConfigDisplay.value = 'Error loading config: ' + error.message;
+    } finally {
+       hideLoading();
     }
   }
 
-  // 새 포스트 폼 제출 처리
   async function handlePostSubmit(e) {
     e.preventDefault();
+    if (!elements.createPostBtn || !postCreator) return;
     showLoading('Creating new post PR...');
     elements.createPostBtn.disabled = true;
 
     try {
-      const title = document.getElementById('post-title').value;
-      const lang = document.getElementById('post-lang').value;
-      const tags = document.getElementById('post-tags').value;
-      const content = document.getElementById('post-content').value;
+      // Ensure form elements exist before accessing value
+      const title = document.getElementById('post-title')?.value;
+      const lang = document.getElementById('post-lang')?.value;
+      const tags = document.getElementById('post-tags')?.value;
+      const content = document.getElementById('post-content')?.value;
 
-      const response = await postCreator.createNewPost(title, lang, tags, content);
+      if (!title || !lang || content === undefined) {
+         throw new Error("Title, Language, and Content are required.");
+      }
+
+      const response = await postCreator.createNewPost(title, lang, tags ?? '', content); // Use empty string if tags is null/undefined
 
       alert(
-        `Successfully created Pull Request!\nPR URL: ${response.prUrl}\n\nReview and merge it on GitHub.`,
+        `Successfully created Pull Request!\nPR URL: ${response.prUrl}\n\nReview and merge it on GitHub.`
       );
-      elements.newPostForm.reset();
+      if(elements.newPostForm) elements.newPostForm.reset();
     } catch (error) {
       console.error('Error creating post:', error);
-      alert('Error creating post: ' + error.message);
+      alert('Error creating post: ' + (error.message || "Unknown error"));
     } finally {
       hideLoading();
       elements.createPostBtn.disabled = false;
     }
   }
 
-  // 이벤트 리스너 바인딩
   function bindEvents() {
-    elements.loginBtn.addEventListener('click', () => {
-      showLoading('Redirecting to GitHub...');
-      githubApi
-        .login()
-        .then((userData) => {
-          if (userData) { // V1.0.10 Check if userData exists
-             updateUIForLogin(userData);
-          } else {
-             // Handle case where login popup closed without success
-             updateUIForLogout();
-          }
-          hideLoading();
-        })
-        .catch((error) => {
-          console.error('Login failed:', error);
-          alert('Login failed: ' + error.message);
-          updateUIForLogout(); // Ensure UI is reset on error
-          hideLoading();
-        });
-    });
+    if (elements.loginBtn) {
+      elements.loginBtn.addEventListener('click', () => {
+        showLoading('Redirecting to GitHub...');
+        // Ensure githubApi is loaded
+        if (typeof githubApi?.login !== 'function') {
+           alert("Initialization error. Cannot log in.");
+           hideLoading();
+           return;
+        }
+        githubApi.login()
+          .then(userData => {
+            if (userData) updateUIForLogin(userData);
+            else updateUIForLogout(); // Handle popup close without success
+          })
+          .catch(error => {
+            console.error('Login failed:', error);
+            alert('Login failed: ' + (error.message || "Unknown error"));
+            updateUIForLogout();
+          })
+          .finally(() => hideLoading());
+      });
+    } else { console.error("Login button not found."); }
 
-    elements.logoutBtn.addEventListener('click', () => githubApi.logout());
-    elements.newPostForm.addEventListener('submit', handlePostSubmit);
+    if (elements.logoutBtn) {
+      elements.logoutBtn.addEventListener('click', () => {
+         if (typeof githubApi?.logout === 'function') githubApi.logout();
+      });
+    } else { console.error("Logout button not found."); }
 
-    // V1.0.10: Use event delegation for sidebar clicks
+    if (elements.newPostForm) {
+      elements.newPostForm.addEventListener('submit', handlePostSubmit);
+    } else { console.error("New post form not found."); }
+
     if (elements.sidebarNav) {
        elements.sidebarNav.addEventListener('click', handleTabClick);
-    } else {
-       console.error("Sidebar nav element not found for event listener.")
-    }
+    } else { console.error("Sidebar nav element not found."); }
   }
 
-  // DOM 로드 완료 시 실행
   document.addEventListener('DOMContentLoaded', () => {
-    // DOM 요소 캐시
+    // Cache DOM elements
     elements.loginBtn = document.getElementById('login-btn');
     elements.logoutBtn = document.getElementById('logout-btn');
     elements.authStatus = document.getElementById('auth-status');
@@ -168,35 +154,37 @@
     elements.tabContents = document.querySelectorAll('.tab-content');
     elements.newPostForm = document.getElementById('new-post-form');
     elements.createPostBtn = document.getElementById('create-post-btn');
-    elements.themeConfigDisplay = document.getElementById(
-      'theme-config-display',
-    );
-     // V1.0.10: Cache the sidebar nav element
+    elements.themeConfigDisplay = document.getElementById('theme-config-display');
     elements.sidebarNav = document.querySelector('.admin-sidebar nav');
+
+    // Check if essential modules loaded
+    if (!window.githubApi || !window.postCreator) {
+       console.error("Critical JS modules (githubApi or postCreator) failed to load.");
+       alert("Admin panel initialization failed. Please check console errors.");
+       hideLoading(); // Ensure loading is hidden
+       return; // Stop initialization
+    }
 
     bindEvents();
 
-    // 페이지 로드 시 인증 상태 확인
+    // Check auth status on page load
     showLoading('Checking authentication...');
-    githubApi
-      .checkAuth()
-      .then((userData) => {
+    githubApi.checkAuth()
+      .then(userData => {
         if (userData) {
           updateUIForLogin(userData);
-          // V1.0.10: Load config only after ensuring login
-          if (document.querySelector('.nav-item.active[data-tab="settings"]')) {
-            loadAndDisplayConfig();
-          }
+          // Load config if settings tab is active initially (or based on hash)
+          const initialTab = window.location.hash.substring(1) || 'new-post';
+          if(initialTab === 'settings') loadAndDisplayConfig();
         } else {
           updateUIForLogout();
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Auth check failed:', error);
         updateUIForLogout();
       })
-      .finally(() => {
-        hideLoading();
-      });
+      .finally(() => hideLoading());
   });
+// Ensure modules are available globally or passed correctly
 })(window.githubApi, window.postCreator);
