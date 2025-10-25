@@ -1,4 +1,4 @@
-/* assets/js/main.js v1.0.0_202510250840 */
+/* assets/js/main.js v1.0.2_202510250915 */
 (function () {
   'use strict';
 
@@ -31,9 +31,9 @@
           searchPath = '/en/search/';
         }
 
-        // GOFUNWITH_SITE.base_url을 사용하여 정확한 경로 생성
-        const baseUrl = window.GOFUNWITH_SITE.base_url.replace(/\/$/, '');
-        window.location.href = `${baseUrl}${searchPath}?q=${encodeURIComponent(query)}`;
+        /* ⭐️ 수정: GOFUNWITH_SITE.base_url이 '/'로 고정되었으므로
+           단순히 경로를 합치지 않고, 올바른 루트 경로로 이동시킵니다. */
+        window.location.href = `${searchPath}?q=${encodeURIComponent(query)}`;
       });
     }
   });
