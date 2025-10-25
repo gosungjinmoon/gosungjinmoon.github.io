@@ -1,11 +1,11 @@
-# /* _config.yml v1.0.5_202510251025 */
+# /* _config.yml v1.0.6_202510251040 */
 title: GOFUNWITH Blog
 description: "Go have fun with tech, tools, and life. 경험 중심, 도전과 실험, 즐거운 창작"
 baseurl: "" 
 url: "https://blog.gofunwith.com"
 timezone: Asia/Seoul
 
-# ⭐️ V1.0.5 수정: GitHub 기본 테마(primer)를 비활성화하고 로컬 레이아웃을 사용하도록 강제
+# ⭐️ V1.0.6 수정: GitHub 기본 테마(primer)를 비활성화하고 로컬 레이아웃을 사용하도록 강제
 theme: null
 
 # Jekyll 기본 설정
@@ -23,7 +23,7 @@ exclude:
 include:
   - "admin"
 
-# GitHub Pages 호환 플러그인 (테마를 null로 설정했으므로 명시적 선언)
+# ⭐️ V1.0.6 수정: theme: null을 사용할 때 필수 플러그인을 명시적으로 선언
 plugins:
   - jekyll-seo-tag
   - jekyll-feed
