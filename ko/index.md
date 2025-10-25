@@ -1,6 +1,6 @@
 ---
 layout: home
-title: 'GOFUNWITH (KO)'
+title: '홈'
 lang: ko
 permalink: /
 ---
