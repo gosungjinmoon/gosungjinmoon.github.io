@@ -14,7 +14,9 @@
         <ul class="contact-list">
           {% for link in site.data.config.footer_links %}
           <li>
-            <a href="{{ link.url }}">{{ link.name }}</a>
+            <a href="{{ link.url | prepend: '/' | replace: '//', '/' }}"
+              >{{ link.name }}</a
+            >
           </li>
           {% endfor %}
         </ul>
