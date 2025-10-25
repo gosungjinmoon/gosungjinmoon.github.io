@@ -67,6 +67,47 @@ layout: none
         </aside>
 
         <section class="admin-content">
+          <div id="tab-new-post" class="tab-content active">
+            <h2>Create New Post</h2>
+            <form id="new-post-form">
+              <div class="form-group">
+                <label for="post-title">Title</label>
+                <input
+                  type="text"
+                  id="post-title"
+                  required
+                  placeholder="새 포스트 제목"
+                />
+              </div>
+              <div class="form-group">
+                <label for="post-lang">Language</label>
+                <select id="post-lang">
+                  <option value="ko" selected>🇰🇷 Korean (ko)</option>
+                  <option value="en">🇺🇸 English (en)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="post-tags">Tags (comma separated)</label>
+                <input
+                  type="text"
+                  id="post-tags"
+                  placeholder="Tech, DIY, Experiment"
+                />
+              </div>
+              <div class="form-group">
+                <label for="post-content">Content (Markdown)</label>
+                <textarea
+                  id="post-content"
+                  rows="15"
+                  placeholder="## Markdown supported..."
+                ></textarea>
+              </div>
+              <button type="submit" id="create-post-btn">
+                Create Post (Submit PR)
+              </button>
+            </form>
+          </div>
+
           <div id="tab-theme-preview" class="tab-content">
             <h2>Theme Preview</h2>
             <iframe
@@ -76,9 +117,21 @@ layout: none
             ></iframe>
           </div>
 
-          </section>
+          <div id="tab-settings" class="tab-content">
+            <h2>Config Settings</h2>
+            <p>
+              Settings are loaded from
+              <code>/assets/config/theme.yml</code>
+            </p>
+            <textarea id="theme-config-display" rows="20" readonly></textarea>
+          </div>
+        </section>
       </main>
 
+      <div id="loading-overlay" class="hidden">
+        <div class="spinner"></div>
+        <p id="loading-message">Loading...</p>
       </div>
+    </div>
   </body>
 </html>
