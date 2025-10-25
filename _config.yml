@@ -1,36 +1,36 @@
 # /* _config.yml v1.0.9_202510251140 */
-# Basic settings
 title: GOFUNWITH Blog
 description: "Go have fun with tech, tools, and life. 경험 중심, 도전과 실험, 즐거운 창작"
 url: "https://blog.gofunwith.com"
 timezone: Asia/Seoul
+baseurl: "" # CNAME 사용 시 비워둡니다.
 
-# Disable GitHub default theme to use local layouts (_layouts folder)
+# GitHub 기본 테마 비활성화 (필수)
 theme: null
 
-# Ensure the admin folder is included in the build
+# Admin 폴더 포함
 include:
   - "admin"
 
-# Required plugins for GitHub Pages when theme is null
+# 필수 플러그인
 plugins:
   - jekyll-seo-tag
   - jekyll-feed
   - jekyll-sitemap
 
-# Default layout for all pages/posts
+# 기본 레이아웃 설정
 defaults:
   - scope:
-      path: "" # Applies to all files
+      path: "" # 모든 파일에 기본 적용
     values:
       layout: "default"
   - scope:
-      path: ""
-      type: "posts" # Specifically for posts
+      path: "_posts" # _posts 폴더 안 파일에만 적용
+      type: "posts"
     values:
       layout: "post"
 
-# Exclude unnecessary files/folders from the build
+# 불필요 파일 제외 (정리)
 exclude:
   - README.md
   - cloudflare_worker.js
@@ -40,13 +40,11 @@ exclude:
   - .prettierrc
   - .eslintrc.json
   - design_guide.md
-  - themes/ # Exclude the entire old themes folder
-  - assets/style.css # Exclude old root CSS
-  - assets/theme.yml # Exclude old root theme config
-  - config/ # Exclude old config folder
-  - cloudflare/ # Exclude cloudflare folder
-  - _secrets/ # Exclude secrets example
-  - vendor/bundle/ # Exclude gems if installed locally
-
-# Optional: Improve build speed for development (uncomment locally if needed)
-# incremental: true
+  - themes/
+  - assets/style.css
+  - assets/theme.yml
+  - config/
+  - cloudflare/
+  - _secrets/
+  - vendor/bundle/
+  - .github/ # GitHub Actions 워크플로우는 빌드 제외
