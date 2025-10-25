@@ -1,13 +1,9 @@
 # /* _config.yml v1.0.12_202510251400 */
 
 # --- Required by GitHub Pages ---
-# If you deploy to user/organization pages (like gosungjinmoon.github.io):
-# baseurl must be "" or /. No leading slash needed for url.
-# If you deploy to project pages (like user.github.io/repo):
-# baseurl must be "/repo".
 title: GOFUNWITH Blog
-url: "https://blog.gofunwith.com" # Your custom domain
-baseurl: "" # For user/organization pages repository
+url: "https://blog.gofunwith.com"
+baseurl: ""
 
 # --- Critical: Use local layouts, disable default theme ---
 theme: null
@@ -17,14 +13,12 @@ include:
   - "admin"
 
 # --- Required Plugins (when theme: null) ---
-# Keep only the absolute essentials for now
 plugins:
   - jekyll-seo-tag
-  # - jekyll-feed # Temporarily disable to reduce complexity
-  # - jekyll-sitemap # Temporarily disable to reduce complexity
+  # - jekyll-feed # Temporarily disable
+  # - jekyll-sitemap # Temporarily disable
 
 # --- Default Layout ---
-# Apply default layout from _layouts folder to all pages/posts
 defaults:
   - scope:
       path: ""
@@ -34,10 +28,9 @@ defaults:
       path: "_posts"
       type: "posts"
     values:
-      layout: "post" # Ensure posts use the post layout
+      layout: "post"
 
 # --- Exclusions ---
-# Minimal exclusions
 exclude:
   - README.md
   - Gemfile
@@ -45,7 +38,6 @@ exclude:
   - node_modules
   - vendor/bundle/
   - .github/
-  # Keep potentially problematic files excluded
   - cloudflare_worker.js
   - .prettierrc
   - .eslintrc.json
