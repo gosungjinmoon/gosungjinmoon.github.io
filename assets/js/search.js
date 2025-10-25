@@ -1,130 +1,157 @@
-/* assets/js/search.js v1.0.0_202510221638 */
-
+/* assets/js/search.js v1.0.0_202510250840 */
 /*
- * Client-side search using Lunr.js
- *
- * This script is loaded on all pages, but only executes search logic
- * on the search layout (/ko/search/ or /en/search/).
+ * ⭐️ 아키텍처 핵심 ⭐️
+ * 이 파일은 정적 JS 파일입니다.
+ * Liquid 태그 대신, head.html에서 주입한 'window.GOFUNWITH_SITE' 전역 객체를 참조하여
+ * 현재 언어에 맞는 'search.json' 경로를 가져옵니다.
  */
-
-(function (window) {
+(function () {
   'use strict';
 
-  let idx = null;
-  let searchData = {};
+  let lunrIndex = null;
+  let postData = [];
   let currentLang = 'ko';
 
-  const MAX_RESULTS = 10;
-
-  /**
-   * Initializes the search index for a specific language.
-   * @param {string} lang - The language code (e.g., 'ko', 'en').
-   */
-  async function initSearch(lang) {
-    currentLang = lang || 'ko';
-    const searchPage = document.querySelector('.search-page');
-    if (!searchPage) return; // Not on a search page
-
-    const resultsList = document.getElementById('search-results-list');
-    const statusEl = document.getElementById('search-status');
-
-    try {
-      // 1. Fetch search data (JSON)
-      statusEl.textContent = statusEl.dataset.loading || 'Loading...';
-      const searchJsonUrl = `{{ '/search.json' | prepend: '${currentLang}' | relative_url }}`;
-      const response = await fetch(searchJsonUrl);
-      if (!response.ok) throw new Error(`Failed to load search index: ${response.statusText}`);
-      const documents = await response.json();
-
-      // 2. Build Lunr index
-      idx = lunr(function () {
-        // Use 'ko' or 'en' specific stemmers if available, or default
-        if (lunr[currentLang]) {
-          this.use(lunr[currentLang]);
-        }
-        this.ref('url');
-        this.field('title', { boost: 10 });
-        this.field('tags', { boost: 5 });
-        this.field('content');
-
-        documents.forEach(doc => {
-          this.add(doc);
-          searchData[doc.url] = doc; // Store full data for display
-        }, this);
-      });
-
-      // 3. Check for query params and perform initial search
-      const params = new URLSearchParams(window.location.search);
-      const query = params.get('q');
-      const searchInput = document.getElementById(`search-input-${currentLang}`);
-
-      if (query) {
-        searchInput.value = query;
-        performSearch(query, resultsList, statusEl);
-      } else {
-        statusEl.textContent = ''; // Clear loading status
-      }
-
-      // 4. Add submit event listener to the form
-      const searchForm = document.getElementById(`search-form-${currentLang}`);
-      searchForm.addEventListener('submit', e => {
-        e.preventDefault();
-        const newQuery = searchInput.value;
-        performSearch(newQuery, resultsList, statusEl);
-        // Update URL query string
-        const newUrl = new URL(window.location.href);
-        newUrl.searchParams.set('q', newQuery);
-        window.history.pushState({}, '', newUrl);
-      });
-    } catch (error) {
-      console.error('Search initialization failed:', error);
-      statusEl.textContent = 'Failed to load search index.';
-    }
+  // URL에서 쿼리 파라미터 가져오기
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
   }
 
-  /**
-   * Performs the search and displays results.
-   * @param {string} query - The search query.
-   * @param {HTMLElement} resultsList - The UL element to display results.
-   * @param {HTMLElement} statusEl - The element to show search status.
-   */
-  function performSearch(query, resultsList, statusEl) {
-    resultsList.innerHTML = ''; // Clear previous results
+  // Lunr 인덱스 초기화
+  async function initLunr() {
+    if (!window.GOFUNWITH_SITE || !window.lunr) {
+      console.error('Site config or Lunr.js not loaded.');
+      return;
+    }
 
-    if (!query) {
-      statusEl.textContent = '';
+    currentLang = window.GOFUNWITH_SITE.current_lang;
+    const jsonPath = window.GOFUNWITH_SITE.search_json_path[currentLang];
+
+    if (!jsonPath) {
+      console.error('Search JSON path not found for lang:', currentLang);
       return;
     }
 
     try {
-      const results = idx.search(query);
+      const response = await fetch(jsonPath);
+      const data = await response.json();
+      postData = data; // store post data for result display
 
-      if (results.length === 0) {
-        statusEl.textContent = statusEl.dataset.noResults || 'No results found.';
-        return;
-      }
+      // Lunr.js 인덱스 빌드
+      lunrIndex = lunr(function () {
+        // 다국어 지원 (영어, 한국어)
+        if (currentLang === 'en') {
+          this.use(lunr.stopWordFilter);
+        } else if (window.lunr.ko) {
+          this.use(lunr.ko); // lunr-languages 플러그인이 필요할 수 있음
+        }
 
-      statusEl.textContent = `${results.length} result(s) found.`;
+        this.ref('url');
+        this.field('title', { boost: 10 });
+        this.field('content');
+        this.field('tags', { boost: 5 });
 
-      results.slice(0, MAX_RESULTS).forEach(result => {
-        const doc = searchData[result.ref];
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <a href="{{ '${doc.url}' | relative_url }}">
-            <h3>${doc.title}</h3>
-          </a>
-          <p>${doc.content.substring(0, 150)}...</p>
-          <span class="search-meta">${doc.date}</span>
-        `;
-        resultsList.appendChild(li);
+        data.forEach((doc) => {
+          this.add(doc);
+        });
       });
-    } catch (error) {
-      console.error('Search failed:', error);
-      statusEl.textContent = 'Search failed.';
-      resultsList.innerHTML = '';
+
+      // 인덱스 로드 후 검색 실행
+      performSearch();
+    } catch (e) {
+      console.error('Error fetching or building search index:', e);
+      displayError();
     }
   }
 
-  // Expose initSearch to global scope
-  window.initSearch = initSearch;
-})(window);
+  // 검색 수행
+  function performSearch() {
+    const query = getQueryParam('q');
+    const searchInput = document.getElementById('search-input');
+    const resultsContainer = document.getElementById('search-results');
+    const resultsTitle = document.getElementById('search-results-title');
+    const loadingEl = document.getElementById('search-loading');
+    const noResultsEl = document.getElementById('search-no-results');
+
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (!query || !lunrIndex || !resultsContainer || !resultsTitle || !noResultsEl) {
+      if (noResultsEl) noResultsEl.style.display = 'block';
+      return;
+    }
+
+    if (searchInput) searchInput.value = query;
+    resultsTitle.innerText =
+      currentLang === 'en'
+        ? `Search results for "${query}"`
+        : `"${query}"에 대한 검색 결과`;
+
+    try {
+      const results = lunrIndex.search(query);
+      displayResults(results);
+    } catch (e) {
+      console.error('Error during search:', e);
+      displayError();
+    }
+  }
+
+  // 결과 표시
+  function displayResults(results) {
+    const resultsContainer = document.getElementById('search-results');
+    const noResultsEl = document.getElementById('search-no-results');
+    resultsContainer.innerHTML = ''; // 기존 결과 삭제
+
+    if (results.length === 0) {
+      noResultsEl.style.display = 'block';
+      return;
+    }
+
+    noResultsEl.style.display = 'none';
+
+    results.forEach((result) => {
+      const post = postData.find((p) => p.url === result.ref);
+      if (post) {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span class="post-meta">${post.date}</span>
+          <h2>
+            <a class="post-link" href="${window.GOFUNWITH_SITE.base_url}${post.url.substring(1)}">${post.title}</a>
+          </h2>
+          <div class="post-excerpt">${post.content.substring(0, 150)}...</div>
+          <div class="post-tags">
+            ${
+              post.tags
+                ? post.tags
+                    .map(
+                      (tag) =>
+                        `<span class="tag-item">${tag}</span>`,
+                    )
+                    .join('')
+                : ''
+            }
+          </div>
+        `;
+        resultsContainer.appendChild(li);
+      }
+    });
+  }
+
+  function displayError() {
+    const resultsContainer = document.getElementById('search-results');
+    const loadingEl = document.getElementById('search-loading');
+    if (loadingEl) loadingEl.style.display = 'none';
+    resultsContainer.innerHTML =
+      '<li class="search-error">An error occurred during the search.</li>';
+  }
+
+  // 페이지 로드 시 검색 실행
+  document.addEventListener('DOMContentLoaded', () => {
+    // /search/ 또는 /en/search/ 페이지에서만 실행
+    if (
+      window.location.pathname.endsWith('/search/') ||
+      window.location.pathname.endsWith('/search')
+    ) {
+      initLunr();
+    }
+  });
+})();
