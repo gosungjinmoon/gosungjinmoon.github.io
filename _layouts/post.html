@@ -6,12 +6,13 @@ layout: default
     <h1 class="post-title">{{ page.title | escape }}</h1>
     <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}</p>
     <div class="post-tags">
+      {% assign current_lang = page.lang | default: 'ko' %}
       {% for tag in page.tags %}
-      <a
-        href="/ko/tags/#{{ tag | slugify }}"
-        class="tag-item"
-        >{{ tag }}</a
-      >
+      {% if current_lang == 'en' %}
+        <a href="/en/tags/#{{ tag | slugify }}" class="tag-item">{{ tag }}</a>
+      {% else %}
+        <a href="/ko/tags/#{{ tag | slugify }}" class="tag-item">{{ tag }}</a>
+      {% endif %}
       {% endfor %}
     </div>
   </header>
