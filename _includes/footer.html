@@ -14,7 +14,7 @@
         <ul class="contact-list">
           {% for link in site.data.config.footer_links %}
           <li>
-            <a href="{{ link.url | relative_url }}">{{ link.name }}</a>
+            <a href="{{ link.url }}">{{ link.name }}</a>
           </li>
           {% endfor %}
         </ul>
@@ -27,7 +27,7 @@
             <a href="{{ site.data.theme.github }}">
               <svg class="svg-icon">
                 <use
-                  xlink:href="{{ '/assets/themes/modern-light/images/minima-social-icons.svg#github' | relative_url }}"
+                  xlink:href="/assets/themes/modern-light/images/minima-social-icons.svg#github"
                 ></use>
               </svg>
               <span class="username">GitHub</span>
