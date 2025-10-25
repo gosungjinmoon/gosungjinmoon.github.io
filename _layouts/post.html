@@ -1,3 +1,6 @@
+---
+layout: default
+---
 <article class="post">
   <header class="post-header">
     <h1 class="post-title">{{ page.title | escape }}</h1>
@@ -5,7 +8,7 @@
     <div class="post-tags">
       {% for tag in page.tags %}
       <a
-        href="/tags/#{{ tag | slugify }}"
+        href="/ko/tags/#{{ tag | slugify }}"
         class="tag-item"
         >{{ tag }}</a
       >
