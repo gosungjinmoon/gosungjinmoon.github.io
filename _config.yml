@@ -1,38 +1,36 @@
-# /* _config.yml v1.0.10_202510251245 */
-
-# Basic settings required by Jekyll/GitHub Pages
+# /* _config.yml v1.0.9_202510251140 */
 title: GOFUNWITH Blog
+description: "Go have fun with tech, tools, and life. 경험 중심, 도전과 실험, 즐거운 창작"
 url: "https://blog.gofunwith.com"
-baseurl: "" # Keep empty for CNAME root domain
+timezone: Asia/Seoul
+baseurl: "" # CNAME 사용 시 비워둡니다.
 
-# --- Core Fixes ---
-# 1. Disable GitHub's default theme (CRITICAL for using _layouts)
+# GitHub 기본 테마 비활성화 (필수)
 theme: null
 
-# 2. Ensure Jekyll processes the /admin folder
+# Admin 폴더 포함
 include:
   - "admin"
 
-# 3. Required plugins when theme is null
+# 필수 플러그인
 plugins:
   - jekyll-seo-tag
   - jekyll-feed
   - jekyll-sitemap
 
-# --- Minimal Defaults ---
-# Apply default layout to everything unless specified otherwise
+# 기본 레이아웃 설정
 defaults:
   - scope:
-      path: ""
+      path: "" # 모든 파일에 기본 적용
     values:
       layout: "default"
   - scope:
-      path: "_posts" # Ensure posts use the 'post' layout
+      path: "_posts" # _posts 폴더 안 파일에만 적용
       type: "posts"
     values:
       layout: "post"
 
-# Exclude files (keep this minimal for now)
+# 불필요 파일 제외 (정리)
 exclude:
   - README.md
   - cloudflare_worker.js
@@ -41,4 +39,12 @@ exclude:
   - Gemfile.lock
   - .prettierrc
   - .eslintrc.json
-  - vendor/bundle/ # Standard Jekyll exclusion
+  - design_guide.md
+  - themes/
+  - assets/style.css
+  - assets/theme.yml
+  - config/
+  - cloudflare/
+  - _secrets/
+  - vendor/bundle/
+  - .github/ # GitHub Actions 워크플로우는 빌드 제외
