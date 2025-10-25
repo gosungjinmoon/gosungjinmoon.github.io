@@ -1,22 +1,36 @@
 # /* _config.yml v1.0.9_202510251140 */
+# Basic settings
 title: GOFUNWITH Blog
 description: "Go have fun with tech, tools, and life. 경험 중심, 도전과 실험, 즐거운 창작"
-baseurl: ""
 url: "https://blog.gofunwith.com"
 timezone: Asia/Seoul
 
-# ⭐️ V1.0.9 수정: GitHub Pages가 _posts 폴더를 기본으로 읽지 못하는 문제를 해결하기 위해
-# posts 컬렉션을 명시적으로 정의합니다.
-collections:
-  posts:
-    output: true
-    permalink: /:categories/:year/:month/:day/:title/
-
-# GitHub 기본 테마 비활성화
+# Disable GitHub default theme to use local layouts (_layouts folder)
 theme: null
 
-# Jekyll 기본 설정
-# permalink: /:categories/:year/:month/:day/:title/ # 컬렉션 설정으로 이동
+# Ensure the admin folder is included in the build
+include:
+  - "admin"
+
+# Required plugins for GitHub Pages when theme is null
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Default layout for all pages/posts
+defaults:
+  - scope:
+      path: "" # Applies to all files
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "posts" # Specifically for posts
+    values:
+      layout: "post"
+
+# Exclude unnecessary files/folders from the build
 exclude:
   - README.md
   - cloudflare_worker.js
@@ -25,37 +39,14 @@ exclude:
   - Gemfile.lock
   - .prettierrc
   - .eslintrc.json
-  # V1.0.9 추가: 불필요한 파일 제외
   - design_guide.md
-  - themes/
-  - assets/style.css # modern-light 테마 사용
-  - assets/theme.yml # config로 이동
-  - config/
-  - cloudflare/
+  - themes/ # Exclude the entire old themes folder
+  - assets/style.css # Exclude old root CSS
+  - assets/theme.yml # Exclude old root theme config
+  - config/ # Exclude old config folder
+  - cloudflare/ # Exclude cloudflare folder
+  - _secrets/ # Exclude secrets example
+  - vendor/bundle/ # Exclude gems if installed locally
 
-# Admin 대시보드를 Jekyll 빌드에 포함
-include:
-  - "admin"
-
-# 필수 플러그인 명시적 선언
-plugins:
-  - jekyll-seo-tag
-  - jekyll-feed
-  - jekyll-sitemap
-
-# 기본 Front Matter 설정
-defaults:
-  - scope:
-      path: ""
-    values:
-      layout: "default"
-  - scope:
-      # V1.0.9 수정: type: "posts" 대신 컬렉션 이름 사용
-      path: ""
-      type: "posts" # Jekyll 3.x 호환성을 위해 유지, 컬렉션이 우선 적용됨
-    values:
-      layout: "post"
-  - scope: # 컬렉션 기본값 명시 (더 확실하게)
-      type: posts
-    values:
-      layout: "post"
+# Optional: Improve build speed for development (uncomment locally if needed)
+# incremental: true
