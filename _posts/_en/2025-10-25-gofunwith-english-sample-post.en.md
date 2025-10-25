@@ -1,5 +1,4 @@
 ---
-/* _posts/en/2025-10-25-gofunwith-english-sample-post.en.md v1.0.0_202510250840 */
 layout: post
 title: "This is a GOFUNWITH Blog Sample Post"
 date: 2025-10-25 08:40:00 +0900
