@@ -1,50 +1,14 @@
-# .github/workflows/jekyll.yml (V1.0.14)
-name: Build and Deploy Jekyll site to GitHub Pages
+# /* Gemfile v1.0.15_202510251515 */
+source "https://rubygems.org"
 
-on:
-  push:
-    branches: ["main"] # 또는 사용하는 기본 브랜치
-  workflow_dispatch:
+# GitHub Pages 빌드 환경과 호환성을 맞추기 위해 github-pages gem 사용
+# 이 gem은 Jekyll 및 필수 플러그인들의 특정 버전을 자동으로 포함합니다.
+gem "github-pages", group: :jekyll_plugins
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+# theme: null 사용 시 명시적으로 필요한 플러그인 (github-pages에 포함되어 있지만 명시)
+gem "jekyll-seo-tag", group: :jekyll_plugins
+gem "jekyll-feed", group: :jekyll_plugins
+gem "jekyll-sitemap", group: :jekyll_plugins
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.1' # Jekyll 3.9 호환 버전
-          bundler-cache: true # 'bundle install' 실행 및 Gem 캐시
-          cache-version: 1
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v4
-      # ⭐️ V1.0.14: Bundler를 사용하여 Jekyll 빌드 실행 (기본 액션 대신)
-      - name: Build with Jekyll
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
-        env:
-          JEKYLL_ENV: production
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3 # 기본적으로 ./_site 업로드
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+# 필요한 경우 여기에 추가 플러그인을 나열할 수 있습니다.
+# 예: gem "jekyll-paginate", group: :jekyll_plugins
