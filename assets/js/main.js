@@ -1,4 +1,4 @@
-/* assets/js/main.js v1.0.2_202510250915 */
+/* assets/js/main.js v1.0.6_202510251040 */
 (function () {
   'use strict';
 
@@ -25,14 +25,13 @@
         e.preventDefault();
         const query = document.getElementById('search-input').value;
         const lang = searchLangInput.value || 'ko';
-        let searchPath = '/search/';
 
+        // ⭐️ V1.0.6 수정: 기본 경로를 /ko/search/로, 아니면 /en/search/로
+        let searchPath = '/ko/search/';
         if (lang === 'en') {
           searchPath = '/en/search/';
         }
 
-        /* ⭐️ 수정: GOFUNWITH_SITE.base_url이 '/'로 고정되었으므로
-           단순히 경로를 합치지 않고, 올바른 루트 경로로 이동시킵니다. */
         window.location.href = `${searchPath}?q=${encodeURIComponent(query)}`;
       });
     }
