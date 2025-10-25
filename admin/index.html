@@ -1,39 +1,140 @@
 ---
-/* admin/index.html v1.0_202510220736 */
+/* admin/index.html v1.0.0_202510250840 */
 layout: none
 ---
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GOFUNWITH Admin</title>
-  <link rel="stylesheet" href="{{ '/admin/css/admin.css' | relative_url }}">
-</head>
-<body>
-  <div id="admin-container">
-    <header>
-      <h1>GOFUNWITH Admin Console</h1>
-      <div id="auth-status">
-        <button id="login-btn">Login with GitHub</button>
-        <div id="user-info" style="display: none;">
-          <span id="username"></span>
-          <button id="logout-btn">Logout</button>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GOFUNWITH Admin</title>
+    <link
+      rel="stylesheet"
+      href="{{ '/admin/css/admin.css' | relative_url }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ '/assets/themes/modern-light/images/favicon.ico' | relative_url }}"
+    />
+
+    <script>
+      window.GOFUNWITH_ADMIN = {
+        base_url: '{{ "/" | relative_url | replace: "//", "/" }}',
+        theme_config_path: '{{ "/assets/config/theme.yml" | relative_url }}',
+      };
+    </script>
+
+    <script src="{{ '/admin/js/github-api.js' | relative_url }}"></script>
+    <script src="{{ '/admin/js/posts.js' | relative_url }}"></script>
+    <script src="{{ '/admin/js/admin.js' | relative_url }}"></script>
+  </head>
+  <body>
+    <div class="admin-container">
+      <header class="admin-header">
+        <h1>
+          <img
+            src="{{ '/assets/themes/modern-light/images/logo.svg' | relative_url }}"
+            alt="Logo"
+          />GOFUNWITH Admin
+        </h1>
+        <div id="auth-status">
+          <button id="login-btn">Login with GitHub</button>
+          <div id="user-info" style="display: none">
+            <span id="user-name"></span>
+            <button id="logout-btn">Logout</button>
+          </div>
         </div>
+      </header>
+
+      <main id="admin-main" class="hidden">
+        <aside class="admin-sidebar">
+          <nav>
+            <ul>
+              <li>
+                <a href="#new-post" class="nav-item active" data-tab="new-post"
+                  >New Post</a
+                >
+              </li>
+              <li>
+                <a href="#theme-preview" class="nav-item" data-tab="theme-preview"
+                  >Theme Preview</a
+                >
+              </li>
+              <li>
+                <a href="#settings" class="nav-item" data-tab="settings"
+                  >Settings</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </aside>
+
+        <section class="admin-content">
+          <div id="tab-new-post" class="tab-content active">
+            <h2>Create New Post</h2>
+            <form id="new-post-form">
+              <div class="form-group">
+                <label for="post-title">Title</label>
+                <input
+                  type="text"
+                  id="post-title"
+                  required
+                  placeholder="새 포스트 제목"
+                />
+              </div>
+              <div class="form-group">
+                <label for="post-lang">Language</label>
+                <select id="post-lang">
+                  <option value="ko" selected>🇰🇷 Korean (ko)</option>
+                  <option value="en">🇺🇸 English (en)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="post-tags">Tags (comma separated)</label>
+                <input
+                  type="text"
+                  id="post-tags"
+                  placeholder="Tech, DIY, Experiment"
+                />
+              </div>
+              <div class="form-group">
+                <label for="post-content">Content (Markdown)</label>
+                <textarea
+                  id="post-content"
+                  rows="15"
+                  placeholder="## Markdown supported..."
+                ></textarea>
+              </div>
+              <button type="submit" id="create-post-btn">
+                Create Post (Submit PR)
+              </button>
+            </form>
+          </div>
+
+          <div id="tab-theme-preview" class="tab-content">
+            <h2>Theme Preview</h2>
+            <iframe
+              id="theme-preview-iframe"
+              src="{{ '/admin/theme-preview.html' | relative_url }}"
+              frameborder="0"
+            ></iframe>
+          </div>
+
+          <div id="tab-settings" class="tab-content">
+            <h2>Config Settings</h2>
+            <p>
+              Settings are loaded from
+              <code>/assets/config/theme.yml</code>
+            </p>
+            <textarea id="theme-config-display" rows="20" readonly></textarea>
+          </div>
+        </section>
+      </main>
+
+      <div id="loading-overlay" class="hidden">
+        <div class="spinner"></div>
+        <p id="loading-message">Loading...</p>
       </div>
-    </header>
-    <main id="main-content" style="display: none;">
-      <nav class="tabs">
-        <button data-tab="theme-preview" class="active">Theme Preview</button>
-        <button data-tab="create-post">Create New Post</button>
-      </nav>
-      <div id="tab-content">
-        <!-- Content will be loaded here -->
-      </div>
-    </main>
-  </div>
-  <script src="{{ '/admin/js/github-api.js' | relative_url }}"></script>
-  <script src="{{ '/admin/js/posts.js' | relative_url }}"></script>
-  <script src="{{ '/admin/js/admin.js' | relative_url }}"></script>
-</body>
+    </div>
+  </body>
 </html>
