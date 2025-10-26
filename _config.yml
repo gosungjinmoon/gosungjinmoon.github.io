@@ -55,3 +55,7 @@ exclude:
   # - cloudflare/
   # - _secrets/
   # - design_guide.md
+
+timezone: Asia/Seoul
+
+future: true
