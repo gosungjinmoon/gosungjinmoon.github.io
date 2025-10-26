@@ -1,4 +1,4 @@
-/* _posts/ko/2025-10-22-gofunwith-blog-sijak.md v1.0_202510220736 */
+---
 layout: post
 title: "GOFUNWITH 블로그 시작하기"
 date: 2025-10-22 10:00:00 +0900
