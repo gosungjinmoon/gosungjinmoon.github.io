@@ -1,63 +1,43 @@
-# /* _config.yml v1.0.15_202510251530 */
-
-# Basic settings
 title: GOFUNWITH Blog
-description: "Go have fun with tech, tools, and life. 경험 중심, 도전과 실험, 즐거운 창작" # SEO tag will use this
-url: "https://blog.gofunwith.com"
+email: contact@gofunwith.com
+description: "Go have fun with tech, tools, and life."
 baseurl: ""
+url: "https://blog.gofunwith.com"
 
-# --- Critical Fixes ---
-# 1. Disable GitHub's default theme
-theme: null
+markdown: kramdown
+theme: minima
+timezone: Asia/Seoul
+future: true
 
-# 2. Specify repository for jekyll-seo-tag plugin (Fixes build error)
-#    형식: username/repository-name
-repository: gosungjinmoon/gosungjinmoon.github.io # IMPORTANT!
-
-# 3. Ensure admin folder is processed
+# Include search index files
 include:
-  - "admin"
-  - ko/search.json
-  - en/search.json
-  
-# --- Plugins (Managed by Gemfile) ---
-plugins:
-  - jekyll-seo-tag
-  - jekyll-feed
-  - jekyll-sitemap
+  - "ko/search.json"
+  - "en/search.json"
 
-# --- Default Layout ---
+# Collections and defaults
 defaults:
   - scope:
       path: ""
     values:
       layout: "default"
-  - scope:
-      path: "_posts"
-      type: "posts"
-    values:
-      layout: "post"
+      lang: "ko"
 
-# --- Exclusions ---
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+
+paginate: 5
+paginate_path: "/page:num/"
+
+# Language configuration
+languages:
+  - ko
+  - en
+
 exclude:
-  - README.md
-  - Gemfile
-  - Gemfile.lock
   - node_modules
-  - vendor/bundle/
-  - .github/
-  - cloudflare_worker.js
-  - .prettierrc
-  - .eslintrc.json
-  # Keep potentially problematic files excluded
-  # - themes/
-  # - assets/style.css
-  # - assets/theme.yml
-  # - config/
-  # - cloudflare/
-  # - _secrets/
-  # - design_guide.md
-
-timezone: Asia/Seoul
-
-future: true
+  - vendor
+  - README.md
