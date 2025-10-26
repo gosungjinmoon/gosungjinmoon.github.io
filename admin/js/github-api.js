@@ -213,3 +213,42 @@
     fetchThemeConfigYaml,
   };
 })();
+
+  // Commit a text file to the repo (creates or updates)
+  async function commitFile({path, content, message}){
+    const cfg = await loadThemeConfig();
+    const token = getToken();
+    if(!token) throw new Error('Login required');
+    const repo = cfg.repo;
+    const [owner, repoName] = repo.split('/');
+    // Get latest sha if file exists
+    const getUrl = `https://api.github.com/repos/${owner}/${repoName}/contents/${encodeURIComponent(path)}`;
+    let sha = null;
+    const getRes = await fetch(getUrl, { headers: { Authorization: 'token '+token, Accept:'application/vnd.github+json' }});
+    if(getRes.ok){
+      const j = await getRes.json();
+      sha = j.sha;
+    }
+    const putRes = await fetch(getUrl, {
+      method:'PUT',
+      headers:{ Authorization:'token '+token, Accept:'application/vnd.github+json' },
+      body: JSON.stringify({
+        message: message || 'update via admin',
+        content: btoa(unescape(encodeURIComponent(content))),
+        sha: sha
+      })
+    });
+    if(!putRes.ok){
+      throw new Error('Commit failed: '+ putRes.status+' '+await putRes.text());
+    }
+    return await putRes.json();
+  }
+
+  window.githubApi = Object.assign(window.githubApi||{}, {
+    loadThemeConfig,
+    fetchThemeConfigYaml,
+    login,
+    logout,
+    getToken,
+    commitFile
+  });

@@ -130,3 +130,23 @@ tags: ${tagsYaml}
     createNewPost,
   };
 })(window.githubApi);
+
+
+// v1.1 Auto-translate & Publish flags
+async function createPostFromForm(form){
+  const data = new FormData(form);
+  const payload = {};
+  data.forEach((v,k)=>{ payload[k]=v; });
+  payload.autoTranslate = data.get('auto_translate') === 'on' || data.get('auto_translate') === 'true';
+  payload.publishNow = data.get('publish_now') === 'on' || data.get('publish_now') === 'true';
+  const cfg = await githubApi.loadThemeConfig();
+  const token = githubApi.getToken();
+  if(!token) throw new Error('Login required');
+  const endpoint = cfg.n8n_webhook_new_post || cfg.cloudflare_worker_endpoint;
+  if(!endpoint) throw new Error('Webhook endpoint not configured.');
+  const res = await fetch(endpoint, { method:'POST', headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer '+token }, body: JSON.stringify(payload) });
+  if(!res.ok){ throw new Error('Create failed: '+res.status); }
+  return await res.json();
+}
+
+window.postCreator = Object.assign(window.postCreator||{}, { createPostFromForm });
