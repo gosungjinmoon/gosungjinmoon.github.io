@@ -17,7 +17,9 @@ repository: gosungjinmoon/gosungjinmoon.github.io # IMPORTANT!
 # 3. Ensure admin folder is processed
 include:
   - "admin"
-
+  - ko/search.json
+  - en/search.json
+  
 # --- Plugins (Managed by Gemfile) ---
 plugins:
   - jekyll-seo-tag
