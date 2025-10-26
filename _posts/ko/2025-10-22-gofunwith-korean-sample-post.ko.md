@@ -1,5 +1,4 @@
 ---
-/* _posts/ko/2025-10-22-gofunwith-korean-sample-post.ko.md v1.0.0_202510221638 */
 layout: post
 title: "GOFUNWITH 블로그 시작: 기술과 삶을 즐기는 여정"
 date: 2025-10-22 16:30:00 +0900
