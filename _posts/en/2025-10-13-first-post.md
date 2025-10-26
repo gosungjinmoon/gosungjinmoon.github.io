@@ -1,5 +1,3 @@
-/* _posts/en/2025-10-13-first-post.md  v6.4.1_202510180200 */
-
 ---
 layout: post
 title: "First English Post"
