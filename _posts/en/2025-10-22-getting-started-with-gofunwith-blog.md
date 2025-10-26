@@ -1,4 +1,4 @@
-/* _posts/en/2025-10-22-getting-started-with-gofunwith-blog.md v1.0_202510220736 */
+---
 layout: post
 title: "Getting Started with GOFUNWITH Blog"
 date: 2025-10-22 10:00:00 +0900
