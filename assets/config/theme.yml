@@ -2,6 +2,10 @@
 # ⭐️ _data/theme.yml의 공개용 미러입니다.
 # ⭐️ Admin JS가 이 파일을 fetch합니다. _data/theme.yml 수정 시 여기도 꼭 덮어쓰세요.
 
+# ==========================================================
+# GOFUNWITH Blog Theme & Integration Configuration
+# ==========================================================
+
 brand: "GOFUNWITH – Explore. Create. Share."
 domain: "blog.gofunwith.com"
 url: "https://gosungjinmoon.github.io"
@@ -9,12 +13,49 @@ repo: "gosungjinmoon/gosungjinmoon.github.io"
 github: "https://github.com/gosungjinmoon"
 timezone: "Asia/Seoul"
 
-# Google Analytics & Cloudflare
+# === Basic Theme Configuration ===
+active_theme: "modern-light"
+default_lang: "ko"
+
+# === Giscus Comment System ===
+giscus_repo: "gosungjinmoon/gosungjinmoon.github.io"
+giscus_repo_id: "R_kgDOQBYPtQ"
+giscus_category: "Show and tell"
+giscus_category_id: "DIC_kwDOQBYPtc4CxEor"
+giscus_mapping: "pathname"
+giscus_strict: "0"
+giscus_reactions_enabled: "1"
+giscus_emit_metadata: "0"
+giscus_input_position: "bottom"
+giscus_theme: "light"
+giscus_lang: "ko"
+
+# === Google Analytics & Cloudflare ===
 ga4_measurement_id: "G-R7N7G7QPBF"
 cloudflare_beacon_token: "c7db8999eee4466bab1893a2361aed10"
 
-# Admin Console & API Endpoints
+# === Admin Console & API Endpoints ===
 cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
-n8n_webhook_new_post: "https://n8n.gofunwith.com/webhook/new-post"
-worker_like_endpoint: "https://api.gofunwith.com/like"
 github_oauth_client_id: "Ov23liqsljSBAqajz2eu"
+
+# === System Endpoints (Backend / Worker integration) ===
+worker_like_endpoint: "https://api.gofunwith.com/like"
+n8n_webhook_new_post: "https://n8n.gofunwith.com/webhook/new-post"
+n8n_webhook_method: "POST"
+
+# === Optional: Custom headers for n8n (safe defaults) ===
+n8n_webhook_headers:
+  Content-Type: "application/json"
+
+# === Search Settings ===
+search_index_paths:
+  - "ko/search.json"
+  - "en/search.json"
+
+# === Miscellaneous ===
+timezone: "Asia/Seoul"
+future: true
+
+# ==========================================================
+# END OF CONFIG
+# ==========================================================
