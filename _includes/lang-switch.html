@@ -1,26 +1,49 @@
-<div class="lang-switch">
-  {% assign current_url = page.url %}
-
-  {% if page.lang == 'en' %}
-    
-    {% if current_url == '/en/' %}
-      <a href="/" class="lang-item">🇰🇷 KO</a>
-    
+<div class="lang-switcher">
+  {% assign current_lang = page.lang | default: 'ko' %}
+  {% for key in site.data.lang %}
+    {% assign lang = key[0] %}
+    {% assign info = key[1] %}
+    {% if lang == current_lang %}
+      <button class="lang-switch active" disabled>{{ info.name }}</button>
     {% else %}
-      <a href="{{ current_url | remove_first: '/en' | prepend: '/ko' }}" class="lang-item">🇰🇷 KO</a>
+      {% capture post_date %}{{ page.date | date: "%Y/%m/%d" }}{% endcapture %}
+      {% if page.alt_lang %}
+        {% if lang == 'en' %}
+          <a class="lang-switch" href="/{{ info.path }}/{{ post_date }}/{{ page.alt_lang }}.{{ info.code }}.html">{{ info.name }}</a>
+        {% else %}
+          <a class="lang-switch" href="/{{ post_date }}/{{ page.alt_lang }}.{{ info.code }}.html">{{ info.name }}</a>
+        {% endif %}
+      {% else %}
+        <a class="lang-switch" href="/{{ info.path }}/">{{ info.name }}</a>
+      {% endif %}
     {% endif %}
-    
-    <span class="lang-item active">🇺🇸 EN</span>
-
-  {% else %}
-    <span class="lang-item active">🇰🇷 KO</span>
-
-    {% if current_url == '/' %}
-      <a href="/en/" class="lang-item">🇺🇸 EN</a>
-    
-    {% else %}
-      <a href="{{ current_url | remove_first: '/ko' | prepend: '/en' }}" class="lang-item">🇺🇸 EN</a>
-    {% endif %}
-
-  {% endif %}
+  {% endfor %}
 </div>
+
+<style>
+.lang-switcher {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+.lang-switch {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #555;
+}
+.lang-switch.active {
+  background: #222;
+  color: #fff;
+  border-color: #222;
+  cursor: default;
+}
+.lang-switch:hover:not(.active) {
+  background: #f2f2f2;
+}
+</style>
