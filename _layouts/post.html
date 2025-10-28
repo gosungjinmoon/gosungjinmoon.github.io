@@ -1,35 +1,27 @@
----
-layout: default
----
-<article class="post">
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title | escape }}</h1>
-    <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}</p>
-    <div class="post-tags">
-      {% assign current_lang = page.lang | default: 'ko' %}
-      {% for tag in page.tags %}
-      {% if current_lang == 'en' %}
-        <a href="/en/tags/#{{ tag | slugify }}" class="tag-item">{{ tag }}</a>
-      {% else %}
-        <a href="/ko/tags/#{{ tag | slugify }}" class="tag-item">{{ tag }}</a>
-      {% endif %}
-      {% endfor %}
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: 'ko' }}">
+<head>
+  <meta charset="utf-8">
+  <title>{{ page.title }}</title>
+  <meta name="alt_lang" content="{{ page.alt_lang }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% include head.html %}
+</head>
+
+<body>
+  {% include header.html %}
+
+  <main class="post-container">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-date">{{ page.date | date: "%Y-%m-%d" }}</p>
+
+    {% include lang-switcher.html %}
+
+    <div class="post-content">
+      {{ content }}
     </div>
-  </header>
 
-  <div class="post-content">{{ content }}</div>
-
-  <div class="post-engage">
-    <button class="like-button" data-like-btn data-slug="{{ page.url | slugify }}" aria-pressed="false">👍 Like</button>
-    <span class="like-count" data-like-count>0</span>
-  </div>
-  <section class="post-comments">
-    <h3>{% if page.lang == 'en' %}Comments{% else %}댓글{% endif %}</h3>
-    <div id="giscus_thread"
-         data-repo="{{ site.repository | default: 'gosungjinmoon/gosungjinmoon.github.io' }}"
-         data-mapping="pathname"
-         data-lang="{{ page.lang | default: 'ko' }}"></div>
-    <script src="/assets/js/engage.js"></script>
-  </section>
-
-</article>
+    {% include footer.html %}
+  </main>
+</body>
+</html>
