@@ -9,11 +9,14 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
+# Admin HTML도 Liquid 처리하도록 포함
 include:
   - admin
 
+# 포스트 고유링크에 .ko/.en 확장이 그대로 유지되도록
 permalink: /:categories/:year/:month/:day/:title:output_ext
 
+# 언어별 기본값
 defaults:
   - scope: { path: "", type: "posts" }
     values: { layout: post, lang: ko, tags: [] }
