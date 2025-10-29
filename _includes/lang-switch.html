@@ -1,1 +1,15 @@
-{{ page.lang }}
+{%- assign current = page.lang | default: 'ko' -%}
+{%- assign path = page.url -%}
+{%- assign other_lang = current == 'ko' ? 'en' : 'ko' -%}
+{%- capture other_url -%}
+  {%- if path contains '.ko.' or path contains '.en.' -%}
+    {{ path | replace: '.ko.', '.en.' | replace: '.en.', '.ko.' }}
+  {%- elsif path startswith: '/ko/' -%}
+    {{ path | replace_first: '/ko/', '/en/' }}
+  {%- elsif path startswith: '/en/' -%}
+    {{ path | replace_first: '/en/', '/ko/' }}
+  {%- else -%}
+    {%- if other_lang == 'en' -%}/en/{%- else -%}/ko/{%- endif -%}
+  {%- endif -%}
+{%- endcapture -%}
+<a class="lang-pill" href="{{ other_url | relative_url }}">{{ other_lang | upcase }}</a>
