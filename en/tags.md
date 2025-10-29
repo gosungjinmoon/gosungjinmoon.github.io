@@ -1,17 +1,14 @@
 ---
 layout: default
-title: Tags
+title: "Tags"
 lang: en
 permalink: /en/tags/
 ---
-# Tags
-{% for t in site.tags %}
-  {% assign tag = t[0] %}
-  {% assign posts = t[1] | where: 'lang', 'en' %}
-  {% if posts.size > 0 %}
-  <h3 id="{{ tag | slugify }}">{{ tag }}</h3>
-  <ul>
-    {% for p in posts %}<li><a href="{{ p.url | relative_url }}">{{ p.title }}</a> <small>{{ p.date | date: "%Y-%m-%d" }}</small></li>{% endfor %}
-  </ul>
-  {% endif %}
+<ul>
+{% assign posts_lang = site.posts | where: "lang", "en" %}
+{% assign tags = posts_lang | map: "tags" | join: "," | split: "," | uniq | sort %}
+{% for tag in tags %}
+  {% assign t = tag | strip %}
+  {% if t != "" %}<li><strong>{{ t }}</strong></li>{% endif %}
 {% endfor %}
+</ul>
