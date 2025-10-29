@@ -1,18 +1,29 @@
 <header class="gfw-header">
   <div class="gfw-brand">
-    <a href="{{ '/' | relative_url }}">
+    {%- if page.lang == 'en' -%}
+      {%- assign home_href = '/en/' -%}
+    {%- else -%}
+      {%- assign home_href = '/' -%}
+    {%- endif -%}
+    <a href="{{ home_href | relative_url }}">
       <img id="gfw-logo" alt="GOFUNWITH" width="220" height="36"
            src="{{ '/assets/logo/logo-light.svg' | relative_url }}">
     </a>
   </div>
+
   <nav class="gfw-nav">
-    {%- assign is_en = page.lang == 'en' -%}
-    <a href="{{ (is_en ? '/en/search/' : '/ko/search/') | relative_url }}">Search</a>
-    <a href="{{ (is_en ? '/en/tags/' : '/ko/tags/') | relative_url }}">Tags</a>
+    {%- if page.lang == 'en' -%}
+      <a href="{{ '/en/search/' | relative_url }}">Search</a>
+      <a href="{{ '/en/tags/'   | relative_url }}">Tags</a>
+    {%- else -%}
+      <a href="{{ '/ko/search/' | relative_url }}">검색</a>
+      <a href="{{ '/ko/tags/'   | relative_url }}">태그</a>
+    {%- endif -%}
     {% include lang-switch.html %}
     <button id="themeToggle" class="theme-toggle">Light/Dark</button>
   </nav>
 </header>
+
 <script>
 (function(){
   const key='gfw-theme';
@@ -21,7 +32,7 @@
   const logo = document.getElementById('gfw-logo');
   const setLogo = (t)=>{
     const isDark = t==='dark';
-    logo.src = isDark ? '{{ "/assets/logo/logo-dark.svg" | relative_url }}'
+    logo.src = isDark ? '{{ "/assets/logo/logo-dark.svg"  | relative_url }}'
                       : '{{ "/assets/logo/logo-light.svg" | relative_url }}';
   };
   setLogo(stored);
