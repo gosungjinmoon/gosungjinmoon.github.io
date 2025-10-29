@@ -1,20 +1,23 @@
-(async function(){
-  const cfg = await GFW.loadThemeConfig().catch(e=>{ alert('설정 로드 실패: '+e.message); });
-  if(!cfg) return;
-  const el = (id)=>document.getElementById(id);
-  el('submitBtn').addEventListener('click', async ()=>{
-    const title = el('title').value.trim();
-    const content = el('content').value.trim();
-    const lang = document.querySelector('input[name="lang"]:checked').value;
-    const autoTr = document.getElementById('autoTr').checked;
-    const body = { title, content, lang, auto_translate: autoTr, publish_now: true };
+(function(){
+  const $=(s)=>document.querySelector(s);
+  $('#submitBtn').addEventListener('click', async ()=>{
+    const title=$('#title').value.trim();
+    const content=$('#content').value.trim();
+    const lang=document.querySelector('input[name="lang"]:checked').value;
+    const auto=$('#auto').checked;
+    if(!title||!content){alert('제목과 본문을 입력하세요.');return;}
+    const body={title,content,lang,auto_translate:auto,publish_now:true};
+    $('#result').textContent='Posting…';
     try{
-      const res = await fetch(cfg.n8n_webhook_new_post, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
-      const data = await res.json().catch(()=>({}));
-      el('msg').textContent = res.ok ? '게시 성공' : ('오류: '+(data.message||res.status));
-      if(res.ok && data && data.created){
-        el('msg').textContent += ' ('+(data.created.ko||data.created.en)+')';
-      }
-    }catch(err){ el('msg').textContent = '네트워크 오류: '+err.message; }
+      const res=await fetch(window.GFW_CONFIG.n8nEndpoint,{
+        method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)
+      });
+      const data=await res.json();
+      $('#result').textContent=JSON.stringify(data,null,2);
+      alert('완료! GitHub에 커밋/PR 확인하세요.');
+    }catch(e){
+      $('#result').textContent=String(e);
+      alert('에러: '+e.message);
+    }
   });
 })();
