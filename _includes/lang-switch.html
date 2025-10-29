@@ -1,13 +1,11 @@
 {%- assign cur = page.lang | default: 'ko' -%}
-{%- assign other = cur == 'ko' ? 'en' : 'ko' -%}
-
-{%- if page.url contains '.ko.html' or page.url contains '.en.html' -%}
-  {%- assign alt_url = page.url | replace: '.ko.html', '.en.html' | replace: '.en.html', '.ko.html' -%}
-{%- else -%}
-  {%- assign alt_url = other == 'ko' ? '/ko/' : '/en/' -%}
-{%- endif -%}
-
-<div class="lang-switch">
-  <a class="lang-btn {{ cur }}" aria-current="page">{{ cur == 'ko' ? '한국어' : 'English' }}</a>
-  <a class="lang-btn {{ other }}" href="{{ alt_url }}">{{ other == 'ko' ? '한국어' : 'English' }}</a>
-</div>
+{%- if cur == 'ko' -%}{% assign alt='en' %}{% else %}{% assign alt='ko' %}{% endif %}
+{%- capture alt_url -%}
+  {%- if page.url == '/' -%}/en/
+  {%- elsif page.url == '/en/' -%}/
+  {%- elsif cur == 'ko' -%}{{ page.url | replace: '.ko.html', '.en.html' }}
+  {%- else -%}{{ page.url | replace: '.en.html', '.ko.html' }}
+  {%- endif -%}
+{%- endcapture -%}
+<a class="lang-switch" href="{{ alt_url | absolute_url }}">{{ alt }}</a>
+<style>.lang-switch{display:inline-block;padding:.25rem .5rem;border-radius:999px;border:1px solid currentColor;text-transform:uppercase;font-size:.85rem}</style>

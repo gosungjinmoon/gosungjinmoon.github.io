@@ -1,8 +1,10 @@
-body { font-family: Inter, Pretendard, system-ui; background:#f8fafc; color:#0f172a; margin:0; padding:24px; }
-h1 { margin:0 0 16px; }
-form { max-width: 640px; display:grid; gap:10px; background:#fff; padding:16px; border:1px solid #e2e8f0; border-radius:10px; }
-input, textarea { padding:8px; border:1px solid #cbd5e1; border-radius:8px; }
-.row { display:flex; gap:14px; align-items:center; }
-button { padding:10px 16px; background:#2563eb; color:#fff; border:0; border-radius:10px; cursor:pointer; }
-button:hover { background:#1e40af; }
-#result { padding:12px; background:#0b1020; color:#e6edf3; border-radius:8px; max-width:640px; margin-top:16px; overflow:auto; }
+:root{--bg:#f4f7f7;--card:#fff;--txt:#0f172a;--muted:#6b7280;--pri:#2563eb}
+body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.6 system-ui,Pretendard}
+.admin-wrap{max-width:880px;margin:2rem auto;padding:0 1rem}
+header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.card{background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+input,textarea{width:100%;padding:.5rem;border:1px solid #d1d5db;border-radius:8px}
+textarea{min-height:140px}
+.btn{border:1px solid #d1d5db;background:#fff;border-radius:8px;padding:.5rem .75rem;cursor:pointer}
+.btn.primary{background:var(--pri);border-color:var(--pri);color:#fff}
+.result{background:#0b1020;color:#cbe3ff;padding:1rem;border-radius:8px;overflow:auto}
