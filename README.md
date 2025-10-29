@@ -1,5 +1,12 @@
 ---
 
+# 🧭 GOFUNWITH Blog (v2025.10)
+
+**브랜드:** GOFUNWITH – Explore. Create. Share.
+**도메인:** [blog.gofunwith.com](https://blog.gofunwith.com)
+
+---
+
 ## 🎯 프로젝트 개요
 
 **GOFUNWITH Blog**는
@@ -307,3 +314,5 @@ jobs:
 | 배포 도메인 | [https://blog.gofunwith.com](https://blog.gofunwith.com)                                          |
 
 ---
+
+
