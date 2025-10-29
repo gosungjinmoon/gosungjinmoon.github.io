@@ -1,6 +1,6 @@
 ---
 layout: home
 lang: ko
-permalink: /
-title: 홈
+permalink: /ko/
+title: "한국어 블로그 홈"
 ---

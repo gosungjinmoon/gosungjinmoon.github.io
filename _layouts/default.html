@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: 'ko' }}">
-  {% include head.html %}
-
+  <head>
+    {% include head.html %}
+    <link rel="stylesheet" href="{{ '/assets/themes/modern-light/css/style.css' | relative_url }}">
+  </head>
   <body>
     {% include header.html %}
-
-    <main class="page-content" aria-label="Content">
-      <div class="wrapper">{{ content }}</div>
-    </main>
-
+    {{ content }}
     {% include footer.html %}
+    <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
   </body>
 </html>

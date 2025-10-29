@@ -1,5 +1,6 @@
 ---
 layout: home
-lang: "en"
+lang: en
 permalink: /en/
+title: "English Blog Home"
 ---
