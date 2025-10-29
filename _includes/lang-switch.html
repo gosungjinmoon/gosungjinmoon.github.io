@@ -1,27 +1,20 @@
 {%- assign current = page.lang | default: 'ko' -%}
-{%- assign path = page.url -%}
+{%- assign url = page.url -%}
 
-{%- if current == 'en' -%}
-  {%- assign other = 'ko' -%}
-{%- else -%}
+{%- if current == 'ko' -%}
   {%- assign other = 'en' -%}
+{%- else -%}
+  {%- assign other = 'ko' -%}
 {%- endif -%}
 
-{%- comment -%}
-우선순위:
-1) .ko. / .en. 확장 교체 (포스트 상세)
-2) /ko/ ↔ /en/ 경로 스왑 (섹션/리스트/페이지)
-3) 그 외: 상대 언어 홈으로
-{%- endcomment -%}
-
-{%- if path contains '.ko.' -%}
-  {%- assign other_url = path | replace: '.ko.', '.en.' -%}
-{%- elsif path contains '.en.' -%}
-  {%- assign other_url = path | replace: '.en.', '.ko.' -%}
-{%- elsif path | slice: 0, 4 == '/ko/' -%}
-  {%- assign other_url = path | replace_first: '/ko/', '/en/' -%}
-{%- elsif path | slice: 0, 4 == '/en/' -%}
-  {%- assign other_url = path | replace_first: '/en/', '/ko/' -%}
+{%- if url contains '.ko.' -%}
+  {%- assign other_url = url | replace: '.ko.', '.en.' -%}
+{%- elsif url contains '.en.' -%}
+  {%- assign other_url = url | replace: '.en.', '.ko.' -%}
+{%- elsif url contains '/ko/' -%}
+  {%- assign other_url = url | replace_first: '/ko/', '/en/' -%}
+{%- elsif url contains '/en/' -%}
+  {%- assign other_url = url | replace_first: '/en/', '/ko/' -%}
 {%- else -%}
   {%- if other == 'en' -%}
     {%- assign other_url = '/en/' -%}
@@ -30,4 +23,4 @@
   {%- endif -%}
 {%- endif -%}
 
-<a class="lang-pill" href="{{ other_url | relative_url }}">{{ other | upcase }}</a>
+<a class="lang-pill" href="{{ other_url }}">{{ other | upcase }}</a>
