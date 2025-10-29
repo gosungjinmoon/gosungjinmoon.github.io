@@ -1,27 +1,35 @@
+<!-- _layouts/post.html -->
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: 'ko' }}">
-<head>
-  <meta charset="utf-8">
-  <title>{{ page.title }}</title>
-  <meta name="alt_lang" content="{{ page.alt_lang }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% include head.html %}
-</head>
+  <head>
+    {% include head.html %}
+  </head>
+  <body>
+    {% include header.html %}
 
-<body>
-  {% include header.html %}
+    <main class="container post-container">
+      <article class="post">
+        <header class="post-header">
+          <h1>{{ page.title }}</h1>
+          <p class="post-date">{{ page.date | date: "%Y-%m-%d" }}</p>
+        </header>
 
-  <main class="post-container">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-date">{{ page.date | date: "%Y-%m-%d" }}</p>
+        <div class="post-content">
+          {{ content }}
+        </div>
 
-   <!--  {% include lang-switch.html %} -->
-
-    <div class="post-content">
-      {{ content }}
-    </div>
+        {% if page.tags %}
+        <div class="post-tags">
+          {% assign current_lang = page.lang | default: 'ko' %}
+          {% for tag in page.tags %}
+            <a href="/{{ current_lang }}/tags/#{{ tag | slugify }}">{{ tag }}</a>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </article>
+    </main>
 
     {% include footer.html %}
-  </main>
-</body>
+    <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+  </body>
 </html>
