@@ -1,7 +1,6 @@
 ---
 # 🧭 GOFUNWITH Blog (v2025.10)
-**브랜드:** 
-**도메인:** [blog.gofunwith.com](https://blog.gofunwith.com)
+
 ---
 
 ## 🎯 프로젝트 개요
