@@ -7,13 +7,8 @@
     {% assign tag_posts = tag | last %}
     {% assign lang_posts = tag_posts | where: "lang", current_lang %}
     {% if lang_posts.size > 0 %}
-      {% if current_lang == "en" %}
-        {% assign lang_prefix = "/en" %}
-      {% else %}
-        {% assign lang_prefix = "/ko" %}
-      {% endif %}
       <a
-        href="{{ lang_prefix }}/tags/#{{ tag_name | slugify }}"
+        href="/{{ current_lang }}/tags/#{{ tag_name | slugify }}"
         class="tag-item"
         style="font-size: {{ lang_posts.size | times: 2 | plus: 10 }}px;"
       >
