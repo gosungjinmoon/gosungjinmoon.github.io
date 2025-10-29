@@ -18,9 +18,9 @@ layout: default
   <h3>Tags</h3>
   {%- for t in site.tags -%}
     {%- assign tag = t[0] -%}
-    {%- assign posts = t[1] | where: 'lang', l -%}
+    {%- assign posts = t[1] | where: 'lang', page.lang -%}
     {%- if posts.size > 0 -%}
-      <a class="tag" href="{{ '/' | append: l | append: '/tags/#' | append: tag | slugify | relative_url }}">{{ tag }} ({{ posts.size }})</a>
+      <a class="tag" href="/{{ page.lang }}/tags/#{{ tag | slugify }}">{{ tag }} ({{ posts.size }})</a>
     {%- endif -%}
   {%- endfor -%}
 </section>
