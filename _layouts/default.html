@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: 'ko' }}">
-  <head>
-    {% include head.html %}
-    <link rel="stylesheet" href="{{ '/assets/themes/modern-light/css/style.css' | relative_url }}">
-  </head>
-  <body>
-    {% include header.html %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- seo -%}
+  <link rel="stylesheet" href="{{ '/assets/css/aurora.css' | relative_url }}">
+</head>
+<body>
+  {% include header.html %}
+  <main class="gfw-container">
     {{ content }}
-    {% include footer.html %}
-    <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
-  </body>
+  </main>
+  <footer class="gfw-footer">
+    <p>© {{ 'now' | date: '%Y' }} GOFUNWITH – Explore. Create. Share.</p>
+  </footer>
+</body>
 </html>
