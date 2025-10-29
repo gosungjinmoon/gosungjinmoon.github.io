@@ -364,3 +364,30 @@ img {
     flex-direction: column;
   }
 }
+/* === Theme Variables (GFW) === */
+:root{
+  --gfw-bg:#ffffff;
+  --gfw-fg:#0f172a;
+  --gfw-accent:#1e90ff;
+  --gfw-muted:#64748b;
+  --gfw-card:#f8fafc;
+}
+
+html[data-theme="dark"]{
+  --gfw-bg:#0b1220;
+  --gfw-fg:#e2e8f0;
+  --gfw-accent:#7dd3fc;
+  --gfw-muted:#94a3b8;
+  --gfw-card:#0f172a;
+}
+
+body{ background:var(--gfw-bg); color:var(--gfw-fg); }
+a{ color:var(--gfw-accent); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+.header-inner, .container{ max-width: 960px; margin: 0 auto; padding: 0 16px; }
+header .logo img{ height:28px; display:block; }
+.post-header h1{ margin-bottom: 6px; }
+.post-date{ color: var(--gfw-muted); font-size: 0.9rem; }
+.post{ background: var(--gfw-card); padding: 20px; border-radius: 12px; }
+.tag-cloud .tag-item{ margin: 6px 8px; display:inline-block; }
+.theme-switcher select{ padding: 6px 10px; border-radius: 8px; }
