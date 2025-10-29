@@ -1,1 +1,35 @@
-<header>GOFUNWITH Blog Header</header>
+<header class="gfw-header">
+  <div class="gfw-brand">
+    <a href="{{ '/' | relative_url }}">
+      <img id="gfw-logo" alt="GOFUNWITH" width="220" height="36"
+           src="{{ '/assets/logo/logo-light.svg' | relative_url }}">
+    </a>
+  </div>
+  <nav class="gfw-nav">
+    {%- assign is_en = page.lang == 'en' -%}
+    <a href="{{ (is_en ? '/en/search/' : '/ko/search/') | relative_url }}">Search</a>
+    <a href="{{ (is_en ? '/en/tags/' : '/ko/tags/') | relative_url }}">Tags</a>
+    {% include lang-switch.html %}
+    <button id="themeToggle" class="theme-toggle">Light/Dark</button>
+  </nav>
+</header>
+<script>
+(function(){
+  const key='gfw-theme';
+  const stored = localStorage.getItem(key) || 'light';
+  document.documentElement.dataset.theme = stored;
+  const logo = document.getElementById('gfw-logo');
+  const setLogo = (t)=>{
+    const isDark = t==='dark';
+    logo.src = isDark ? '{{ "/assets/logo/logo-dark.svg" | relative_url }}'
+                      : '{{ "/assets/logo/logo-light.svg" | relative_url }}';
+  };
+  setLogo(stored);
+  document.getElementById('themeToggle').addEventListener('click', ()=>{
+    const now = document.documentElement.dataset.theme==='dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = now;
+    localStorage.setItem(key, now);
+    setLogo(now);
+  });
+})();
+</script>
