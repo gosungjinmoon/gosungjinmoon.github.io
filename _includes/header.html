@@ -1,20 +1,28 @@
+<!-- _includes/header.html -->
 <header class="site-header">
-  <div class="wrapper">
-    <a class="site-title" rel="author" href="/">
-      <img
-        src="/assets/themes/modern-light/images/logo.svg"
-        alt="{{ site.data.theme.brand | escape }}"
-        class="site-logo"
-      />
-      <span class="brand-text">{{ site.data.theme.brand }}</span>
+  <div class="container header-inner">
+    <a class="logo" href="{{ site.baseurl | default: '' }}/">
+      <img src="/assets/logo/logo.svg" alt="{{ site.title | escape }}" />
     </a>
 
     <nav class="site-nav">
-      <div class="nav-trigger">&#9776;</div>
-      <div class="nav-menu">
-        {% include nav.html %} {% include search-box.html %} {% include
-        lang-switch.html %}
-      </div>
+      <a href="{{ site.baseurl | default: '' }}/ko/">한국어</a>
+      <a href="{{ site.baseurl | default: '' }}/en/">English</a>
+      <a href="{{ site.baseurl | default: '' }}/ko/tags/">Tags</a>
+      <a href="{{ site.baseurl | default: '' }}/ko/search/">Search</a>
     </nav>
+
+    {% comment %}
+      헤더에만 언어 전환 UI 포함. 본문(post 레이아웃)에는 포함하지 않음.
+    {% endcomment %}
+    {% include lang-switch.html %}
+
+    <div class="theme-switcher">
+      <label for="themeSelect" class="sr-only">Theme</label>
+      <select id="themeSelect" data-theme-selector>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
   </div>
 </header>
