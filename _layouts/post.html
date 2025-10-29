@@ -1,8 +1,8 @@
 ---
 layout: default
 ---
-<article class="gfw-post">
+<article class="post">
   <h1 class="post-title">{{ page.title }}</h1>
-  <div class="post-meta">{{ page.date | date: "%b %d, %Y" }} · {{ page.tags | join: ", " }}</div>
+  <div class="post-meta">{{ page.date | date: "%b %d, %Y" }}{% if page.tags %} • {{ page.tags | join: ", " }}{% endif %}</div>
   <div class="post-body">{{ content }}</div>
 </article>
