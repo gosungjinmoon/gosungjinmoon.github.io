@@ -1,6 +1,5 @@
 ---
-# 🧭 GOFUNWITH Blog (v2025.10)
-
+# 🧭 GOFUNWITH Blog 
 ---
 
 ## 🎯 프로젝트 개요
