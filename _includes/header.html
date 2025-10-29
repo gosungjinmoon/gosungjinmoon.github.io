@@ -1,31 +1,39 @@
-<header class="site-header">
-  <div class="container header-inner">
-    <a class="brand" href="/"><img id="brand-logo" alt="GOFUNWITH logo" width="220" height="64"/></a>
+{% assign lang = page.lang | default: 'ko' %}
+{% if lang == 'en' %}
+  {% assign lang_prefix = '/en' %}
+{% else %}
+  {% assign lang_prefix = '/ko' %}
+{% endif %}
 
-    {% assign lang_prefix = "" %}
-    {% if page.lang == "en" %}{% assign lang_prefix = "/en" %}{% endif %}
+<header class="header">
+  <div class="container header-inner">
+    <a class="brand" href="{{ lang_prefix }}/">
+      <img data-gfw-logo src="/assets/logo/logo-light.svg" alt="GOFUNWITH">
+    </a>
 
     <nav class="nav">
       <a href="{{ lang_prefix }}/search/">Search</a>
       <a href="{{ lang_prefix }}/tags/">Tags</a>
-      {% include lang-switch.html %}
-      <button id="themeToggle" class="chip" aria-label="Toggle theme">Light/Dark</button>
+
+      {# 언어 전환: 포스트는 .ko/.en 교체, 그 외는 언어 루트로 이동 #}
+      {% assign cur = page.url | default: '/' %}
+      {% if lang == 'ko' %}
+        {% if cur contains '.ko.' %}
+          {% assign alt = cur | replace: '.ko.html','.en.html' %}
+          <a href="{{ alt }}">EN</a>
+        {% else %}
+          <a href="/en/">EN</a>
+        {% endif %}
+      {% else %}
+        {% if cur contains '.en.' %}
+          {% assign alt = cur | replace: '.en.html','.ko.html' %}
+          <a href="{{ alt }}">KO</a>
+        {% else %}
+          <a href="/ko/">KO</a>
+        {% endif %}
+      {% endif %}
+
+      <button class="theme-toggle" type="button" data-theme-toggle>Light/Dark</button>
     </nav>
   </div>
 </header>
-<script>
-(function(){
-  const key="gfw-theme";
-  function applyTheme(t){
-    document.documentElement.dataset.theme=t;
-    const logo=document.getElementById("brand-logo");
-    logo.src = (t==="dark") ? "/assets/logo/logo-dark.svg" : "/assets/logo/logo-light.svg";
-  }
-  const saved=localStorage.getItem(key)||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
-  applyTheme(saved);
-  document.getElementById('themeToggle').onclick=function(){
-    const next=(document.documentElement.dataset.theme==='dark')?'light':'dark';
-    localStorage.setItem(key,next); applyTheme(next);
-  };
-})();
-</script>
