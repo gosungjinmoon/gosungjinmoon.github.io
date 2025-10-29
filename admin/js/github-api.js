@@ -1,254 +1,64 @@
-/* admin/js/github-api.js v1.0.5_202510251025 */
-/*
- * GitHub OAuth 인증 및 토큰 관리, API 호출 로직
- */
-(function () {
-  'use strict';
-
-  const TOKEN_KEY = 'gofunwith_github_token';
-  let configCache = null;
-
-  // -----------------------------------------------------------------
-  // 1. Config Loader (theme.yml)
-  // -----------------------------------------------------------------
-
-  async function loadThemeConfig() {
-    if (configCache) return configCache;
-
-    if (!window.GOFUNWITH_ADMIN || !window.GOFUNWITH_ADMIN.theme_config_path) {
-      throw new Error('Global admin config (GOFUNWITH_ADMIN) not found.');
+// admin/js/github-api.js
+const ThemeConfig = {
+  raw: null,
+  async loadThemeConfig(){
+    // 우선순위: /assets/config/theme.yml → /_data/theme.yml 빌드 반영본
+    const candidates = [
+      '/assets/config/theme.yml',
+      '/assets/config/theme.yaml'
+    ];
+    for (const url of candidates){
+      try {
+        const res = await fetch(url, { cache: 'no-cache' });
+        if(!res.ok) continue;
+        const txt = await res.text();
+        this.raw = parseYaml(txt);
+        break;
+      } catch(e){}
     }
-    const path = window.GOFUNWITH_ADMIN.theme_config_path;
+    if(!this.raw) throw new Error('theme.yml 로드 실패');
 
-    try {
-      const response = await fetch(path);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch config: ${response.statusText}`);
-      }
-      const yamlText = await response.text();
-      configCache = parseSimpleYaml(yamlText);
+    const cfg = this.raw;
+    // 필수 키
+    const required = ['repo','branch'];
+    const endpoints = (cfg.endpoints || {});
+    const newPost = endpoints.new_post || cfg.n8n_webhook_new_post;
 
-      if (
-        !configCache.github_oauth_client_id ||
-        !configCache.cloudflare_worker_endpoint ||
-        !configCache.n8n_webhook_subscribe
-      ) {
-        console.error('Parsed Config:', configCache);
-        throw new Error(
-          'One or more required keys are missing from theme.yml.',
-        );
-      }
-
-      return configCache;
-    } catch (error) {
-      console.error('Failed to load or parse theme.yml:', error);
-      throw error;
+    if(!cfg.repo || !cfg.branch || !newPost){
+      throw new Error('One or more required keys are missing from theme.yml.');
     }
-  }
-
-  async function fetchThemeConfigYaml() {
-    const path = window.GOFUNWITH_ADMIN.theme_config_path;
-    const response = await fetch(path);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch config: ${response.statusText}`);
-    }
-    return await response.text();
-  }
-
-  function parseSimpleYaml(yaml) {
-    const config = {};
-    const lines = yaml.split('\n');
-    const regex = /^\s*([a-zA-Z0-9_]+):\s*"?([^"]*)"?\s*$/;
-    for (const line of lines) {
-      const match = line.match(regex);
-      if (match) {
-        config[match[1].trim()] = match[2].trim();
-      }
-    }
-    return config;
-  }
-
-  // -----------------------------------------------------------------
-  // 2. OAuth Flow
-  // -----------------------------------------------------------------
-
-  let oauthPopup = null;
-  let messageListener = null;
-
-  async function login() {
-    const config = await loadThemeConfig();
-    const clientId = config.github_oauth_client_id;
-
-    /* ⭐️ V1.0.5 수정: 404 오류 해결
-      Jekyll은 callback.html을 /callback/index.html로 빌드합니다.
-      따라서 .html 확장자 대신 / (폴더)로 끝나야 합니다.
-    */
-    const redirectUri = `${window.location.origin}/admin/oauth/callback.html`;
-
-    const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
-      redirectUri,
-    )}&scope=repo,user:email`;
-
-    if (oauthPopup) oauthPopup.close();
-    oauthPopup = window.open(authUrl, '_blank', 'width=600,height=700');
-
-    return new Promise((resolve, reject) => {
-      if (messageListener) {
-        window.removeEventListener('message', messageListener);
-      }
-
-      messageListener = async (event) => {
-        if (event.origin !== window.location.origin) return;
-
-        if (event.data && event.data.type === 'oauth-callback') {
-          window.removeEventListener('message', messageListener);
-          if (oauthPopup) oauthPopup.close();
-
-          if (event.data.error) {
-            reject(new Error(`OAuth Error: ${event.data.error}`));
-          } else if (event.data.code) {
-            try {
-              const tokenData = await exchangeCodeForToken(event.data.code);
-              setToken(tokenData.access_token);
-              const userData = await getUser();
-              resolve(userData);
-            } catch (error) {
-              reject(error);
-            }
-          }
-        }
-      };
-      window.addEventListener('message', messageListener);
-    });
-  }
-
-  function logout() {
-    localStorage.removeItem(TOKEN_KEY);
-    window.location.reload();
-  }
-
-  async function exchangeCodeForToken(code) {
-    const config = await loadThemeConfig();
-    const workerEndpoint = config.cloudflare_worker_endpoint;
-
-    const response = await fetch(workerEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code }),
-    });
-
-    const data = await response.json();
-    if (!response.ok || data.error) {
-      throw new Error(data.error || 'Failed to exchange token');
-    }
-    return data;
-  }
-
-  // -----------------------------------------------------------------
-  // 3. Token & User Management
-  // -----------------------------------------------------------------
-
-  function setToken(token) {
-    localStorage.setItem(TOKEN_KEY, token);
-  }
-
-  function getToken() {
-    return localStorage.getItem(TOKEN_KEY);
-  }
-
-  async function githubApiFetch(url, options = {}) {
-    const token = getToken();
-    if (!token) throw new Error('Not authenticated');
-
-    const headers = {
-      Authorization: `token ${token}`,
-      Accept: 'application/vnd.github.v3+json',
-      ...options.headers,
+    return {
+      repo: cfg.repo,
+      branch: cfg.branch,
+      newPostEndpoint: newPost
     };
-
-    const response = await fetch(`https://api.github.com${url}`, {
-      ...options,
-      headers,
-    });
-
-    if (response.status === 401) {
-      logout();
-      throw new Error('Authentication expired. Please login again.');
-    }
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || `GitHub API error: ${response.status}`);
-    }
-
-    return response;
   }
+};
 
-  async function getUser() {
-    try {
-      const response = await githubApiFetch('/user');
-      return await response.json();
-    } catch (error) {
-      console.error('Failed to get user:', error);
-      return null;
+// 단순 YAML 파서(키:값 수준). 고급 YAML 쓰면 js-yaml로 교체.
+function parseYaml(txt){
+  const obj = {};
+  txt.split(/\r?\n/).forEach(line=>{
+    const m = line.match(/^\s*([A-Za-z0-9_\.]+)\s*:\s*(.*)\s*$/);
+    if(m){
+      const k = m[1];
+      let v = m[2].trim();
+      v = v.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1');
+      // endpoints.new_post 같이 점 표기 지원
+      if(k.includes('.')){
+        const parts = k.split('.');
+        let cur = obj;
+        for(let i=0;i<parts.length-1;i++){
+          cur[parts[i]] = cur[parts[i]] || {};
+          cur = cur[parts[i]];
+        }
+        cur[parts[parts.length-1]] = v;
+      } else {
+        obj[k] = v;
+      }
     }
-  }
-
-  async function checkAuth() {
-    const token = getToken();
-    if (!token) return null;
-    return await getUser();
-  }
-
-  // -----------------------------------------------------------------
-  // 4. Public API
-  // -----------------------------------------------------------------
-  window.githubApi = {
-    login,
-    logout,
-    checkAuth,
-    getToken,
-    githubApiFetch,
-    loadThemeConfig,
-    fetchThemeConfigYaml,
-  };
-})();
-
-  // Commit a text file to the repo (creates or updates)
-  async function commitFile({path, content, message}){
-    const cfg = await loadThemeConfig();
-    const token = getToken();
-    if(!token) throw new Error('Login required');
-    const repo = cfg.repo;
-    const [owner, repoName] = repo.split('/');
-    // Get latest sha if file exists
-    const getUrl = `https://api.github.com/repos/${owner}/${repoName}/contents/${encodeURIComponent(path)}`;
-    let sha = null;
-    const getRes = await fetch(getUrl, { headers: { Authorization: 'token '+token, Accept:'application/vnd.github+json' }});
-    if(getRes.ok){
-      const j = await getRes.json();
-      sha = j.sha;
-    }
-    const putRes = await fetch(getUrl, {
-      method:'PUT',
-      headers:{ Authorization:'token '+token, Accept:'application/vnd.github+json' },
-      body: JSON.stringify({
-        message: message || 'update via admin',
-        content: btoa(unescape(encodeURIComponent(content))),
-        sha: sha
-      })
-    });
-    if(!putRes.ok){
-      throw new Error('Commit failed: '+ putRes.status+' '+await putRes.text());
-    }
-    return await putRes.json();
-  }
-
-  window.githubApi = Object.assign(window.githubApi||{}, {
-    loadThemeConfig,
-    fetchThemeConfigYaml,
-    login,
-    logout,
-    getToken,
-    commitFile
   });
+  return obj;
+}
+
+export default ThemeConfig;
