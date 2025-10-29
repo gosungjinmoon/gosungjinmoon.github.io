@@ -1,26 +1,18 @@
 ---
 layout: default
 ---
-<h1 class="home-title">{{ page.title | default: 'Posts' }}</h1>
-<ul class="post-list">
-{%- assign l = page.lang | default: 'ko' -%}
-{%- for p in site.posts -%}
-  {%- if p.lang == l -%}
-  <li>
-    <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
-    <small>{{ p.date | date: "%b %d, %Y" }}</small>
-  </li>
-  {%- endif -%}
-{%- endfor -%}
-</ul>
-
-<section class="tag-cloud">
-  <h3>Tags</h3>
-  {%- for t in site.tags -%}
-    {%- assign tag = t[0] -%}
-    {%- assign posts = t[1] | where: 'lang', page.lang -%}
-    {%- if posts.size > 0 -%}
-      <a class="tag" href="/{{ page.lang }}/tags/#{{ tag | slugify }}">{{ tag }} ({{ posts.size }})</a>
-    {%- endif -%}
-  {%- endfor -%}
+<section class="hero">
+  <img class="hero-logo" src="/assets/logo/logo-dark.svg" alt="GOFUNWITH" />
+</section>
+<section>
+  <h2>{% if page.lang == 'en' %}Latest Posts{% else %}최근 글{% endif %}</h2>
+  <ul class="post-list">
+  {% assign posts_lang = site.posts | where: "lang", page.lang %}
+  {% for post in posts_lang %}
+    <li>
+      <a class="post-link" href="{{ post.url }}">{{ post.title }}</a>
+      <small class="post-date">{{ post.date | date: "%b %d, %Y" }}</small>
+    </li>
+  {% endfor %}
+  </ul>
 </section>
