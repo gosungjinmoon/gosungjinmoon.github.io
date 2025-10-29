@@ -1,27 +1,28 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>GOFUNWITH Blog Admin</title>
   <link rel="stylesheet" href="/assets/css/aurora.css">
-  <style>.admin-wrap{max-width:840px;margin:24px auto;padding:12px}.row{margin:8px 0}</style>
+  <style>.admin{max-width:820px;margin:32px auto}.row{margin:8px 0}textarea{width:100%;height:160px}</style>
 </head>
 <body>
-  <div class="admin-wrap">
+  <main class="admin">
     <h1>GOFUNWITH Blog Admin</h1>
-    <div class="row"><button id="loginBtn">Login with GitHub</button></div>
-    <div class="row"><input id="title" placeholder="제목" style="width:100%"></div>
-    <div class="row"><textarea id="content" placeholder="마크다운 본문" style="width:100%;height:160px"></textarea></div>
+    <div class="row"><button id="loginBtn" class="chip">Login with GitHub</button></div>
+    <div class="row"><input id="title" placeholder="제목" style="width:100%"/></div>
+    <div class="row"><textarea id="content" placeholder="마크다운 본문"></textarea></div>
     <div class="row">
-      <label><input type="radio" name="lang" value="ko" checked> 한국어</label>
-      <label><input type="radio" name="lang" value="en"> English</label>
-      <label><input type="checkbox" id="autoTr"> 자동 번역(한→영)</label>
+      <label><input type="radio" name="lang" value="ko" checked /> 한국어</label>
+      <label><input type="radio" name="lang" value="en" /> English</label>
+      <label style="margin-left:12px;"><input type="checkbox" id="auto" /> 자동 번역(한→영)</label>
     </div>
-    <div class="row"><button id="submitBtn">게시</button> <span id="msg"></span></div>
-  </div>
+    <div class="row"><button id="submitBtn" class="chip">게시</button></div>
+    <div class="row"><pre id="result"></pre></div>
+  </main>
 
-  <!-- ✅ 절대 경로 -->
+  <!-- 경로 인코딩 이슈 방지: 절대경로 고정 -->
   <script src="/admin/js/theme-config.js"></script>
   <script src="/admin/js/github-auth.js"></script>
   <script src="/admin/js/posts.js"></script>
