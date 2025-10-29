@@ -1,26 +1,6 @@
-{%- assign current = page.lang | default: 'ko' -%}
-{%- assign url = page.url -%}
-
-{%- if current == 'ko' -%}
-  {%- assign other = 'en' -%}
-{%- else -%}
-  {%- assign other = 'ko' -%}
-{%- endif -%}
-
-{%- if url contains '.ko.' -%}
-  {%- assign other_url = url | replace: '.ko.', '.en.' -%}
-{%- elsif url contains '.en.' -%}
-  {%- assign other_url = url | replace: '.en.', '.ko.' -%}
-{%- elsif url contains '/ko/' -%}
-  {%- assign other_url = url | replace_first: '/ko/', '/en/' -%}
-{%- elsif url contains '/en/' -%}
-  {%- assign other_url = url | replace_first: '/en/', '/ko/' -%}
-{%- else -%}
-  {%- if other == 'en' -%}
-    {%- assign other_url = '/en/' -%}
-  {%- else -%}
-    {%- assign other_url = '/' -%}
-  {%- endif -%}
-{%- endif -%}
-
-<a class="lang-pill" href="{{ other_url }}">{{ other | upcase }}</a>
+{% assign current_lang = page.lang | default: "ko" %}
+{% if current_lang == "en" %}
+  <a class="chip" href="/">KO</a>
+{% else %}
+  <a class="chip" href="/en/">EN</a>
+{% endif %}
