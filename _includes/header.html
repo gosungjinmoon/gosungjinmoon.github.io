@@ -1,21 +1,33 @@
-<!-- _includes/header.html -->
 <header class="site-header">
-  <div class="container header-inner">
-    <a class="logo" href="{{ site.baseurl | default: '' }}/">
-      <img src="/assets/logo/logo.svg" alt="{{ site.title | escape }}" />
-    </a>
-    <nav class="site-nav">
-      <a href="{{ site.baseurl | default: '' }}/ko/">한국어</a>
-      <a href="{{ site.baseurl | default: '' }}/en/">English</a>
-      <a href="{{ site.baseurl | default: '' }}/ko/tags/">Tags</a>
-      <a href="{{ site.baseurl | default: '' }}/ko/search/">Search</a>
-    </nav>
+  <a class="brand" href="{{ page.lang == 'en' ? '/en/' : '/ko/' }}">
+    <picture>
+      <source srcset="/assets/logo/logo-dark.svg" media="(prefers-color-scheme: dark)">
+      <img src="/assets/logo/logo-light.svg" alt="GOFUNWITH" height="28">
+    </picture>
+    <span class="brand-name">GOFUNWITH Blog</span>
+  </a>
+
+  <nav class="site-nav">
+    <a href="{{ page.lang == 'en' ? '/en/search/' : '/ko/search/' }}">Search</a>
+    <a href="{{ page.lang == 'en' ? '/en/tags/' : '/ko/tags/' }}">Tags</a>
     {% include lang-switch.html %}
-    <div class="theme-switcher">
-      <select id="themeSelect" data-theme-selector>
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-      </select>
-    </div>
-  </div>
+    <button id="themeToggle" class="theme-toggle" title="Toggle theme">Light/Dark</button>
+  </nav>
 </header>
+
+<script>
+(function(){
+  const key = 'gfw-theme';
+  const btn = document.getElementById('themeToggle');
+  const apply = (m)=>document.documentElement.dataset.theme = m;
+  const saved = localStorage.getItem(key);
+  if(saved) apply(saved);
+
+  btn?.addEventListener('click', ()=>{
+    const cur = document.documentElement.dataset.theme || 'light';
+    const next = cur === 'light' ? 'dark' : 'light';
+    localStorage.setItem(key, next);
+    apply(next);
+  });
+})();
+</script>

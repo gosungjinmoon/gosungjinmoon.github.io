@@ -1,20 +1,13 @@
+{%- assign cur = page.lang | default: 'ko' -%}
+{%- assign other = cur == 'ko' ? 'en' : 'ko' -%}
+
+{%- if page.url contains '.ko.html' or page.url contains '.en.html' -%}
+  {%- assign alt_url = page.url | replace: '.ko.html', '.en.html' | replace: '.en.html', '.ko.html' -%}
+{%- else -%}
+  {%- assign alt_url = other == 'ko' ? '/ko/' : '/en/' -%}
+{%- endif -%}
+
 <div class="lang-switch">
-  {% assign current_lang = page.lang | default: 'ko' %}
-  {% assign target_lang = current_lang == 'ko' ? 'en' : 'ko' %}
-  <button id="langSwitchBtn" type="button" data-target-lang="{{ target_lang }}">
-    {{ target_lang == 'ko' ? '한국어' : 'English' }}
-  </button>
+  <a class="lang-btn {{ cur }}" aria-current="page">{{ cur == 'ko' ? '한국어' : 'English' }}</a>
+  <a class="lang-btn {{ other }}" href="{{ alt_url }}">{{ other == 'ko' ? '한국어' : 'English' }}</a>
 </div>
-<script>
-(function(){
-  const btn = document.getElementById('langSwitchBtn');
-  if(!btn) return;
-  btn.addEventListener('click', function(){
-    var target = btn.getAttribute('data-target-lang') || 'en';
-    var href = window.location.pathname;
-    href = href.replace(/\.ko\.html$|\.en\.html$/i, '.'+target+'.html');
-    if(target === 'en' && !href.startsWith('/en/')) href = '/en' + href;
-    else if(target === 'ko' && href.startsWith('/en/')) href = href.replace(/^\/en/, '');
-    window.location.href = href;
-  });
-})();</script>

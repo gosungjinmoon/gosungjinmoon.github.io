@@ -1,25 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <title>GOFUNWITH Blog Admin</title>
-  <link rel="stylesheet" href="./css/admin.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="./css/admin.css" rel="stylesheet">
 </head>
 <body>
   <h1>GOFUNWITH Blog Admin</h1>
-  <button id="githubLogin">Login with GitHub</button>
 
   <form id="postForm">
-    <input id="postTitle" placeholder="제목" required><br>
-    <textarea id="postContent" placeholder="내용" rows="10" required></textarea><br>
-    <label><input type="radio" name="postLang" value="ko" checked>한국어</label>
-    <label><input type="radio" name="postLang" value="en">English</label><br>
-    <label><input type="checkbox" id="autoTranslate"> 자동 번역</label><br>
+    <label>제목</label>
+    <input id="postTitle" required>
+    <label>내용</label>
+    <textarea id="postContent" rows="8" required></textarea>
+
+    <div class="row">
+      <label>언어</label>
+      <label><input type="radio" name="postLang" value="ko" checked> 한국어</label>
+      <label><input type="radio" name="postLang" value="en"> English</label>
+    </div>
+
+    <label><input type="checkbox" id="autoTranslate"> 자동 번역(한→영)</label>
+
     <button type="submit">게시</button>
   </form>
 
-  <script type="module" src="./js/github-api.js"></script>
-  <script type="module" src="./js/posts.js"></script>
-  <script type="module" src="./js/admin.js"></script>
+  <pre id="result" aria-live="polite"></pre>
+
+  <script src="./js/github-api.js"></script>
+  <script src="./js/posts.js"></script>
+  <script src="./js/admin.js"></script>
 </body>
 </html>
