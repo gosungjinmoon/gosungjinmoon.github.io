@@ -1,49 +1,40 @@
-<div class="lang-switcher">
+<!-- _includes/lang-switch.html -->
+<div class="lang-switch">
   {% assign current_lang = page.lang | default: 'ko' %}
-  {% for key in site.data.lang %}
-    {% assign lang = key[0] %}
-    {% assign info = key[1] %}
-    {% if lang == current_lang %}
-      <button class="lang-switch active" disabled>{{ info.name }}</button>
-    {% else %}
-      {% capture post_date %}{{ page.date | date: "%Y/%m/%d" }}{% endcapture %}
-      {% if page.alt_lang %}
-        {% if lang == 'en' %}
-          <a class="lang-switch" href="/{{ info.path }}/{{ post_date }}/{{ page.alt_lang }}.{{ info.code }}.html">{{ info.name }}</a>
-        {% else %}
-          <a class="lang-switch" href="/{{ post_date }}/{{ page.alt_lang }}.{{ info.code }}.html">{{ info.name }}</a>
-        {% endif %}
-      {% else %}
-        <a class="lang-switch" href="/{{ info.path }}/">{{ info.name }}</a>
-      {% endif %}
-    {% endif %}
-  {% endfor %}
+  {% assign target_lang = current_lang == 'ko' ? 'en' : 'ko' %}
+
+  <button id="langSwitchBtn" type="button" data-target-lang="{{ target_lang }}">
+    {{ target_lang == 'ko' ? '한국어' : 'English' }}
+  </button>
 </div>
 
-<style>
-.lang-switcher {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 10px;
-}
-.lang-switch {
-  background: transparent;
-  border: 1px solid #ddd;
-  padding: 4px 10px;
-  font-size: 0.9rem;
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  color: #555;
-}
-.lang-switch.active {
-  background: #222;
-  color: #fff;
-  border-color: #222;
-  cursor: default;
-}
-.lang-switch:hover:not(.active) {
-  background: #f2f2f2;
-}
-</style>
+<script>
+(function(){
+  const btn = document.getElementById('langSwitchBtn');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    var target = btn.getAttribute('data-target-lang') || 'en';
+
+    // 페이지가 포스트(detail)인지 확인 (Front matter 필요)
+    var isPost = !!document.querySelector('article.post');
+    if(isPost){
+      // 현재 URL이 .../YYYY/MM/DD/slug.lang.html 형태일 때를 기준으로 변환
+      var href = window.location.pathname;
+      // 파일명 끝의 .ko.html / .en.html 교체
+      href = href.replace(/\.ko\.html$|\.en\.html$/i, '.'+target+'.html');
+      // 루트에 /en/ prefix가 필요한 경우 처리
+      if(target === 'en' && !href.startsWith('/en/')){
+        href = '/en' + href;
+      } else if(target === 'ko' && href.startsWith('/en/')){
+        href = href.replace(/^\/en/, '');
+      }
+      window.location.href = href;
+      return;
+    }
+
+    // 목록/홈 등: 루트 전환
+    var base = (target === 'en') ? '/en/' : '/';
+    window.location.href = base;
+  });
+})();
+</script>
