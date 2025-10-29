@@ -2,40 +2,37 @@
 # GOFUNWITH Blog Theme & Integration Configuration
 # ==========================================================
 
-# === Basic Theme Configuration ===
-active_theme: "modern-light"
-default_lang: "ko"
+brand: "GOFUNWITH – Explore. Create. Share."
+domain: "blog.gofunwith.com"
+url: "https://gosungjinmoon.github.io"
+repo: "gosungjinmoon/gosungjinmoon.github.io"
+github: "https://github.com/gosungjinmoon"
+branch: "main"
 
-# === Giscus Comment System ===
+# n8n endpoints
+n8n_webhook_new_post: "https://n8n.gofunwith.com/webhook/new-post"
+worker_like_endpoint: "https://n8n.gofunwith.com/webhook/like-post"
+
+# giscus comments
 giscus_repo: "gosungjinmoon/gosungjinmoon.github.io"
 giscus_repo_id: "R_kgDOQBYPtQ"
 giscus_category: "Show and tell"
 giscus_category_id: "DIC_kwDOQBYPtc4CxEor"
-giscus_mapping: "pathname"
-giscus_strict: "0"
-giscus_reactions_enabled: "1"
-giscus_emit_metadata: "0"
-giscus_input_position: "bottom"
-giscus_theme: "light"
 giscus_lang: "ko"
 
-# === System Endpoints (Backend / Worker integration) ===
-worker_like_endpoint: "https://api.gofunwith.com/like"
-n8n_webhook_new_post: "https://n8n.gofunwith.com/webhook/new-post"
-n8n_webhook_method: "POST"
+# theme options
+theme:
+  primary_color: "#1e90ff"
+  accent_color: "#ffb703"
+  dark_mode: false
+  font_family: "Inter, Pretendard, sans-serif"
 
-# === Optional: Custom headers for n8n (safe defaults) ===
-n8n_webhook_headers:
-  Content-Type: "application/json"
-
-# === Search Settings ===
-search_index_paths:
-  - "ko/search.json"
-  - "en/search.json"
-
-# === Miscellaneous ===
-timezone: "Asia/Seoul"
-future: true
+# language settings
+languages:
+  - code: "ko"
+    label: "한국어"
+  - code: "en"
+    label: "English"
 
 # ==========================================================
 # END OF CONFIG
