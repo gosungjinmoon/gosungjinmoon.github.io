@@ -1,46 +1,31 @@
-<header class="gfw-header">
-  <div class="gfw-brand">
-    {%- if page.lang == 'en' -%}
-      {%- assign home_href = '/en/' -%}
-    {%- else -%}
-      {%- assign home_href = '/' -%}
-    {%- endif -%}
-    <a href="{{ home_href | relative_url }}">
-      <img id="gfw-logo" alt="GOFUNWITH" width="220" height="36"
-           src="{{ '/assets/logo/logo-light.svg' | relative_url }}">
-    </a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/"><img id="brand-logo" alt="GOFUNWITH logo" width="220" height="64"/></a>
+
+    {% assign lang_prefix = "" %}
+    {% if page.lang == "en" %}{% assign lang_prefix = "/en" %}{% endif %}
+
+    <nav class="nav">
+      <a href="{{ lang_prefix }}/search/">Search</a>
+      <a href="{{ lang_prefix }}/tags/">Tags</a>
+      {% include lang-switch.html %}
+      <button id="themeToggle" class="chip" aria-label="Toggle theme">Light/Dark</button>
+    </nav>
   </div>
-
-  <nav class="gfw-nav">
-    {%- if page.lang == 'en' -%}
-      <a href="{{ '/en/search/' | relative_url }}">Search</a>
-      <a href="{{ '/en/tags/'   | relative_url }}">Tags</a>
-    {%- else -%}
-      <a href="{{ '/ko/search/' | relative_url }}">검색</a>
-      <a href="{{ '/ko/tags/'   | relative_url }}">태그</a>
-    {%- endif -%}
-    {% include lang-switch.html %}
-    <button id="themeToggle" class="theme-toggle">Light/Dark</button>
-  </nav>
 </header>
-
 <script>
 (function(){
-  const key='gfw-theme';
-  const stored = localStorage.getItem(key) || 'light';
-  document.documentElement.dataset.theme = stored;
-  const logo = document.getElementById('gfw-logo');
-  const setLogo = (t)=>{
-    const isDark = t==='dark';
-    logo.src = isDark ? '{{ "/assets/logo/logo-dark.svg"  | relative_url }}'
-                      : '{{ "/assets/logo/logo-light.svg" | relative_url }}';
+  const key="gfw-theme";
+  function applyTheme(t){
+    document.documentElement.dataset.theme=t;
+    const logo=document.getElementById("brand-logo");
+    logo.src = (t==="dark") ? "/assets/logo/logo-dark.svg" : "/assets/logo/logo-light.svg";
+  }
+  const saved=localStorage.getItem(key)||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  applyTheme(saved);
+  document.getElementById('themeToggle').onclick=function(){
+    const next=(document.documentElement.dataset.theme==='dark')?'light':'dark';
+    localStorage.setItem(key,next); applyTheme(next);
   };
-  setLogo(stored);
-  document.getElementById('themeToggle').addEventListener('click', ()=>{
-    const now = document.documentElement.dataset.theme==='dark' ? 'light' : 'dark';
-    document.documentElement.dataset.theme = now;
-    localStorage.setItem(key, now);
-    setLogo(now);
-  });
 })();
 </script>
