@@ -1,34 +1,19 @@
 <header class="site-header">
-  <div class="header-inner">
-    <a class="brand" href="{{ site.baseurl | default:'' }}/{{ page.lang | default:'ko' }}/">
-      <img id="site-logo" alt="GOFUNWITH" width="160" height="auto"
-           src="{{ '/assets/logo/logo-light.svg' | relative_url }}" />
+  <div class="container header-grid">
+    <a href="{{ '/' | relative_url }}" class="brand">
+      <img
+        src="{{ '/assets/logo/logo-light.svg' | relative_url }}"
+        data-logo-light="{{ '/assets/logo/logo-light.svg' | relative_url }}"
+        data-logo-dark="{{ '/assets/logo/logo-dark.svg'  | relative_url }}"
+        alt="{{ site.title }}" class="brand__logo">
+      <span class="brand__text sr-only">{{ site.title }}</span>
     </a>
 
-    <nav class="main-nav">
-      <a href="{{ site.baseurl | default:'' }}/{{ page.lang | default:'ko' }}/search/">{{ 'Search' }}</a>
-      <a href="{{ site.baseurl | default:'' }}/{{ page.lang | default:'ko' }}/tags/">{{ 'Tags' }}</a>
-
-      {%- comment -%} 언어 스위처: 포스트는 .ko.↔.en. 교체, 그 외는 루트 이동 {%- endcomment -%}
-      {%- assign curr = page.url | default:'' -%}
-      {%- assign curr_lang = page.lang | default:'ko' -%}
-      {%- if curr_lang == 'ko' -%}
-        {%- if curr contains '.ko.' -%}
-          {%- assign alt = curr | replace: '.ko.', '.en.' -%}
-        {%- else -%}
-          {%- assign alt = '/en/' -%}
-        {%- endif -%}
-        <a class="lang-chip" href="{{ alt | relative_url }}">EN</a>
-      {%- else -%}
-        {%- if curr contains '.en.' -%}
-          {%- assign alt = curr | replace: '.en.', '.ko.' -%}
-        {%- else -%}
-          {%- assign alt = '/ko/' -%}
-        {%- endif -%}
-        <a class="lang-chip" href="{{ alt | relative_url }}">KO</a>
-      {%- endif -%}
-
-      <button id="theme-toggle" class="theme-btn" type="button">Light/Dark</button>
+    <nav class="nav">
+      <a href="{{ page.lang == 'en' | default:false | ternary:'/en/search/','/ko/search/' | relative_url }}">Search</a>
+      <a href="{{ page.lang == 'en' | default:false | ternary:'/en/tags/','/ko/tags/'  | relative_url }}">Tags</a>
+      <button id="themeToggle" type="button" class="btn btn--ghost">Light/Dark</button>
+      {% include lang-switch.html %}
     </nav>
   </div>
 </header>
