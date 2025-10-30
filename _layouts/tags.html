@@ -1,29 +1,31 @@
-<!-- _layouts/tags.html -->
-<!DOCTYPE html>
-<html lang="{{ page.lang | default: 'ko' }}">
-  <head>{% include head.html %}</head>
-  <body>
-    {% include header.html %}
-    <main class="container">
-      <h1>Tags</h1>
-      {% include tag-cloud.html %}
-      <section>
-        {% assign current_lang = page.lang | default: 'ko' %}
-        {% for tag in site.tags %}
-          {% assign t = tag | first %}
-          {% assign posts = tag | last | where: "lang", current_lang %}
-          {% if posts.size > 0 %}
-          <h2 id="{{ t | slugify }}">{{ t }}</h2>
-          <ul>
-            {% for p in posts %}
-            <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
-            {% endfor %}
-          </ul>
-          {% endif %}
-        {% endfor %}
-      </section>
-    </main>
-    {% include footer.html %}
-    <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
-  </body>
-</html>
+---
+layout: default
+---
+<h1>{% if page.lang == 'en' %}Tags{% else %}태그{% endif %}</h1>
+
+<div class="tag-cloud">
+{% assign posts_lang = site.posts | where:"lang", page.lang %}
+{% assign all_tags = "" | split: "" %}
+{% for p in posts_lang %}
+  {% for t in p.tags %}
+    {% assign all_tags = all_tags | push: t %}
+  {% endfor %}
+{% endfor %}
+{% assign uniq = all_tags | uniq | sort %}
+{% for tag in uniq %}
+  <a href="#{{ tag | slugify }}">{{ tag }}</a>
+{% endfor %}
+</div>
+
+<hr/>
+
+{% for tag in uniq %}
+  <h3 id="{{ tag | slugify }}"># {{ tag }}</h3>
+  <ul class="post-list">
+    {% for p in posts_lang %}
+      {% if p.tags contains tag %}
+        <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a> <small>· {{ p.date | date: "%b %d, %Y" }}</small></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endfor %}
