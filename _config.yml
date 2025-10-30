@@ -1,4 +1,4 @@
-# /* _config.yml v1.1.0_202510300749 */
+# /* _config.yml v1.1.0_202510300905 */
 title: GOFUNWITH Blog
 email: contact@gofunwith.com
 description: "Go have fun with tech, tools, and life."
@@ -11,7 +11,6 @@ theme: null
 timezone: Asia/Seoul
 future: true
 
-# Ensure admin assets and search indexes are included in the build
 include:
   - admin
   - "ko/search.json"
@@ -27,10 +26,8 @@ plugins:
 paginate: 5
 paginate_path: "/page:num/"
 
-# Language configuration
 languages: ["ko", "en"]
 
-# Defaults
 defaults:
   - scope: { path: "" }
     values:
@@ -39,7 +36,6 @@ defaults:
     values:
       layout: post
 
-# Excludes
 exclude:
   - node_modules
   - vendor

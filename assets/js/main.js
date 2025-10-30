@@ -1,39 +1,51 @@
-/* assets/js/main.js v1.0.6_202510251040 */
-(function () {
-  'use strict';
+// /* assets/js/main.js v20251101_202510300905 */
+(function() {
+  function qs(sel) { return document.querySelector(sel); }
+  function qsa(sel) { return Array.from(document.querySelectorAll(sel)); }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    // 모바일 네비게이션 토글
-    const navTrigger = document.querySelector('.nav-trigger');
-    const navMenu = document.querySelector('.nav-menu');
+  function applyTheme(theme) {
+    document.body.className = (document.body.className || '').replace(/\btheme-\S+/g, '').trim();
+    document.body.classList.add('theme-' + theme);
+    try { localStorage.setItem('theme', theme); } catch(_){}
+    const giscusFrame = document.querySelector('iframe.giscus-frame');
+    if (giscusFrame) giscusFrame.contentWindow?.postMessage(
+      { giscus: { setConfig: { theme: theme === 'dark' ? 'dark' : 'light' } } },
+      'https://giscus.app'
+    );
+  }
 
-    if (navTrigger && navMenu) {
-      navTrigger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
+  document.addEventListener('DOMContentLoaded', function() {
+    const saved = (localStorage.getItem('theme') || '').trim();
+    const active = saved || (document.body.className.match(/theme-(\S+)/)?.[1]) || 'modern-light';
+    applyTheme(active);
+    const themeBtn = qs('#themeToggle');
+    themeBtn && themeBtn.addEventListener('click', function() {
+      const isDark = document.body.classList.contains('theme-dark');
+      applyTheme(isDark ? 'modern-light' : 'dark');
+    });
+
+    const navBtn = qs('#navToggle');
+    const nav = qs('#siteNav');
+    if (navBtn && nav) navBtn.addEventListener('click', () => nav.classList.toggle('open'));
+
+    const modal = qs('#searchModal');
+    const openSearch = qs('#openSearch');
+    const input = qs('#globalSearchInput');
+    openSearch && openSearch.addEventListener('click', () => { modal.showModal(); setTimeout(() => input?.focus(), 50); });
+    modal && modal.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });
+    input && input.addEventListener('input', window.__gfwSearchHandler || (()=>{}));
+
+    qsa('[data-like]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const ep = (window.GOFUNWITH_SITE && window.GOFUNWITH_SITE.n8n_worker_like) || '';
+        if (!ep) return console.warn('Like endpoint missing');
+        try {
+          const slug = btn.getAttribute('data-like');
+          const res = await fetch(ep, { method:'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ slug }) });
+          if (!res.ok) throw new Error('like api ' + res.status);
+          btn.classList.add('liked');
+        } catch(err) { console.error('like failed', err); }
       });
-    }
-
-    // 검색 폼 언어 설정
-    const searchForm = document.getElementById('search-form');
-    const searchLangInput = document.getElementById('search-lang');
-    if (searchForm && searchLangInput && window.GOFUNWITH_SITE) {
-      // 현재 페이지 언어에 맞춰 폼의 lang 값을 설정
-      searchLangInput.value = window.GOFUNWITH_SITE.current_lang;
-
-      // 폼 제출 시 언어에 맞는 검색 페이지로 이동
-      searchForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const query = document.getElementById('search-input').value;
-        const lang = searchLangInput.value || 'ko';
-
-        // ⭐️ V1.0.6 수정: 기본 경로를 /ko/search/로, 아니면 /en/search/로
-        let searchPath = '/ko/search/';
-        if (lang === 'en') {
-          searchPath = '/en/search/';
-        }
-
-        window.location.href = `${searchPath}?q=${encodeURIComponent(query)}`;
-      });
-    }
+    });
   });
 })();

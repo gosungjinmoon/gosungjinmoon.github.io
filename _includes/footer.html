@@ -1,16 +1,16 @@
+<!-- /* _includes/footer.html v20251101_202510300905 */ -->
 <footer class="site-footer">
-  <div class="footer-inner">
+  <div class="footer-inner container">
     <div class="footer-brand">
-      <img src="/assets/themes/modern-light/images/logo.svg" alt="GOFUNWITH logo">
+      <div class="f-logo"><span class="logo-dot">●</span> GOFUNWITH</div>
       <p>Explore. Create. Share.</p>
     </div>
     <nav class="footer-links">
-      <a href="/brand/style-guide/">Style Guide</a>
-      <a href="/privacy-policy/">Privacy</a>
-      <a href="https://github.com/gosungjinmoon" target="_blank">GitHub</a>
+      {% assign links = site.data.config.footer_links %}
+      {% for l in links %}
+      <a href="{{ l.url | relative_url }}" {% if l.external %}target="_blank" rel="noopener"{% endif %}>{{ l.title }}</a>
+      {% endfor %}
     </nav>
-    <div class="footer-copy">
-      © 2025 GOFUNWITH. Built with Jekyll + Cloudflare.
-    </div>
+    <div class="footer-copy">© {{ "now" | date: "%Y" }} GOFUNWITH. Built with Jekyll.</div>
   </div>
 </footer>

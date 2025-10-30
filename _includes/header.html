@@ -1,20 +1,25 @@
+<!-- /* _includes/header.html v20251101_202510300905 */ -->
 <header class="site-header">
-  <div class="wrapper">
-    <a class="site-title" rel="author" href="/">
-      <img
-        src="/assets/themes/modern-light/images/logo.svg"
-        alt="{{ site.data.theme.brand | escape }}"
-        class="site-logo"
-      />
-      <span class="brand-text">{{ site.data.theme.brand }}</span>
-    </a>
-
-    <nav class="site-nav">
-      <div class="nav-trigger">&#9776;</div>
-      <div class="nav-menu">
-        {% include nav.html %} {% include search-box.html %} {% include
-        lang-switch.html %}
-      </div>
+  <div class="container nav-row">
+    <a class="site-logo" href="/"><span class="logo-dot">●</span> gofunwith</a>
+    <button class="hamburger" aria-label="Toggle navigation" id="navToggle">☰</button>
+    <nav class="site-nav" id="siteNav">
+      {% assign nav = site.data.config.nav %}
+      {% for item in nav %}
+      <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+      {% endfor %}
     </nav>
+    <div class="header-actions">
+      {% include lang-switch.html %}
+      <button id="openSearch" class="icon-btn" aria-label="Search">🔎</button>
+      <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">🌗</button>
+    </div>
   </div>
+  <dialog id="searchModal">
+    <form method="dialog" class="search-shell">
+      <input type="search" id="globalSearchInput" placeholder="Search..." />
+      <button value="cancel" class="btn">Close</button>
+      <div id="globalSearchResults" class="search-results"></div>
+    </form>
+  </dialog>
 </header>

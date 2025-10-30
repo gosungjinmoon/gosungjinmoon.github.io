@@ -253,6 +253,7 @@
     getToken,
     commitFile
   });
-// ensure function exposed globally
-window.loadThemeConfig = loadThemeConfig;
 
+
+// v20251101 export
+if (typeof loadThemeConfig === 'function') { window.loadThemeConfig = loadThemeConfig; }
