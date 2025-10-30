@@ -1,22 +1,31 @@
-# .github/workflows/pages.yml
+name: Build and Deploy Chirpy (CI Fixed)
 
-name: Build and Deploy Chirpy
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write     # ✅ gh-pages 푸시 허용
+      contents: write   # ✅ gh-pages push 권한 허용
     steps:
-      - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
           bundler-cache: true
-      - run: bundle install
-      - run: bundle exec jekyll build
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Build site with Jekyll
+        run: bundle exec jekyll build --trace
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
