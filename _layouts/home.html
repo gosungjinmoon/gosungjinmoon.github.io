@@ -1,18 +1,18 @@
 ---
 layout: default
 ---
-<section>
-  <!-- 필요하면 히어로 로고 노출 -->
-  <img class="hero-logo" src="{{ '/assets/logo/logo-dark.svg' | relative_url }}" alt="gofunwith." />
-</section>
+<section class="home-hero"><!-- 빈 섹션: 로고 삽입 금지 --></section>
 
-<h2>{% if page.lang == 'en' %}Recent Posts{% else %}최근 글{% endif %}</h2>
+<h2 class="h5">{{ page.lang == 'en' | default:false | ternary:'Recent Posts','최근 글' }}</h2>
 <ul class="post-list">
-  {% assign posts_lang = site.posts | where: "lang", page.lang | sort: "date" | reverse %}
-  {% for p in posts_lang %}
-  <li>
-    <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
-    <small> · {{ p.date | date: "%b %d, %Y" }}</small>
+{%- for p in site.posts -%}
+  {%- if p.lang == page.lang -%}
+  <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+      <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%b %d, %Y" }}</time>
   </li>
-  {% endfor %}
+  {%- endif -%}
+{%- endfor -%}
 </ul>
+
+<hr>
+{% include tag-cloud.html lang=page.lang %}
