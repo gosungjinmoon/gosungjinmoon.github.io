@@ -1,26 +1,19 @@
 (function () {
-  // Theme
-  const key = 'gfw_theme';
-  const root = document.documentElement;
-  function apply(mode){
-    if(mode==='dark'){ root.classList.add('dark'); }
-    else { root.classList.remove('dark'); }
-    const logo = document.getElementById('site-logo');
-    if (logo){
-      const light = '{{ "/assets/logo/logo-light.svg" | relative_url }}';
-      const dark  = '{{ "/assets/logo/logo-dark.svg"  | relative_url }}';
-      logo.src = (mode==='dark') ? dark : light;
-    }
-  }
-  let mode = localStorage.getItem(key) || 'light';
-  apply(mode);
+  const $html = document.documentElement;
+  const $btn  = document.getElementById('themeToggle');
+  const $logo = document.querySelector('.brand__logo');
 
-  const btn = document.getElementById('theme-toggle');
-  if (btn){
-    btn.addEventListener('click', () => {
-      mode = (mode==='light') ? 'dark' : 'light';
-      localStorage.setItem(key, mode);
-      apply(mode);
-    });
+  function apply(mode) {
+    $html.dataset.theme = mode; // CSS 훅
+    if ($logo) {
+      $logo.src = mode === 'dark'
+        ? $logo.dataset.logoDark
+        : $logo.dataset.logoLight;
+    }
+    localStorage.setItem('theme', mode);
   }
+
+  const saved = localStorage.getItem('theme');
+  apply(saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+  if ($btn) $btn.addEventListener('click', () => apply($html.dataset.theme === 'dark' ? 'light' : 'dark'));
 })();
