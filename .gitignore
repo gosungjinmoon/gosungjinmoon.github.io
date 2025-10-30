@@ -1,6 +1,0 @@
-_secrets/
-.env
-_site/
-*.log
-*.tmp
-.DS_Store
