@@ -1,19 +1,20 @@
 <header class="site-header">
-  <div class="container header-grid">
-    <a href="{{ '/' | relative_url }}" class="brand">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">
       <img
-        src="{{ '/assets/logo/logo-light.svg' | relative_url }}"
-        data-logo-light="{{ '/assets/logo/logo-light.svg' | relative_url }}"
-        data-logo-dark="{{ '/assets/logo/logo-dark.svg'  | relative_url }}"
-        alt="{{ site.title }}" class="brand__logo">
-      <span class="brand__text sr-only">{{ site.title }}</span>
+        src="/assets/themes/modern-light/images/logo.svg"
+        alt="{{ site.data.theme.brand | escape }}"
+        class="site-logo"
+      />
+      <span class="brand-text">{{ site.data.theme.brand }}</span>
     </a>
 
-    <nav class="nav">
-      <a href="{{ page.lang == 'en' | default:false | ternary:'/en/search/','/ko/search/' | relative_url }}">Search</a>
-      <a href="{{ page.lang == 'en' | default:false | ternary:'/en/tags/','/ko/tags/'  | relative_url }}">Tags</a>
-      <button id="themeToggle" type="button" class="btn btn--ghost">Light/Dark</button>
-      {% include lang-switch.html %}
+    <nav class="site-nav">
+      <div class="nav-trigger">&#9776;</div>
+      <div class="nav-menu">
+        {% include nav.html %} {% include search-box.html %} {% include
+        lang-switch.html %}
+      </div>
     </nav>
   </div>
 </header>
