@@ -1,39 +1,134 @@
 ---
-layout: default
-title: Admin
-lang: ko
-permalink: /admin/
+layout: none
 ---
-<section class="container">
-  <h1>GOFUNWITH Blog Admin</h1>
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GOFUNWITH Admin</title>
+    <link rel="stylesheet" href="/admin/css/admin.css" />
+    <link
+      rel="shortcut icon"
+      href="/assets/themes/modern-light/images/favicon.ico"
+    />
+    <script>
+      window.GOFUNWITH_ADMIN = {
+        base_url: '/',
+        theme_config_path: '/assets/config/theme.yml',
+      };
+    </script>
+    <script src="/admin/js/github-api.js"></script>
+    <script src="/admin/js/posts.js"></script>
+    <script src="/admin/js/admin.js"></script>
+  </head>
+  <body>
+    <div class="admin-container">
+      <header class="admin-header">
+        <h1>
+          <img
+            src="/assets/themes/modern-light/images/logo.svg"
+            alt="Logo"
+          />GOFUNWITH Admin
+        </h1>
+        <div id="auth-status">
+          <button id="login-btn">Login with GitHub</button>
+          <div id="user-info" style="display: none">
+            <span id="user-name"></span>
+            <button id="logout-btn">Logout</button>
+          </div>
+        </div>
+      </header>
 
-  <!-- 전역 설정을 HTML에서 주입 -->
-  <script>
-    window.GFW = {
-      n8nEndpoint: "{{ site.data.theme.n8n_endpoint | default: 'https://n8n.gofunwith.com' }}",
-      webhookPath: "/webhook/new-post",
-      repo: "{{ site.data.theme.repo | default: 'gosungjinmoon/gosungjinmoon.github.io' }}"
-    };
-  </script>
+      <main id="admin-main" class="hidden">
+        <aside class="admin-sidebar">
+          <nav>
+            <ul>
+              <li>
+                <a href="#new-post" class="nav-item active" data-tab="new-post"
+                  >New Post</a
+                >
+              </li>
+              <li>
+                <a href="#theme-preview" class="nav-item" data-tab="theme-preview"
+                  >Theme Preview</a
+                >
+              </li>
+              <li>
+                <a href="#settings" class="nav-item" data-tab="settings"
+                  >Settings</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </aside>
 
-  <p>
-    <button id="loginBtn" class="btn">Login with GitHub</button>
-  </p>
+        <section class="admin-content">
+          <div id="tab-new-post" class="tab-content active">
+            <h2>Create New Post</h2>
+            <form id="new-post-form">
+               <div class="form-group">
+                <label for="post-title">Title</label>
+                <input
+                  type="text"
+                  id="post-title"
+                  required
+                  placeholder="새 포스트 제목"
+                />
+              </div>
+              <div class="form-group">
+                <label for="post-lang">Language</label>
+                <select id="post-lang">
+                  <option value="ko" selected>🇰🇷 Korean (ko)</option>
+                  <option value="en">🇺🇸 English (en)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="post-tags">Tags (comma separated)</label>
+                <input
+                  type="text"
+                  id="post-tags"
+                  placeholder="Tech, DIY, Experiment"
+                />
+              </div>
+              <div class="form-group">
+                <label for="post-content">Content (Markdown)</label>
+                <textarea
+                  id="post-content"
+                  rows="15"
+                  placeholder="## Markdown supported..."
+                ></textarea>
+              </div>
+              <button type="submit" id="create-post-btn">
+                Create Post (Submit PR)
+              </button>
+            </form>
+          </div>
 
-  <div class="card">
-    <h3>새 글 작성</h3>
-    <label>제목 <input id="title" class="input" /></label>
-    <label>내용 <textarea id="body" rows="10" class="input"></textarea></label>
-    <div>
-      <label><input type="radio" name="lang" value="ko" checked> 한국어</label>
-      <label><input type="radio" name="lang" value="en"> English</label>
-      <label><input type="checkbox" id="auto"> 자동 번역(한→영)</label>
+        <div id="tab-theme-preview" class="tab-content">
+          <h2>Theme Preview</h2>
+          <iframe
+            id="theme-preview-iframe"
+            src="/admin/theme-preview.html"
+            frameborder="0"
+          ></iframe>
+        </div>
+          
+          <div id="tab-settings" class="tab-content">
+            <h2>Config Settings</h2>
+            <p>
+              Settings are loaded from
+              <code>/assets/config/theme.yml</code>
+            </p>
+            <textarea id="theme-config-display" rows="20" readonly></textarea>
+          </div>
+        </section>
+      </main>
+
+      <div id="loading-overlay" class="hidden">
+        <div class="spinner"></div>
+        <p id="loading-message">Loading...</p>
+      </div>
     </div>
-    <button id="postBtn" class="btn">게시</button>
-    <pre id="out" class="card" style="white-space:pre-wrap"></pre>
-  </div>
-
-  <!-- 경로는 **절대경로 + relative_url** -->
-  <script src="{{ '/admin/js/github-auth.js' | relative_url }}" defer></script>
-  <script src="{{ '/admin/js/posts.js'       | relative_url }}" defer></script>
-</section>
+  </body>
+</html>
