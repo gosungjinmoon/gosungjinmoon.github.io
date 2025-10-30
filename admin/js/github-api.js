@@ -253,3 +253,6 @@
     getToken,
     commitFile
   });
+// ensure function exposed globally
+window.loadThemeConfig = loadThemeConfig;
+
