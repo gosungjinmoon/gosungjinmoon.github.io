@@ -1,19 +1,13 @@
+{%- assign current = include.lang | default: 'ko' -%}
 <div class="tag-cloud">
-  <h3>Tags</h3>
-  {% assign current_lang = page.lang | default: 'ko' %}
-  {% assign tags = site.tags | sort %}
-  {% for tag in tags %}
-    {% assign tag_name = tag | first %}
-    {% assign tag_posts = tag | last %}
-    {% assign lang_posts = tag_posts | where: "lang", current_lang %}
-    {% if lang_posts.size > 0 %}
-      <a
-        href="/{{ current_lang }}/tags/#{{ tag_name | slugify }}"
-        class="tag-item"
-        style="font-size: {{ lang_posts.size | times: 2 | plus: 10 }}px;"
-      >
-        {{ tag_name }} ({{ lang_posts.size }})
-      </a>
-    {% endif %}
-  {% endfor %}
+{%- assign tags_sorted = site.tags | sort -%}
+{%- for t in tags_sorted -%}
+  {%- assign name = t[0] -%}
+  {%- assign posts = t[1] | where:'lang', current -%}
+  {%- if posts.size > 0 -%}
+    <a class="tag" href="{{ (current == 'en' ? '/en/tags/#' : '/ko/tags/#') | append: name | slugify | relative_url }}">
+      {{ name }} <span>{{ posts.size }}</span>
+    </a>
+  {%- endif -%}
+{%- endfor -%}
 </div>
