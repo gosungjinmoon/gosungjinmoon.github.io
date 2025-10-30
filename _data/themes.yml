@@ -1,0 +1,13 @@
+# /* _data/themes.yml v1.0.0_202510300749 */
+- slug: modern-light
+  name: Modern Light
+  css_path: /assets/themes/modern-light/css/style.css
+- slug: modern
+  name: Modern
+  css_path: /assets/themes/modern/css/style.css
+- slug: default
+  name: Default
+  css_path: /assets/themes/default/css/style.css
+- slug: dark
+  name: Dark
+  css_path: /assets/themes/dark/css/style.css
