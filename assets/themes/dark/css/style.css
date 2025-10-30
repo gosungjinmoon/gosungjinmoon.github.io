@@ -1,0 +1,21 @@
+/* assets/themes/dark/css/style.css v1.0.0_202510300749 */
+:root {
+  --bg: #0b0f14;
+  --card: #111722;
+  --text: #e6edf3;
+  --muted: #9fb0c0;
+  --primary: #7aa2f7;
+  --accent: #c77dff;
+  --border: #223042;
+}
+html, body { background: var(--bg); color: var(--text); font-family: Inter, Pretendard, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.header, header.site-header { background: transparent; border-bottom: 1px solid var(--border); }
+.site-title a { color: var(--text); }
+.post-card, .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
+.tag-cloud a { color: var(--muted); }
+.lang-switch, .theme-switch { display: inline-flex; gap: 8px; align-items: center; }
+footer { border-top: 1px solid var(--border); color: var(--muted); padding: 24px 0; }
+button, .btn { background: var(--primary); color: #0b0f14; border-radius: 12px; padding: 10px 14px; border: 0; cursor: pointer; }
+button:hover, .btn:hover { opacity: .9; }
