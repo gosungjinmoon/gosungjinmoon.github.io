@@ -1,7 +1,3 @@
-/* assets/config/theme.yml v1.0.0_202510250840 */
-# ⭐️ _data/theme.yml의 공개용 미러입니다.
-# ⭐️ Admin JS가 이 파일을 fetch합니다. _data/theme.yml 수정 시 여기도 꼭 덮어쓰세요.
-
 # ==========================================================
 # GOFUNWITH Blog Theme & Integration Configuration
 # ==========================================================
@@ -15,7 +11,7 @@ branch: "main"
 
 # n8n endpoints
 n8n_webhook_new_post: "https://n8n.gofunwith.com/webhook/new-post"
-worker_like_endpoint: "https://n8n.gofunwith.com/webhook/like-post"
+n8n_worker_like: "https://n8n.gofunwith.com/webhook/like-post"
 
 # giscus comments
 giscus_repo: "gosungjinmoon/gosungjinmoon.github.io"
@@ -41,3 +37,9 @@ languages:
 # ==========================================================
 # END OF CONFIG
 # ==========================================================
+
+cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
+
+n8n_webhook_theme_update: "https://n8n.gofunwith.com/webhook/update-theme"
+
+active_theme: "modern-light"
