@@ -31,8 +31,7 @@
       if (
         !configCache.github_oauth_client_id ||
         !configCache.cloudflare_worker_endpoint ||
-        !configCache.n8n_webhook_new_post ||
-        !configCache.n8n_webhook_theme_update
+        !configCache.n8n_webhook_subscribe
       ) {
         console.error('Parsed Config:', configCache);
         throw new Error(
@@ -253,7 +252,3 @@
     getToken,
     commitFile
   });
-
-
-// v20251101 export
-if (typeof loadThemeConfig === 'function') { window.loadThemeConfig = loadThemeConfig; }

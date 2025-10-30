@@ -11,7 +11,7 @@ branch: "main"
 
 # n8n endpoints
 n8n_webhook_new_post: "https://n8n.gofunwith.com/webhook/new-post"
-n8n_worker_like: "https://n8n.gofunwith.com/webhook/like-post"
+worker_like_endpoint: "https://n8n.gofunwith.com/webhook/like-post"
 
 # giscus comments
 giscus_repo: "gosungjinmoon/gosungjinmoon.github.io"
@@ -37,9 +37,3 @@ languages:
 # ==========================================================
 # END OF CONFIG
 # ==========================================================
-
-cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
-
-n8n_webhook_theme_update: "https://n8n.gofunwith.com/webhook/update-theme"
-
-active_theme: "modern-light"

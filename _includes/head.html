@@ -1,44 +1,10 @@
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>
-    {% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}
-  </title>
-  <meta
-    name="description"
-    content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}"
-  />
-
-  {% comment %}
-  {% endcomment %}
   <script>
     window.GOFUNWITH_SITE = {
-      base_url: '/',
-      search_json_path: {
-        ko: '/ko/search.json',
-        en: '/en/search.json',
-      },
-      current_lang: '{{ page.lang | default: "ko" }}',
+      n8n_worker_like: "{{ site.data.theme.n8n_worker_like | default: '' }}"
     };
   </script>
-
-  <link
-    rel="stylesheet"
-    href="/assets/themes/modern-light/css/style.css"
-  />
-
-  <link
-    rel="shortcut icon"
-    href="/assets/themes/modern-light/images/favicon.ico"
-  />
-
-  {% include seo.html %}
-
-  <script src="/assets/js/lunr.min.js"></script>
-
+  <script src="/assets/js/lunr.min.js" defer></script>
   <script src="/assets/js/search.js" defer></script>
   <script src="/assets/js/main.js" defer></script>
-  <script src="/assets/js/translator.js" defer></script>
 </head>

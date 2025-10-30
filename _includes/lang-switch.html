@@ -1,49 +1,6 @@
-<div class="lang-switcher">
-  {% assign current_lang = page.lang | default: 'ko' %}
-  {% for key in site.data.lang %}
-    {% assign lang = key[0] %}
-    {% assign info = key[1] %}
-    {% if lang == current_lang %}
-      <button class="lang-switch active" disabled>{{ info.name }}</button>
-    {% else %}
-      {% capture post_date %}{{ page.date | date: "%Y/%m/%d" }}{% endcapture %}
-      {% if page.alt_lang %}
-        {% if lang == 'en' %}
-          <a class="lang-switch" href="/{{ info.path }}/{{ post_date }}/{{ page.alt_lang }}.{{ info.code }}.html">{{ info.name }}</a>
-        {% else %}
-          <a class="lang-switch" href="/{{ post_date }}/{{ page.alt_lang }}.{{ info.code }}.html">{{ info.name }}</a>
-        {% endif %}
-      {% else %}
-        <a class="lang-switch" href="/{{ info.path }}/">{{ info.name }}</a>
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-</div>
 
-<style>
-.lang-switcher {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 10px;
-}
-.lang-switch {
-  background: transparent;
-  border: 1px solid #ddd;
-  padding: 4px 10px;
-  font-size: 0.9rem;
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  color: #555;
-}
-.lang-switch.active {
-  background: #222;
-  color: #fff;
-  border-color: #222;
-  cursor: default;
-}
-.lang-switch:hover:not(.active) {
-  background: #f2f2f2;
-}
-</style>
+<div class="lang-switch">
+  {% assign current_lang = page.lang | default: 'ko' %}
+  <a href="/ko/" class="badge {% if current_lang == 'ko' %}active{% endif %}">한국어</a>
+  <a href="/en/" class="badge {% if current_lang == 'en' %}active{% endif %}">English</a>
+</div>

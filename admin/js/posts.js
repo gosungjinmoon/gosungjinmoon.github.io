@@ -7,7 +7,7 @@
  * n8n 워크플로우가 GitHub PR 생성을 처리합니다.
  */
 (function (githubApi) {
-  'use strict';
+  'useSrict';
 
   // YYYY-MM-DD 형식의 날짜 생성 (Timezone 기준)
   function getLocalDate(tz) {
