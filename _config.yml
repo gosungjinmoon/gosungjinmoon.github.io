@@ -1,17 +1,48 @@
+# /* _config.yml v1.1.0_202510300749 */
 title: GOFUNWITH Blog
-baseurl: ""   # GitHub Pages 사용자 페이지면 공란 유지
+email: contact@gofunwith.com
+description: "Go have fun with tech, tools, and life."
+baseurl: ""
 url: "https://blog.gofunwith.com"
 repository: gosungjinmoon/gosungjinmoon.github.io
 
+markdown: kramdown
+theme: null
+timezone: Asia/Seoul
+future: true
+
+# Ensure admin assets and search indexes are included in the build
 include:
   - admin
+  - "ko/search.json"
+  - "en/search.json"
+  - assets/config/theme.yml
 
-# (GitHub Pages 호환) 사용 플러그인만
 plugins:
-  - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-github-metadata
+  - jekyll-feed
+  - jekyll-paginate
 
-# Permalink
-permalink: /:year/:month/:day/:title
+paginate: 5
+paginate_path: "/page:num/"
+
+# Language configuration
+languages: ["ko", "en"]
+
+# Defaults
+defaults:
+  - scope: { path: "" }
+    values:
+      layout: default
+  - scope: { path: "_posts" }
+    values:
+      layout: post
+
+# Excludes
+exclude:
+  - node_modules
+  - vendor
+  - README.md
+  - package.json
+  - package-lock.json
