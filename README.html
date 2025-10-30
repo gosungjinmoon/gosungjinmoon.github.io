@@ -1,0 +1,444 @@
+<h2 id="-프로젝트-개요">🎯 프로젝트 개요</h2>
+
+<p><strong>GOFUNWITH Blog</strong>는
+개발자와 메이커를 위한 <strong>완전 자동화 기술 블로그 플랫폼</strong>입니다.</p>
+
+<blockquote>
+  <p>💡 Jekyll + n8n + Gemini + GitHub Pages 기반으로
+글 작성 → 번역 → 게시 → 배포 전 과정을 자동화합니다.</p>
+</blockquote>
+
+<hr />
+
+<h3 id="-주요-특징">✅ 주요 특징</h3>
+
+<ul>
+  <li>⚙️ <strong>정적 블로그(Jekyll)</strong> – GitHub Pages 자동 빌드</li>
+  <li>
+    <p>🧠 <strong>n8n + Gemini 자동 포스팅 시스템</strong> – Admin Console에서 글 작성 시:</p>
+
+    <ol>
+      <li>한국어 글 자동 저장</li>
+      <li>Gemini로 영어 자동 번역</li>
+      <li>GitHub API로 <code class="language-plaintext highlighter-rouge">_posts/ko</code> / <code class="language-plaintext highlighter-rouge">_posts/en</code> 동시 커밋</li>
+    </ol>
+  </li>
+  <li>🌍 <strong>다국어 지원</strong> – <code class="language-plaintext highlighter-rouge">/ko/</code>, <code class="language-plaintext highlighter-rouge">/en/</code> 라우팅 및 <code class="language-plaintext highlighter-rouge">alt_lang</code> 기반 매핑</li>
+  <li>🧩 <strong>theme.yml 기반 통합 설정 관리</strong>
+(도메인, 브랜치, n8n endpoint, 댓글, 테마 색상 등)</li>
+  <li>🛠️ <strong>관리자(Admin) 페이지 내 즉시 게시 기능</strong></li>
+  <li>💬 <strong>giscus 댓글 시스템 통합</strong></li>
+  <li>🔒 <strong>CORS 보안 + Cloudflare Proxy + n8n HTTPS 환경</strong></li>
+</ul>
+
+<hr />
+
+<h2 id="-시스템-구성도">🧱 시스템 구성도</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌───────────────┐          POST /webhook/new-post
+│   Admin Console │  ───────────────────────────────►  n8n.gofunwith.com
+│  (blog.gofunwith.com/admin) │                        │
+└───────────────┘                                    │
+                                                     ▼
+                                           Google Gemini API
+                                                     │
+                                                     ▼
+                                            GitHub REST API
+                                                     │
+                                                     ▼
+                                       blog.gofunwith.com (Jekyll)
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="-폴더-구조">📂 폴더 구조</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>📦 gosungjinmoon.github.io
+│
+├─ CNAME                     # Cloudflare DNS (blog.gofunwith.com)
+├─ README.md                 # 프로젝트 개요 문서 (현재 파일)
+├─ _config.yml               # Jekyll 설정 (include: [admin])
+│
+├─ _data/
+│  ├─ lang.yml               # 다국어 코드 매핑
+│  └─ theme.yml              # 브랜드, 도메인, API, 색상 등 통합 설정
+│
+├─ _includes/
+│  ├─ head.html / header.html / footer.html
+│  ├─ nav.html / seo.html / search-box.html
+│  ├─ lang-switch.html       # 언어 전환 버튼 (header에서만 사용)
+│  └─ tag-cloud.html         # 태그 클라우드 표시
+│
+├─ _layouts/
+│  ├─ default.html
+│  ├─ home.html
+│  ├─ post.html              # 본문 내 언어버튼 제거된 버전
+│  ├─ tags.html
+│  └─ search.html
+│
+├─ _posts/
+│  ├─ ko/ (YYYY-MM-DD-title.ko.md)
+│  └─ en/ (YYYY-MM-DD-title.en.md)
+│
+├─ assets/
+│  ├─ js/
+│  │  ├─ github-api.js      # GitHub API 및 theme.yml 로드
+│  │  ├─ posts.js           # 글 작성, n8n 호출
+│  │  ├─ admin.js           # Admin 이벤트 핸들링
+│  │  ├─ search.js          # 클라이언트 검색
+│  │  └─ translator.js      # (옵션) 번역 처리
+│  ├─ config/
+│  │  └─ theme.yml          # Admin 런타임 설정 (fetch로 로드됨)
+│  └─ themes/
+│     └─ modern-light/
+│        ├─ css/style.css
+│        └─ images/logo.svg
+│
+├─ admin/
+│  ├─ index.html
+│  ├─ css/admin.css
+│  └─ js/
+│     ├─ admin.js
+│     ├─ github-api.js
+│     └─ posts.js
+│
+└─ .github/workflows/jekyll.yml   # GitHub Pages 자동 배포
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="️-jekyll-설정-핵심">⚙️ Jekyll 설정 핵심</h2>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">_config.yml</code></p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">include</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">admin</span><span class="pi">]</span>
+<span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jekyll-seo-tag</span>
+  <span class="pi">-</span> <span class="s">jekyll-feed</span>
+  <span class="pi">-</span> <span class="s">jekyll-sitemap</span>
+</code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">CNAME</code>: blog.gofunwith.com</li>
+  <li><code class="language-plaintext highlighter-rouge">safe: true</code> → symlink 포함 불가</li>
+  <li><code class="language-plaintext highlighter-rouge">/ko/</code>, <code class="language-plaintext highlighter-rouge">/en/</code> 기본 페이지 사전 생성 (404 방지)</li>
+</ul>
+
+<hr />
+
+<h2 id="-다국어-라우팅">🌍 다국어 라우팅</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>언어</th>
+      <th>기본 경로</th>
+      <th>포스트 경로</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>한국어</td>
+      <td><code class="language-plaintext highlighter-rouge">/ko/</code> 또는 <code class="language-plaintext highlighter-rouge">/</code></td>
+      <td><code class="language-plaintext highlighter-rouge">/YYYY/MM/DD/title.ko.html</code></td>
+    </tr>
+    <tr>
+      <td>영어</td>
+      <td><code class="language-plaintext highlighter-rouge">/en/</code></td>
+      <td><code class="language-plaintext highlighter-rouge">/en/YYYY/MM/DD/title.en.html</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="front-matter-예시">Front Matter 예시</h3>
+
+<p><strong>ko 버전</strong></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">테스트</span><span class="nv"> </span><span class="s">자동</span><span class="nv"> </span><span class="s">게시글"</span>
+<span class="na">lang</span><span class="pi">:</span> <span class="s">ko</span>
+<span class="na">alt_lang</span><span class="pi">:</span> <span class="s">this-is-a-sample-blog-post</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p><strong>en 버전</strong></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">This</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Sample</span><span class="nv"> </span><span class="s">Blog</span><span class="nv"> </span><span class="s">Post"</span>
+<span class="na">lang</span><span class="pi">:</span> <span class="s">en</span>
+<span class="na">alt_lang</span><span class="pi">:</span> <span class="s">테스트-자동-게시글</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="-admin-console">🧰 Admin Console</h2>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">/admin/</code> → n8n Webhook을 통해 자동 게시</p>
+</blockquote>
+
+<h3 id="주요-기능">주요 기능</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>기능</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>새 글 작성</td>
+      <td>제목, 본문, 언어, 자동 번역 여부 선택</td>
+    </tr>
+    <tr>
+      <td>Gemini 번역</td>
+      <td>Google Gemini API로 자연스러운 영어 변환</td>
+    </tr>
+    <tr>
+      <td>GitHub API Commit</td>
+      <td><code class="language-plaintext highlighter-rouge">_posts/ko</code> / <code class="language-plaintext highlighter-rouge">_posts/en</code> 자동 커밋</td>
+    </tr>
+    <tr>
+      <td>Theme 설정</td>
+      <td><code class="language-plaintext highlighter-rouge">theme.yml</code> 기반 실시간 설정 로드</td>
+    </tr>
+    <tr>
+      <td>Like, Comment</td>
+      <td>Worker Endpoint 연결 (옵션)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="주요-스크립트">주요 스크립트</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>파일</th>
+      <th>역할</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">github-api.js</code></td>
+      <td>theme.yml 로드 + GitHub API 통신</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">posts.js</code></td>
+      <td>게시글 작성 및 n8n 호출</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">admin.js</code></td>
+      <td>UI 제어 및 이벤트 핸들링</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="스타일테마">스타일/테마</h2>
+<ul>
+  <li>기본 테마: <code class="language-plaintext highlighter-rouge">assets/themes/modern-light/</code></li>
+  <li>로고: <code class="language-plaintext highlighter-rouge">images/logo.svg</code></li>
+  <li>CSS: 모바일 퍼스트, 카드형 레이아웃, 깔끔한 화이트+민트 포인트</li>
+</ul>
+
+<hr />
+
+<h2 id="-n8n-자동-포스팅-워크플로우">🤖 n8n 자동 포스팅 워크플로우</h2>
+
+<p><strong>Webhook URL:</strong>
+<code class="language-plaintext highlighter-rouge">https://n8n.gofunwith.com/webhook/new-post</code></p>
+
+<h3 id="워크플로우-노드-구조">워크플로우 노드 구조</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>순서</th>
+      <th>노드명</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Webhook</td>
+      <td>Admin POST 수신</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Parse Data</td>
+      <td>제목, slug, 날짜 처리</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>If Auto Translate</td>
+      <td>자동 번역 여부 판단</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Gemini Translate</td>
+      <td>Gemini API 호출</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Parse EN Slug</td>
+      <td>번역된 제목으로 slug 생성</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Create/Edit KO File</td>
+      <td><code class="language-plaintext highlighter-rouge">_posts/ko/</code>에 원문 저장</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Create/Edit EN File</td>
+      <td><code class="language-plaintext highlighter-rouge">_posts/en/</code>에 번역본 저장</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Make Response</td>
+      <td>결과 JSON 반환</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>HTTP Response</td>
+      <td>Admin에 응답 전달</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="-cors--n8n-서버-설정">🔐 CORS &amp; n8n 서버 설정</h2>
+
+<p><code class="language-plaintext highlighter-rouge">~/ecosystem.config.js</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">env</span><span class="p">:</span> <span class="p">{</span>
+  <span class="nl">N8N_HOST</span><span class="p">:</span> <span class="dl">"</span><span class="s2">n8n.gofunwith.com</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">N8N_PROTOCOL</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">N8N_PORT</span><span class="p">:</span> <span class="dl">"</span><span class="s2">5678</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">WEBHOOK_URL</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://n8n.gofunwith.com</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">N8N_CORS_ALLOW_ORIGIN</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://blog.gofunwith.com</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">N8N_CORS_ALLOW_METHODS</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GET,POST,OPTIONS</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">N8N_CORS_ALLOW_HEADERS</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Authorization,Content-Type</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">N8N_CORS_CREDENTIALS</span><span class="p">:</span> <span class="dl">"</span><span class="s2">true</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">TZ</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Asia/Seoul</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">/etc/nginx/sites-available/n8n.conf</code>:</p>
+
+<div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">location</span> <span class="n">/webhook/</span> <span class="p">{</span>
+    <span class="kn">proxy_pass</span> <span class="s">http://localhost:5678</span><span class="p">;</span>
+
+    <span class="kn">if</span> <span class="s">(</span><span class="nv">$request_method</span> <span class="p">=</span> <span class="s">OPTIONS)</span> <span class="p">{</span>
+        <span class="kn">add_header</span> <span class="s">Access-Control-Allow-Origin</span> <span class="s">"https://blog.gofunwith.com"</span> <span class="s">always</span><span class="p">;</span>
+        <span class="kn">add_header</span> <span class="s">Access-Control-Allow-Methods</span> <span class="s">"GET,</span> <span class="s">POST,</span> <span class="s">OPTIONS"</span> <span class="s">always</span><span class="p">;</span>
+        <span class="kn">add_header</span> <span class="s">Access-Control-Allow-Headers</span> <span class="s">"Authorization,</span> <span class="s">Content-Type"</span> <span class="s">always</span><span class="p">;</span>
+        <span class="kn">return</span> <span class="mi">204</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kn">add_header</span> <span class="s">Access-Control-Allow-Origin</span> <span class="s">"https://blog.gofunwith.com"</span> <span class="s">always</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="-theme--config">🎨 Theme / Config</h2>
+
+<p><code class="language-plaintext highlighter-rouge">_data/theme.yml</code></p>
+
+<blockquote>
+  <p>(Jekyll 및 Admin 공통 설정)</p>
+</blockquote>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">brand</span><span class="pi">:</span> <span class="s2">"</span><span class="s">GOFUNWITH</span><span class="nv"> </span><span class="s">–</span><span class="nv"> </span><span class="s">Explore.</span><span class="nv"> </span><span class="s">Create.</span><span class="nv"> </span><span class="s">Share."</span>
+<span class="na">domain</span><span class="pi">:</span> <span class="s2">"</span><span class="s">blog.gofunwith.com"</span>
+<span class="na">repo</span><span class="pi">:</span> <span class="s2">"</span><span class="s">gosungjinmoon/gosungjinmoon.github.io"</span>
+<span class="na">branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">main"</span>
+
+<span class="na">n8n_webhook_new_post</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://n8n.gofunwith.com/webhook/new-post"</span>
+<span class="na">worker_like_endpoint</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://n8n.gofunwith.com/webhook/like-post"</span>
+
+<span class="na">giscus_repo</span><span class="pi">:</span> <span class="s2">"</span><span class="s">gosungjinmoon/gosungjinmoon.github.io"</span>
+<span class="na">giscus_category</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Show</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">tell"</span>
+<span class="na">giscus_lang</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ko"</span>
+
+<span class="na">theme</span><span class="pi">:</span>
+  <span class="na">primary_color</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#1e90ff"</span>
+  <span class="na">dark_mode</span><span class="pi">:</span> <span class="kc">false</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="-배포-github-actions">🚀 배포 (GitHub Actions)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">.github/workflows/jekyll.yml</code>
+자동으로 <code class="language-plaintext highlighter-rouge">_site/</code> 빌드 후 GitHub Pages로 배포.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">on</span><span class="pi">:</span>
+  <span class="na">push</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span> <span class="pi">[</span> <span class="nv">main</span> <span class="pi">]</span>
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v3</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/setup-ruby@v1</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">ruby-version</span><span class="pi">:</span> <span class="m">3.1</span>
+      <span class="pi">-</span> <span class="na">run</span><span class="pi">:</span> <span class="s">bundle install</span>
+      <span class="pi">-</span> <span class="na">run</span><span class="pi">:</span> <span class="s">bundle exec jekyll build --baseurl ""</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">peaceiris/actions-gh-pages@v3</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">github_token</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">publish_dir</span><span class="pi">:</span> <span class="s">./_site</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="-라이선스-및-정보">📜 라이선스 및 정보</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>프로젝트명</td>
+      <td>GOFUNWITH Blog System</td>
+    </tr>
+    <tr>
+      <td>버전</td>
+      <td>v2025.10</td>
+    </tr>
+    <tr>
+      <td>이메일</td>
+      <td><a href="mailto:contact@gofunwith.com">contact@gofunwith.com</a></td>
+    </tr>
+    <tr>
+      <td>GitHub</td>
+      <td><a href="https://github.com/gosungjinmoon/gosungjinmoon.github.io">gosungjinmoon/gosungjinmoon.github.io</a></td>
+    </tr>
+    <tr>
+      <td>주요 기술</td>
+      <td>Jekyll, n8n, Gemini API, GitHub REST API, Cloudflare</td>
+    </tr>
+    <tr>
+      <td>배포 도메인</td>
+      <td><a href="https://blog.gofunwith.com">https://blog.gofunwith.com</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+

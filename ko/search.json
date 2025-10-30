@@ -1,0 +1,103 @@
+[
+  
+  
+    {
+      "title": "첫 번째 여정: 이 GOFUNWITH 블로그는 어떻게 만들어졌는가?",
+      "url": "/2025/10/30/gofunwith-blog-system-journey.ko.html",
+      "content": "“Go have fun with tech, tools, and life.”GOFUNWITH 블로그에 오신 것을 환영합니다! 이 블로그의 첫 번째 게시글로, 저희의 핵심 가치인 ‘경험 중심, 도전과 실험’을 가장 잘 보여줄 수 있는 주제를 골랐습니다.바로 이 블로그 시스템 자체를 구축한 여정(Journey)입니다.단순히 완성된 결과물만 보여드리는 것이 아니라, 왜 이런 구조를 선택했는지, 어떤 도구들을 엮어 자동화했는지, 그리고 그 과정에서 어떤 ‘즐거운 실험’이 있었는지 공유하고자 합니다.1. 목표: 왜 처음부터 만들었는가?기성 블로그 플랫폼도 많지만, 저희는 GOFUNWITH의 철학에 맞는 시스템을 원했습니다.  엄청난 속도 (Performance): 정적 사이트(Static Site)로 생성되어 전 세계 어디서든 CDN을 통해 빛의 속도로 콘텐츠를 제공합니다.  완전한 통제권 (Control): 플랫폼 정책에 종속되지 않고, 테마, 기능(댓글, 좋아요), 수익화(광고)까지 100% 커스터마이징이 가능해야 했습니다.  비용 효율 (Cost): GitHub Pages, Cloudflare Workers, n8n(자체 호스팅) 등 무료 또는 거의 무료에 가까운 인프라를 활용합니다.  즐거운 실험 (Fun!): 무엇보다, 이 모든 것을 자동화된 파이프라인으로 엮어내는 과정 자체가 GOFUNWITH의 핵심 가치인 ‘즐거운 창작’이었습니다.2. 아키텍처: 사용된 기술 스택이 블로그는 여러 기술들이 유기적으로 결합되어 작동합니다.뼈대: Jekyll + GitHub Pages  Jekyll: 마크다운(*.md) 파일로 글을 작성하면, Jekyll이 이를 정적 HTML 파일로 빌드(구워내기)합니다.  GitHub Pages: 이렇게 생성된 정적 HTML 파일들을 전 세계 사용자에게 무료로 호스팅해줍니다.엔진: GitHub Actions  main 브랜치에 코드가 푸시될 때마다(예: 새 글 PR이 Merge될 때) GitHub Actions가 자동으로 bundle exec jekyll build 명령을 실행하여 사이트 전체를 다시 빌드하고 배포합니다.두뇌 (자동화): n8n이 시스템의 핵심입니다. n8n 워크플로우가 백엔드 서버의 역할을 대신합니다.  새 글 작성 자동화: Admin 페이지에서 글을 작성하고 ‘Submit’을 누르면, 이 데이터가 n8n Webhook(n8n_webhook_subscribe)으로 전송됩니다. n8n은 GitHub API를 호출하여 자동으로 새 브랜치를 만들고, 마크다운 파일을 커밋하며, main 브랜치로 Pull Request(PR)를 생성합니다.  자동 번역 (예정): 한국어 글이 등록되면, n8n_webhook_translate가 호출되어 번역 API(DeepL 등)를 통해 영어로 자동 번역 후, 영어 포스트 PR을 생성합니다.  테마 변경: Admin 페이지에서 테마를 변경하면, n8n_webhook_theme_update가 호출되어 _data/theme.yml 파일의 active_theme 값을 변경하는 PR을 생성합니다.보안관 (인증): Cloudflare Workers  Admin 페이지의 GitHub 로그인은 민감한 Client Secret 키를 필요로 합니다.  이 키를 브라우저에 노출하는 대신, Cloudflare Worker(cloudflare_worker_endpoint)가 중간에서 OAuth 인증 코드를 받아 Access Token으로 교환해주는 안전한 프록시 서버 역할을 합니다.관리자실: 정적 Admin UI  /admin/ 경로는 React나 Vue 같은 프레임워크 없이 순수 HTML/CSS/JS로만 제작된 정적 관리 페이지입니다.  GitHub API, Cloudflare Worker, n8n Webhook을 호출하여 마치 동적 CMS처럼 작동합니다.광장 (소통): Giscus  포스트 하단의 댓글 기능은 GitHub 리포지토리의 Discussions 기능과 연동된 Giscus를 사용합니다.  방문자들은 GitHub 계정으로 로그인하여 댓글을 달고, 모든 기록은 리포지토리에 투명하게 저장됩니다.수익 및 상호작용  수익화: _layouts 파일 곳곳에 Google AdSense 슬롯을 배치하여 광고 수익을 창출할 수 있도록 설계되었습니다.  좋아요: Cloudflare Workers와 KV Store를 연동한 커스텀 API 엔드포인트(like_api_endpoint)를 통해 정적 사이트에서도 ‘좋아요’ 수를 집계하고 표시합니다.3. 여정: 순탄하지만은 않았던 실험이 시스템을 구축하는 과정은 수많은 오류와의 싸움이었습니다.  Jekyll 빌드 시 theme: null 설정과 플러그인 의존성 충돌로 인해 CSS/JS가 로드되지 않는 문제 (Liquid Exception: No repo name found 등).  손상된 lunr.min.js 파일로 인한 연쇄적인 JavaScript 오류.  admin.js의 사소한 오타('m') 하나로 Admin 페이지 전체가 마비되었던 경험.  GitHub OAuth Callback URL의 마지막 슬래시(/) 하나 차이로 404 오류가 발생했던 문제.이 모든 문제 해결 과정이 바로 GOFUNWITH가 추구하는 ‘도전과 실험’의 증거입니다.4. 다음은?이제 이 블로그라는 ‘도구’가 완성되었습니다. 앞으로 이 도구를 활용하여 기술, DIY, 자동화, 그리고 삶의 다양한 ‘재미있는 실험’들을 기록하고 공유(Share)할 것입니다.이 블로그의 구축 과정이 궁금하시다면, 댓글(Giscus)로 질문을 남겨주세요!Explore. Create. Share.",
+      "tags": ["Meta","Tech","Jekyll","Automation","n8n","Cloudflare","Giscus"],
+      "date": "2025-10-30"
+    }
+    ,
+  
+    {
+      "title": "untitled",
+      "url": "/2025/10/29/untitled.ko.html",
+      "content": "",
+      "tags": ["Tech"],
+      "date": "2025-10-29"
+    }
+    ,
+  
+    {
+      "title": "테스트 자동 게시글",
+      "url": "/2025/10/28/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%9E%90%EB%8F%99-%EA%B2%8C%EC%8B%9C%EA%B8%80.ko.html",
+      "content": "이것은 샘플 블로그 게시글 테스트입니다.",
+      "tags": ["Tech"],
+      "date": "2025-10-28"
+    }
+    ,
+  
+    {
+      "title": "untitled",
+      "url": "/2025/10/28/untitled.ko.html",
+      "content": "",
+      "tags": ["Tech"],
+      "date": "2025-10-28"
+    }
+    ,
+  
+    {
+      "title": "GOFUNWITH 블로그 샘플 포스트입니다",
+      "url": "/2025/10/25/gofunwith-korean-sample-post.ko.html",
+      "content": "Go have fun with tech, tools, and life.이곳은 기술 중심이 아닌 ‘경험 중심, 도전과 실험, 즐거운 창작’을 지향하는 GOFUNWITH 블로그입니다.테크, DIY, 캠핑, 자동화, 생활 실험 등 다양한 영역을 포괄하며, 그 과정 자체에서 오는 ‘여정(Journey)’과 ‘실험(Experiment)’의 즐거움을 강조합니다.즐거운 창작전문적인 감성으로 깊이 있는 내용을 다루면서도, 모든 과정이 ‘재미’로 귀결되는 브랜드를 목표로 합니다.  Tech: 새로운 기술을 탐구합니다.  DIY: 직접 만들어 봅니다.  Automation: n8n 등으로 삶을 자동화합니다.앞으로의 여정을 기대해주세요.",
+      "tags": ["Tech","Life","Journey","Experiment"],
+      "date": "2025-10-25"
+    }
+    ,
+  
+    {
+      "title": "GOFUNWITH 블로그 시작: 기술과 삶을 즐기는 여정",
+      "url": "/intro/2025/10/22/gofunwith-korean-sample-post.ko.html",
+      "content": "Go have fun with tech, tools, and life.안녕하세요! GOFUNWITH 블로그에 오신 것을 환영합니다.이곳은 단순히 최신 기술을 나열하거나 복잡한 코드를 설명하는 공간이 아닙니다. 우리는 ‘기술 중심’이 아닌 ‘경험 중심, 도전과 실험, 즐거운 창작’을 지향합니다.우리의 철학우리의 브랜드 핵심 가치는 “Go have fun with tech, tools, and life.”입니다.  경험 중심: 우리는 테크, DIY, 캠핑, 자동화, 그리고 다양한 생활 실험을 직접 부딪혀보고 경험합니다.  여정(Journey)과 실험(Experiment): 결과물만큼이나 그 과정 자체에서 오는 즐거움을 중요하게 생각합니다. 실패조차도 즐거운 여정의 일부입니다.  재미로의 귀결: 전문적인 감성으로 깊이 있는 내용을 다루면서도, 모든 창작과 실험의 끝은 ‘재미’로 귀결되는 브랜드를 목표로 합니다.이 블로그는 GitHub Pages, Jekyll, Cloudflare, n8n 등 다양한 도구들을 활용한 자동화 실험의 산물이기도 합니다. 앞으로 이 블로그를 구축한 경험 또한 공유할 예정입니다.GOFUNWITH와 함께 기술과 도구, 그리고 삶을 마음껏 즐겨보세요!",
+      "tags": ["tech","experiment","jekyll"],
+      "date": "2025-10-22"
+    }
+    ,
+  
+    {
+      "title": "GOFUNWITH 블로그 시작하기",
+      "url": "/2025/10/22/gofunwith-blog-sijak.ko.html",
+      "content": "새로운 여정의 시작GOFUNWITH 블로그에 오신 것을 환영합니다. 이 곳은 기술, DIY, 그리고 삶의 다양한 실험을 통해 얻은 경험을 공유하는 공간입니다.이 블로그는 GitHub Pages와 Jekyll, 그리고 Cloudflare Worker를 기반으로 구축되었습니다. 정적 사이트의 안정성과 서버리스의 동적인 힘을 결합하여 빠르고 효율적인 플랫폼을 만들었습니다.앞으로 재미있는 프로젝트 이야기로 찾아뵙겠습니다.",
+      "tags": ["Tech","Jekyll","Cloudflare"],
+      "date": "2025-10-22"
+    }
+    ,
+  
+    {
+      "title": "GOFUNWITH 블로그 오픈 — 여정과 실험의 시작",
+      "url": "/2025/10/22/welcome.ko.html",
+      "content": "브랜드 핵심 가치 “Journey &amp; Experiment“를 바탕으로, 기술 중심이 아닌 경험 중심의 글을 나눕니다.",
+      "tags": ["dev","life"],
+      "date": "2025-10-22"
+    }
+    ,
+  
+    {
+      "title": "기술로 즐기는 여정, GoFunWith",
+      "url": "/2025/10/15/hello.ko.html",
+      "content": "안녕하세요 👋이곳은 기술과 창작을 통해 새로운 가능성을 실험하는 GoFunWith 블로그입니다.  즐겁게 배우고, 실험하며, 함께 성장합시다.",
+      "tags": ["tech","life"],
+      "date": "2025-10-15"
+    }
+    ,
+  
+    {
+      "title": "스타터 가이드 (KO)",
+      "url": "/2025/10/14/starter.ko.html",
+      "content": "환영합니다이 가이드는 v6.4.2 패키지를 테스트하기 위한 예제 포스트입니다.jekyll build끝.",
+      "tags": ["Tech","HowTo"],
+      "date": "2025-10-14"
+    }
+    ,
+  
+    {
+      "title": "GitHub Pages로 무료 블로그 시작하기",
+      "url": "/2025/10/13/github-pages-start.ko.html",
+      "content": "GitHub Pages와 Jekyll을 활용하면 무료로 빠르게 블로그를 시작할 수 있습니다.",
+      "tags": [],
+      "date": "2025-10-13"
+    }
+    
+  
+]
