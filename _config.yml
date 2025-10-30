@@ -1,5 +1,4 @@
-# GOFUNWITH Blog (Chirpy CI Fixed) 2025-10-30 14:08
-
+# GOFUNWITH Blog (Chirpy PRO Edition) 2025-10-30 14:14
 title: "GOFUNWITH"
 tagline: "Explore. Create. Share."
 description: "기술, DIY, 캠핑, 생활자동화를 함께 즐기는 블로그"
@@ -25,14 +24,6 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-paginate
-
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor
-  - tmp
-  - .github
 
 markdown: kramdown
 highlighter: rouge
