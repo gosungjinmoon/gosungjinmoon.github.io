@@ -1,4 +1,4 @@
-# GOFUNWITH Blog (jekyll-theme-chirpy) 2025-10-30 13:44
+# GOFUNWITH Blog (jekyll-theme-chirpy fixed build) 2025-10-30 13:54
 
 title: "GOFUNWITH"
 tagline: "Explore. Create. Share."
@@ -25,7 +25,6 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-paginate
-  - jekyll-theme-chirpy
 
 exclude:
   - Gemfile
@@ -38,5 +37,4 @@ exclude:
 markdown: kramdown
 highlighter: rouge
 
-# Languages
 languages: ["ko", "en"]
