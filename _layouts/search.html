@@ -1,18 +1,29 @@
 ---
 layout: default
 ---
-<div class="search-layout">
-  <h1 class="page-heading">{{ page.title }}</h1>
+<h1>{% if page.lang == 'en' %}Search{% else %}검색{% endif %}</h1>
+<input id="q" type="search" placeholder="{% if page.lang == 'en' %}Type to search{% else %}검색어를 입력하세요{% endif %}" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px"/>
+<ul id="res" class="post-list"></ul>
 
-  <div class="search-page-form">
-    {% include search-box.html %}
-  </div>
-
-  <div id="search-results-container">
-    <h2 id="search-results-title"></h2>
-    <ul id="search-results" class="post-list">
-      <li id="search-loading">Loading...</li>
-      <li id="search-no-results" style="display: none">No results found.</li>
-    </ul>
-  </div>
-</div>
+<script>
+(function(){
+  const q = document.getElementById('q');
+  const res = document.getElementById('res');
+  const lang = '{{ page.lang }}';
+  const items = [
+    {% for p in site.posts %}
+      {% if p.lang == page.lang %}
+      { "t": {{ p.title | jsonify }}, "u": "{{ p.url | relative_url }}" }{% unless forloop.last %},{% endunless %}
+      {% endif %}
+    {% endfor %}
+  ];
+  function render(list){
+    res.innerHTML = list.map(i => `<li><a href="${i.u}">${i.t}</a></li>`).join('') || `<li style="color:var(--muted)">${lang==='en'?'No results':'검색 결과가 없습니다'}</li>`;
+  }
+  q.addEventListener('input', () => {
+    const v = q.value.trim().toLowerCase();
+    if(!v){ render([]); return; }
+    render(items.filter(i => i.t.toLowerCase().includes(v)));
+  });
+})();
+</script>
