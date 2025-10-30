@@ -1,49 +1,16 @@
 <footer class="site-footer">
-  <div class="wrapper">
-    <div class="footer-col-wrapper">
-      <div class="footer-col">
-        <h4>{{ site.data.theme.brand }}</h4>
-        <p>
-          "Go have fun with tech, tools, and life." <br />
-          경험 중심, 도전과 실험, 즐거운 창작.
-        </p>
-      </div>
-
-      <div class="footer-col">
-        <h4>Links</h4>
-        <ul class="contact-list">
-          {% for link in site.data.config.footer_links %}
-          <li>
-            <a href="{{ link.url | prepend: '/' | replace: '//', '/' }}"
-              >{{ link.name }}</a
-            >
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Social</h4>
-        <ul class="social-media-list">
-          <li>
-            <a href="{{ site.data.theme.github }}">
-              <svg class="svg-icon">
-                <use
-                  xlink:href="/assets/themes/modern-light/images/minima-social-icons.svg#github"
-                ></use>
-              </svg>
-              <span class="username">GitHub</span>
-            </a>
-          </li>
-        </ul>
-      </div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="/assets/themes/modern-light/images/logo.svg" alt="GOFUNWITH logo">
+      <p>Explore. Create. Share.</p>
     </div>
-
-    <div class="footer-bottom">
-      <small
-        >&copy; {{ 'now' | date: "%Y" }} {{ site.title }}. All rights
-        reserved.</small
-      >
+    <nav class="footer-links">
+      <a href="/brand/style-guide/">Style Guide</a>
+      <a href="/privacy-policy/">Privacy</a>
+      <a href="https://github.com/gosungjinmoon" target="_blank">GitHub</a>
+    </nav>
+    <div class="footer-copy">
+      © 2025 GOFUNWITH. Built with Jekyll + Cloudflare.
     </div>
   </div>
 </footer>
