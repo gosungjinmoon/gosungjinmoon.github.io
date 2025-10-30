@@ -1,39 +1,7 @@
-# ==========================================================
-# GOFUNWITH Blog Theme & Integration Configuration
-# ==========================================================
-
 brand: "GOFUNWITH – Explore. Create. Share."
+logo: "/assets/img/logo.png"
+favicon: "/assets/img/favicon.ico"
 domain: "blog.gofunwith.com"
-url: "https://gosungjinmoon.github.io"
-repo: "gosungjinmoon/gosungjinmoon.github.io"
 github: "https://github.com/gosungjinmoon"
-branch: "main"
-
-# n8n endpoints
-n8n_webhook_new_post: "https://n8n.gofunwith.com/webhook/new-post"
-worker_like_endpoint: "https://n8n.gofunwith.com/webhook/like-post"
-
-# giscus comments
-giscus_repo: "gosungjinmoon/gosungjinmoon.github.io"
-giscus_repo_id: "R_kgDOQBYPtQ"
-giscus_category: "Show and tell"
-giscus_category_id: "DIC_kwDOQBYPtc4CxEor"
-giscus_lang: "ko"
-
-# theme options
-theme:
-  primary_color: "#1e90ff"
-  accent_color: "#ffb703"
-  dark_mode: false
-  font_family: "Inter, Pretendard, sans-serif"
-
-# language settings
-languages:
-  - code: "ko"
-    label: "한국어"
-  - code: "en"
-    label: "English"
-
-# ==========================================================
-# END OF CONFIG
-# ==========================================================
+n8n_api_base: "https://n8n.gofunwith.com"
+cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"

@@ -1,43 +1,42 @@
-title: GOFUNWITH Blog
-email: contact@gofunwith.com
-description: "Go have fun with tech, tools, and life."
-baseurl: ""
+# GOFUNWITH Blog (jekyll-theme-chirpy) 2025-10-30 13:44
+
+title: "GOFUNWITH"
+tagline: "Explore. Create. Share."
+description: "기술, DIY, 캠핑, 생활자동화를 함께 즐기는 블로그"
 url: "https://blog.gofunwith.com"
+baseurl: ""
 
-markdown: kramdown
-theme: minima
+theme: jekyll-theme-chirpy
+lang: ko
 timezone: Asia/Seoul
-future: true
+paginate: 10
+paginate_path: /page:num/
 
-# Include search index files
-include:
-  - "ko/search.json"
-  - "en/search.json"
+social:
+  github: gosungjinmoon
+  email: contact@gofunwith.com
+  rss: true
 
-# Collections and defaults
-defaults:
-  - scope:
-      path: ""
-    values:
-      layout: "default"
-      lang: "ko"
+google_analytics:
+  id: G-R7N7G7QPBF
 
-# Plugins
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-paginate
-
-paginate: 5
-paginate_path: "/page:num/"
-
-# Language configuration
-languages:
-  - ko
-  - en
+  - jekyll-theme-chirpy
 
 exclude:
+  - Gemfile
+  - Gemfile.lock
   - node_modules
   - vendor
-  - README.md
+  - tmp
+  - .github
+
+markdown: kramdown
+highlighter: rouge
+
+# Languages
+languages: ["ko", "en"]
