@@ -1,6 +1,11 @@
-{% assign current_lang = page.lang | default: "ko" %}
-{% if current_lang == "en" %}
-  <a class="chip" href="/">KO</a>
-{% else %}
-  <a class="chip" href="/en/">EN</a>
-{% endif %}
+{%- assign cur = page.url -%}
+{%- if page.lang == 'en' -%}
+  {%- assign ko_url = cur | remove_first:'/en' -%}
+  <a class="chip" href="{{ ko_url | relative_url }}">KO</a>
+{%- else -%}
+  {%- if cur == '/' -%}
+    <a class="chip" href="{{ '/en/' | relative_url }}">EN</a>
+  {%- else -%}
+    <a class="chip" href="{{ ('/en' | append: cur) | relative_url }}">EN</a>
+  {%- endif -%}
+{%- endif -%}
