@@ -1,21 +1,23 @@
 <!doctype html>
-<html lang="{{ page.lang | default: 'ko' }}">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    {% seo %}
-    <link rel="stylesheet" href="/assets/css/theme.css">
-  </head>
-  <body>
-    {% include header.html %}
-    <main class="main">
-      <div class="container">
-        {{ content }}
-      </div>
-    </main>
-    <footer class="footer">
-      <div class="container">© GOFUNWITH — Explore. Create. Share.</div>
-    </footer>
-    <script src="/assets/js/theme.js"></script>
-  </body>
+<html lang="{{ page.lang | default:'ko' }}">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title | default:'GOFUNWITH Blog' }}</title>
+  <link rel="stylesheet" href="{{ '/assets/css/aurora.css' | relative_url }}"/>
+
+  {# SEO/기타 #}
+  {% if site.seo %}{% include seo.html %}{% endif %}
+</head>
+<body class="theme-auto">
+  {% include header.html %}
+
+  <main class="container">
+    {{ content }}
+  </main>
+
+  {% include footer.html %}
+
+  <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+</body>
 </html>
