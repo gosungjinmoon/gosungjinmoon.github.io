@@ -1,54 +1,31 @@
 ---
 layout: default
-title: GOFUNWITH Blog Admin
+lang: ko
 permalink: /admin/
+title: Admin
 ---
 
 <h1>GOFUNWITH Blog Admin</h1>
 
-<button id="loginBtn" type="button">Login with GitHub</button>
+<button id="gh-login">Login with GitHub</button>
 
-<div style="margin-top:16px"></div>
-<label>제목 <input id="postTitle" type="text" style="width:100%"></label>
-<label>내용 <textarea id="postBody" style="width:100%;height:180px"></textarea></label>
-
-<div style="margin:8px 0">
-  <label><input type="radio" name="lang" value="ko" checked> 한국어</label>
-  <label><input type="radio" name="lang" value="en"> English</label>
-  <label style="margin-left:12px"><input type="checkbox" id="autoTranslate"> 자동 번역(한→영)</label>
+<div style="margin:16px 0">
+  <label>제목</label>
+  <input id="title" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px"/>
 </div>
 
-<button id="submitBtn" type="button">게시</button>
+<div style="margin:16px 0">
+  <label>내용</label>
+  <textarea id="content" rows="10" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px"></textarea>
+</div>
 
-<script>
-  // 절대경로로 로드 문제 방지 (이 페이지는 layout:default로 빌드됨)
-  const ENDPOINT = 'https://n8n.gofunwith.com/webhook/new-post';
+<div style="margin:16px 0;display:flex;gap:12px;align-items:center">
+  <label><input type="radio" name="lang" value="ko" checked> 한국어</label>
+  <label><input type="radio" name="lang" value="en"> English</label>
+  <label><input type="checkbox" id="auto-translate"> 자동 번역(한→영)</label>
+  <button id="submit">게시</button>
+</div>
 
-  document.getElementById('submitBtn').addEventListener('click', async () => {
-    const title = document.getElementById('postTitle').value.trim();
-    const content = document.getElementById('postBody').value.trim();
-    const lang = document.querySelector('input[name="lang"]:checked').value;
-    const auto_translate = document.getElementById('autoTranslate').checked;
-
-    if(!title || !content){ alert('제목/내용을 입력하세요.'); return; }
-
-    try{
-      const res = await fetch(ENDPOINT, {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({
-          title, content, lang,
-          auto_translate, publish_now: true
-        }),
-        mode:'cors',
-        credentials:'omit'
-      });
-      const data = await res.json().catch(()=>({}));
-      if(!res.ok) throw new Error(data.message || '업로드 실패');
-      alert('업로드 완료!');
-    }catch(e){
-      console.error(e);
-      alert('에러: ' + e.message);
-    }
-  });
-</script>
+<script src="{{ '/admin/js/theme-config.js' | relative_url }}"></script>
+<script src="{{ '/admin/js/github-auth.js' | relative_url }}"></script>
+<script src="{{ '/admin/js/posts.js' | relative_url }}"></script>
