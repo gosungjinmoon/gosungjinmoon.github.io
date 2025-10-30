@@ -1,13 +1,14 @@
-name: Build and Deploy Chirpy (Fixed)
+# .github/workflows/pages.yml
 
+name: Build and Deploy Chirpy
 on:
   push:
-    branches:
-      - main
-
+    branches: [ main ]
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write     # ✅ gh-pages 푸시 허용
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
