@@ -1,31 +1,39 @@
 ---
 layout: default
+title: Admin
 lang: ko
 permalink: /admin/
-title: Admin
 ---
+<section class="container">
+  <h1>GOFUNWITH Blog Admin</h1>
 
-<h1>GOFUNWITH Blog Admin</h1>
+  <!-- 전역 설정을 HTML에서 주입 -->
+  <script>
+    window.GFW = {
+      n8nEndpoint: "{{ site.data.theme.n8n_endpoint | default: 'https://n8n.gofunwith.com' }}",
+      webhookPath: "/webhook/new-post",
+      repo: "{{ site.data.theme.repo | default: 'gosungjinmoon/gosungjinmoon.github.io' }}"
+    };
+  </script>
 
-<button id="gh-login">Login with GitHub</button>
+  <p>
+    <button id="loginBtn" class="btn">Login with GitHub</button>
+  </p>
 
-<div style="margin:16px 0">
-  <label>제목</label>
-  <input id="title" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px"/>
-</div>
+  <div class="card">
+    <h3>새 글 작성</h3>
+    <label>제목 <input id="title" class="input" /></label>
+    <label>내용 <textarea id="body" rows="10" class="input"></textarea></label>
+    <div>
+      <label><input type="radio" name="lang" value="ko" checked> 한국어</label>
+      <label><input type="radio" name="lang" value="en"> English</label>
+      <label><input type="checkbox" id="auto"> 자동 번역(한→영)</label>
+    </div>
+    <button id="postBtn" class="btn">게시</button>
+    <pre id="out" class="card" style="white-space:pre-wrap"></pre>
+  </div>
 
-<div style="margin:16px 0">
-  <label>내용</label>
-  <textarea id="content" rows="10" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px"></textarea>
-</div>
-
-<div style="margin:16px 0;display:flex;gap:12px;align-items:center">
-  <label><input type="radio" name="lang" value="ko" checked> 한국어</label>
-  <label><input type="radio" name="lang" value="en"> English</label>
-  <label><input type="checkbox" id="auto-translate"> 자동 번역(한→영)</label>
-  <button id="submit">게시</button>
-</div>
-
-<script src="{{ '/admin/js/theme-config.js' | relative_url }}"></script>
-<script src="{{ '/admin/js/github-auth.js' | relative_url }}"></script>
-<script src="{{ '/admin/js/posts.js' | relative_url }}"></script>
+  <!-- 경로는 **절대경로 + relative_url** -->
+  <script src="{{ '/admin/js/github-auth.js' | relative_url }}" defer></script>
+  <script src="{{ '/admin/js/posts.js'       | relative_url }}" defer></script>
+</section>
