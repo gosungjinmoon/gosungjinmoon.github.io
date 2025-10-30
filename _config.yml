@@ -1,25 +1,15 @@
 title: GOFUNWITH Blog
-description: Explore. Create. Share.
+baseurl: ""   # GitHub Pages 사용자 페이지면 공란 유지
 url: "https://blog.gofunwith.com"
-baseurl: ""  # GitHub Pages(커스텀 도메인)일 때는 빈값
 
-# ✅ Jekyll-safe 플러그인만 사용
+include:
+  - admin
+
+# (GitHub Pages 호환) 사용 플러그인만
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
 
-# ✅ Admin HTML도 Liquid 처리되도록
-include:
-  - admin
-
-# ✅ 기본값 (lang 미지정 시 ko)
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      lang: "ko"
-
-# ✅ 퍼머링크 (기존 포스트와 호환: .ko/.en 확장 유지)
-permalink: /:year/:month/:day/:title:output_ext
+# Permalink
+permalink: /:year/:month/:day/:title
