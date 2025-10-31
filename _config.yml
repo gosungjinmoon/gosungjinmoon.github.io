@@ -1,31 +1,24 @@
-# GOFUNWITH Blog (Chirpy PRO Edition) 2025-10-30 14:14
 title: "GOFUNWITH"
 tagline: "Explore. Create. Share."
-description: "기술, DIY, 캠핑, 생활자동화를 함께 즐기는 블로그"
+description: "기술, DIY, 캠핑, 자동화를 함께 즐기는 블로그"
 url: "https://blog.gofunwith.com"
 baseurl: ""
 
 theme: jekyll-theme-chirpy
-lang: ko
-timezone: Asia/Seoul
-paginate: 10
-paginate_path: /page:num/
-
-social:
-  github: gosungjinmoon
-  email: contact@gofunwith.com
-  rss: true
-
-google_analytics:
-  id: G-R7N7G7QPBF
-
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-paginate
 
-markdown: kramdown
-highlighter: rouge
+lang: ko
+timezone: Asia/Seoul
+paginate: 10
 
+# 다국어 지원
 languages: ["ko", "en"]
+
+# Giscus / AdSense placeholder
+giscus_repo: "gosungjinmoon/gosungjinmoon.github.io"
+giscus_repo_id: "R_kgDOQBYPtQ"
+adsense_client_id: "ca-pub-YOUR_ADSENSE_CLIENT_ID"
