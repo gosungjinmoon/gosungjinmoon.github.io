@@ -23,7 +23,5 @@ ads:
   google: false
 
 # 로고/파비콘(아래 5번에 파일 추가)
-logo:
-  light: /assets/img/logo-light.svg
-  dark:  /assets/img/logo-dark.svg
+logo: /assets/img/logo-light.svg
 favicon: /assets/img/favicon.svg
