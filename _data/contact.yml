@@ -2,15 +2,9 @@
 - type: github
   icon: "fab fa-github"
   url: "https://github.com/gosungjinmoon"
-
-- type: twitter
-  icon: "fab fa-x-twitter"
-  url: "https://x.com"
-
 - type: email
   icon: "fas fa-envelope"
   url: "mailto:contact@gofunwith.com"
-
 - type: rss
   icon: "fas fa-rss"
   url: "/feed.xml"

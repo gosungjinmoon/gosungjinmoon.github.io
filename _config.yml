@@ -7,15 +7,13 @@ timezone: Asia/Seoul
 future: true
 baseurl: ""
 
-# Brand assets
+# Brand
 avatar: /assets/img/logo-light.svg
 favicon: /assets/img/favicon.svg
 
 # Appearance
 mode: auto
-toc: true
 
-# Plugins (Chirpy-compatible)
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
@@ -25,19 +23,4 @@ plugins:
 paginate: 10
 paginate_path: /page:num/
 
-# Giscus (user can replace with real IDs later)
-comments:
-  provider: giscus
-  giscus:
-    repo: gosungjinmoon/gosungjinmoon.github.io
-    repo_id: R_kgDOQBYPtQ
-    category: "Show and tell"
-    category_id: DIC_kwDOQBYPtc4CxEor
-    mapping: pathname
-    reactions_enabled: true
-    input_position: bottom
-    theme: light
-    lang: ko
-
-# Like button placeholder endpoint (localStorage only in this build)
-gfw_like_local: true
+# Contacts (sidebar bottom icons)

@@ -1,33 +1,19 @@
 
 <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | relative_url }}">
-
 <style>
-/* Logo sizing inside Chirpy sidebar */
-#avatar img { width: 180px !important; height: auto !important; border-radius: 0 !important; box-shadow: none !important; }
-#avatar { padding-top: .75rem; padding-bottom: .25rem; }
-.site-title { font-weight: 700; }
-
-/* Like button basic style */
-.gfw-like { display:inline-flex; align-items:center; gap:.5rem; padding:.35rem .6rem; border:1px solid #e3e3e6; border-radius:10px; cursor:pointer; font-size:.9rem; }
-.gfw-like[data-active="1"] { background:#ffe8a3; border-color:#ffc53d; }
+#avatar img{width:160px!important;height:auto!important;border-radius:0!important;box-shadow:none!important}
 </style>
-
 <script>
-(function() {
-  // Swap avatar logo on dark mode
+(function(){
   const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
-  function swap() {
-    const img = document.querySelector('#avatar img');
-    if(!img) return;
-    const light = "{{ '/assets/img/logo-light.svg' | relative_url }}";
-    const dark  = "{{ '/assets/img/logo-dark.svg'  | relative_url }}";
-    const isDark = document.documentElement.dataset.mode === 'dark' || (document.documentElement.dataset.mode !== 'light' && prefersDark && prefersDark.matches);
-    img.src = isDark ? dark : light;
+  function swap(){
+    const img=document.querySelector('#avatar img'); if(!img) return;
+    const isDark = document.documentElement.dataset.mode==='dark' || 
+      (document.documentElement.dataset.mode!=='light' && prefersDark && prefersDark.matches);
+    img.src = isDark ? "{{ '/assets/img/logo-dark.svg' | relative_url }}" : "{{ '/assets/img/logo-light.svg' | relative_url }}";
   }
   document.addEventListener('DOMContentLoaded', swap);
-  document.addEventListener('click', function(e){
-    if(e.target && e.target.id === 'mode-toggle') { setTimeout(swap, 50); }
-  });
-  if (prefersDark) prefersDark.addEventListener('change', swap);
+  document.addEventListener('click', e=>{ if(e.target && e.target.id==='mode-toggle'){ setTimeout(swap,50);} });
+  if(prefersDark) prefersDark.addEventListener('change', swap);
 })();
 </script>
