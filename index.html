@@ -4,4 +4,21 @@ title: Home
 permalink: /
 ---
 
-{% include index.html %}
+{% assign posts = site.posts | where_exp:"post","post.lang == site.lang or site.lang == nil" %}
+{% if posts.size > 0 %}
+  <div class="post-list">
+    {% for post in posts %}
+      <article class="post-preview">
+        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+        <p class="post-meta">
+          {{ post.date | date: "%Y-%m-%d" }}
+          {% if post.tags %} | Tags: {{ post.tags | join: ", " }} {% endif %}
+        </p>
+        <p>{{ post.excerpt | strip_html | truncate: 150 }}</p>
+        <hr>
+      </article>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>No posts yet. Check back soon!</p>
+{% endif %}
