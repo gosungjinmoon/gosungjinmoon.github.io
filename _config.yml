@@ -1,24 +1,9 @@
-title: "GOFUNWITH"
-tagline: "Explore. Create. Share."
-description: "기술, DIY, 캠핑, 자동화를 함께 즐기는 블로그"
-url: "https://blog.gofunwith.com"
-baseurl: ""
-
+title: GOFUNWITH
 theme: jekyll-theme-chirpy
+lang: ko
+timezone: Asia/Seoul
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-paginate
-
-lang: ko
-timezone: Asia/Seoul
-paginate: 10
-
-# 다국어 지원
-languages: ["ko", "en"]
-
-# Giscus / AdSense placeholder
-giscus_repo: "gosungjinmoon/gosungjinmoon.github.io"
-giscus_repo_id: "R_kgDOQBYPtQ"
-adsense_client_id: "ca-pub-YOUR_ADSENSE_CLIENT_ID"
