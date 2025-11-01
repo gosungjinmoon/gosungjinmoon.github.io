@@ -2,22 +2,19 @@ title: GOFUNWITH
 tagline: Explore. Create. Share.
 description: GOFUNWITH – Explore. Create. Share.
 url: https://blog.gofunwith.com
-baseurl: "" # CNAME 도메인 사용 중이므로 공백
+baseurl: "" # CNAME 사용 시 공백
 lang: ko
 timezone: Asia/Seoul
 
 theme: jekyll-theme-chirpy
+
 paginate: 10
 paginate_path: "/page:num"
 
 kramdown:
   input: GFM
 
-# ✅ logo는 문자열 하나만 허용됨
-logo: /assets/img/logo-light.svg
-favicon: /assets/img/favicon.svg
-
-# ✅ SEO / Feed / Sitemap / Pagination / Archives 플러그인
+# ✅ Chirpy + SEO 플러그인
 plugins:
   - jekyll-archives
   - jekyll-paginate
@@ -25,39 +22,42 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
-# ✅ Jekyll 기본 제외 목록
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor
-  - .github
-  - .gitignore
-  - README.md
-  - LICENSE
-  - .vscode
-  - package.json
-  - package-lock.json
+# ✅ 로고 / 파비콘
+logo: /assets/img/logo-light.svg
+favicon: /assets/img/favicon.svg
 
-# ✅ Comments & Ads (비활성 상태)
+# ✅ 댓글/광고 비활성
 comments:
   provider: false
 ads:
   google: false
 
-# ✅ 다국어 지원 샘플
-lang_switcher:
-  en: English
-  ko: 한국어
-
-# ✅ Social
+# ✅ 소셜
 social:
   name: Eric Moon
   links:
     - https://github.com/gosungjinmoon
     - https://gofunwith.com
 
-# ✅ Build 설정
+# ✅ 언어 설정
+lang_switcher:
+  en: English
+  ko: 한국어
+
+# ✅ 빌드 제외
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .github
+  - README.md
+  - LICENSE
+  - .vscode
+  - package.json
+  - package-lock.json
+
+# ✅ 빌드
+future: true
 markdown: kramdown
 highlighter: rouge
-future: true
