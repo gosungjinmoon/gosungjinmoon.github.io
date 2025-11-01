@@ -1,18 +1,8 @@
-<link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | relative_url }}">
-<style>
-#avatar img { width:160px!important; height:auto!important; border-radius:0!important; box-shadow:none!important; }
-</style>
-<script>
-(function(){
-  const mql = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
-  function swap(){
-    const img = document.querySelector('#avatar img');
-    if(!img) return;
-    const isDark = document.documentElement.dataset.mode==='dark' ||
-      (document.documentElement.dataset.mode!=='light' && mql && mql.matches);
-    img.src = isDark ? "{{ '/assets/img/logo-dark.svg' | relative_url }}" : "{{ '/assets/img/logo-light.svg' | relative_url }}";
-  }
-  document.addEventListener('DOMContentLoaded', swap);
-  if(mql && mql.addEventListener){ mql.addEventListener('change', swap); }
-})();
-</script>
+{%- comment -%} 커스텀 헤더 {%- endcomment -%}
+<link rel="icon" href="{{ '/assets/img/siteicon.svg' | relative_url }}" type="image/svg+xml">
+<link rel="icon" href="{{ '/assets/img/favicon.png' | relative_url }}" sizes="32x32">
+<link rel="apple-touch-icon" href="{{ '/assets/img/favicon-180.png' | relative_url }}" sizes="180x180">
+
+<!-- preload 로고 (선택) -->
+<link rel="preload" as="image" href="{{ '/assets/img/logo-light.svg' | relative_url }}">
+<link rel="preload" as="image" href="{{ '/assets/img/logo-dark.svg'  | relative_url }}">
