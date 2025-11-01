@@ -1,42 +1,38 @@
-name: Build and Deploy Chirpy
+name: Build & Deploy (Chirpy)
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2
+          ruby-version: '3.1'
           bundler-cache: true
 
-      - name: Install dependencies
+      - name: Install deps
         run: |
-          rm -f Gemfile.lock
-          gem uninstall github-pages -a -x -I || true
           bundle config set path 'vendor/bundle'
-          bundle install --jobs 4 --retry 3
+          bundle install --jobs 4
 
-      - name: Build Jekyll site
+      - name: Build site
         run: bundle exec jekyll build --trace
 
       - name: Upload artifact
