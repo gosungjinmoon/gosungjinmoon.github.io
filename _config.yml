@@ -1,63 +1,59 @@
+# —————————————————————————————————
+# Site basics
 title: GOFUNWITH
 tagline: Explore. Create. Share.
 description: GOFUNWITH – Explore. Create. Share.
-url: https://blog.gofunwith.com
-baseurl: "" # CNAME 사용 시 공백
 lang: ko
 timezone: Asia/Seoul
 
+url: https://blog.gofunwith.com
+baseurl: ""   # 커스텀 도메인이면 빈 문자열 유지
+
+# 로고는 SEO 플러그인이 문자열(URL)만 허용합니다.
+logo: /assets/img/logo-light.svg
+
+# —————————————————————————————————
+# Theme
 theme: jekyll-theme-chirpy
 
+# —————————————————————————————————
+# Pagination (Chirpy 홈 리스트가 의존)
 paginate: 10
-paginate_path: "/page:num"
+paginate_path: "page:num"
 
-kramdown:
-  input: GFM
-
-# ✅ Chirpy + SEO 플러그인
+# —————————————————————————————————
+# Plugins
 plugins:
-  - jekyll-archives
   - jekyll-paginate
-  - jekyll-feed
   - jekyll-sitemap
+  - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-include-cache
 
-# ✅ 로고 / 파비콘
-logo: /assets/img/logo-light.svg
-favicon: /assets/img/favicon.svg
+# —————————————————————————————————
+# Build
+markdown: kramdown
+highlighter: rouge
 
-# ✅ 댓글/광고 비활성
-comments:
-  provider: false
-ads:
-  google: false
-
-# ✅ 소셜
-social:
-  name: Eric Moon
-  links:
-    - https://github.com/gosungjinmoon
-    - https://gofunwith.com
-
-# ✅ 언어 설정
-lang_switcher:
-  en: English
-  ko: 한국어
-
-# ✅ 빌드 제외
 exclude:
   - Gemfile
   - Gemfile.lock
   - node_modules
   - vendor
-  - .github
   - README.md
-  - LICENSE
-  - .vscode
-  - package.json
-  - package-lock.json
+  - .github
+  - .gitignore
+  - cloudflare_worker.js
 
-# ✅ 빌드
-future: true
-markdown: kramdown
-highlighter: rouge
+# (선택) 한국어 검색 최적화를 위해 kramdown 옵션
+kramdown:
+  input: GFM
+
+# (선택) RSS/SEO 기본 값
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+      comments: false
