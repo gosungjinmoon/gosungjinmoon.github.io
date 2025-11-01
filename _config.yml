@@ -1,10 +1,21 @@
 title: GOFUNWITH
 tagline: Explore. Create. Share.
+description: GOFUNWITH – Explore. Create. Share.
 lang: ko
 timezone: Asia/Seoul
 future: true
+baseurl: ""
+url: "https://blog.gofunwith.com"
 
-remote_theme: cotes2020/jekyll-theme-chirpy@v5.3.2
+theme: jekyll-theme-chirpy
+
+paginate: 10
+paginate_path: /page:num/
+mode: auto
+
+avatar: /assets/img/logo-light.svg
+favicon: /assets/img/favicon.svg
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag

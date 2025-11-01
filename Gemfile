@@ -1,4 +1,12 @@
 source "https://rubygems.org"
 
-gem "github-pages", group: :jekyll_plugins
-gem "jekyll-theme-chirpy"
+gem "jekyll", "~> 4.3"
+gem "jekyll-theme-chirpy", "~> 5.3"
+gem "webrick", "~> 1.8"
+
+group :jekyll_plugins do
+  gem "jekyll-feed"
+  gem "jekyll-seo-tag"
+  gem "jekyll-sitemap"
+  gem "jekyll-paginate"
+end

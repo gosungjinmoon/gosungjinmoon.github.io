@@ -1,0 +1,6 @@
+---
+layout: page
+title: GOFUNWITH Admin Pro
+permalink: /admin/
+---
+<p>🚧 Admin Console placeholder. (n8n 연동 전용)</p>

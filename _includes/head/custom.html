@@ -1,19 +1,18 @@
-
 <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | relative_url }}">
 <style>
-#avatar img{width:160px!important;height:auto!important;border-radius:0!important;box-shadow:none!important}
+#avatar img { width:160px!important; height:auto!important; border-radius:0!important; box-shadow:none!important; }
 </style>
 <script>
 (function(){
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+  const mql = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
   function swap(){
-    const img=document.querySelector('#avatar img'); if(!img) return;
-    const isDark = document.documentElement.dataset.mode==='dark' || 
-      (document.documentElement.dataset.mode!=='light' && prefersDark && prefersDark.matches);
+    const img = document.querySelector('#avatar img');
+    if(!img) return;
+    const isDark = document.documentElement.dataset.mode==='dark' ||
+      (document.documentElement.dataset.mode!=='light' && mql && mql.matches);
     img.src = isDark ? "{{ '/assets/img/logo-dark.svg' | relative_url }}" : "{{ '/assets/img/logo-light.svg' | relative_url }}";
   }
   document.addEventListener('DOMContentLoaded', swap);
-  document.addEventListener('click', e=>{ if(e.target && e.target.id==='mode-toggle'){ setTimeout(swap,50);} });
-  if(prefersDark) prefersDark.addEventListener('change', swap);
+  if(mql && mql.addEventListener){ mql.addEventListener('change', swap); }
 })();
 </script>
