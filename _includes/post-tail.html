@@ -1,0 +1,30 @@
+
+<div id="gfw-like" class="gfw-like" data-active="0" role="button" aria-label="Like">
+  <span>❤️ Like</span> <span id="gfw-like-count">0</span>
+</div>
+
+<script>
+(function() {
+  if(!document.currentScript) return;
+  const KEY = 'gfw_like_' + location.pathname;
+  const btn = document.getElementById('gfw-like');
+  const countEl = document.getElementById('gfw-like-count');
+
+  function read() {
+    try { return parseInt(localStorage.getItem(KEY) || '0', 10); } catch(e){ return 0; }
+  }
+  function write(v) {
+    try { localStorage.setItem(KEY, String(v)); } catch(e){}
+  }
+  function render(v) {
+    countEl.textContent = v;
+    btn.dataset.active = v > 0 ? '1' : '0';
+  }
+
+  let v = read(); render(v);
+  btn.addEventListener('click', function(){
+    v = v ? 0 : 1;
+    write(v); render(v);
+  });
+})();
+</script>

@@ -1,8 +1,8 @@
+
 ---
 layout: post
-title: "GOFUNWITH Chirpy Pro 샘플 (한국어)"
-lang: ko
+title: Chirpy Stable Sample (ko)
 tags: [chirpy, gofunwith]
+lang: ko
 ---
-
-이것은 GOFUNWITH Chirpy Pro 버전의 정상 렌더링 테스트 포스트입니다.
+샘플 포스트
