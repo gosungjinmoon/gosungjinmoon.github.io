@@ -1,40 +1,50 @@
-name: Build and Deploy Chirpy (No GitHub Pages gem)
+name: Build and Deploy Chirpy
 
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Ruby (No GitHub Pages)
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2
           bundler-cache: true
 
-      - name: Clean old dependencies
-        run: |
-          rm -f Gemfile.lock
-          bundle config unset path || true
-          gem uninstall github-pages -a -x -I || true
-
       - name: Install dependencies
         run: |
+          rm -f Gemfile.lock
+          gem uninstall github-pages -a -x -I || true
           bundle config set path 'vendor/bundle'
           bundle install --jobs 4 --retry 3
 
       - name: Build Jekyll site
         run: bundle exec jekyll build --trace
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
-          publish_branch: gh-pages
-          cname: blog.gofunwith.com
+          path: ./_site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build-deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
