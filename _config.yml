@@ -1,26 +1,12 @@
-
 title: GOFUNWITH
 tagline: Explore. Create. Share.
-theme: jekyll-theme-chirpy
 lang: ko
 timezone: Asia/Seoul
 future: true
-baseurl: ""
 
-# Brand
-avatar: /assets/img/logo-light.svg
-favicon: /assets/img/favicon.svg
-
-# Appearance
-mode: auto
-
+remote_theme: cotes2020/jekyll-theme-chirpy@v5.3.2
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-paginate
-
-paginate: 10
-paginate_path: /page:num/
-
-# Contacts (sidebar bottom icons)
