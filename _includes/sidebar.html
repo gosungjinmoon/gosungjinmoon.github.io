@@ -1,0 +1,11 @@
+<div class="site-logo">
+  <img id="site-logo-light" src="{{ site.logo_light | relative_url }}" alt="GOFUNWITH Logo" class="logo-light">
+  <img id="site-logo-dark" src="{{ site.logo_dark | relative_url }}" alt="GOFUNWITH Logo" class="logo-dark">
+</div>
+<style>
+  .logo-dark { display: none; }
+  @media (prefers-color-scheme: dark) {
+    .logo-light { display: none; }
+    .logo-dark { display: block; }
+  }
+</style>

@@ -1,11 +1,9 @@
 title: GOFUNWITH
+tagline: Explore. Create. Share.
+logo_light: /assets/img/logo-light.svg
+logo_dark: /assets/img/logo-dark.svg
+favicon: /assets/img/favicon.svg
 theme: jekyll-theme-chirpy
 lang: ko
 timezone: Asia/Seoul
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-paginate
-
 future: true
