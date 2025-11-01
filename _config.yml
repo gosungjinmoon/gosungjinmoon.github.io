@@ -1,59 +1,40 @@
-# —————————————————————————————————
-# Site basics
-title: GOFUNWITH
-tagline: Explore. Create. Share.
-description: GOFUNWITH – Explore. Create. Share.
-lang: ko
-timezone: Asia/Seoul
 
-url: https://blog.gofunwith.com
-baseurl: ""   # 커스텀 도메인이면 빈 문자열 유지
+title: "GOFUNWITH – Explore. Create. Share."
+tagline: "Explore. Create. Share."
+description: "GOFUNWITH tech/DIY/automation blog."
+url: "https://blog.gofunwith.com"
+baseurl: ""
+lang: "ko"
 
-# 로고는 SEO 플러그인이 문자열(URL)만 허용합니다.
-logo: /assets/img/logo-light.svg
-
-# —————————————————————————————————
-# Theme
 theme: jekyll-theme-chirpy
 
-# —————————————————————————————————
-# Pagination (Chirpy 홈 리스트가 의존)
 paginate: 10
-paginate_path: "page:num"
+paginate_path: "/page:num"
 
-# —————————————————————————————————
-# Plugins
+timezone: Asia/Seoul
+
 plugins:
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-feed
-  - jekyll-seo-tag
   - jekyll-include-cache
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-paginate
 
-# —————————————————————————————————
-# Build
-markdown: kramdown
-highlighter: rouge
+logo: "/assets/img/logo-light.svg"
+logo_dark: "/assets/img/logo-dark.svg"
+favicon: "/assets/img/favicon.svg"
+
+author:
+  name: "GOFUNWITH"
+  avatar: "/assets/img/logo-light.svg"
 
 exclude:
-  - Gemfile
-  - Gemfile.lock
+  - README.md
   - node_modules
   - vendor
-  - README.md
   - .github
-  - .gitignore
-  - cloudflare_worker.js
 
-# (선택) 한국어 검색 최적화를 위해 kramdown 옵션
-kramdown:
-  input: GFM
-
-# (선택) RSS/SEO 기본 값
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: post
-      comments: false
+collections:
+  tabs:
+    output: true
+    permalink: /:collection/:path/

@@ -1,1 +1,7 @@
-# GOFUNWITH Chirpy Fix2 — sidebar/logo/like/search restored
+# GOFUNWITH Chirpy Fixed
+Run locally:
+
+```
+bundle install
+bundle exec jekyll serve
+```
