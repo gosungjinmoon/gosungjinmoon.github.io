@@ -1,50 +1,72 @@
-title: GOFUNWITH
-tagline: Explore. Create. Share.
-url: https://blog.gofunwith.com
-baseurl: ""
+title: "GOFUNWITH"
+tagline: "Explore. Create. Share."
+url: "https://blog.gofunwith.com"
+baseurl: ""   # 루트 도메인
 
-lang: ko
+# 로고/파비콘
+logo: /assets/img/logo-dark.svg
+favicon: /assets/img/favicons/favicon.ico
+
 timezone: Asia/Seoul
+lang: ko
 
-# Use remote_theme to always pull the latest stable Chirpy
-remote_theme: cotes2020/jekyll-theme-chirpy@v6.7.0
+permalink: /:categories/:title/
+paginate: 5
+paginate_path: /page:num/
+
+# 로컬 테마(Chirpy 자산을 리포에 직접 포함)
+theme: null
 
 plugins:
-  - jekyll-remote-theme
   - jekyll-include-cache
   - jekyll-paginate
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
 
-paginate: 10
-paginate_path: /page:num/
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# 검색/사이드바/모드
+search:
+  enabled: true
+  hint: "…"
+ui:
+  mode_toggle: true   # 다크/라이트 전환 버튼
+  sidebar:
+    avatar: /assets/img/logo-dark.svg
 
 # SEO
 author:
   name: "GOFUNWITH"
-  avatar: /assets/img/logo.png
+social:
+  name: GOFUNWITH
   links:
-    - label: Website
-      url: https://blog.gofunwith.com
+    - https://blog.gofunwith.com
 
-# Header/brand
-logo: /assets/img/logo.png
-favicon:
-  small: /assets/img/favicon-16x16.png
-  medium: /assets/img/favicon-32x32.png
-  apple_touch_icon: /assets/img/apple-touch-icon.png
+# 빌드 제외
+exclude:
+  - vendor
+  - node_modules
+  - Gemfile.lock
+  - README.md
+  - .github
 
-# Analytics/Ads placeholders (safe)
-google_analytics:
-  id: ""
+# 캐시
+include:
+  - _pages
+  - _tabs
 
-adsense:
-  client_id: ""
-
-# Chirpy i18n basic
-languages:
-  - label: 한국어
-    code: ko
-  - label: English
-    code: en
+# 태그/카테고리 페이지 경로(404 방지)
+collections:
+  pages:
+    output: true
+defaults:
+  - scope: { path: "" }
+    values:
+      layout: post
+  - scope: { path: "" , type: "pages" }
+    values:
+      layout: page
