@@ -1,4 +1,4 @@
-name: Build and Deploy (Chirpy Remote Theme)
+name: Build and Deploy Jekyll (Local Chirpy)
 
 on:
   push:
@@ -12,13 +12,14 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -27,7 +28,9 @@ jobs:
           bundler-cache: true
 
       - name: Install dependencies
-        run: bundle install --path vendor/bundle
+        run: |
+          bundle config set path 'vendor/bundle'
+          bundle install --jobs 4 --retry 3
 
       - name: Build site
         run: bundle exec jekyll build --trace
