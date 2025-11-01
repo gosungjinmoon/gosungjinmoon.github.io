@@ -1,5 +1,5 @@
 ---
 layout: home
-title: Home
-# optional: description: GOFUNWITH – Explore. Create. Share.
+title: GOFUNWITH Home
+description: Explore. Create. Share.
 ---
