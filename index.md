@@ -1,17 +1,16 @@
-
 ---
-layout: page
+layout: home
 title: Home
 permalink: /
 ---
 
 {% for post in paginator.posts %}
-<article class="post-preview">
-  <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-  <p class="post-meta">{{ post.date | date: "%Y-%m-%d" }}{% if post.tags %} • {{ post.tags | join: ', ' }}{% endif %}</p>
-  <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
-  <hr>
-</article>
+  <article class="post-preview">
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <p class="post-meta">{{ post.date | date: "%Y-%m-%d" }}{% if post.tags %} • {{ post.tags | join: ', ' }}{% endif %}</p>
+    <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
+    <hr>
+  </article>
 {% endfor %}
 
 {% if paginator.total_pages > 1 %}
