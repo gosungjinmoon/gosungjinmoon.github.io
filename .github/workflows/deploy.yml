@@ -1,3 +1,44 @@
+name: Build and Deploy Chirpy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: |
+          rm -f Gemfile.lock
+          gem uninstall github-pages -a -x -I || true
+          bundle config set path 'vendor/bundle'
+          bundle install --jobs 4 --retry 3
+
+      - name: Build Jekyll site
+        run: bundle exec jekyll build --trace
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -8,7 +49,7 @@
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build-deploy
+    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
