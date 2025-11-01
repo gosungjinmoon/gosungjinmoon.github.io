@@ -1,4 +1,4 @@
-name: Build & Deploy (GOFUNWITH Chirpy)
+name: Build & Deploy (Chirpy)
 
 on:
   push:
@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: |
           bundle config set path 'vendor/bundle'
-          bundle install --jobs 4
+          bundle install
 
       - name: Build Jekyll site
         run: bundle exec jekyll build --trace
