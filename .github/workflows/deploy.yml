@@ -1,4 +1,4 @@
-name: Build & Deploy (Chirpy)
+name: Build & Deploy (GOFUNWITH Chirpy)
 
 on:
   push:
@@ -27,15 +27,15 @@ jobs:
           ruby-version: '3.1'
           bundler-cache: true
 
-      - name: Install deps
+      - name: Install dependencies
         run: |
           bundle config set path 'vendor/bundle'
           bundle install --jobs 4
 
-      - name: Build site
+      - name: Build Jekyll site
         run: bundle exec jekyll build --trace
 
-      - name: Upload artifact
+      - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site
