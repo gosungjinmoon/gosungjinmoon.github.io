@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://blog.gofunwith.com/2025/10/31/gofunwith-chirpy-sample-ko.html</loc>
+<lastmod>2025-10-31T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>https://blog.gofunwith.com/2025/10/31/sample-ko.html</loc>
 <lastmod>2025-10-31T10:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>https://blog.gofunwith.com/tabs/about/</loc>
+<lastmod>2025-11-01T13:21:32+09:00</lastmod>
+</url>
+<url>
+<loc>https://blog.gofunwith.com/tabs/archives/</loc>
+<lastmod>2025-11-01T13:21:32+09:00</lastmod>
+</url>
+<url>
+<loc>https://blog.gofunwith.com/tabs/tags/</loc>
+<lastmod>2025-11-01T13:21:32+09:00</lastmod>
 </url>
 <url>
 <loc>https://blog.gofunwith.com/about/</loc>
@@ -11,15 +27,13 @@
 <loc>https://blog.gofunwith.com/categories/</loc>
 </url>
 <url>
-<loc>https://blog.gofunwith.com/admin/</loc>
-</url>
-<url>
 <loc>https://blog.gofunwith.com/</loc>
 </url>
 <url>
 <loc>https://blog.gofunwith.com/admin/</loc>
 </url>
 <url>
-<loc>https://blog.gofunwith.com/tags/</loc>
+<loc>https://blog.gofunwith.com/admin/</loc>
+<lastmod>2025-11-01T13:21:14+09:00</lastmod>
 </url>
 </urlset>
