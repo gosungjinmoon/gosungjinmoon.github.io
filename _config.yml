@@ -1,27 +1,63 @@
 title: GOFUNWITH
 tagline: Explore. Create. Share.
+description: GOFUNWITH – Explore. Create. Share.
 url: https://blog.gofunwith.com
-baseurl: ""          # CNAME 사용시 빈 값
+baseurl: "" # CNAME 도메인 사용 중이므로 공백
 lang: ko
 timezone: Asia/Seoul
 
 theme: jekyll-theme-chirpy
-
 paginate: 10
+paginate_path: "/page:num"
+
 kramdown:
   input: GFM
 
+# ✅ logo는 문자열 하나만 허용됨
+logo: /assets/img/logo-light.svg
+favicon: /assets/img/favicon.svg
+
+# ✅ SEO / Feed / Sitemap / Pagination / Archives 플러그인
 plugins:
   - jekyll-archives
+  - jekyll-paginate
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
 
-# Giscus는 값이 없으면 잠시 비활성화
+# ✅ Jekyll 기본 제외 목록
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .github
+  - .gitignore
+  - README.md
+  - LICENSE
+  - .vscode
+  - package.json
+  - package-lock.json
+
+# ✅ Comments & Ads (비활성 상태)
 comments:
   provider: false
-
-# Ads도 ID 없으면 끔
 ads:
   google: false
 
-# 로고/파비콘(아래 5번에 파일 추가)
-logo: /assets/img/logo-light.svg
-favicon: /assets/img/favicon.svg
+# ✅ 다국어 지원 샘플
+lang_switcher:
+  en: English
+  ko: 한국어
+
+# ✅ Social
+social:
+  name: Eric Moon
+  links:
+    - https://github.com/gosungjinmoon
+    - https://gofunwith.com
+
+# ✅ Build 설정
+markdown: kramdown
+highlighter: rouge
+future: true
