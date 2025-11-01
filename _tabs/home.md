@@ -1,4 +1,5 @@
 ---
 layout: home
-title: Home
+icon: home
+order: 1
 ---

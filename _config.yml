@@ -1,40 +1,50 @@
-
-title: "GOFUNWITH – Explore. Create. Share."
-tagline: "Explore. Create. Share."
-description: "GOFUNWITH tech/DIY/automation blog."
-url: "https://blog.gofunwith.com"
+title: GOFUNWITH
+tagline: Explore. Create. Share.
+url: https://blog.gofunwith.com
 baseurl: ""
-lang: "ko"
 
-theme: jekyll-theme-chirpy
-
-paginate: 10
-paginate_path: "/page:num"
-
+lang: ko
 timezone: Asia/Seoul
 
+# Use remote_theme to always pull the latest stable Chirpy
+remote_theme: cotes2020/jekyll-theme-chirpy@v6.7.0
+
 plugins:
+  - jekyll-remote-theme
   - jekyll-include-cache
+  - jekyll-paginate
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
-  - jekyll-paginate
 
-logo: "/assets/img/logo-light.svg"
-logo_dark: "/assets/img/logo-dark.svg"
-favicon: "/assets/img/favicon.svg"
+paginate: 10
+paginate_path: /page:num/
 
+# SEO
 author:
   name: "GOFUNWITH"
-  avatar: "/assets/img/logo-light.svg"
+  avatar: /assets/img/logo.png
+  links:
+    - label: Website
+      url: https://blog.gofunwith.com
 
-exclude:
-  - README.md
-  - node_modules
-  - vendor
-  - .github
+# Header/brand
+logo: /assets/img/logo.png
+favicon:
+  small: /assets/img/favicon-16x16.png
+  medium: /assets/img/favicon-32x32.png
+  apple_touch_icon: /assets/img/apple-touch-icon.png
 
-collections:
-  tabs:
-    output: true
-    permalink: /:collection/:path/
+# Analytics/Ads placeholders (safe)
+google_analytics:
+  id: ""
+
+adsense:
+  client_id: ""
+
+# Chirpy i18n basic
+languages:
+  - label: 한국어
+    code: ko
+  - label: English
+    code: en

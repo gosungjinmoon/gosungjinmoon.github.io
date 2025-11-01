@@ -1,9 +1,8 @@
-
 ---
 layout: page
 title: About
-icon: fas fa-user
-order: 1
+icon: info
+order: 2
 ---
 
-GOFUNWITH — Explore. Create. Share.
+GOFUNWITH – Explore. Create. Share.
