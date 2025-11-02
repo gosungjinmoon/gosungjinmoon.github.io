@@ -1,4 +1,4 @@
-name: Build and Deploy Jekyll (Local Chirpy)
+name: Build and Deploy GOFUNWITH (Chirpy)
 
 on:
   push:
@@ -12,7 +12,10 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
+
+env:
+  JEKYLL_ENV: production
 
 jobs:
   build:
@@ -29,11 +32,13 @@ jobs:
 
       - name: Install dependencies
         run: |
+          gem install bundler:2.3.27
           bundle config set path 'vendor/bundle'
           bundle install --jobs 4 --retry 3
 
-      - name: Build site
-        run: bundle exec jekyll build --trace
+      - name: Build Jekyll
+        run: |
+          bundle exec jekyll build --trace
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -41,11 +46,11 @@ jobs:
           path: ./_site
 
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
