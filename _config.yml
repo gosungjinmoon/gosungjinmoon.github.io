@@ -1,72 +1,31 @@
-title: "GOFUNWITH"
-tagline: "Explore. Create. Share."
+title: GOFUNWITH – Explore. Create. Share.
+tagline: Tech · DIY · Automation
+description: GOFUNWITH blog powered by Jekyll + Chirpy.
 url: "https://blog.gofunwith.com"
-baseurl: ""   # 루트 도메인
+baseurl: ""
 
-# 로고/파비콘
-logo: /assets/img/logo-dark.svg
-favicon: /assets/img/favicons/favicon.ico
+remote_theme: "cotes2020/jekyll-theme-chirpy@v6.6.3"
 
 timezone: Asia/Seoul
 lang: ko
 
-permalink: /:categories/:title/
-paginate: 5
-paginate_path: /page:num/
-
-# 로컬 테마(Chirpy 자산을 리포에 직접 포함)
-theme: null
-
 plugins:
-  - jekyll-include-cache
-  - jekyll-paginate
+  - jekyll-remote-theme
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-include-cache
+  - jekyll-paginate
+
+paginate: 10
+paginate_path: "page:num"
+
+author:
+  name: Eric Sungjin Moon
+  url: https://blog.gofunwith.com
+  avatar: /assets/img/favicons/android-chrome-192x192.png
+  bio: Deloitte Korea · Sports Tech & Automation
 
 markdown: kramdown
-kramdown:
-  input: GFM
-  hard_wrap: false
-
-# 검색/사이드바/모드
-search:
-  enabled: true
-  hint: "…"
-ui:
-  mode_toggle: true   # 다크/라이트 전환 버튼
-  sidebar:
-    avatar: /assets/img/logo-dark.svg
-
-# SEO
-author:
-  name: "GOFUNWITH"
-social:
-  name: GOFUNWITH
-  links:
-    - https://blog.gofunwith.com
-
-# 빌드 제외
-exclude:
-  - vendor
-  - node_modules
-  - Gemfile.lock
-  - README.md
-  - .github
-
-# 캐시
-include:
-  - _pages
-  - _tabs
-
-# 태그/카테고리 페이지 경로(404 방지)
-collections:
-  pages:
-    output: true
-defaults:
-  - scope: { path: "" }
-    values:
-      layout: post
-  - scope: { path: "" , type: "pages" }
-    values:
-      layout: page
+permalink: /:categories/:title/
+theme: null

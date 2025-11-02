@@ -1,8 +1,10 @@
 ---
 layout: page
 title: About
-icon: info
-order: 2
+permalink: /about/
+icon: fas fa-info-circle
+order: 1
 ---
 
-GOFUNWITH – Explore. Create. Share.
+**GOFUNWITH** — Tech, DIY, Camping, and Automation experiments.  
+This site runs on **Jekyll + Chirpy** with GitHub Pages.

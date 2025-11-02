@@ -1,6 +1,7 @@
 ---
-layout: tags
+layout: page
 title: Tags
-icon: tags
-order: 4
+permalink: /tags/
+icon: fas fa-tags
+order: 3
 ---

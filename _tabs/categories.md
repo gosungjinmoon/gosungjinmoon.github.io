@@ -1,6 +1,7 @@
 ---
-layout: categories
+layout: page
 title: Categories
-icon: categories
-order: 3
+permalink: /categories/
+icon: fas fa-folder-open
+order: 4
 ---
