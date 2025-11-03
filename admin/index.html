@@ -7,17 +7,27 @@
 </head>
 <body>
     <div id="admin-container">
-        <header><h1>GOFUNWITH Admin</h1></header>
+        <header>
+            <img src="/assets/img/logo-light.svg" alt="GOFUNWITH Logo" height="40">
+            <h1>Admin Console</h1>
+        </header>
         <main>
-            <div id="login-section">
-                <button id="login-btn">GitHub으로 로그인</button>
-            </div>
-            <div id="dashboard-section" class="hidden">
+            <div id="dashboard-section">
                 <h2>새 포스트 작성</h2>
                 <form id="new-post-form">
                     <input type="text" id="post-title" placeholder="포스트 제목" required>
-                    <textarea id="post-content" rows="15" placeholder="마크다운으로 내용을 작성하세요..."></textarea>
-                    <button type="submit">포스트 생성 & 번역</button>
+                    <select id="post-lang">
+                        <option value="ko" selected>한국어 (Korean)</option>
+                        <option value="en">영어 (English)</option>
+                    </select>
+                    <textarea id="post-content" rows="15" placeholder="마크다운으로 내용을 작성하세요..." required></textarea>
+                    <div class="form-actions">
+                        <label>
+                            <input type="checkbox" id="auto-translate" checked>
+                            영어로 자동 번역하기 (Gemini)
+                        </label>
+                        <button type="submit" id="submit-btn">포스트 생성 및 배포</button>
+                    </div>
                 </form>
             </div>
         </main>
