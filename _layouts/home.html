@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+{% assign posts_in_lang = site.posts | where: "lang", page.lang | default: site.posts | where: "lang", "ko" %}
+
+<div id="post-list">
+  {% for post in posts_in_lang %}
+    <div class="post-preview">
+      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      <div class="post-meta text-muted">
+        <i class="far fa-calendar-alt"></i>
+        <time>{{ post.date | date: "%b %d, %Y" }}</time>
+      </div>
+      <p>{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+    </div>
+  {% endfor %}
+</div>
+
+<!-- Pagination can be added here if needed -->
