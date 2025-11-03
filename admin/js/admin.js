@@ -1,4 +1,4 @@
-/* /admin/js/admin.js v202511041600 */
+/* /admin/js/admin.js v202511041700 */
 document.addEventListener('DOMContentLoaded', () => {
     // 본인의 n8n 웹훅 주소로 반드시 변경해야 합니다.
     const N8N_WEBHOOK_URL = "https://n8n.gofunwith.com/webhook/new-post"; 
@@ -38,8 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const errorText = await response.text();
                 throw new Error(`HTTP error! Status: ${response.status}, Body: ${errorText}`);
             }
-
-            // 응답 본문이 비어있는지 확인 후 JSON 파싱 시도
+            
             const responseText = await response.text();
             if (responseText) {
                 const result = JSON.parse(responseText);
