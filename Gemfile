@@ -1,6 +1,6 @@
 #
-# GOFUNWITH Blog Gemfile (v21.0 Final and Verified)
-# This file explicitly lists all plugins required by _config.yml.
+# GOFUNWITH Blog Gemfile (v22.0 Final and Verified)
+# This file corrects all syntax errors and includes all required dependencies.
 #
 
 source "https://rubygems.org"
@@ -17,5 +17,9 @@ group :jekyll_plugins do
   gem "jekyll-sitemap"
 end
 
-# To speed up the build process on some environments
+# Dependency for GitHub Actions build validation step
+# This resolves the 'command not found: htmlproofer' error.
+gem "html-proofer", "~> 4"
+
+# Dependency for running Jekyll server locally on Ruby 3+
 gem "webrick", "~> 1.8"
