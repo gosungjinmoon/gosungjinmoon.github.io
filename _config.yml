@@ -148,20 +148,17 @@ paginate_path: /page/:num/
 baseurl: ""
 
 # --- GOFUNWITH MULTI-LINGUAL URL RULE ---
-  # KO posts will have URLs like /posts/post-name.ko/
-  - scope:
-      path: "_posts/ko"
-    values:
-      lang: "ko"
-      permalink: /posts/:slug.ko/
-      
-  # EN posts will have URLs like /en/posts/post-name.en/
-  - scope:
-      path: "_posts/en"
-    values:
-      lang: "en"
-      permalink: /en/posts/:slug.en/
-      
+- scope:
+    path: "_posts/ko"
+  values:
+    lang: "ko"
+    permalink: /posts/:slug.ko/
+
+- scope:
+    path: "_posts/en"
+  values:
+    lang: "en"
+    permalink: /en/posts/:slug.en/
 # ------------ The following options are not recommended to be modified ------------------
 
 kramdown:
