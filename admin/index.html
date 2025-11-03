@@ -12,7 +12,7 @@
             <h1>Admin Console</h1>
         </header>
         <main>
-            <div id="dashboard-section">
+            <section id="dashboard-section">
                 <h2>새 포스트 작성</h2>
                 <form id="new-post-form">
                     <input type="text" id="post-title" placeholder="포스트 제목" required>
@@ -24,25 +24,13 @@
                     <div class="form-actions">
                         <label>
                             <input type="checkbox" id="auto-translate" checked>
-                            영어로 자동 번역하기 (Gemini)
+                            영어/한국어로 자동 번역하기 (Gemini)
                         </label>
                         <button type="submit" id="submit-btn">포스트 생성 및 배포</button>
                     </div>
                 </form>
-            </div>
+            </section>
         </main>
-      <!-- ... 포스트 작성 폼 아래에 추가 ... -->
-        <section id="theme-manager">
-            <h2>테마 선택</h2>
-            <p>테마를 클릭하여 미리보고, '적용하기'를 눌러 Gemfile과 _config.yml을 업데이트합니다.</p>
-            <div id="theme-gallery">
-                <!-- 테마 목록이 여기에 동적으로 추가됩니다 -->
-            </div>
-            <div id="theme-preview-wrapper">
-                <h3>미리보기</h3>
-                <iframe id="theme-preview-iframe" src="about:blank"></iframe>
-            </div>
-        </section>
     </div>
     <script src="js/admin.js"></script>
 </body>
