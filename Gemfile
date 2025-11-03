@@ -1,14 +1,21 @@
-# frozen_string_literal: true
+#
+# GOFUNWITH Blog Gemfile (v21.0 Final and Verified)
+# This file explicitly lists all plugins required by _config.yml.
+#
 
 source "https://rubygems.org"
 
-gem "jekyll-theme-chirpy", "~> 7.4", ">= 7.4.1"
+# Core Jekyll and Theme
+gem "jekyll", "~> 4.3.3"
+gem "jekyll-theme-chirpy", "~> 7.4.1"
 
-gem "html-proofer", "~> 5.0", group: :test
-
-platforms :mingw, :x64_mingw, :mswin, :jruby do
-  gem "tzinfo", ">= 1", "< 3"
-  gem "tzinfo-data"
+# Jekyll Plugins required by _config.yml
+group :jekyll_plugins do
+  gem "jekyll-feed"
+  gem "jekyll-paginate"
+  gem "jekyll-seo-tag"
+  gem "jekyll-sitemap"
 end
 
-gem "wdm", "~> 0.2.0", :platforms => [:mingw, :x64_mingw, :mswin]
+# To speed up the build process on some environments
+gem "webrick", "~> 1.8"```
