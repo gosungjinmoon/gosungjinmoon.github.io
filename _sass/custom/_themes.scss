@@ -1,0 +1,22 @@
+// GOFUNWITH Custom Themes
+
+// Default Theme Override
+[data-theme="light"] {
+  --main-bg: #FAFAFA;
+  --main-fg: #1E2A3A;
+  --link-color: #FF7B54;
+}
+
+// Sand Theme
+body.theme-sand {
+  --main-bg: #FDFBF5;
+  --main-fg: #3D403A;
+  --link-color: #C08261;
+}
+
+// Forest Theme
+body.theme-forest {
+  --main-bg: #F0F2EB;
+  --main-fg: #1A3A3A;
+  --link-color: #D4B996;
+}
