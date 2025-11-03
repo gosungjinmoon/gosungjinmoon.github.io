@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-  const N8N_THEME_WEBHOOK = "https://n8n.gofunwith.com/webhook/update-theme"; // 새 웹훅 주소
+    const N8N_THEME_WEBHOOK = "https://n8n.gofunwith.com/webhook/update-theme"; // 새 웹훅 주소
     const themeGallery = document.getElementById('theme-gallery');
     const themePreview = document.getElementById('theme-preview-iframe');
 
@@ -90,5 +90,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     loadThemes();
-});
 });
