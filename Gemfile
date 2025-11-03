@@ -19,7 +19,7 @@ end
 
 # Dependency for GitHub Actions build validation step
 # This resolves the 'command not found: htmlproofer' error.
-gem "html-proofer", "~> 4"
+gem "html-proofer", "~> 5.0", group: :test
 
 # Dependency for running Jekyll server locally on Ruby 3+
 gem "webrick", "~> 1.8"
