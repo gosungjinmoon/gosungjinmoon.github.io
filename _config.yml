@@ -147,18 +147,6 @@ paginate_path: /page/:num/
 # The base URL of your site
 baseurl: ""
 
-# --- GOFUNWITH MULTI-LINGUAL URL RULE ---
-- scope:
-    path: "_posts/ko"
-  values:
-    lang: "ko"
-    permalink: /posts/:slug.ko/
-
-- scope:
-    path: "_posts/en"
-  values:
-    lang: "en"
-    permalink: /en/posts/:slug.en/
 # ------------ The following options are not recommended to be modified ------------------
 
 kramdown:
