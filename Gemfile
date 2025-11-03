@@ -18,4 +18,4 @@ group :jekyll_plugins do
 end
 
 # To speed up the build process on some environments
-gem "webrick", "~> 1.8"```
+gem "webrick", "~> 1.8"
