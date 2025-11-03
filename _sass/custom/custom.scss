@@ -1,4 +1,4 @@
-/* _sass/custom/custom.scss v202511041700 */
+/* _sass/custom/custom.scss v202511042200 */
 
 // GOFUNWITH Design Guide Implementation (The Right Way)
 
@@ -17,16 +17,16 @@ $font-family-heading: "Inter", "Pretendard", sans-serif !default;
   --link-color: #FF7B54;
   --card-bg: #FFFFFF;
   --border-color: #E5E7EB;
-  --sidebar-bg: #f8f9fa; // 사이드바 배경색
+  --sidebar-bg: #f8f9fa;
 }
 
 [data-theme="dark"] {
   --main-bg: #1A3258;
   --main-fg: #F0E5D4;
-  --link-color: #FFC53D;
+  --link-color: #FFC5D3;
   --card-bg: #1E2A3A;
   --border-color: #3e4c5a;
-  --sidebar-bg: #162841; // 다크모드 사이드바 배경색
+  --sidebar-bg: #162841;
 }
 
 // 3. Logo Customization
