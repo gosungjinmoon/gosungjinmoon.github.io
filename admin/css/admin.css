@@ -1,0 +1,5 @@
+/* Basic styling for admin page */
+body { font-family: sans-serif; background: #f4f4f4; }
+#admin-container { max-width: 800px; margin: 40px auto; padding: 20px; background: #fff; border-radius: 8px; }
+.hidden { display: none; }
+/* Add more styles for form, buttons etc. */
