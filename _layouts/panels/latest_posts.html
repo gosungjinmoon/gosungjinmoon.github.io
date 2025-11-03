@@ -1,9 +1,0 @@
-<div class="post-content">
-  <h3 class="panel-title">{{ site.data.locales[site.lang].panel.latest_posts | default: "Recently Updated" }}</h3>
-  <ul id="latest-posts-ul" class="list-unstyled">
-    {% assign posts_in_lang = site.posts | where: "lang", page.lang | default: site.posts | where: "lang", "ko" %}
-    {% for post in posts_in_lang limit: 5 %}
-      <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
-</div>
