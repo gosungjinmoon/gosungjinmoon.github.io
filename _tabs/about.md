@@ -5,6 +5,12 @@ icon: fas fa-info-circle
 order: 4
 ---
 
+# GOFUNWITH Blog
+    
+Explore. Create. Share.
+
+기술, DIY, 삶에 대한 즐거운 탐험과 창조의 기록들.
+
 {% assign posts_in_lang = site.posts | where: "lang", site.lang %}
 
 <div id="post-list">
