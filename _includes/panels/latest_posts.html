@@ -1,0 +1,16 @@
+<div id="panel-latest-posts" class="post-content">
+  <h3 class="panel-title">{{ site.data.locales[site.lang].panel.latest_posts }}</h3>
+  <div id="latest-posts-container">
+    {% assign posts_in_lang = site.posts | where: "lang", site.lang %}
+    {% for post in posts_in_lang limit: 5 %}
+    <div class="post-preview">
+      <a href="{{ post.url | relative_url }}">
+        <h4 class="post-title">{{ post.title }}</h4>
+        <div class="post-meta text-muted">
+          <span>{{ post.date | date: "%b %d, %Y" }}</span>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
