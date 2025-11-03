@@ -3,7 +3,7 @@ layout: home
 title: Home
 ---
 
-{% assign posts_in_lang = site.posts | where: "lang", site.lang %}
+{% assign posts_in_lang = site.posts | where: "lang", page.lang | default: site.posts | where: "lang", "ko" %}
 
 <div id="post-list">
   {% for post in posts_in_lang %}
@@ -11,12 +11,18 @@ title: Home
       <h2>
         <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
       </h2>
-      <div class="post-meta">
+      <div class="post-meta text-muted">
         <i class="far fa-calendar-alt"></i>
         <time>{{ post.date | date: "%b %d, %Y" }}</time>
         {% if post.categories.size > 0 %}
+          <span class="mx-2">·</span>
           <i class="far fa-folder-open"></i>
-          <span>{{ post.categories | join: ', ' }}</span>
+          <span>
+            {% for category in post.categories %}
+              <a href="{{ '/categories/' | append: category | downcase | relative_url }}">{{ category }}</a>
+              {% unless forloop.last %}, {% endunless %}
+            {% endfor %}
+          </span>
         {% endif %}
       </div>
       <p>{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
