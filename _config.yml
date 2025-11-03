@@ -1,4 +1,4 @@
-# GOFUNWITH Blog Configuration (v29.0 Final and Verified)
+# GOFUNWITH Blog Configuration (v30.0 Final and Verified)
 
 title: GOFUNWITH
 tagline: Explore. Create. Share.
@@ -8,7 +8,6 @@ github:
   username: gosungjinmoon
 
 lang: ko
-langs: ["ko", "en"]
 timezone: Asia/Seoul
 
 avatar: /assets/img/logo-light.svg
@@ -20,19 +19,17 @@ social:
     - https://github.com/gosungjinmoon
 
 theme: jekyll-theme-chirpy
+
 plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-sitemap
 
-include:
-  - admin
-
 paginate: 10
 paginate_path: /page/:num/
 
-# Comments, Analytics - 이전 설정과 동일
+# Comments, Analytics - 이전 설정과 동일 (생략 가능)
 
 pwa:
   enabled: false
