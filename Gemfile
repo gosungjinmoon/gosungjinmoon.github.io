@@ -1,5 +1,5 @@
 #
-# GOFUNWITH Blog Gemfile (v22.0 Final and Verified)
+# GOFUNWITH Blog Gemfile (v23.0 Final and Verified)
 # This file corrects all syntax errors and includes all required dependencies.
 #
 
@@ -19,7 +19,7 @@ end
 
 # Dependency for GitHub Actions build validation step
 # This resolves the 'command not found: htmlproofer' error.
-gem "html-proofer", "~> 5.0", group: :test
+gem "html-proofer", "~> 4"
 
 # Dependency for running Jekyll server locally on Ruby 3+
 gem "webrick", "~> 1.8"
