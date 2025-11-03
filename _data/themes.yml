@@ -1,0 +1,17 @@
+- id: chirpy
+  name: Chirpy Default
+  author: Cotes Chung
+  preview_url: "https://chirpy.cotes.info/"
+  repo: "https://github.com/cotes2020/jekyll-theme-chirpy/"
+  
+- id: minimal-mistakes
+  name: Minimal Mistakes
+  author: Michael Rose
+  preview_url: "https://mmistakes.github.io/minimal-mistakes/"
+  repo: "https://github.com/mmistakes/minimal-mistakes"
+
+- id: beautiful-jekyll
+  name: Beautiful Jekyll
+  author: Dean Attali
+  preview_url: "https://beautiful-jekyll.com/"
+  repo: "https://github.com/daattali/beautiful-jekyll"
