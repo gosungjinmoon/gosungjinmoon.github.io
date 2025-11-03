@@ -1,6 +1,7 @@
-/* /admin/js/admin.js v202511040001 */
+/* /admin/js/admin.js v202511041600 */
 document.addEventListener('DOMContentLoaded', () => {
-    const N8N_WEBHOOK_URL = "https://n8n.gofunwith.com/webhook/new-post"; // 본인 n8n 웹훅 주소로 변경
+    // 본인의 n8n 웹훅 주소로 반드시 변경해야 합니다.
+    const N8N_WEBHOOK_URL = "https://n8n.gofunwith.com/webhook/new-post"; 
     
     const form = document.getElementById('new-post-form');
     const submitBtn = document.getElementById('submit-btn');
@@ -34,12 +35,20 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                const errorText = await response.text();
+                throw new Error(`HTTP error! Status: ${response.status}, Body: ${errorText}`);
             }
 
-            const result = await response.json();
-            alert(`성공: ${result.message || '포스트가 생성되었습니다.'}`);
-            form.reset();
+            // 응답 본문이 비어있는지 확인 후 JSON 파싱 시도
+            const responseText = await response.text();
+            if (responseText) {
+                const result = JSON.parse(responseText);
+                alert(`성공: ${result.message || '포스트가 생성되었습니다.'}`);
+                form.reset();
+            } else {
+                alert('성공: 요청이 n8n 서버로 전송되었습니다. (빈 응답 수신)');
+                form.reset();
+            }
 
         } catch (error) {
             console.error('Error submitting post:', error);
@@ -49,45 +58,4 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.textContent = '포스트 생성 및 배포';
         }
     });
-
-    const N8N_THEME_WEBHOOK = "https://n8n.gofunwith.com/webhook/update-theme"; // 새 웹훅 주소
-    const themeGallery = document.getElementById('theme-gallery');
-    const themePreview = document.getElementById('theme-preview-iframe');
-
-    async function loadThemes() {
-        try {
-            const response = await fetch('/_data/themes.yml');
-            const text = await response.text();
-            // YAML 파서는 추가해야 하지만, 간단하게 정규식으로 파싱
-            // 실제 프로덕션에서는 yml 파싱 라이브러리 사용 권장
-            // 여기서는 간단히 예시로만 구현
-            const themes = text.split('- id:').slice(1).map(t => {
-                const name = t.match(/name: (.*)/)[1];
-                const preview = t.match(/preview_url: "(.*)"/)[1];
-                return { name, preview };
-            });
-            
-            themeGallery.innerHTML = themes.map(theme => `
-                <div class="theme-card" data-preview-url="${theme.preview}">
-                    <h4>${theme.name}</h4>
-                    <button class="apply-theme-btn">적용하기</button>
-                </div>
-            `).join('');
-        } catch(e) { console.error("테마 로드 실패:", e); }
-    }
-
-    themeGallery.addEventListener('click', e => {
-        const card = e.target.closest('.theme-card');
-        if (!card) return;
-
-        const previewUrl = card.dataset.previewUrl;
-        themePreview.src = previewUrl;
-
-        if (e.target.classList.contains('apply-theme-btn')) {
-            // n8n 웹훅 호출 로직 (생략)
-            alert(`${card.querySelector('h4').textContent} 테마 적용을 요청합니다.`);
-        }
-    });
-
-    loadThemes();
 });
