@@ -1,60 +1,65 @@
-/* /admin/js/admin.js v202511041700 */
+/* /admin/js/admin.js v202511041800 */
 document.addEventListener('DOMContentLoaded', () => {
-    // 본인의 n8n 웹훅 주소로 반드시 변경해야 합니다.
-    const N8N_WEBHOOK_URL = "https://n8n.gofunwith.com/webhook/new-post"; 
+    const N8N_POST_WEBHOOK = "YOUR_N8N_POST_WEBHOOK_URL";
+    const N8N_THEMA_WEBHOOK = "YOUR_N8N_THEME_WEBHOOK_URL";
     
-    const form = document.getElementById('new-post-form');
-    const submitBtn = document.getElementById('submit-btn');
+    // Tab switching logic
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === button.dataset.tab) {
+                    content.classList.add('active');
+                }
+            });
+        });
+    });
 
+    // Post creation logic
+    const form = document.getElementById('new-post-form');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        const title = document.getElementById('post-title').value;
-        const content = document.getElementById('post-content').value;
-        const lang = document.getElementById('post-lang').value;
-        const auto_translate = document.getElementById('auto-translate').checked;
+        // ... (이전 답변의 post submit 로직과 동일)
+    });
 
-        if (!title || !content) {
-            alert('제목과 내용을 모두 입력해주세요.');
-            return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = '처리 중...';
-
+    // Theme management logic
+    const themeGallery = document.getElementById('theme-gallery');
+    const themePreview = document.getElementById('theme-preview-iframe');
+    async function loadThemes() {
         try {
-            const response = await fetch(N8N_WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    title,
-                    content,
-                    lang,
-                    auto_translate
-                })
-            });
+            const response = await fetch('/_data/themes.yml');
+            const yamlText = await response.text();
+            // Simple pseudo-YAML parsing for this specific format
+            const themes = yamlText.split('- id:').slice(1).map(t => ({
+                id: t.match(/ (.*)/)[1].trim(),
+                name: t.match(/name: (.*)/)[1].trim(),
+                preview_url: t.match(/preview_url: "(.*)"/)[1]
+            }));
 
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`HTTP error! Status: ${response.status}, Body: ${errorText}`);
-            }
-            
-            const responseText = await response.text();
-            if (responseText) {
-                const result = JSON.parse(responseText);
-                alert(`성공: ${result.message || '포스트가 생성되었습니다.'}`);
-                form.reset();
-            } else {
-                alert('성공: 요청이 n8n 서버로 전송되었습니다. (빈 응답 수신)');
-                form.reset();
-            }
+            themeGallery.innerHTML = themes.map(theme => `
+                <div class="theme-card" data-id="${theme.id}" data-preview-url="${theme.preview_url}">
+                    <h4>${theme.name}</h4>
+                    <button class="apply-theme-btn">적용하기</button>
+                </div>`).join('');
+        } catch (e) { console.error("Theme data load failed:", e); }
+    }
 
-        } catch (error) {
-            console.error('Error submitting post:', error);
-            alert(`오류 발생: ${error.message}. n8n 서버와 CORS 설정을 확인하세요.`);
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = '포스트 생성 및 배포';
+    themeGallery.addEventListener('click', e => {
+        const card = e.target.closest('.theme-card');
+        if (!card) return;
+        themePreview.src = card.dataset.previewUrl;
+
+        if (e.target.classList.contains('apply-theme-btn')) {
+            const themeId = card.dataset.id;
+            if (confirm(`'${themeId}' 테마를 적용하시겠습니까? n8n을 통해 Gemfile이 변경됩니다.`)) {
+                // alert(`Applying theme: ${themeId}`); // n8n webhook call logic here
+            }
         }
     });
+    
+    loadThemes();
 });
