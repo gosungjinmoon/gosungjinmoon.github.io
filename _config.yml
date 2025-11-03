@@ -1,34 +1,6 @@
 #
-# GOFUNWITH Blog Gemfile (v21.0 Final and Verified)
-# This file explicitly lists all plugins required by _config.yml.
-#
-
-source "https://rubygems.org"
-
-# Core Jekyll and Theme
-gem "jekyll", "~> 4.3.3"
-gem "jekyll-theme-chirpy", "~> 7.4.1"
-
-# Jekyll Plugins required by _config.yml
-group :jekyll_plugins do
-  gem "jekyll-feed"
-  gem "jekyll-paginate"
-  gem "jekyll-seo-tag"
-  gem "jekyll-sitemap"
-end
-
-# To speed up the build process on some environments
-gem "webrick", "~> 1.8"```
-
-#### 2. **완벽하게 동기화된 `_config.yml`**
-
-위의 `Gemfile`과 100% 호환되는, 문법적으로 완벽한 `_config.yml`의 전체 코드입니다.
-
-**`_config.yml` (v21.0 Final - 전체 코드)**
-```yaml
-#
-# GOFUNWITH Blog Configuration (v21.0 Final and Verified)
-# This file is fully synchronized with Gemfile.
+# GOFUNWITH Blog Configuration (v20.0 Final and Verified)
+# This is the single source of truth for all Jekyll settings.
 #
 
 # Site settings
