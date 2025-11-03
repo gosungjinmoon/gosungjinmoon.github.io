@@ -86,7 +86,10 @@ theme_mode: # [light | dark]
 cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar:
+
+# Avatar & Favicon
+avatar: /assets/img/logo-light.svg # 기본 로고
+favicon: /assets/img/favicon.svg # SVG 파비콘
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
