@@ -1,0 +1,11 @@
+<!-- _includes/lang-switcher.html v202511041500 - 신규 -->
+{% if page.ref %}
+  <div class="lang-switcher">
+    {% assign translations = site.posts | where: "ref", page.ref %}
+    {% for post in translations %}
+      <a href="{{ post.url | relative_url }}" class="lang-btn {% if page.lang == post.lang %}active{% endif %}">
+        {{ post.lang | upcase }}
+      </a>
+    {% endfor %}
+  </div>
+{% endif %}
