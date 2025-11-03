@@ -1,0 +1,52 @@
+/* _sass/custom/custom.scss v202511041600 */
+
+// GOFUNWITH Design Guide Implementation (The Right Way)
+
+// 1. Font Override (Inter + Pretendard)
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+// Chirpy 테마의 변수를 덮어씁니다.
+$font-family-base: "Inter", "Pretendard", sans-serif !default;
+$font-family-heading: "Inter", "Pretendard", sans-serif !default;
+
+// 2. Color Palette Override
+[data-theme="light"] {
+  --main-bg: #FFFFFF;
+  --main-fg: #1E2A3A;
+  --link-color: #FF7B54;
+  --card-bg: #FFFFFF;
+  --border-color: #E5E7EB;
+  --sidebar-bg: #f8f9fa;
+}
+
+[data-theme="dark"] {
+  --main-bg: #1A3258;
+  --main-fg: #F0E5D4;
+  --link-color: #FFC53D;
+  --card-bg: #1E2A3A;
+  --border-color: #3e4c5a;
+  --sidebar-bg: #162841;
+}
+
+// 3. Logo Customization
+#site-logo { display: none; } // 기본 텍스트 로고 숨기기
+
+#site-title a::before {
+  content: "";
+  display: block;
+  width: 150px;
+  height: 124px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  margin: 1rem auto;
+}
+
+[data-theme="light"] #site-title a::before {
+  background-image: url('/assets/img/logo-light.svg');
+}
+
+[data-theme="dark"] #site-title a::before {
+  background-image: url('/assets/img/logo-dark.svg');
+}
