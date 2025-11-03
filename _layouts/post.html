@@ -2,12 +2,15 @@
 layout: default
 ---
 
-{% assign posts_in_lang = site.posts | where: "lang", page.lang | sort: "date" %}
+<!-- Language-aware post list for navigation -->
+{% assign posts_in_lang = site.posts | where: "lang", page.lang | sort: "date" | reverse %}
 {% for post in posts_in_lang %}
   {% if post.url == page.url %}
-    {% assign post_index = forloop.index0 %}
-    {% assign prev_post = posts_in_lang[post_index | minus: 1] %}
-    {% assign next_post = posts_in_lang[post_index | plus: 1] %}
+    {% assign current_post_index = forloop.index0 %}
+    {% assign prev_post_index = current_post_index | plus: 1 %}
+    {% assign next_post_index = current_post_index | minus: 1 %}
+    {% assign prev_post = posts_in_lang[prev_post_index] %}
+    {% assign next_post = posts_in_lang[next_post_index] %}
   {% endif %}
 {% endfor %}
 
@@ -17,10 +20,11 @@ layout: default
       <article>
         <header>
           <h1 data-toc-skip>{{ page.title }}</h1>
-          <div class="post-meta text-muted">
+          <div class="post-meta text-muted d-flex flex-wrap">
             <span>Posted {{ page.date | date: "%b %d, %Y" }} By {{ site.social.name }}</span>
             {% if page.ref %}
-              <div class="lang-switcher">
+              <div class="lang-switcher ms-auto">
+                <span>Read in:</span>
                 {% assign translations = site.posts | where: "ref", page.ref %}
                 {% for t in translations %}
                   <a href="{{ t.url | relative_url }}" class="lang-btn {% if page.lang == t.lang %}active{% endif %}">
@@ -31,33 +35,49 @@ layout: default
             {% endif %}
           </div>
         </header>
+
         <div class="post-content">
           {{ content }}
         </div>
-        <!-- ... post footer, tags, etc. ... -->
+
+        <div class="post-tail-wrapper">
+          <div class="post-meta mb-3">
+            <!-- Categories and Tags -->
+          </div>
+          <div class="post-share">
+            <!-- Share buttons -->
+          </div>
+        </div>
       </article>
     </div>
-    
-    <!-- Older/Newer Post Navigation (언어 필터링 적용) -->
-    <div class="post-navigation">
+
+    <!-- Language-filtered Older/Newer Post Navigation -->
+    <div class="post-navigation d-flex justify-content-between">
       {% if next_post %}
         <a href="{{ next_post.url | relative_url }}" class="btn btn-outline-primary"
           data-bs-toggle="tooltip" data-bs-placement="top" title="{{ next_post.title }}">
           <i class="fas fa-chevron-left"></i>
           <span>Newer</span>
         </a>
+      {% else %}
+        <div class="btn btn-outline-primary disabled"><i class="fas fa-chevron-left"></i> Newer</div>
       {% endif %}
+
       {% if prev_post %}
         <a href="{{ prev_post.url | relative_url }}" class="btn btn-outline-primary"
           data-bs-toggle="tooltip" data-bs-placement="top" title="{{ prev_post.title }}">
           <span>Older</span>
           <i class="fas fa-chevron-right"></i>
         </a>
+      {% else %}
+        <div class="btn btn-outline-primary disabled">Older <i class="fas fa-chevron-right"></i></div>
       {% endif %}
     </div>
   </div>
 
   <div id="post-toc-wrapper" class="col-2 d-none d-xl-block">
-    <!-- Table of Contents will be here -->
+    <div class="toc-wrapper">
+      <!-- Table of Contents -->
+    </div>
   </div>
 </div>
