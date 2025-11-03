@@ -2,3 +2,12 @@
 layout: home
 # Index page
 ---
+
+<div class="post-list">
+  {% assign posts_in_lang = site.posts | where: "lang", site.lang %}
+  {% for post in posts_in_lang %}
+    <article class="post-item">
+      <!-- ... -->
+    </article>
+  {% endfor %}
+</div>
