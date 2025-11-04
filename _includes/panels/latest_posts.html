@@ -1,13 +1,13 @@
 <div class="post-content">
-  <h3 class="panel-title">{{ site.data.locales[site.lang].panel.latest_posts | default: "Recently Updated" }}</h3>
-  <ul id="latest-posts-ul" class="list-unstyled">
-    {% if page.lang %}
-      {% assign posts_in_lang = site.posts | where: "lang", page.lang %}
-    {% else %}
-      {% assign posts_in_lang = site.posts | where: "lang", site.lang %}
-    {% endif %}
-    {% for post in posts_in_lang limit: 5 %}
-      <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+  <h3 class="panel-title">{{ site.data.locales[page.lang | default: site.lang].panel.latest_posts | default: "Recently Updated" }}</h3>
+  {% if page.lang == "en" %}
+    {% assign posts_to_show = site.posts | where: "lang", "en" %}
+  {% else %}
+    {% assign posts_to_show = site.posts | where: "lang", "ko" %}
+  {% endif %}
+  <ul>
+    {% for post in posts_to_show limit: 5 %}
+      <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
     {% endfor %}
   </ul>
 </div>
