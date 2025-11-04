@@ -1,0 +1,18 @@
+---
+layout: default
+lang: ko
+---
+
+{% include lang-switch.html %}
+{% assign current_lang = page.lang | default: "ko" %}
+{% assign posts_lang = site.posts | filter_lang: current_lang %}
+
+<div class="post-list">
+  {% for post in posts_lang %}
+    <article class="post-card">
+      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      <p>{{ post.excerpt | strip_html | truncate: 150 }}</p>
+      <time>{{ post.date | date_to_string }}</time>
+    </article>
+  {% endfor %}
+</div>
