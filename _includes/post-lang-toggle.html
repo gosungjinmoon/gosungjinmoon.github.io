@@ -1,9 +1,18 @@
-{% assign alt_lang = page.alt_lang %}
-{% assign current_lang = page.lang %}
-<div class="post-lang-toggle">
-  {% if current_lang == "ko" %}
-    <a href="/en/{{ alt_lang }}">View in English</a>
-  {% else %}
-    <a href="/ko/{{ alt_lang }}">한국어로 보기</a>
-  {% endif %}
-</div>
+{% if page.alt_lang %}
+  {% assign other_lang = page.lang == "ko" ? "en" : "ko" %}
+  <div class="post-lang-toggle">
+    {% if other_lang == "ko" %}
+      <a href="/ko/{{ page.alt_lang }}">한국어로 보기</a>
+    {% else %}
+      <a href="/en/{{ page.alt_lang }}">View in English</a>
+    {% endif %}
+  </div>
+{% endif %}
+
+<style>
+.post-lang-toggle { margin-top: 1rem; text-align: right; }
+.post-lang-toggle a {
+  font-size: 0.9rem; color: var(--text-muted); text-decoration: none;
+}
+.post-lang-toggle a:hover { color: var(--text); }
+</style>
