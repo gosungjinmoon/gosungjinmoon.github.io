@@ -1,10 +1,20 @@
-<div id="lang-switch">
+<div class="lang-switch" style="text-align:right;">
   {% assign current_lang = page.lang | default: "ko" %}
   {% if current_lang == "ko" %}
-    <a href="{{ page.url | replace: '/ko/', '/en/' }}">EN</a>
+    <a href="/en/" class="lang-btn">English</a>
   {% else %}
-    <a href="{{ page.url | replace: '/en/', '/ko/' }}">KO</a>
+    <a href="/ko/" class="lang-btn">한국어</a>
   {% endif %}
 </div>
 
-<script src="{{ '/assets/js/lang.js' | relative_url }}" defer></script>
+<style>
+.lang-btn {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 4px 8px;
+  border: 1px solid var(--text-muted);
+  border-radius: 6px;
+}
+.lang-btn:hover { color: var(--text); border-color: var(--text); }
+</style>
