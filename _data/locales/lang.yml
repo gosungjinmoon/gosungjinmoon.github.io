@@ -1,0 +1,18 @@
+ko:
+  home: "홈"
+  about: "소개"
+  posts: "게시글"
+  tags: "태그"
+  search: "검색"
+  latest_posts: "최신글"
+  language: "언어"
+  switch_to_en: "English"
+en:
+  home: "Home"
+  about: "About"
+  posts: "Posts"
+  tags: "Tags"
+  search: "Search"
+  latest_posts: "Latest Posts"
+  language: "Language"
+  switch_to_ko: "한국어"
