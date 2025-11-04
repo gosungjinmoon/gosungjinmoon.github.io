@@ -1,0 +1,10 @@
+<div id="lang-switch">
+  {% assign current_lang = page.lang | default: "ko" %}
+  {% if current_lang == "ko" %}
+    <a href="{{ page.url | replace: '/ko/', '/en/' }}">EN</a>
+  {% else %}
+    <a href="{{ page.url | replace: '/en/', '/ko/' }}">KO</a>
+  {% endif %}
+</div>
+
+<script src="{{ '/assets/js/lang.js' | relative_url }}" defer></script>
