@@ -142,12 +142,7 @@ pwa:
       # - "/example"  # URLs match `<SITE_URL>/example/*` will not be cached by the PWA
       
 paginate: 10
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-paginate
-  - jekyll-admin
+
 # The base URL of your site
 baseurl: ""
 
