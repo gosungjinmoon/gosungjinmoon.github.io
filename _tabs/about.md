@@ -1,8 +1,12 @@
 ---
-# the default layout is 'page'
+layout: about
+title: About
 icon: fas fa-info-circle
 order: 4
 ---
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
-{: .prompt-tip }
+# About GOFUNWITH
+
+**Explore. Create. Share.**
+
+이곳은 기술, DIY, 삶에 대한 즐거운 탐험과 창조의 기록을 남기는 공간입니다.
