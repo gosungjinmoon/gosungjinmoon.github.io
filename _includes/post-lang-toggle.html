@@ -1,0 +1,9 @@
+{% assign alt_lang = page.alt_lang %}
+{% assign current_lang = page.lang %}
+<div class="post-lang-toggle">
+  {% if current_lang == "ko" %}
+    <a href="/en/{{ alt_lang }}">View in English</a>
+  {% else %}
+    <a href="/ko/{{ alt_lang }}">한국어로 보기</a>
+  {% endif %}
+</div>
