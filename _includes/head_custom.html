@@ -1,23 +1,17 @@
-<!-- _includes/head_custom.html v202511051100 - 신규 -->
-
-<!-- Language Switcher Styles -->
 <style>
-  #lang-switcher {
-    position: relative;
-    margin-left: 0.5rem;
-  }
+  #gfw-lang-switcher { margin-left: 0.5rem; }
 </style>
 
-<!-- Language Switcher & Post "Read in" Logic -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // ---- 1. Topbar Language Switcher ----
+    // ---- 1. Topbar Language Switcher (Safe Injection) ----
     const topbar = document.getElementById('topbar');
     const searchWrapper = document.getElementById('topbar-search-wrapper');
+    
     if (topbar && searchWrapper) {
       const currentLang = document.documentElement.lang;
       const switcher = document.createElement('div');
-      switcher.id = 'lang-switcher';
+      switcher.id = 'gfw-lang-switcher';
       switcher.className = 'dropdown';
       switcher.innerHTML = `
         <button class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -27,26 +21,29 @@
           <li><a class="dropdown-item ${currentLang === 'ko' ? 'active' : ''}" href="/">한국어</a></li>
           <li><a class="dropdown-item ${currentLang === 'en' ? 'active' : ''}" href="/en/">English</a></li>
         </ul>`;
-      // Insert switcher between search and palette
       searchWrapper.parentNode.insertBefore(switcher, searchWrapper.nextSibling);
     }
 
-    // ---- 2. Post "Read in" Link ----
+    // ---- 2. Post "Read in" Link (Safe Injection) ----
     const postHeader = document.querySelector("#main-post .post-meta");
     const postRef = "{{ page.ref }}";
     const postLang = "{{ page.lang }}";
+    
     if (postHeader && postRef) {
       const switcherWrapper = document.createElement('div');
       switcherWrapper.className = 'lang-switcher ms-auto';
       let links = '<span>Read in:</span>';
       {% assign translations = site.posts | where: "ref", page.ref %}
       {% for t in translations %}
-        {% if t.lang != page.lang %}
+        {% if t.lang != postLang %}
           links += `<a href="{{ t.url | relative_url }}" class="lang-btn">{{ t.lang | upcase }}</a>`;
         {% endif %}
       {% endfor %}
-      switcherWrapper.innerHTML = links;
-      postHeader.appendChild(switcherWrapper);
+      
+      if (links !== '<span>Read in:</span>') {
+        switcherWrapper.innerHTML = links;
+        postHeader.appendChild(switcherWrapper);
+      }
     }
   });
 </script>
