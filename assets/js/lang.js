@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const current = location.pathname.includes("/en/") ? "en" : "ko";
-  localStorage.setItem("lang", current);
+  const currentLang = document.documentElement.lang || 'ko';
+  const recentList = document.querySelectorAll('.recent-posts li a');
+  recentList.forEach(item => {
+    if (!item.href.includes('/' + currentLang + '/')) {
+      item.parentElement.style.display = 'none';
+    }
+  });
 });
