@@ -164,7 +164,24 @@ collections:
   tabs:
     output: true
     sort_by: order
-
+    
+# ✅ 언어별 URL 구조 추가
+permalink: /:lang/:categories/:title/
+# ✅ 다국어 페이지 기본 설정
+defaults:
+  - scope:
+      path: "_posts/ko"
+      type: posts
+    values:
+      lang: ko
+      permalink: /ko/:categories/:title/
+  - scope:
+      path: "_posts/en"
+      type: posts
+    values:
+      lang: en
+      permalink: /en/:categories/:title/
+      
 defaults:
   - scope:
       path: "" # An empty string here means all files in the project
