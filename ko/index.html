@@ -1,0 +1,17 @@
+---
+layout: home
+lang: ko
+permalink: /ko/
+---
+
+{% assign current_lang = "ko" %}
+{% assign posts_lang = site.posts | where: "lang", current_lang %}
+{% include lang-switch.html %}
+<h2>{{ site.data.lang[current_lang].latest_posts }}</h2>
+<ul>
+  {% for post in posts_lang limit:6 %}
+    {% if post.url %}
+      <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+    {% endif %}
+  {% endfor %}
+</ul>
