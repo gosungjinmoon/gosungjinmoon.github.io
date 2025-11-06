@@ -1,10 +1,16 @@
+{% comment %}
+  i18n post language switcher
+  - Shows link to opposite language version if exists
+  - Handles /ko/... and /en/... permalink automatically
+{% endcomment %}
 {% if page.alt_lang %}
-  {% assign target_lang = page.lang == "ko" ? "en" : "ko" %}
-  <div style="text-align:right; margin-top:1rem;">
-    {% if target_lang == "ko" %}
-      <a href="/ko/{{ page.alt_lang }}/">한국어로 보기</a>
-    {% else %}
+  {% if page.lang == "ko" %}
+    <div style="text-align:right;margin-top:1rem;">
       <a href="/en/{{ page.alt_lang }}/">View in English</a>
-    {% endif %}
-  </div>
+    </div>
+  {% elsif page.lang == "en" %}
+    <div style="text-align:right;margin-top:1rem;">
+      <a href="/ko/{{ page.alt_lang }}/">한국어로 보기</a>
+    </div>
+  {% endif %}
 {% endif %}
