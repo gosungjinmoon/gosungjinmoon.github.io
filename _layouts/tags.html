@@ -23,7 +23,7 @@ layout: page
 
 {%- assign current_lang = page.lang | default: 'ko' -%}
 {%- assign filtered_tags = "" | split: "" -%}
-{%- for tag in site.tags %}
+{%- for tag in filtered_tags %}
   {%- assign posts = tag[1] | where: 'lang', current_lang -%}
   {%- if posts.size > 0 -%}
     {%- assign filtered_tags = filtered_tags | push: tag -%}
