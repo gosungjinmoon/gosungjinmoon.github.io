@@ -2,21 +2,13 @@
 layout: default
 ---
 
-{%- comment -%}
-────────────────────────────────────────────
-  GOFUNWITH Blog - Chirpy i18n Edition
-  by ChatGPT | v20251106
-────────────────────────────────────────────
-{%- endcomment -%}
-
 {%- assign current_lang = page.lang | default: 'ko' -%}
-{%- assign all_pinned = site.posts | where: 'pin', 'true' | where: "lang", current_lang -%}
-{%- assign all_normal = site.posts | where_exp: 'item', 'item.pin != true and item.hidden != true' | where: "lang", current_lang -%}
+{%- assign pinned_posts = site.posts | where: 'pin', true | where: 'lang', current_lang -%}
+{%- assign normal_posts = site.posts | where_exp: 'p', "p.pin != true and p.hidden != true" | where: 'lang', current_lang -%}
+{%- assign posts = pinned_posts | concat: normal_posts -%}
 
-{%- assign posts = '' | split: '' -%}
-
-<!-- 🌍 상단 언어 전환 버튼 -->
-<div class="lang-switch" style="text-align:right;margin:0.5rem 1rem;">
+<!-- 🌐 언어 전환 버튼 -->
+<div style="text-align:right; margin:0.8rem 1rem;">
   {% if current_lang == 'ko' %}
     <a href="/en/" class="lang-btn">English</a>
   {% else %}
@@ -33,106 +25,37 @@ layout: default
   text-decoration: none;
   color: var(--text-muted);
 }
-.lang-btn:hover {
-  color: var(--text);
-  border-color: var(--text);
-}
+.lang-btn:hover { color: var(--text); border-color: var(--text); }
 </style>
 
-<!-- 🔹 Pinned Posts 계산 -->
-{% assign visible_start = paginator.page | minus: 1 | times: paginator.per_page %}
-{% assign visible_end = visible_start | plus: paginator.per_page %}
-
-{% if all_pinned.size > visible_start %}
-  {% if all_pinned.size > visible_end %}
-    {% assign pinned_size = paginator.per_page %}
-  {% else %}
-    {% assign pinned_size = all_pinned.size | minus: visible_start %}
-  {% endif %}
-
-  {% for i in (visible_start..all_pinned.size) limit: pinned_size %}
-    {% assign posts = posts | push: all_pinned[i] %}
-  {% endfor %}
-{% else %}
-  {% assign pinned_size = 0 %}
-{% endif %}
-
-<!-- 🔹 Normal Posts 계산 -->
-{% assign normal_size = paginator.posts | size | minus: pinned_size %}
-{% if normal_size > 0 %}
-  {% if pinned_size > 0 %}
-    {% assign normal_start = 0 %}
-  {% else %}
-    {% assign normal_start = visible_start | minus: all_pinned.size %}
-  {% endif %}
-  {% assign normal_end = normal_start | plus: normal_size | minus: 1 %}
-
-  {% for i in (normal_start..normal_end) %}
-    {% assign posts = posts | push: all_normal[i] %}
-  {% endfor %}
-{% endif %}
-
-<!-- 🔹 포스트 리스트 -->
+<!-- 📰 게시글 리스트 -->
 <div id="post-list" class="flex-grow-1 px-xl-1">
   {% for post in posts %}
+    {% if post.title and post.url %}
     <article class="card-wrapper card">
       <a href="{{ post.url | relative_url }}" class="post-preview row g-0 flex-md-row-reverse">
-        {% assign card_body_col = '12' %}
-        {% if post.image %}
-          {% assign src = post.image.path | default: post.image %}
-          {% if post.media_subpath %}
-            {% unless src contains '://' %}
-              {% assign src = post.media_subpath
-                | append: '/'
-                | append: src
-                | replace: '///', '/'
-                | replace: '//', '/'
-              %}
-            {% endunless %}
-          {% endif %}
-          {% assign alt = post.image.alt | xml_escape | default: 'Preview Image' %}
-          <div class="col-md-5">
-            <img src="{{ src }}" alt="{{ alt }}">
-          </div>
-          {% assign card_body_col = '7' %}
-        {% endif %}
-
-        <div class="col-md-{{ card_body_col }}">
+        <div class="col-md-12">
           <div class="card-body d-flex flex-column">
             <h1 class="card-title my-2 mt-md-0">{{ post.title }}</h1>
             <div class="card-text content mt-0 mb-3">
               <p>{% include post-summary.html %}</p>
             </div>
-
-            <div class="post-meta flex-grow-1 d-flex align-items-end">
+            <div class="post-meta d-flex align-items-end">
               <div class="me-auto">
                 <i class="far fa-calendar fa-fw me-1"></i>
-                {% include datetime.html date=post.date lang=lang %}
-                {% if post.categories.size > 0 %}
-                  <i class="far fa-folder-open fa-fw me-1"></i>
-                  <span class="categories">
-                    {% for category in post.categories %}
-                      {{ category }}{%- unless forloop.last -%},{%- endunless -%}
-                    {% endfor %}
-                  </span>
+                {{ post.date | date: "%b %d, %Y" }}
+                {% if post.categories %}
+                  <i class="far fa-folder-open fa-fw ms-2"></i>
+                  <span>{{ post.categories | join: ", " }}</span>
                 {% endif %}
               </div>
-              {% if post.pin %}
-                <div class="pin ms-1">
-                  <i class="fas fa-thumbtack fa-fw"></i>
-                  <span>{{ site.data.locales[lang].post.pin_prompt }}</span>
-                </div>
-              {% endif %}
             </div>
           </div>
         </div>
       </a>
     </article>
+    {% endif %}
   {% endfor %}
 </div>
 
-{% if paginator.total_pages > 1 %}
-  {% include post-paginator.html %}
-{% endif %}
-
-<script src="{{ '/assets/js/lang.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/lang-filter.js' | relative_url }}" defer></script>
