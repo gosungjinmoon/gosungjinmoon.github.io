@@ -3,6 +3,7 @@ layout: home
 lang: ko
 permalink: /ko/
 ---
+
 {% assign current_lang = page.lang | default: 'ko' %}
 {% assign posts = site.posts | where: "lang", current_lang %}
 {% include lang-switch.html %}
