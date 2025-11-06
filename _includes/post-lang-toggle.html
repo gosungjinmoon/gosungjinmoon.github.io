@@ -1,8 +1,10 @@
 {% if page.alt_lang %}
-  {% assign other_lang = page.lang == "ko" ? "en" : "ko" %}
-  {% if other_lang == "ko" %}
-    <a href="/ko/{{ page.alt_lang }}/">한국어로 보기</a>
-  {% else %}
-    <a href="/en/{{ page.alt_lang }}/">View in English</a>
-  {% endif %}
+  {% assign target_lang = page.lang == 'ko' ? 'en' : 'ko' %}
+  <div style="text-align:right; margin-top:1rem;">
+    {% if target_lang == 'ko' %}
+      <a href="/ko/{{ page.alt_lang }}/">한국어로 보기</a>
+    {% else %}
+      <a href="/en/{{ page.alt_lang }}/">View in English</a>
+    {% endif %}
+  </div>
 {% endif %}
