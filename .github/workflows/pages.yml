@@ -1,20 +1,69 @@
-name: Build & Deploy Chirpy Site
+# ============================================================
+# 🚀 GOFUNWITH Blog (Chirpy Theme)
+# GitHub Actions: Build & Deploy (Stable Version)
+# ============================================================
+
+name: Build and Deploy GOFUNWITH Blog
+
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]   # main 브랜치에 push될 때마다 자동 실행
+  workflow_dispatch:      # 수동 실행도 가능
+
 permissions:
-  contents: write
+  contents: write         # GitHub Pages에 배포 권한
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      # ------------------------------------------
+      # 1️⃣ 소스 체크아웃 (GitHub 저장소 내용 불러오기)
+      # ------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ------------------------------------------
+      # 2️⃣ Ruby & Jekyll 환경 설정
+      # ------------------------------------------
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
-      - run: bundle install
-      - run: bundle exec jekyll build
-      - uses: peaceiris/actions-gh-pages@v3
+          ruby-version: '3.3'     # Ruby 버전 명시
+          bundler-cache: true     # gem 캐시 활성화 (빌드 속도 향상)
+
+      # ------------------------------------------
+      # 3️⃣ Jekyll 패키지 설치
+      # ------------------------------------------
+      - name: Install dependencies
+        run: bundle install
+
+      # ------------------------------------------
+      # 4️⃣ 정적 사이트 빌드 (Jekyll)
+      # ------------------------------------------
+      - name: Build site with Jekyll
+        run: bundle exec jekyll build --trace
+        env:
+          JEKYLL_ENV: production
+
+      # ------------------------------------------
+      # 5️⃣ (선택) HTML-Proofer 테스트
+      # ------------------------------------------
+      # ⚠️ 현재 비활성화 상태 — 개발 중엔 꺼두세요.
+      #     링크 검증으로 인해 false error가 발생할 수 있습니다.
+      #
+      # - name: Test site (HTML-Proofer)
+      #   run: bundle exec htmlproofer _site --disable-external
+      #
+      #     ↳ 나중에 운영단계에서만 주석 해제하세요.
+
+      # ------------------------------------------
+      # 6️⃣ GitHub Pages로 배포
+      # ------------------------------------------
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          publish_dir: ./_site       # 빌드된 폴더 (_site) 배포
+          publish_branch: gh-pages   # (기본 설정: GitHub Pages 전용 브랜치)
