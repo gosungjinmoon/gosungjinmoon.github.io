@@ -1,14 +1,9 @@
 ---
 layout: page
-# The Categories layout (GOFUNWITH Multi-Language ver.)
+# The Categories layout (GOFUNWITH multi-language)
 ---
 
-{%- assign current_lang = page.lang | default: 'ko' -%}
-{%- assign categories_lang = site.categories -%}
-
-{%- comment -%}
-  카테고리 내에서 언어별 게시글만 필터링
-{%- endcomment -%}
+{%- assign current_lang = page.lang | default: site.lang | default: 'ko' -%}
 
 <div id="page-categories">
   <h1 class="ps-lg-2">
@@ -17,7 +12,11 @@ layout: page
   </h1>
 
   <div class="ps-lg-2 mt-4">
-    {%- for category in categories_lang -%}
+    {%- comment -%}
+      site.categories => [ [category_name, posts_array], ... ]
+      각 category_posts 를 lang 로 필터링하여 노출
+    {%- endcomment -%}
+    {%- for category in site.categories -%}
       {%- assign category_name = category[0] -%}
       {%- assign category_posts = category[1] | where: "lang", current_lang -%}
 
