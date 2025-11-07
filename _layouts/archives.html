@@ -1,37 +1,38 @@
 ---
 layout: page
-# The Archives of posts.
+# The Archives layout (GOFUNWITH multi-language)
 ---
-{%- assign current_lang = page.lang | default: 'ko' -%}
-{%- assign posts = site.posts | where: 'lang', current_lang -%}
 
-{% include lang.html %}
+{%- assign current_lang = page.lang | default: site.lang | default: 'ko' -%}
+{%- assign posts_lang  = site.posts | where: "lang", current_lang | sort: "date" | reverse -%}
 
-{% assign df_strftime_m = site.data.locales[lang].df.archives.strftime | default: '/ %m' %}
-{% assign df_dayjs_m = site.data.locales[lang].df.archives.dayjs | default: '/ MM' %}
+<div id="page-archives">
+  <h1 class="ps-lg-2">
+    <i class="far fa-calendar-alt fa-fw text-muted"></i>
+    {{ page.title }}
+  </h1>
 
-<div id="archives" class="pl-xl-3">
-  {% for post in site.posts %}
-    {% assign cur_year = post.date | date: '%Y' %}
+  <div class="ps-lg-2 mt-4">
+    {%- assign current_year = "" -%}
+    {%- for post in posts_lang -%}
+      {%- assign y = post.date | date: "%Y" -%}
+      {%- if y != current_year -%}
+        {%- if current_year != "" -%}
+          </ul>
+        {%- endif -%}
+        <h2 class="h5 mt-3">{{ y }}</h2>
+        <ul class="content ps-0 ms-3">
+        {%- assign current_year = y -%}
+      {%- endif -%}
 
-    {% if cur_year != last_year %}
-      {% unless forloop.first %}</ul>{% endunless %}
-
-      <time class="year lead d-block">{{ cur_year }}</time>
-      {{ '<ul class="list-unstyled">' }}
-
-      {% assign last_year = cur_year %}
-    {% endif %}
-
-    <li>
-      {% assign ts = post.date | date: '%s' %}
-      <span class="date day" data-ts="{{ ts }}" data-df="DD">{{ post.date | date: '%d' }}</span>
-      <span class="date month small text-muted ms-1" data-ts="{{ ts }}" data-df="{{ df_dayjs_m }}">
-        {{ post.date | date: df_strftime_m }}
-      </span>
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-    </li>
-
-    {% if forloop.last %}</ul>{% endif %}
-  {% endfor %}
+      <li class="d-flex justify-content-between px-md-3">
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        <span class="dash flex-grow-1"></span>
+        {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=current_lang %}
+      </li>
+    {%- endfor -%}
+    {%- if posts_lang.size > 0 -%}
+      </ul>
+    {%- endif -%}
+  </div>
 </div>
