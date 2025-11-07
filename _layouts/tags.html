@@ -1,24 +1,65 @@
 ---
 layout: page
-# All the Tags of posts.
+# The Tags layout (GOFUNWITH multi-language)
 ---
-{%- assign current_lang = page.lang | default: 'ko' -%}
-{%- assign posts = site.posts | where: 'lang', current_lang -%}
 
-<div id="tags" class="d-flex flex-wrap mx-xl-2">
-  {% assign tags = '' | split: '' %}
-  {% for t in site.tags %}
-    {% assign tags = tags | push: t[0] %}
-  {% endfor %}
+{%- assign current_lang = page.lang | default: site.lang | default: 'ko' -%}
 
-  {% assign sorted_tags = tags | sort_natural %}
+<div id="page-tags">
+  <h1 class="ps-lg-2">
+    <i class="fas fa-tag fa-fw text-muted"></i>
+    {{ page.title }}
+  </h1>
 
-  {% for t in sorted_tags %}
-    <div>
-      <a class="tag" href="{{ t | slugify | url_encode | prepend: '/tags/' | append: '/' | relative_url }}">
-        {{ t -}}
-        <span class="text-muted">{{ site.tags[t].size }}</span>
-      </a>
-    </div>
-  {% endfor %}
+  {%- comment -%}
+    1) 현재 언어의 포스트가 하나라도 포함된 태그만 수집
+  {%- endcomment -%}
+  {%- assign tags_lang = "" | split: "" -%}
+  {%- for tag in site.tags -%}
+    {%- assign tag_name   = tag[0] -%}
+    {%- assign tag_posts  = tag[1] | where: "lang", current_lang -%}
+    {%- if tag_posts.size > 0 -%}
+      {%- assign tags_lang = tags_lang | push: tag_name -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- assign tags_lang = tags_lang | sort_natural -%}
+
+  {# ---------------- TAG CLOUD ---------------- #}
+  <div class="tag-cloud my-3 ps-lg-2">
+    <ul class="list-inline">
+      {%- for t in tags_lang -%}
+        {%- assign count = site.tags[t] | where: "lang", current_lang | size -%}
+        <li class="list-inline-item me-2 mb-2">
+          <a class="badge text-decoration-none"
+             href="#{{ t | slugify }}"
+             style="font-size: {{ count | times: 2 | plus: 12 }}px;">
+            #{{ t }} <span class="text-muted">({{ count }})</span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+
+  {# ---------------- TAG SECTIONS ---------------- #}
+  <div class="ps-lg-2 mt-4">
+    {%- for t in tags_lang -%}
+      {%- assign t_posts = site.tags[t] | where: "lang", current_lang -%}
+      <section id="{{ t | slugify }}" class="mb-4">
+        <h2 class="h5">
+          <i class="fas fa-hashtag fa-fw text-muted"></i>
+          {{ t }} <span class="text-muted small">({{ t_posts.size }})</span>
+        </h2>
+        <ul class="content ps-0 ms-3">
+          {%- for post in t_posts -%}
+            <li class="d-flex justify-content-between px-md-3">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              <span class="dash flex-grow-1"></span>
+              {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=current_lang %}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </section>
+    {%- endfor -%}
+  </div>
 </div>
