@@ -1,62 +1,44 @@
-# ============================================================
-# 🚀 GOFUNWITH Blog
-# GitHub Actions: Build & Deploy
-# ============================================================
-
-name: Build and Deploy GOFUNWITH Blog
+name: Build and Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  build-and-deploy:
+  build-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      # 1️⃣ 리포지토리 가져오기
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      # 2️⃣ Ruby & Bundler 세팅
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
+          ruby-version: "3.3"
           bundler-cache: true
 
-      # 3️⃣ gem 설치
-      - name: Install dependencies
-        run: bundle install
+      - name: Install gems
+        run: |
+          bundle config set path 'vendor/bundle'
+          bundle install --jobs 4 --retry 3
 
-      # 4️⃣ Jekyll 빌드
-      - name: Build site with Jekyll
-        run: bundle exec jekyll build --trace
+      - name: Build Jekyll
+        run: |
+          bundle exec jekyll build --trace
         env:
           JEKYLL_ENV: production
 
-      # ------------------------------------------
-      # 5️⃣ (선택) HTML-Proofer 테스트
-      # ------------------------------------------
-      # ⚠️ 현재 비활성화 상태 — 개발 중엔 꺼두세요.
-      #     링크 검증으로 인해 false error가 발생할 수 있습니다.
-      #
-      # - name: Test site (HTML-Proofer)
-      #   run: bundle exec htmlproofer _site --disable-external
-      #
-      #     ↳ 나중에 운영단계에서만 주석 해제하세요.
+      # htmlproofer는 링크 구조 안정화 후 켜세요
+      # - name: HTML Proofer
+      #   run: |
+      #     gem install html-proofer
+      #     htmlproofer ./_site --checks-to-ignore Scripts
 
-      # ------------------------------------------
-      # 6️⃣ GitHub Pages로 배포
-      # ------------------------------------------
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
           publish_dir: ./_site
-          keep_files: false
           force_orphan: true
