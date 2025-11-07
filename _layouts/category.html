@@ -1,27 +1,45 @@
 ---
 layout: page
-# The Category layout
+# The Categories layout (GOFUNWITH Multi-Language ver.)
 ---
 
 {%- assign current_lang = page.lang | default: 'ko' -%}
-{%- assign posts = site.posts | where: 'lang', current_lang -%}
+{%- assign categories_lang = site.categories -%}
 
-{% include lang.html %}
+{%- comment -%}
+  카테고리 내에서 언어별 게시글만 필터링
+{%- endcomment -%}
 
-<div id="page-category">
+<div id="page-categories">
   <h1 class="ps-lg-2">
     <i class="far fa-folder-open fa-fw text-muted"></i>
     {{ page.title }}
-    <span class="lead text-muted ps-2">{{ page.posts | size }}</span>
   </h1>
 
-  <ul class="content ps-0">
-    {% for post in page.posts %}
-      <li class="d-flex justify-content-between px-md-3">
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        <span class="dash flex-grow-1"></span>
-        {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=lang %}
-      </li>
-    {% endfor %}
-  </ul>
+  <div class="ps-lg-2 mt-4">
+    {%- for category in categories_lang -%}
+      {%- assign category_name = category[0] -%}
+      {%- assign category_posts = category[1] | where: "lang", current_lang -%}
+
+      {%- if category_posts.size > 0 -%}
+        <section class="category-block mb-4">
+          <h2 class="h5">
+            <i class="far fa-folder fa-fw text-muted"></i>
+            {{ category_name }}
+            <span class="text-muted small">({{ category_posts.size }})</span>
+          </h2>
+
+          <ul class="content ps-0 ms-3">
+            {%- for post in category_posts -%}
+              <li class="d-flex justify-content-between px-md-3">
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                <span class="dash flex-grow-1"></span>
+                {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=current_lang %}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </section>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
 </div>
