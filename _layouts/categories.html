@@ -1,6 +1,6 @@
 ---
 layout: page
-# GOFUNWITH multi-language categories layout
+# GOFUNWITH multilingual Categories
 ---
 
 {%- assign current_lang = page.lang | default: site.lang | default: 'ko' -%}
@@ -8,21 +8,20 @@ layout: page
 <div id="page-categories">
   <h1 class="ps-lg-2">
     <i class="far fa-folder-open fa-fw text-muted"></i>
-    {{ page.title }}
+    {{ site.data.locales[current_lang].tabs.categories }}
   </h1>
 
   <div class="ps-lg-2 mt-4">
-    {%- for cat in site.categories -%}
-      {%- assign cat_name = cat[0] -%}
-      {%- assign cat_posts = cat[1] | where: 'lang', current_lang -%}
-      {%- if cat_posts.size > 0 -%}
+    {%- for category in site.categories -%}
+      {%- assign posts_lang = category[1] | where: "lang", current_lang -%}
+      {%- if posts_lang.size > 0 -%}
         <section class="category-block mb-4">
           <h2 class="h5">
             <i class="far fa-folder fa-fw text-muted"></i>
-            {{ cat_name }} <span class="text-muted small">({{ cat_posts.size }})</span>
+            {{ category[0] }} <span class="text-muted small">({{ posts_lang.size }})</span>
           </h2>
           <ul class="content ps-0 ms-3">
-            {%- for post in cat_posts -%}
+            {%- for post in posts_lang -%}
               <li class="d-flex justify-content-between px-md-3">
                 <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
                 <span class="dash flex-grow-1"></span>
