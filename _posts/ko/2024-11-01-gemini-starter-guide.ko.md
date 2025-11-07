@@ -3,7 +3,7 @@ layout: post
 title: "초보자를 위한 Gemini API 시작 가이드"
 date: 2024-11-01 10:00:00 +0900
 categories: [Tech, AI]
-tags: [gemini, api, tutorial]
+tags: [gemini, api, 튜토리얼]
 lang: ko
 ref: gemini-starter-guide # 이 값이 서로 일치해야 합니다.
 ---
