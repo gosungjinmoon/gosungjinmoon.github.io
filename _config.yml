@@ -1,20 +1,20 @@
-# --- Site ---
+# _config.yml  /* v20251107.stable */
+
 title: GOFUNWITH Blog
 tagline: Explore. Create. Share.
 description: "기술, DIY, 삶에 대한 즐거운 탐험과 창조의 기록"
 url: "https://gosungjinmoon.github.io"
-baseurl: ""  # custom domain은 CNAME으로 처리
+baseurl: ""        # custom domain은 CNAME으로 처리
 
-# --- Theme ---
 theme: jekyll-theme-chirpy
 lang: ko
 langs: ["ko", "en"]
 timezone: Asia/Seoul
 
-# 전역 permalink에서 :lang 사용 금지 (빌드 안정성)
+# ⚠️ 전역 permalink에서 :lang 금지 (Jekyll 예약키 아님 → 빌드 에러 유발)
 permalink: /:categories/:title/
 
-# Posts를 언어별 폴더로 강제 경로 매핑
+# Posts는 폴더별로 언어 경로 고정
 defaults:
   - scope:
       path: "_posts/ko"
@@ -22,6 +22,9 @@ defaults:
     values:
       lang: ko
       permalink: /ko/:categories/:title/
+      layout: post
+      comments: true
+      toc: true
 
   - scope:
       path: "_posts/en"
@@ -29,43 +32,30 @@ defaults:
     values:
       lang: en
       permalink: /en/:categories/:title/
+      layout: post
+      comments: true
+      toc: true
 
-  # Tabs(사이드바 페이지) 공통
+  # Tabs(사이드바 페이지): 각 파일에서 lang/permalink 명시
   - scope:
       path: "_tabs"
       type: tabs
     values:
       layout: page
 
-# Plugins (Chirpy 기본)
+# Chirpy에서 안전하게 쓰는 플러그인만
 plugins:
-  - jekyll-seo-tag
   - jekyll-feed
+  - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-paginate
-  - jekyll-archives
+# - jekyll-archives   # ← 사용 안함
 
 paginate: 10
 
-# Archives(카테고리/태그 상세 경로) — 루트 충돌 방지
-jekyll-archives:
-  enabled: [categories, tags]
-  layouts:
-    category: category
-    tag: tag
-  permalinks:
-    category: /:name/
-    tag: /tags/:name/
-
-# Sidebar/Assets/PWA 등 기존 설정 유지
+# Assets / Comments / Analytics (필요시 수정)
 avatar: /assets/img/logo-light.svg
 favicon: /assets/img/favicon.svg
-
-analytics:
-  google:
-    id: "G-R7N7G7QPBF"
-  cloudflare:
-    id: "c7db8999eee4466bab1893a2361aed10"
 
 comments:
   provider: giscus
@@ -79,6 +69,12 @@ comments:
     input_position: "bottom"
     lang: "ko"
     reactions_enabled: "1"
+
+analytics:
+  google:
+    id: "G-R7N7G7QPBF"
+  cloudflare:
+    id: "c7db8999eee4466bab1893a2361aed10"
 
 include:
   - admin
