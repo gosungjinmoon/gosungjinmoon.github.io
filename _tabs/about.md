@@ -2,7 +2,7 @@
 layout: page
 title: "{{ site.data.locales[page.lang].tabs.about | default: 'About' }}"
 icon: fas fa-info-circle
-order: 5
+order: 4
 permalink: /:lang/about/
 ---
 
