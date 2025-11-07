@@ -1,6 +1,6 @@
 ---
 layout: page
-# The Archives layout (GOFUNWITH multi-language)
+# GOFUNWITH multilingual Archives (server-side filter)
 ---
 
 {%- assign current_lang = page.lang | default: site.lang | default: 'ko' -%}
@@ -17,9 +17,7 @@ layout: page
     {%- for post in posts_lang -%}
       {%- assign y = post.date | date: "%Y" -%}
       {%- if y != current_year -%}
-        {%- if current_year != "" -%}
-          </ul>
-        {%- endif -%}
+        {%- if current_year != "" -%}</ul>{%- endif -%}
         <h2 class="h5 mt-3">{{ y }}</h2>
         <ul class="content ps-0 ms-3">
         {%- assign current_year = y -%}
@@ -31,8 +29,6 @@ layout: page
         {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=current_lang %}
       </li>
     {%- endfor -%}
-    {%- if posts_lang.size > 0 -%}
-      </ul>
-    {%- endif -%}
+    {%- if posts_lang.size > 0 -%}</ul>{%- endif -%}
   </div>
 </div>
