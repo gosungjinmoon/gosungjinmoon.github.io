@@ -1,10 +1,9 @@
 ---
 layout: page
-# GOFUNWITH multilingual Archives (server-side filter)
 ---
 
 {%- assign current_lang = page.lang | default: site.lang | default: 'ko' -%}
-{%- assign posts_lang  = site.posts | where: "lang", current_lang | sort: "date" | reverse -%}
+{%- assign list = site.posts | where: "lang", current_lang | sort: "date" | reverse -%}
 
 <div id="page-archives">
   <h1 class="ps-lg-2">
@@ -13,22 +12,21 @@ layout: page
   </h1>
 
   <div class="ps-lg-2 mt-4">
-    {%- assign current_year = "" -%}
-    {%- for post in posts_lang -%}
+    {%- assign ycur = "" -%}
+    {%- for post in list -%}
       {%- assign y = post.date | date: "%Y" -%}
-      {%- if y != current_year -%}
-        {%- if current_year != "" -%}</ul>{%- endif -%}
+      {%- if y != ycur -%}
+        {%- if ycur != "" -%}</ul>{%- endif -%}
         <h2 class="h5 mt-3">{{ y }}</h2>
         <ul class="content ps-0 ms-3">
-        {%- assign current_year = y -%}
+        {%- assign ycur = y -%}
       {%- endif -%}
-
       <li class="d-flex justify-content-between px-md-3">
         <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
         <span class="dash flex-grow-1"></span>
         {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=current_lang %}
       </li>
     {%- endfor -%}
-    {%- if posts_lang.size > 0 -%}</ul>{%- endif -%}
+    {%- if list.size > 0 -%}</ul>{%- endif -%}
   </div>
 </div>
