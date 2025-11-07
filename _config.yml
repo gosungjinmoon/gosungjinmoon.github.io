@@ -1,46 +1,71 @@
-# ============================================
-# ✅ GOFUNWITH Blog Configuration (i18n Fixed)
-# ============================================
+# --- Site ---
+title: GOFUNWITH Blog
+tagline: Explore. Create. Share.
+description: "기술, DIY, 삶에 대한 즐거운 탐험과 창조의 기록"
+url: "https://gosungjinmoon.github.io"
+baseurl: ""  # custom domain은 CNAME으로 처리
 
-include:
-  - admin
+# --- Theme ---
 theme: jekyll-theme-chirpy
-
 lang: ko
 langs: ["ko", "en"]
 timezone: Asia/Seoul
 
-brand: "GOFUNWITH – Explore. Create. Share."
-domain: "blog.gofunwith.com"
-title: GOFUNWITH Blog
-tagline: Explore. Create. Share.
-description: "기술, DIY, 삶에 대한 즐거운 탐험과 창조의 기록"
+# 전역 permalink에서 :lang 사용 금지 (빌드 안정성)
+permalink: /:categories/:title/
 
-url: "https://gosungjinmoon.github.io"
-baseurl: ""
+# Posts를 언어별 폴더로 강제 경로 매핑
+defaults:
+  - scope:
+      path: "_posts/ko"
+      type: posts
+    values:
+      lang: ko
+      permalink: /ko/:categories/:title/
 
-github:
-  username: gosungjinmoon
-twitter:
-  username: eric_moon
+  - scope:
+      path: "_posts/en"
+      type: posts
+    values:
+      lang: en
+      permalink: /en/:categories/:title/
 
-social:
-  name: GOFUNWITH
-  email: example@domain.com
-  links:
-    - https://github.com/gosungjinmoon
-    - https://twitter.com/username
+  # Tabs(사이드바 페이지) 공통
+  - scope:
+      path: "_tabs"
+      type: tabs
+    values:
+      layout: page
+
+# Plugins (Chirpy 기본)
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-archives
+
+paginate: 10
+
+# Archives(카테고리/태그 상세 경로) — 루트 충돌 방지
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    category: /:name/
+    tag: /tags/:name/
+
+# Sidebar/Assets/PWA 등 기존 설정 유지
+avatar: /assets/img/logo-light.svg
+favicon: /assets/img/favicon.svg
 
 analytics:
   google:
     id: "G-R7N7G7QPBF"
   cloudflare:
     id: "c7db8999eee4466bab1893a2361aed10"
-
-avatar: /assets/img/logo-light.svg
-favicon: /assets/img/favicon.svg
-
-toc: true
 
 comments:
   provider: giscus
@@ -49,56 +74,36 @@ comments:
     repo_id: "R_kgDOQODShw"
     category: "Show and tell"
     category_id: "DIC_kwDOQODSh84CxYII"
-    mapping: "pathname"       # ✅ 중요: URL이 아닌 Pathname 기준
+    mapping: "pathname"
     strict: "0"
     input_position: "bottom"
     lang: "ko"
     reactions_enabled: "1"
 
-paginate: 10
+include:
+  - admin
 
-collections:
-  tabs:
-    output: true
-    sort_by: order
-    
-# ============================================
-# ✅ 다국어 permalink 구조
-# ============================================
-permalink: /:lang/:categories/:title/
+exclude:
+  - README.md
+  - LICENSE
+  - "*.gem"
+  - "*.gemspec"
+  - docs
+  - tools
+  - purgecss.js
+  - "*.config.js"
+  - "package*.json"
 
-defaults:
-  - scope:
-      path: "_posts/ko"
-      type: posts
-    values:
-      lang: ko
-      permalink: /ko/:categories/:title/
-      layout: post
-      comments: true
-      toc: true
-
-  - scope:
-      path: "_posts/en"
-      type: posts
-    values:
-      lang: en
-      permalink: /en/:categories/:title/
-      layout: post
-      comments: true
-      toc: true
-
-  - scope:
-      path: "_drafts"
-    values:
-      comments: false
-
-  - scope:
-      path: ""
-      type: tabs # see `site.collections`
-    values:
-      layout: page
-      permalink: /:lang/:title/
+kramdown:
+  footnote_backlink: "&#8617;&#xfe0e;"
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
 
 sass:
   style: compressed
@@ -107,26 +112,7 @@ compress_html:
   clippings: all
   comments: all
   endings: all
+  profile: false
   blanklines: false
   ignore:
     envs: [development]
-
-exclude:
-  - "*.gem"
-  - "*.gemspec"
-  - docs
-  - tools
-  - README.md
-  - LICENSE
-  - purgecss.js
-  - "*.config.js"
-  - "package*.json"
-
-jekyll-archives:
-  enabled: [categories, tags]
-  layouts:
-    category: category
-    tag: tag
-  permalinks:
-    tag: /tags/:name/
-    category: /categories/:name/
