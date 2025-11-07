@@ -65,7 +65,7 @@ collections:
 # ============================================
 # ✅ 다국어 permalink 구조
 # ============================================
-permalink: /:lang/:title/
+permalink: /:lang/:categories/:title/
 
 defaults:
   - scope:
@@ -73,7 +73,7 @@ defaults:
       type: posts
     values:
       lang: ko
-      permalink: /ko/:title/
+      permalink: /ko/:categories/:title/
       layout: post
       comments: true
       toc: true
@@ -83,7 +83,7 @@ defaults:
       type: posts
     values:
       lang: en
-      permalink: /en/:title/
+      permalink: /en/:categories/:title/
       layout: post
       comments: true
       toc: true
@@ -98,7 +98,7 @@ defaults:
       type: tabs # see `site.collections`
     values:
       layout: page
-      permalink: /:title/
+      permalink: /:lang/:title/
 
 sass:
   style: compressed
