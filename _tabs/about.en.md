@@ -1,9 +1,9 @@
 ---
 layout: page
-title: "{{ site.data.locales['ko'].tabs.about | default: '정보' }}"
+title: "{{ site.data.locales['en'].tabs.about | default: 'About' }}"
 icon: fas fa-info-circle
 order: 5
-lang: ko
-permalink: /ko/about/
+lang: en
+permalink: /en/about/
 ---
-{% include tabs/about.ko.md %}
+{% include tabs/about.en.md %}
