@@ -12,14 +12,14 @@ layout: page
 
   <div class="ps-lg-2 mt-4">
     {%- for tag in site.tags -%}
-      {%- assign list = tag[1] | where: "lang", current_lang -%}
-      {%- if list.size > 0 -%}
+      {%- assign tag_posts = tag[1] | where: "lang", current_lang -%}
+      {%- if tag_posts.size > 0 -%}
         <section id="{{ tag[0] | slugify }}" class="mb-4">
           <h2 class="h5">#{{ tag[0] }}
-            <span class="text-muted small">({{ list.size }})</span>
+            <span class="text-muted small">({{ tag_posts.size }})</span>
           </h2>
           <ul class="content ps-0 ms-3">
-            {%- for post in list -%}
+            {%- for post in tag_posts -%}
               <li class="d-flex justify-content-between px-md-3">
                 <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
                 <span class="dash flex-grow-1"></span>
