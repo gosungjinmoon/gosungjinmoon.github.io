@@ -1,45 +1,32 @@
-name: Build and Deploy
+name: Build & Deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
   contents: write
   pages: write
   id-token: write
-  
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
           bundler-cache: true
 
-      - name: Install gems
+      - name: Build
         run: |
-          bundle config set path 'vendor/bundle'
-          bundle install --jobs 4 --retry 3
-
-      - name: Build Jekyll
-        run: |
+          bundle install
           bundle exec jekyll build --trace
         env:
           JEKYLL_ENV: production
-
-      # htmlproofer는 링크 구조 안정화 후 켜세요
-      # - name: HTML Proofer
-      #   run: |
-      #     gem install html-proofer
-      #     htmlproofer ./_site --checks-to-ignore Scripts
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
