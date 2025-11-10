@@ -3,30 +3,33 @@ layout: page
 ---
 
 {%- assign current_lang = page.lang | default: site.lang | default: 'ko' -%}
-{%- assign list = site.posts | where: "lang", current_lang | sort: "date" | reverse -%}
 
-<div id="page-archives">
+<div id="page-categories">
   <h1 class="ps-lg-2">
-    <i class="far fa-calendar-alt fa-fw text-muted"></i>
+    <i class="far fa-folder-open fa-fw text-muted"></i>
     {{ page.title }}
   </h1>
 
   <div class="ps-lg-2 mt-4">
-    {%- assign ycur = "" -%}
-    {%- for post in list -%}
-      {%- assign y = post.date | date: "%Y" -%}
-      {%- if y != ycur -%}
-        {%- if ycur != "" -%}</ul>{%- endif -%}
-        <h2 class="h5 mt-3">{{ y }}</h2>
-        <ul class="content ps-0 ms-3">
-        {%- assign ycur = y -%}
+    {%- for category in site.categories -%}
+      {%- assign list = category[1] | where: "lang", current_lang -%}
+      {%- if list.size > 0 -%}
+        <section class="category-block mb-4">
+          <h2 class="h5">
+            <i class="far fa-folder fa-fw text-muted"></i>
+            {{ category[0] }} <span class="text-muted small">({{ list.size }})</span>
+          </h2>
+          <ul class="content ps-0 ms-3">
+            {%- for post in list -%}
+              <li class="d-flex justify-content-between px-md-3">
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                <span class="dash flex-grow-1"></span>
+                {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=current_lang %}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </section>
       {%- endif -%}
-      <li class="d-flex justify-content-between px-md-3">
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        <span class="dash flex-grow-1"></span>
-        {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=current_lang %}
-      </li>
     {%- endfor -%}
-    {%- if list.size > 0 -%}</ul>{%- endif -%}
   </div>
 </div>
