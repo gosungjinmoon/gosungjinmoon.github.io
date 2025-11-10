@@ -12,15 +12,15 @@ layout: page
 
   <div class="ps-lg-2 mt-4">
     {%- for category in site.categories -%}
-      {%- assign list = category[1] | where: "lang", current_lang -%}
-      {%- if list.size > 0 -%}
+      {%- assign posts_lang = category[1] | where: "lang", current_lang -%}
+      {%- if posts_lang.size > 0 -%}
         <section class="category-block mb-4">
           <h2 class="h5">
             <i class="far fa-folder fa-fw text-muted"></i>
-            {{ category[0] }} <span class="text-muted small">({{ list.size }})</span>
+            {{ category[0] }} <span class="text-muted small">({{ posts_lang.size }})</span>
           </h2>
           <ul class="content ps-0 ms-3">
-            {%- for post in list -%}
+            {%- for post in posts_lang -%}
               <li class="d-flex justify-content-between px-md-3">
                 <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
                 <span class="dash flex-grow-1"></span>
