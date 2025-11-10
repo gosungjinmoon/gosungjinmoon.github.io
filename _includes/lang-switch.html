@@ -1,23 +1,8 @@
-<div class="lang-switch" style="position:absolute;top:1rem;right:2rem;">
-  {% assign current_lang = page.lang | default: "ko" %}
-  {% if current_lang == "ko" %}
-    <a href="/en/" class="lang-btn">English</a>
+{% assign current_lang = page.lang | default: site.default_lang %}
+<div style="text-align:right; margin: .5rem 0;">
+  {% if current_lang == 'ko' %}
+    <a href="/en{{ page.url | remove_first: '/ko' }}">English</a>
   {% else %}
-    <a href="/ko/" class="lang-btn">한국어</a>
+    <a href="/ko{{ page.url | remove_first: '/en' }}">한국어</a>
   {% endif %}
 </div>
-
-<style>
-.lang-btn {
-  font-size: 0.9rem;
-  padding: 4px 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  text-decoration: none;
-  color: var(--text-muted);
-}
-.lang-btn:hover {
-  color: var(--text);
-  border-color: var(--text);
-}
-</style>
