@@ -1,114 +1,91 @@
-# _config.yml  /* v20251107.stable */
-
-title: GOFUNWITH Blog
-tagline: Explore. Create. Share.
+# ---------------------
+# GOFUNWITH Universal (i18n + Theme-agnostic)
+# ---------------------
+title: "GOFUNWITH Blog"
+tagline: "Explore. Create. Share."
 description: "기술, DIY, 삶에 대한 즐거운 탐험과 창조의 기록"
-url: "https://gosungjinmoon.github.io"
-baseurl: ""        # custom domain은 CNAME으로 처리
 
+# 배포 URL (도메인 기준, Chirpy도 OK / 다른 테마도 OK)
+url: "https://blog.gofunwith.com"
+baseurl: ""
+
+# 시작 테마 (원하면 minima 등으로 교체 가능)
 theme: jekyll-theme-chirpy
-lang: ko
-langs: ["ko", "en"]
-timezone: Asia/Seoul
 
-# ⚠️ 전역 permalink에서 :lang 금지 (Jekyll 예약키 아님 → 빌드 에러 유발)
+# 지역/언어
+timezone: Asia/Seoul
+languages: ["ko", "en"]    # 플러그인 표준 키
+default_lang: "ko"
+
+# 퍼머링크 (포스트는 언어별 prefix)
 permalink: /:categories/:title/
 
-# Posts는 폴더별로 언어 경로 고정
-defaults:
-  - scope:
-      path: "_posts/ko"
-      type: posts
-    values:
-      lang: ko
-      permalink: /ko/:categories/:title/
-      layout: post
-      comments: true
-      toc: true
+# GitHub/브랜드 (필요시 사용)
+brand: "GOFUNWITH – Explore. Create. Share."
+domain: "blog.gofunwith.com"
 
-  - scope:
-      path: "_posts/en"
-      type: posts
-    values:
-      lang: en
-      permalink: /en/:categories/:title/
-      layout: post
-      comments: true
-      toc: true
-
-  # Tabs(사이드바 페이지): 각 파일에서 lang/permalink 명시
-  - scope:
-      path: "_tabs"
-      type: tabs
-    values:
-      layout: page
-
-# Chirpy에서 안전하게 쓰는 플러그인만
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-paginate
-# - jekyll-archives   # ← 사용 안함
-
-paginate: 10
-
-# Assets / Comments / Analytics (필요시 수정)
-avatar: /assets/img/logo-light.svg
-favicon: /assets/img/favicon.svg
-
-comments:
-  provider: giscus
-  giscus:
-    repo: gosungjinmoon/gosungjinmoon.github.io
-    repo_id: "R_kgDOQODShw"
-    category: "Show and tell"
-    category_id: "DIC_kwDOQODSh84CxYII"
-    mapping: "pathname"
-    strict: "0"
-    input_position: "bottom"
-    lang: "ko"
-    reactions_enabled: "1"
-
+# 당신 제공 값: Analytics / Cloudflare / Giscus
 analytics:
   google:
     id: "G-R7N7G7QPBF"
   cloudflare:
     id: "c7db8999eee4466bab1893a2361aed10"
 
-include:
-  - admin
+comments:
+  provider: giscus
+  giscus:
+    repo: "gosungjinmoon/gosungjinmoon.github.io"
+    repo_id: "R_kgDOQODShw"
+    category: "Show and tell"
+    category_id: "DIC_kwDOQODSh84CxYII"
+    mapping: "pathname"   # 언어 prefix 포함되어 언어별 스레드 분리
+    input_position: "bottom"
+    lang: "ko"
+    reactions_enabled: "1"
 
-exclude:
-  - README.md
-  - LICENSE
-  - "*.gem"
-  - "*.gemspec"
-  - docs
-  - tools
-  - purgecss.js
-  - "*.config.js"
-  - "package*.json"
+adsense:
+  client_id: "ca-pub-YOUR_ADSENSE_CLIENT_ID"
 
-kramdown:
-  footnote_backlink: "&#8617;&#xfe0e;"
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    css_class: highlight
-    span:
-      line_numbers: false
-    block:
-      line_numbers: true
-      start_line: 1
+# 플러그인
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-multiple-languages-plugin
 
+paginate: 10
+
+# 언어별 기본값 (포스트는 폴더로 분리)
+defaults:
+  - scope:
+      path: "_posts/ko"
+      type: posts
+    values:
+      lang: "ko"
+      permalink: /ko/:categories/:title/
+  - scope:
+      path: "_posts/en"
+      type: posts
+    values:
+      lang: "en"
+      permalink: /en/:categories/:title/
+
+# i18n 플러그인 설정
+exclude_from_localizations:
+  - "assets"
+  - "admin"
+  - "CNAME"
+  - ".github"
+  - "vendor"
+  - "node_modules"
+
+# HTML 압축 등
 sass:
   style: compressed
 
-compress_html:
-  clippings: all
-  comments: all
-  endings: all
-  profile: false
-  blanklines: false
-  ignore:
-    envs: [development]
+exclude:
+  - "node_modules"
+  - "vendor"
+  - "Gemfile*"
+  - "package*.json"
