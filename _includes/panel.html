@@ -1,0 +1,21 @@
+{% comment %}
+  ✅ GOFUNWITH i18n 패치
+  - page.lang 기준 로케일
+  - 언어별 태그 필터링
+  - Chirpy 구조 유지
+{% endcomment %}
+{% assign current_lang = page.lang | default: site.lang %}
+<section class="panel">
+  <h3 data-toc-skip>{{ site.data.locales[current_lang].panel.trending_tags }}</h3>
+  <div class="tags">
+    {% assign sorted_tags = site.tags | sort_natural: "first" %}
+    {% for tag in sorted_tags %}
+      {% assign tag_name = tag | first %}
+      {% assign lang_posts = tag | last | where: "lang", current_lang %}
+      {% if lang_posts.size > 0 %}
+        <a href="{{ '/' | append: current_lang | append: '/tags/#' | append: tag_name | slugify | relative_url }}"
+           class="tag" title="{{ tag_name }}">{{ tag_name }}</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
