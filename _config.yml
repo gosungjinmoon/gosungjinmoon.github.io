@@ -59,7 +59,7 @@ paginate: 10
 
 collections:
   tabs:
-    output: false
+    output: true
     sort_by: order
     
 # ============================================
