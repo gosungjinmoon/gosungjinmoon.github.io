@@ -1,14 +1,11 @@
 ---
 layout: page
-title: {{ 'tabs.archives' | t }}
-icon: fas fa-archive
-order: 5
 ---
 
 {% assign current_lang = page.lang | default: site.lang %}
 {% assign posts_lang = site.posts | where: "lang", current_lang | sort: "date" | reverse %}
 
-<div id="archives" class="archives">
+<section id="archives" class="archives">
   <ul class="timeline">
     {% for post in posts_lang %}
       <li class="post-item">
@@ -17,4 +14,4 @@ order: 5
       </li>
     {% endfor %}
   </ul>
-</div>
+</section>
