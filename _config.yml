@@ -15,7 +15,7 @@ remote_theme: cotes2020/jekyll-theme-chirpy
 timezone: Asia/Seoul
 
 # Permalink structure that includes language prefix from front matter
-permalink: "/:lang/:categories/:title/"
+permalink: "/:categories/:title/"
 
 # Plugins (GitHub Pages safelist only)
 plugins:
