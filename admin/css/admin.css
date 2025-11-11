@@ -1,0 +1,11 @@
+/* /admin/css/admin.css v202511040001 */
+body { font-family: 'Inter', 'Pretendard', sans-serif; background: #f8f9fa; color: #1E2A3A; margin: 0; }
+#admin-container { max-width: 800px; margin: 50px auto; background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); overflow: hidden; }
+header { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: #1E2A3A; color: #fff; }
+header h1 { font-size: 1.5rem; margin: 0; }
+main { padding: 2rem; }
+form { display: flex; flex-direction: column; gap: 1rem; }
+input[type="text"], select, textarea { width: 100%; padding: 0.75rem; border: 1px solid #E5E7EB; border-radius: 6px; font-size: 1rem; box-sizing: border-box; }
+.form-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
+button { background-color: #FF7B54; color: white; border: none; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; }
+button:disabled { background-color: #A0A7AF; }
