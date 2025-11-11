@@ -1,0 +1,7 @@
+{% assign current_lang = page.lang | default: site.lang %}
+{% assign posts_lang = site.posts | where: "lang", current_lang | sort: "date" | reverse %}
+<div class="timeline">
+  {% for post in posts_lang %}
+    {% include archive-single.html %}
+  {% endfor %}
+</div>
