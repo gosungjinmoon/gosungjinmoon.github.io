@@ -8,11 +8,9 @@ gem "webrick", "~> 1.8"
 gem "jekyll-theme-chirpy", "~> 7.4.1"
 
 group :jekyll_plugins do
-  gem "jekyll-feed", "~> 0.17"
-  gem "jekyll-seo-tag", "~> 2.8"
-  gem "jekyll-sitemap", "~> 1.4"
-  gem "jekyll-paginate", "~> 1.1"
-
-  # ✅ 공식 다국어 플러그인
-  gem "jekyll-multiple-languages-plugin", "~> 1.8"
+  gem "jekyll-feed"
+  gem "jekyll-seo-tag"
+  gem "jekyll-sitemap"
+  gem "jekyll-paginate"
+  gem "jekyll-remote-theme"
 end
