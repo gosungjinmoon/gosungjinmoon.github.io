@@ -1,0 +1,7 @@
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const lang = document.documentElement.lang || 'ko';
+  const giscus = document.querySelector('script[src*="giscus.app"]');
+  if (giscus) giscus.setAttribute('data-lang', lang);
+});
+</script>
