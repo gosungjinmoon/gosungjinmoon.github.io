@@ -1,26 +1,21 @@
-{%- assign current_lang = page.lang | default: site.lang -%}
-{%- assign lang_prefix = current_lang | prepend: '/' -%}
+{% assign lang_prefix = page.lang | default: site.lang | prepend: '/' %}
 
 <nav class="sidebar-nav">
   <ul>
     <li><a href="{{ lang_prefix | append: '/' | relative_url }}">
-      {{ site.data.locales[current_lang].tabs.home | default: '홈' }}
+      {{ site.data.locales[page.lang].tabs.home | default: 'Home' }}
     </a></li>
-
     <li><a href="{{ lang_prefix | append: '/categories/' | relative_url }}">
-      {{ site.data.locales[current_lang].tabs.categories | default: '카테고리' }}
+      {{ site.data.locales[page.lang].tabs.categories | default: 'Categories' }}
     </a></li>
-
     <li><a href="{{ lang_prefix | append: '/tags/' | relative_url }}">
-      {{ site.data.locales[current_lang].tabs.tags | default: '태그' }}
+      {{ site.data.locales[page.lang].tabs.tags | default: 'Tags' }}
     </a></li>
-
     <li><a href="{{ lang_prefix | append: '/archives/' | relative_url }}">
-      {{ site.data.locales[current_lang].tabs.archives | default: '아카이브' }}
+      {{ site.data.locales[page.lang].tabs.archives | default: 'Archives' }}
     </a></li>
-
     <li><a href="{{ lang_prefix | append: '/about/' | relative_url }}">
-      {{ site.data.locales[current_lang].tabs.about | default: '정보' }}
+      {{ site.data.locales[page.lang].tabs.about | default: 'About' }}
     </a></li>
   </ul>
 </nav>
