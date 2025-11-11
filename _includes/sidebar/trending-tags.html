@@ -1,17 +1,24 @@
 {% assign current_lang = page.lang | default: site.lang %}
 {% assign all_tags = site.tags %}
+{% comment %} 상위 20개 정도만 노출 {% endcomment %}
 {% assign trending_tags = all_tags | sort: "size" | reverse | slice: 0, 20 %}
 
 <div class="trending-tags">
   <h3 class="panel-heading">
-    <i class="fas fa-fire"></i> {{ 'sidebar.trending_tags' | t }}
+    <i class="fas fa-fire"></i>
+    {{ site.data.locales[current_lang].panel.trending_tags | default: 'Trending Tags' }}
   </h3>
+
   <div class="panel-body">
     {% for tag in trending_tags %}
       {% assign tag_name = tag[0] %}
       {% assign lang_posts = tag[1] | where: "lang", current_lang %}
       {% if lang_posts.size > 0 %}
-        <a href="/{{ current_lang }}/tags/#{{ tag_name | slugify }}" class="tag">
+        <a
+          class="tag"
+          href="{{ '/' | append: current_lang | append: '/tags/#' | append: (tag_name | slugify) | relative_url }}"
+          title="{{ tag_name }}"
+        >
           {{ tag_name }}
           <span class="tag-count">{{ lang_posts.size }}</span>
         </a>
