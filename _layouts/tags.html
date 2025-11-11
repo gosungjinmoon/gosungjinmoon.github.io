@@ -3,20 +3,17 @@ layout: page
 ---
 
 {% assign current_lang = page.lang | default: site.lang %}
-{% assign tags = site.tags | sort_natural: "first" %}
+{% assign filtered_posts = site.posts | where: "lang", current_lang %}
+{% assign tags = filtered_posts | map: "tags" | uniq | sort_natural %}
 
 <section class="tags">
   {% for tag in tags %}
-    {% assign tag_name = tag | first %}
-    {% assign lang_posts = tag | last | where: "lang", current_lang %}
-    {% if lang_posts.size > 0 %}
-      <article id="{{ tag_name | slugify }}" class="tag-block">
-        <h2 class="tag-title">
-          <i class="fas fa-tag"></i> {{ tag_name }}
-          <span class="tag-count">{{ lang_posts.size }}</span>
-        </h2>
-        <ul class="tag-posts">
-          {% for post in lang_posts %}
+    {% assign tag_posts = site.posts | where_exp: "p", "p.lang == current_lang and p.tags contains tag" %}
+    {% if tag_posts.size > 0 %}
+      <article id="{{ tag | slugify }}">
+        <h2><i class="fas fa-tag"></i> {{ tag }} ({{ tag_posts.size }})</h2>
+        <ul>
+          {% for post in tag_posts %}
             <li>
               <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
               <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
