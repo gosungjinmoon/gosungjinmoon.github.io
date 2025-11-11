@@ -6,18 +6,24 @@ order: 4
 ---
 
 {% assign current_lang = page.lang | default: site.lang %}
-{% assign tags = site.tags | sort %}
-{% for tag in tags %}
-  {% assign tag_name = tag | first %}
-  {% assign lang_posts = tag | last | where: "lang", current_lang %}
-  {% if lang_posts.size > 0 %}
-    <section id="{{ tag_name | slugify }}">
-      <h2>{{ tag_name }}</h2>
-      <ul>
-        {% for post in lang_posts %}
-          <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a> <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span></li>
-        {% endfor %}
-      </ul>
-    </section>
-  {% endif %}
-{% endfor %}
+{% assign tags = site.tags | sort_natural: "first" %}
+
+<section class="tags">
+  {% for tag in tags %}
+    {% assign tag_name = tag | first %}
+    {% assign lang_posts = tag | last | where: "lang", current_lang %}
+    {% if lang_posts.size > 0 %}
+      <article id="{{ tag_name | slugify }}" class="tag-block">
+        <h2 class="tag-title">{{ tag_name }}</h2>
+        <ul class="tag-posts">
+          {% for post in lang_posts %}
+            <li>
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </article>
+    {% endif %}
+  {% endfor %}
+</section>
