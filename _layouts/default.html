@@ -1,51 +1,18 @@
----
-layout: nil
----
-{%- assign page_lang = page.lang | default: site.lang | default: "ko" -%}
-<!DOCTYPE html>
-<html lang="{{ page_lang }}">
-  {% include head.html %}
-  <body>
-    {% include topbar.html %}
-    {% include sidebar.html %}
+{% include footer.html %}
+{% include search-loader.html %}
 
-    <main class="container">
-      {{ content }}
-    </main>
+{% if site.js %}
+  {% for js_file in site.js %}
+    <script src="{{ js_file | relative_url }}"></script>
+  {% endfor %}
+{% endif %}
 
-    {% include footer.html %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const currentLang = '{{ page.lang | default: site.lang | default: "ko" }}';
+    localStorage.setItem('lang', currentLang);
+  });
+</script>
 
-    {% include search-loader.html %}
-    {% include top-button.html %}
-
-    {# ============================================
-       ✅ Scripts (Chirpy core)
-       ============================================ #}
-    {% if site.js %}
-      {% for js_file in site.js %}
-        <script src="{{ js_file | relative_url }}"></script>
-      {% endfor %}
-    {% endif %}
-
-    {# ============================================
-       ✅ Language Switch Handling
-       ============================================ #}
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const currentLang = '{{ page_lang }}';
-        localStorage.setItem('lang', currentLang);
-
-        document.querySelectorAll('a[href^="/"]').forEach(link => {
-          if (!link.href.includes('/assets/') && !link.href.includes('/img/')) {
-            if (currentLang === 'en' && !link.href.includes('/en/')) {
-              link.href = link.href.replace('https://blog.gofunwith.com', 'https://blog.gofunwith.com/en');
-            } else if (currentLang === 'ko' && !link.href.includes('/ko/')) {
-              link.href = link.href.replace('https://blog.gofunwith.com', 'https://blog.gofunwith.com/ko');
-            }
-          }
-        });
-      });
-    </script>
-
-  </body>
+</body>
 </html>
