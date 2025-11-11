@@ -1,5 +1,5 @@
 # ============================================
-# ✅ GOFUNWITH Blog Configuration (Chirpy i18n Fixed)
+# ✅ GOFUNWITH Blog Configuration (Chirpy i18n Stable)
 # ============================================
 
 include:
@@ -19,9 +19,6 @@ description: "기술, DIY, 삶에 대한 즐거운 탐험과 창조의 기록"
 url: "https://gosungjinmoon.github.io"
 baseurl: ""
 
-# ============================================
-# ✅ Social / Analytics
-# ============================================
 github:
   username: gosungjinmoon
 twitter:
@@ -45,9 +42,6 @@ favicon: /assets/img/favicon.svg
 
 toc: true
 
-# ============================================
-# ✅ Comments
-# ============================================
 comments:
   provider: giscus
   giscus:
@@ -63,17 +57,12 @@ comments:
 
 paginate: 10
 
-# ============================================
-# ✅ Collections
-# ============================================
 collections:
   tabs:
     output: true
     sort_by: order
 
-# ============================================
-# ✅ Permalinks (언어별 직접 정의)
-# ============================================
+# ✅ Permalink
 permalink: /:categories/:title/
 
 defaults:
@@ -98,21 +87,17 @@ defaults:
       toc: true
 
   - scope:
-      path: ""
-      type: tabs
-    values:
-      layout: page
-      # ❗ 절대 /:lang 제거하고, 직접 경로 관리
-      permalink: /:title/
-
-  - scope:
       path: "_drafts"
     values:
       comments: false
 
-# ============================================
-# ✅ Sass / HTML Compression
-# ============================================
+  - scope:
+      path: ""
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+
 sass:
   style: compressed
 
@@ -124,21 +109,16 @@ compress_html:
   ignore:
     envs: [development]
 
-# ============================================
-# ✅ Jekyll Archives (언어별 분기 직접 선언)
-# ============================================
+# ✅ Archives (수정된 부분)
 jekyll-archives:
   enabled: [categories, tags]
   layouts:
     category: category
     tag: tag
   permalinks:
-    category: /:collection/:name/
-    tag: /:collection/:name/
+    category: /categories/:name/
+    tag: /tags/:name/
 
-# ============================================
-# ✅ Plugins
-# ============================================
 plugins:
   - jekyll-paginate
   - jekyll-seo-tag
@@ -146,9 +126,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-archives
 
-# ============================================
-# ✅ Exclude
-# ============================================
 exclude:
   - "*.gem"
   - "*.gemspec"
