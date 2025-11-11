@@ -1,7 +1,23 @@
-<!-- _includes/lang-switch.html -->
-<select id="lang-switch" aria-label="Language switch">
-  <option value="ko" {% if page.lang == 'ko' %}selected{% endif %}>KO</option>
-  <option value="en" {% if page.lang == 'en' %}selected{% endif %}>EN</option>
-</select>
+<div class="lang-switch" style="position:absolute;top:1rem;right:2rem;">
+  {% assign current_lang = page.lang | default: "ko" %}
+  {% if current_lang == "ko" %}
+    <a href="/en/" class="lang-btn">English</a>
+  {% else %}
+    <a href="/ko/" class="lang-btn">한국어</a>
+  {% endif %}
+</div>
 
-<script defer src="{{ '/assets/js/lang-switch.js' | relative_url }}"></script>
+<style>
+.lang-btn {
+  font-size: 0.9rem;
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--text-muted);
+}
+.lang-btn:hover {
+  color: var(--text);
+  border-color: var(--text);
+}
+</style>
