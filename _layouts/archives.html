@@ -1,7 +1,18 @@
+---
+layout: page
+title: {{ 'tabs.archives' | t }}
+icon: fas fa-archive
+order: 5
+---
+
 {% assign current_lang = page.lang | default: site.lang %}
 {% assign posts_lang = site.posts | where: "lang", current_lang | sort: "date" | reverse %}
-<div class="timeline">
+
+<div id="archives">
   {% for post in posts_lang %}
-    {% include archive-single.html %}
+  <div class="post-item">
+    <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+  </div>
   {% endfor %}
 </div>
