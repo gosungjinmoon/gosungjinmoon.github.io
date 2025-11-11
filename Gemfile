@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "jekyll-theme-chirpy", "~> 7.4", ">= 7.4.1" (시작은 Chirpy, 교체 가능: minima, cayman ...)
+gem "jekyll-theme-chirpy", "~> 7.4", ">= 7.4.1" #(시작은 Chirpy, 교체 가능: minima, cayman ...)
 
 gem "html-proofer", "~> 5.0", group: :test
 
