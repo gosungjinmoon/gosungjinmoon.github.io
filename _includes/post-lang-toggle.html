@@ -1,0 +1,18 @@
+{% comment %}
+  i18n post language switcher
+  - Shows link to opposite language version if exists
+  - Handles /ko/... and /en/... permalink automatically
+{% endcomment %}
+{% if page.alt_lang %}
+  {% if page.lang == "ko" %}
+    <div style="text-align:right;margin-top:1rem;">
+      <a href="/en/{{ page.alt_lang }}/">View in English</a>
+    </div>
+  {% elsif page.lang == "en" %}
+    <div style="text-align:right;margin-top:1rem;">
+      <a href="/ko/{{ page.alt_lang }}/">한국어로 보기</a>
+    </div>
+  {% endif %}
+{% endif %}
+
+<script src="{{ '/assets/js/recent-filter.js' | relative_url }}" defer></script>
