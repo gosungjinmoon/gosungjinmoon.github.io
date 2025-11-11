@@ -1,0 +1,19 @@
+---
+# DO NOT remove default head content from Chirpy
+---
+
+{%- assign page_lang = page.lang | default: site.lang | default: "ko" -%}
+{%- assign site_lang = page_lang -%}
+
+<!DOCTYPE html>
+<html lang="{{ page_lang }}">
+  <head>
+    {%- include head.html ignore missing -%}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {%- comment -%}
+      Add language meta but DO NOT redefine Jekyll's stylesheet links
+    {%- endcomment -%}
+    <meta name="lang" content="{{ page_lang }}">
+  </head>
