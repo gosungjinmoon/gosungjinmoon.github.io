@@ -42,7 +42,9 @@ avatar: /assets/img/logo-light.svg
 favicon: /assets/img/favicon.svg
 
 toc: true
-
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
 comments:
   provider: giscus
   giscus:
