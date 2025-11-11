@@ -1,24 +1,21 @@
 ---
 layout: page
-title: {{ 'tabs.tags' | t }}
-icon: fas fa-tags
-order: 4
 ---
 
 {% assign current_lang = page.lang | default: site.lang %}
 {% assign tags = site.tags | sort_natural: "first" %}
 
-<div id="tags">
+<section class="tags">
   {% for tag in tags %}
     {% assign tag_name = tag | first %}
     {% assign lang_posts = tag | last | where: "lang", current_lang %}
     {% if lang_posts.size > 0 %}
-      <section id="{{ tag_name | slugify }}" class="tag-section">
+      <article id="{{ tag_name | slugify }}" class="tag-block">
         <h2 class="tag-title">
           <i class="fas fa-tag"></i> {{ tag_name }}
           <span class="tag-count">{{ lang_posts.size }}</span>
         </h2>
-        <ul class="post-list">
+        <ul class="tag-posts">
           {% for post in lang_posts %}
             <li>
               <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
@@ -26,7 +23,7 @@ order: 4
             </li>
           {% endfor %}
         </ul>
-      </section>
+      </article>
     {% endif %}
   {% endfor %}
-</div>
+</section>
