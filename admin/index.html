@@ -1,76 +1,42 @@
-<!-- admin/index.html v202511110223 -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GOFUNWITH Admin</title>
-  <link rel="stylesheet" href="/assets/css/gfw.css" />
-  <style>
-    .wrap { max-width: 880px; margin: 24px auto; padding: 0 12px; }
-    .card { border: 1px solid var(--gfw-border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-    textarea { width: 100%; height: 160px; }
-    input, select, button { padding: 8px; margin: 4px 0; }
-  </style>
+    <meta charset="UTF-8">
+    <title>GOFUNWITH Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
 </head>
-<body class="theme-typo">
-  <div class="wrap">
-    <h1>GOFUNWITH Admin</h1>
-    <p>OAuth → n8n 호출 → 포스트 생성/번역/테마 변경</p>
-
-    <div class="card">
-      <h3>새 글 작성 (n8n)</h3>
-      <input id="title" placeholder="제목" />
-      <select id="lang">
-        <option value="ko">ko</option>
-        <option value="en">en</option>
-      </select>
-      <textarea id="body" placeholder="Markdown 본문"></textarea>
-      <button id="btn-post">작성</button>
+<body>
+    <div id="admin-container">
+        <header>
+            <img src="/assets/img/logo-light.svg" alt="GOFUNWITH Logo" height="40">
+            <h1>Admin Console</h1>
+            <nav>
+                <button class="tab-btn active" data-tab="post-creator">새 포스트</button>
+                <button class="tab-btn" data-tab="theme-manager">테마 관리</button>
+            </nav>
+        </header>
+        <main>
+            <section id="post-creator" class="tab-content active">
+                <h2>새 포스트 작성</h2>
+                <form id="new-post-form">
+                    <input type="text" id="post-title" placeholder="포스트 제목" required>
+                    <textarea id="post-content" rows="15" placeholder="마크다운으로 내용을 작성하세요..." required></textarea>
+                    <div class="form-actions">
+                        <label><input type="checkbox" id="auto-translate" checked> 자동 번역하기</label>
+                        <button type="submit" id="submit-btn">포스트 생성</button>
+                    </div>
+                </form>
+            </section>
+            <section id="theme-manager" class="tab-content">
+                <h2>테마 선택</h2>
+                <div id="theme-gallery"></div>
+                <div id="theme-preview-wrapper">
+                    <h3>미리보기</h3>
+                    <iframe id="theme-preview-iframe" src="about:blank"></iframe>
+                </div>
+            </section>
+        </main>
     </div>
-
-    <div class="card">
-      <h3>자동 번역 트리거 (n8n)</h3>
-      <input id="slug" placeholder="대상 슬러그 (/ko/posts/...)" />
-      <button id="btn-translate">번역 요청</button>
-    </div>
-
-    <div class="card">
-      <h3>테마 변경 (n8n)</h3>
-      <select id="theme">
-        <option value="modern-light">modern-light</option>
-        <option value="chirpy-default">chirpy-default</option>
-      </select>
-      <button id="btn-theme">변경</button>
-    </div>
-  </div>
-
-  <script>
-    const CFG = {
-      NEW_POST: "{{ site.gfw.n8n.new_post }}",
-      TRANSLATE: "{{ site.gfw.n8n.translate }}",
-      THEME: "{{ site.gfw.n8n.theme_update }}"
-    };
-    async function post(url, data) {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      const txt = await res.text();
-      alert('응답: ' + txt);
-    }
-    document.getElementById('btn-post').onclick = () => post(CFG.NEW_POST, {
-      title: document.getElementById('title').value,
-      lang: document.getElementById('lang').value,
-      body: document.getElementById('body').value
-    });
-    document.getElementById('btn-translate').onclick = () => post(CFG.TRANSLATE, {
-      slug: document.getElementById('slug').value
-    });
-    document.getElementById('btn-theme').onclick = () => post(CFG.THEME, {
-      theme: document.getElementById('theme').value
-    });
-  </script>
+    <script src="js/admin.js"></script>
 </body>
 </html>
