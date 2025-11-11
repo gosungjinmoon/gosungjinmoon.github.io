@@ -1,0 +1,16 @@
+{% assign current_lang = page.lang | default: site.lang %}
+{% assign tags = site.tags | sort %}
+{% for tag in tags %}
+  {% assign tag_name = tag | first %}
+  {% assign lang_posts = tag | last | where: "lang", current_lang %}
+  {% if lang_posts.size > 0 %}
+    <section id="{{ tag_name | slugify }}">
+      <h2>{{ tag_name }}</h2>
+      <ul>
+        {% for post in lang_posts %}
+          <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+{% endfor %}
