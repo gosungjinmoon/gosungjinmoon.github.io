@@ -1,91 +1,91 @@
-# ---------------------
-# GOFUNWITH Universal (i18n + Theme-agnostic)
-# ---------------------
-title: "GOFUNWITH Blog"
-tagline: "Explore. Create. Share."
-description: "기술, DIY, 삶에 대한 즐거운 탐험과 창조의 기록"
-
-# 배포 URL (도메인 기준, Chirpy도 OK / 다른 테마도 OK)
-url: "https://blog.gofunwith.com"
+## _config.yml  /* _config.yml v202511110930 */
+# Site
+lang: ko
+languages: [ko, en]   # custom var for language switcher
 baseurl: ""
+url: "https://gosungjinmoon.github.io"
+title: "GOFUNWITH – Explore. Create. Share."
+description: "Tech · DIY · Sports · Automation"
 
-# 시작 테마 (원하면 minima 등으로 교체 가능)
-theme: jekyll-theme-chirpy
+# Theme (Chirpy via remote_theme for GH Pages compatibility)
+remote_theme: cotes2020/jekyll-theme-chirpy
+# If you switch to gem-based theme later, comment remote_theme and add the gem to Gemfile.
 
-# 지역/언어
+# Timezone
 timezone: Asia/Seoul
-languages: ["ko", "en"]    # 플러그인 표준 키
-default_lang: "ko"
 
-# 퍼머링크 (포스트는 언어별 prefix)
-permalink: /:categories/:title/
+# Permalink structure that includes language prefix from front matter
+permalink: "/:lang/:categories/:title/"
 
-# GitHub/브랜드 (필요시 사용)
-brand: "GOFUNWITH – Explore. Create. Share."
-domain: "blog.gofunwith.com"
-
-# 당신 제공 값: Analytics / Cloudflare / Giscus
-analytics:
-  google:
-    id: "G-R7N7G7QPBF"
-  cloudflare:
-    id: "c7db8999eee4466bab1893a2361aed10"
-
-comments:
-  provider: giscus
-  giscus:
-    repo: "gosungjinmoon/gosungjinmoon.github.io"
-    repo_id: "R_kgDOQODShw"
-    category: "Show and tell"
-    category_id: "DIC_kwDOQODSh84CxYII"
-    mapping: "pathname"   # 언어 prefix 포함되어 언어별 스레드 분리
-    input_position: "bottom"
-    lang: "ko"
-    reactions_enabled: "1"
-
-adsense:
-  client_id: "ca-pub-YOUR_ADSENSE_CLIENT_ID"
-
-# 플러그인
+# Plugins (GitHub Pages safelist only)
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-paginate
-  - jekyll-multiple-languages-plugin
+  - jekyll-remote-theme
 
+# Pagination
 paginate: 10
+paginate_path: "/:lang/page:num/"
 
-# 언어별 기본값 (포스트는 폴더로 분리)
+# Collections (default posts only)
+collections:
+  posts:
+    output: true
+
+# Defaults to ensure lang is required; fail-safe fallback to 'ko'
 defaults:
-  - scope:
-      path: "_posts/ko"
-      type: posts
+  - scope: {path: ""}
     values:
-      lang: "ko"
-      permalink: /ko/:categories/:title/
-  - scope:
-      path: "_posts/en"
-      type: posts
-    values:
-      lang: "en"
-      permalink: /en/:categories/:title/
+      layout: post
+      lang: ko
+      comments: true
+      toc: true
 
-# i18n 플러그인 설정
-exclude_from_localizations:
-  - "assets"
-  - "admin"
-  - "CNAME"
-  - ".github"
-  - "vendor"
-  - "node_modules"
+# Giscus (loaded via include)
+comments:
+  provider: giscus
+  giscus:
+    repo: gosungjinmoon/gosungjinmoon.github.io
+    repo_id: R_kgDOQODShw
+    category: "Show and tell"
+    category_id: DIC_kwDOQODSh84CxYII
+    mapping: pathname
+    strict: 0
+    reactions_enabled: 1
+    emit_metadata: 0
+    input_position: bottom
+    theme: light
+    lang: ko
 
-# HTML 압축 등
-sass:
-  style: compressed
+# SEO / Analytics
+google_analytics: G-R7N7G7QPBF
 
+# Sitemap
 exclude:
-  - "node_modules"
-  - "vendor"
-  - "Gemfile*"
-  - "package*.json"
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - WORKERS_like_api_and_oauth_example.js
+
+# Custom vars used by includes
+brand:
+  name: "GOFUNWITH"
+  slogan: "Explore. Create. Share."
+  domain: "blog.gofunwith.com"
+  aurora_primary: "#1E90FF"
+  aurora_accent: "#FFC53D"
+  neutral_muted: "#A0A7AF"
+  neutral_border: "#E5E7EB"
+
+api:
+  cloudflare_worker_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
+  like_api_endpoint: "https://api.gofunwith.com/like"
+  n8n:
+    new_post: "https://n8n.gofunwith.com/webhook/new-post"
+    translate: "https://n8n.gofunwith.com/webhook/translate-post"
+    theme_update: "https://n8n.gofunwith.com/webhook/update-theme"
+
+# Robots
+robots: "all"
