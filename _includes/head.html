@@ -1,19 +1,16 @@
----
-# DO NOT remove default head content from Chirpy
----
+{%- comment -%}
+  Safe language injection wrapper for Chirpy theme
+  Compatible with GitHub Pages (Jekyll 4.4.x)
+{%- endcomment -%}
 
 {%- assign page_lang = page.lang | default: site.lang | default: "ko" -%}
-{%- assign site_lang = page_lang -%}
-
 <!DOCTYPE html>
 <html lang="{{ page_lang }}">
   <head>
-    {%- include head.html ignore missing -%}
+    {%- include_cached head/custom.html -%}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {%- comment -%}
-      Add language meta but DO NOT redefine Jekyll's stylesheet links
-    {%- endcomment -%}
+    <!-- Language context -->
     <meta name="lang" content="{{ page_lang }}">
   </head>
