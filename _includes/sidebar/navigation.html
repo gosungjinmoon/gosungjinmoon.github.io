@@ -1,19 +1,21 @@
-{% assign current_lang = page.lang | default: site.lang %}
+{% assign lang_prefix = page.lang | default: site.lang | prepend: '/' %}
 
 <nav class="sidebar-nav">
   <ul>
-    {% if current_lang == 'en' %}
-      <li><a href="{{ '/en/' | relative_url }}">{{ 'tabs.home' | t | default: 'Home' }}</a></li>
-      <li><a href="{{ '/en/categories/' | relative_url }}">{{ 'tabs.categories' | t | default: 'Categories' }}</a></li>
-      <li><a href="{{ '/en/tags/' | relative_url }}">{{ 'tabs.tags' | t | default: 'Tags' }}</a></li>
-      <li><a href="{{ '/en/archives/' | relative_url }}">{{ 'tabs.archives' | t | default: 'Archives' }}</a></li>
-      <li><a href="{{ '/en/about/' | relative_url }}">{{ 'tabs.about' | t | default: 'About' }}</a></li>
-    {% else %}
-      <li><a href="{{ '/ko/' | relative_url }}">{{ 'tabs.home' | t | default: '홈' }}</a></li>
-      <li><a href="{{ '/ko/categories/' | relative_url }}">{{ 'tabs.categories' | t | default: '카테고리' }}</a></li>
-      <li><a href="{{ '/ko/tags/' | relative_url }}">{{ 'tabs.tags' | t | default: '태그' }}</a></li>
-      <li><a href="{{ '/ko/archives/' | relative_url }}">{{ 'tabs.archives' | t | default: '아카이브' }}</a></li>
-      <li><a href="{{ '/ko/about/' | relative_url }}">{{ 'tabs.about' | t | default: '정보' }}</a></li>
-    {% endif %}
+    <li><a href="{{ lang_prefix | append: '/' | relative_url }}">
+      {{ site.data.locales[page.lang].tabs.home | default: 'Home' }}
+    </a></li>
+    <li><a href="{{ lang_prefix | append: '/categories/' | relative_url }}">
+      {{ site.data.locales[page.lang].tabs.categories | default: 'Categories' }}
+    </a></li>
+    <li><a href="{{ lang_prefix | append: '/tags/' | relative_url }}">
+      {{ site.data.locales[page.lang].tabs.tags | default: 'Tags' }}
+    </a></li>
+    <li><a href="{{ lang_prefix | append: '/archives/' | relative_url }}">
+      {{ site.data.locales[page.lang].tabs.archives | default: 'Archives' }}
+    </a></li>
+    <li><a href="{{ lang_prefix | append: '/about/' | relative_url }}">
+      {{ site.data.locales[page.lang].tabs.about | default: 'About' }}
+    </a></li>
   </ul>
 </nav>
