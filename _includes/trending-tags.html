@@ -1,6 +1,6 @@
 {% assign current_lang = page.lang | default: site.lang %}
 {% assign all_tags = site.tags %}
-<div class="tags">
+<div class="trending-tags">
   {% for tag in all_tags %}
     {% assign tag_name = tag[0] %}
     {% assign lang_posts = tag[1] | where: "lang", current_lang %}
