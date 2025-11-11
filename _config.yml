@@ -7,12 +7,9 @@ url: "https://gosungjinmoon.github.io"
 title: "GOFUNWITH – Explore. Create. Share."
 description: "Tech · DIY · Sports · Automation"
 
-# Theme (Chirpy via remote_theme for GH Pages compatibility)
-remote_theme: cotes2020/jekyll-theme-chirpy
-# If you switch to gem-based theme later, comment remote_theme and add the gem to Gemfile.
-
 # Timezone
 timezone: Asia/Seoul
+theme: jekyll-theme-chirpy
 
 # Permalink structure that includes language prefix from front matter
 permalink: "/:categories/:title/"
