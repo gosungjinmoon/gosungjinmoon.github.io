@@ -79,6 +79,8 @@ collections:
 # ============================================
 # ✅ 언어별 permalink 및 기본값
 # ============================================
+permalink: /:categories/:title/
+
 defaults:
   - scope:
       path: "_posts/ko"
@@ -101,16 +103,11 @@ defaults:
       toc: true
 
   - scope:
-      path: "_drafts"
-    values:
-      comments: false
-
-  - scope:
       path: ""
       type: tabs
     values:
       layout: page
-      permalink: /:lang/:title/
+      permalink: /:title/
 
 # ============================================
 # ✅ Sass & HTML 압축
