@@ -1,11 +1,12 @@
 # ============================================
-# ✅ GOFUNWITH Blog Configuration (i18n Fixed)
+# ✅ GOFUNWITH Blog Configuration (i18n FULL)
 # ============================================
 
 include:
   - admin
 theme: jekyll-theme-chirpy
 
+# 🌐 다국어 설정
 lang: ko
 langs: ["ko", "en"]
 timezone: Asia/Seoul
@@ -16,9 +17,16 @@ title: GOFUNWITH Blog
 tagline: Explore. Create. Share.
 description: "기술, DIY, 삶에 대한 즐거운 탐험과 창조의 기록"
 
+# ============================================
+# ✅ URL & BASE
+# ============================================
 url: "https://gosungjinmoon.github.io"
 baseurl: ""
+permalink: /:lang/:categories/:title/
 
+# ============================================
+# ✅ Social / Analytics / SEO
+# ============================================
 github:
   username: gosungjinmoon
 twitter:
@@ -42,6 +50,9 @@ favicon: /assets/img/favicon.svg
 
 toc: true
 
+# ============================================
+# ✅ 댓글 설정 (Giscus)
+# ============================================
 comments:
   provider: giscus
   giscus:
@@ -49,7 +60,7 @@ comments:
     repo_id: "R_kgDOQODShw"
     category: "Show and tell"
     category_id: "DIC_kwDOQODSh84CxYII"
-    mapping: "pathname"       # ✅ 중요: URL이 아닌 Pathname 기준
+    mapping: "pathname"
     strict: "0"
     input_position: "bottom"
     lang: "ko"
@@ -57,23 +68,24 @@ comments:
 
 paginate: 10
 
+# ============================================
+# ✅ 컬렉션 설정
+# ============================================
 collections:
   tabs:
     output: true
     sort_by: order
-    
-# ============================================
-# ✅ 다국어 permalink 구조
-# ============================================
-permalink: /:lang/:title/
 
+# ============================================
+# ✅ 언어별 permalink 및 기본값
+# ============================================
 defaults:
   - scope:
       path: "_posts/ko"
       type: posts
     values:
       lang: ko
-      permalink: /ko/:title/
+      permalink: /ko/:categories/:title/
       layout: post
       comments: true
       toc: true
@@ -83,7 +95,7 @@ defaults:
       type: posts
     values:
       lang: en
-      permalink: /en/:title/
+      permalink: /en/:categories/:title/
       layout: post
       comments: true
       toc: true
@@ -95,11 +107,14 @@ defaults:
 
   - scope:
       path: ""
-      type: tabs # see `site.collections`
+      type: tabs
     values:
       layout: page
-      permalink: /:title/
+      permalink: /:lang/:title/
 
+# ============================================
+# ✅ Sass & HTML 압축
+# ============================================
 sass:
   style: compressed
 
@@ -111,6 +126,31 @@ compress_html:
   ignore:
     envs: [development]
 
+# ============================================
+# ✅ Jekyll Archives (언어별 카테고리·태그 페이지)
+# ============================================
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    category: /:lang/categories/:name/
+    tag: /:lang/tags/:name/
+
+# ============================================
+# ✅ 플러그인 (필수)
+# ============================================
+plugins:
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-archives
+
+# ============================================
+# ✅ 빌드 제외 대상
+# ============================================
 exclude:
   - "*.gem"
   - "*.gemspec"
@@ -121,12 +161,6 @@ exclude:
   - purgecss.js
   - "*.config.js"
   - "package*.json"
-
-jekyll-archives:
-  enabled: [categories, tags]
-  layouts:
-    category: category
-    tag: tag
-  permalinks:
-    tag: /tags/:name/
-    category: /categories/:name/
+  - node_modules
+  - vendor
+  - Gemfile*
