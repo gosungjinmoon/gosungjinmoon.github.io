@@ -65,7 +65,7 @@ collections:
 # ============================================
 # ✅ 다국어 permalink 구조
 # ============================================
-permalink: /:lang/:title/
+permalink: /:lang/:categories/:title/
 
 defaults:
   - scope:
