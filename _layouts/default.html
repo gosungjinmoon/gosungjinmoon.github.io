@@ -1,0 +1,77 @@
+---
+# =============================================================
+# ✅ GOFUNWITH Default Layout (Multi-language / Chirpy 7.4.x)
+# Author: Eric Sungjin Moon
+# Description: Safe i18n wrapper for Jekyll-Chirpy
+# =============================================================
+layout: nil
+---
+{%- assign page_lang = page.lang | default: site.lang | default: "ko" -%}
+<!DOCTYPE html>
+<html lang="{{ page_lang }}">
+  {% include head.html %}
+  <body>
+    <!-- ============================================
+         ✅ Header Section
+         ============================================ -->
+    {% include header.html %}
+
+    <!-- ============================================
+         ✅ Sidebar (Language-aware)
+         ============================================ -->
+    {% include sidebar.html %}
+
+    <!-- ============================================
+         ✅ Main Content
+         ============================================ -->
+    <main class="container">
+      {{ content }}
+    </main>
+
+    <!-- ============================================
+         ✅ Footer
+         ============================================ -->
+    {% include footer.html %}
+
+    <!-- ============================================
+         ✅ Back to top / Search / Theme toggle
+         ============================================ -->
+    {% include search.html %}
+    {% include top-button.html %}
+
+    <!-- ============================================
+         ✅ Scripts (Chirpy core)
+         ============================================ -->
+    {% if site.js %}
+      {% for js_file in site.js %}
+        <script src="{{ js_file | relative_url }}"></script>
+      {% endfor %}
+    {% endif %}
+
+    <!-- ============================================
+         ✅ Language Switch Handling (Preserve State)
+         ============================================ -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const currentLang = '{{ page_lang }}';
+        localStorage.setItem('lang', currentLang);
+
+        // Update sidebar links to match language
+        document.querySelectorAll('a[href^="/"]').forEach(link => {
+          if (!link.href.includes('/assets/') && !link.href.includes('/img/')) {
+            if (currentLang === 'en' && !link.href.includes('/en/')) {
+              if (!link.href.endsWith('/')) {
+                link.href = link.href.replace('https://blog.gofunwith.com', 'https://blog.gofunwith.com/en');
+              }
+            } else if (currentLang === 'ko' && !link.href.includes('/ko/')) {
+              if (!link.href.endsWith('/')) {
+                link.href = link.href.replace('https://blog.gofunwith.com', 'https://blog.gofunwith.com/ko');
+              }
+            }
+          }
+        });
+      });
+    </script>
+
+  </body>
+</html>
