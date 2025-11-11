@@ -1,0 +1,11 @@
+{% assign current_lang = page.lang | default: site.lang %}
+{% assign all_tags = site.tags %}
+<div class="tags">
+  {% for tag in all_tags %}
+    {% assign tag_name = tag[0] %}
+    {% assign lang_posts = tag[1] | where: "lang", current_lang %}
+    {% if lang_posts.size > 0 %}
+      <a href="/{{ current_lang }}/tags/#{{ tag_name | slugify }}" class="tag">{{ tag_name }}</a>
+    {% endif %}
+  {% endfor %}
+</div>
