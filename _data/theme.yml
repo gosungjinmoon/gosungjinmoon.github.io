@@ -1,0 +1,13 @@
+ui:
+  fonts:
+    en: "Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+    ko: "Pretendard, Apple SD Gothic Neo, Noto Sans KR, Malgun Gothic, sans-serif"
+  colors:
+    primary: "#1E90FF"
+    accent: "#FFC53D"
+    muted: "#A0A7AF"
+    border: "#E5E7EB"
+  logo:
+    type: "typo"   # typo | symbol
+    light: "/assets/img/logo-typo-light.svg"
+    dark: "/assets/img/logo-typo-dark.svg"
