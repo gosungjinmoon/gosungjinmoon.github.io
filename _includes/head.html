@@ -1,7 +1,0 @@
-{%- if page.lang -%}
-  <meta name="lang" content="{{ page.lang }}">
-{%- else -%}
-  <meta name="lang" content="{{ site.lang }}">
-{%- endif -%}
-
-{%- assign site.lang = page.lang | default: site.lang -%}
