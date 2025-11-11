@@ -1,8 +1,0 @@
-{% assign current_lang = page.lang | default: site.default_lang %}
-<div style="text-align:right; margin: .5rem 0;">
-  {% if current_lang == 'ko' %}
-    <a href="/en{{ page.url | remove_first: '/ko' }}">English</a>
-  {% else %}
-    <a href="/ko{{ page.url | remove_first: '/en' }}">한국어</a>
-  {% endif %}
-</div>
