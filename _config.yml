@@ -4,6 +4,7 @@
 
 include:
   - admin
+  - _includes/head
 theme: jekyll-theme-chirpy
 
 lang: ko
@@ -59,7 +60,7 @@ paginate: 10
 
 collections:
   tabs:
-    output: true
+    output: false
     sort_by: order
     
 # ============================================
