@@ -1,0 +1,23 @@
+ko:
+  - title: 홈
+    url: /ko/
+  - title: 카테고리
+    url: /ko/categories/
+  - title: 태그
+    url: /ko/tags/
+  - title: 아카이브
+    url: /ko/archives/
+  - title: 정보
+    url: /ko/about/
+
+en:
+  - title: Home
+    url: /en/
+  - title: Categories
+    url: /en/categories/
+  - title: Tags
+    url: /en/tags/
+  - title: Archives
+    url: /en/archives/
+  - title: About
+    url: /en/about/
