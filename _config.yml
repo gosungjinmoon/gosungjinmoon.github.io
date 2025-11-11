@@ -1,12 +1,11 @@
 # ============================================
-# ✅ GOFUNWITH Blog Configuration (i18n FULL)
+# ✅ GOFUNWITH Blog Configuration (Chirpy i18n Fixed)
 # ============================================
 
 include:
   - admin
 theme: jekyll-theme-chirpy
 
-# 🌐 다국어 설정
 lang: ko
 langs: ["ko", "en"]
 timezone: Asia/Seoul
@@ -17,15 +16,11 @@ title: GOFUNWITH Blog
 tagline: Explore. Create. Share.
 description: "기술, DIY, 삶에 대한 즐거운 탐험과 창조의 기록"
 
-# ============================================
-# ✅ URL & BASE
-# ============================================
 url: "https://gosungjinmoon.github.io"
 baseurl: ""
-permalink: /:lang/:categories/:title/
 
 # ============================================
-# ✅ Social / Analytics / SEO
+# ✅ Social / Analytics
 # ============================================
 github:
   username: gosungjinmoon
@@ -51,7 +46,7 @@ favicon: /assets/img/favicon.svg
 toc: true
 
 # ============================================
-# ✅ 댓글 설정 (Giscus)
+# ✅ Comments
 # ============================================
 comments:
   provider: giscus
@@ -69,7 +64,7 @@ comments:
 paginate: 10
 
 # ============================================
-# ✅ 컬렉션 설정
+# ✅ Collections
 # ============================================
 collections:
   tabs:
@@ -77,7 +72,7 @@ collections:
     sort_by: order
 
 # ============================================
-# ✅ 언어별 permalink 및 기본값
+# ✅ Permalinks (언어별 직접 정의)
 # ============================================
 permalink: /:categories/:title/
 
@@ -107,10 +102,16 @@ defaults:
       type: tabs
     values:
       layout: page
+      # ❗ 절대 /:lang 제거하고, 직접 경로 관리
       permalink: /:title/
 
+  - scope:
+      path: "_drafts"
+    values:
+      comments: false
+
 # ============================================
-# ✅ Sass & HTML 압축
+# ✅ Sass / HTML Compression
 # ============================================
 sass:
   style: compressed
@@ -124,7 +125,7 @@ compress_html:
     envs: [development]
 
 # ============================================
-# ✅ Jekyll Archives (언어별 카테고리·태그 페이지)
+# ✅ Jekyll Archives (언어별 분기 직접 선언)
 # ============================================
 jekyll-archives:
   enabled: [categories, tags]
@@ -132,11 +133,11 @@ jekyll-archives:
     category: category
     tag: tag
   permalinks:
-    category: /:lang/categories/:name/
-    tag: /:lang/tags/:name/
+    category: /:collection/:name/
+    tag: /:collection/:name/
 
 # ============================================
-# ✅ 플러그인 (필수)
+# ✅ Plugins
 # ============================================
 plugins:
   - jekyll-paginate
@@ -146,7 +147,7 @@ plugins:
   - jekyll-archives
 
 # ============================================
-# ✅ 빌드 제외 대상
+# ✅ Exclude
 # ============================================
 exclude:
   - "*.gem"
