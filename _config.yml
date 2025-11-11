@@ -1,81 +1,116 @@
-# _config.yml v202511110223
+# ============================================
+# ✅ GOFUNWITH Blog Configuration (i18n Fixed)
+# ============================================
+
+include:
+  - admin
 theme: jekyll-theme-chirpy
+
 lang: ko
+langs: ["ko", "en"]
 timezone: Asia/Seoul
-title: GOFUNWITH
+
+brand: "GOFUNWITH – Explore. Create. Share."
+domain: "blog.gofunwith.com"
+title: GOFUNWITH Blog
 tagline: Explore. Create. Share.
-description: >-
-  GOFUNWITH — Explore. Create. Share. 다국어, 자동화, 고성능 기술 블로그
+description: "기술, DIY, 삶에 대한 즐거운 탐험과 창조의 기록"
+
 url: "https://gosungjinmoon.github.io"
 baseurl: ""
+
 github:
   username: gosungjinmoon
+twitter:
+  username: eric_moon
+
 social:
-  name: Eric Sungjin Moon
-  email: sungjmoon@deloitte.com
+  name: GOFUNWITH
+  email: example@domain.com
   links:
     - https://github.com/gosungjinmoon
+    - https://twitter.com/username
+
 analytics:
   google:
-    id: G-R7N7G7QPBF
+    id: "G-R7N7G7QPBF"
   cloudflare:
-    id: c7db8999eee4466bab1893a2361aed10
+    id: "c7db8999eee4466bab1893a2361aed10"
+
+avatar: /assets/img/logo-light.svg
+favicon: /assets/img/favicon.svg
+
+toc: true
+
 comments:
   provider: giscus
   giscus:
     repo: gosungjinmoon/gosungjinmoon.github.io
-    repo_id: R_kgDOQODShw
+    repo_id: "R_kgDOQODShw"
     category: "Show and tell"
-    category_id: DIC_kwDOQODSh84CxYII
-    mapping: pathname
+    category_id: "DIC_kwDOQODSh84CxYII"
+    mapping: "pathname"       # ✅ 중요: URL이 아닌 Pathname 기준
     strict: "0"
-    input_position: bottom
-    lang: ko
+    input_position: "bottom"
+    lang: "ko"
     reactions_enabled: "1"
-pageviews:
-  provider:
-pwa:
-  enabled: true
-  cache:
-    enabled: true
+
 paginate: 10
-jekyll-archives:
-  enabled: [categories, tags]
-  layouts:
-    category: category
-    tag: tag
-  permalinks:
-    tag: /tags/:name/
-    category: /categories/:name/
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+    
+# ============================================
+# ✅ 다국어 permalink 구조
+# ============================================
+permalink: /:lang/:title/
+
+defaults:
+  - scope:
+      path: "_posts/ko"
+      type: posts
+    values:
+      lang: ko
+      permalink: /ko/:title/
+      layout: post
+      comments: true
+      toc: true
+
+  - scope:
+      path: "_posts/en"
+      type: posts
+    values:
+      lang: en
+      permalink: /en/:title/
+      layout: post
+      comments: true
+      toc: true
+
+  - scope:
+      path: "_drafts"
+    values:
+      comments: false
+
+  - scope:
+      path: ""
+      type: tabs # see `site.collections`
+    values:
+      layout: page
+      permalink: /:title/
+
 sass:
   style: compressed
+
 compress_html:
   clippings: all
   comments: all
   endings: all
-  profile: false
   blanklines: false
   ignore:
     envs: [development]
-defaults:
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: post
-      comments: true
-      toc: true
-      permalink: /posts/:title/
-  - scope:
-      path: _drafts
-    values:
-      comments: false
-  - scope:
-      path: ""
-      type: tabs
-    values:
-      layout: page
-      permalink: /:title/
+
 exclude:
   - "*.gem"
   - "*.gemspec"
@@ -86,16 +121,12 @@ exclude:
   - purgecss.js
   - "*.config.js"
   - "package*.json"
-  - "node_modules"
-adsense:
-  client_id_env: ADSENSE_CLIENT_ID
-gfw:
-  brand: "GOFUNWITH – Explore. Create. Share."
-  domain: "blog.gofunwith.com"
-  like_api_endpoint: "https://api.gofunwith.com/like"
-  worker_oauth_endpoint: "https://gfw-oauth-exchange.eric-moon.workers.dev"
-  n8n:
-    new_post: "https://n8n.gofunwith.com/webhook/new-post"
-    translate: "https://n8n.gofunwith.com/webhook/translate-post"
-    theme_update: "https://n8n.gofunwith.com/webhook/update-theme"
-theme_mode:
+
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/
