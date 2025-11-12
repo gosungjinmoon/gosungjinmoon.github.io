@@ -1,0 +1,37 @@
+---
+layout: default
+---
+
+<div class="layout">
+  {% include sidebar.html %}
+  <main class="content" role="main">
+    <header class="post-header">
+      <h1>{{ page.title }}</h1>
+
+      {%- assign current = page.lang | default: site.lang | default: 'ko' -%}
+      {%- assign other = 'en' -%}
+      {%- if current == 'en' -%}{% assign other = 'ko' %}{%- endif -%}
+
+      {%- comment -%}
+        alt_lang front-matter에 “상대 포스트의 slug 또는 전체 경로”를 넣어두면 우선 사용.
+        없으면 언어 루트(/ko/, /en/)로만 이동.
+      {%- endcomment -%}
+      <div class="post-lang-toggle">
+        {%- if page.alt_lang and page.alt_lang != '' -%}
+          {%- if other == 'ko' -%}
+            <a class="btn" href="{{ '/ko/' | append: page.alt_lang | relative_url }}">한국어</a>
+          {%- else -%}
+            <a class="btn" href="{{ '/en/' | append: page.alt_lang | relative_url }}">English</a>
+          {%- endif -%}
+        {%- else -%}
+          <a class="btn" href="{{ '/ko/' | relative_url }}">한국어</a>
+          <a class="btn" href="{{ '/en/' | relative_url }}">English</a>
+        {%- endif -%}
+      </div>
+    </header>
+
+    <article class="post-body">
+      {{ content }}
+    </article>
+  </main>
+</div>
