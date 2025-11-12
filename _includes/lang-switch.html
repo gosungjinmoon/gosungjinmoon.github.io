@@ -1,14 +1,5 @@
-{%- comment -%}
-  Single source of truth for language switching.
-  Avoids double prefixes like /ko/ko/ and works from any page.
-{%- endcomment -%}
-
-{%- assign current = page.lang | default: site.lang | default: 'ko' -%}
-{%- assign ko_root = '/ko/' | relative_url -%}
-{%- assign en_root = '/en/' | relative_url -%}
-
 <nav class="lang-switch">
-  <a href="{{ ko_root }}" {% if current == 'ko' %}aria-current="page" class="active"{% endif %}>한국어</a>
-  <span aria-hidden="true"> · </span>
-  <a href="{{ en_root }}" {% if current == 'en' %}aria-current="page" class="active"{% endif %}>English</a>
+  {% assign current = page.lang | default: site.lang | default: 'ko' %}
+  <a href="/ko/" {% if current == "ko" %}class="active"{% endif %}>한국어</a> ·
+  <a href="/en/" {% if current == "en" %}class="active"{% endif %}>English</a>
 </nav>
