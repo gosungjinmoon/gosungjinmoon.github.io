@@ -4,7 +4,7 @@
 
 include:
   - admin
-  - _includes/head
+# - _includes/head
 theme: jekyll-theme-chirpy
 
 lang: ko
