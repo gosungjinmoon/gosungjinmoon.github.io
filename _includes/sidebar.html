@@ -1,18 +1,8 @@
-<aside class="sidebar">
-  <div class="brand">
-    <a href="{{ '/' | relative_url }}">
-      <img src="{{ '/assets/img/logo-light.svg' | relative_url }}" alt="GOFUNWITH" />
-    </a>
-    <p class="tagline">Explore. Create. Share.</p>
-  </div>
-
-  <ul class="nav">
-    <li><a href="{{ '/' | relative_url }}">Home</a></li>
-    <li><a href="{{ '/categories/' | relative_url }}">Categories</a></li>
-    <li><a href="{{ '/tags/' | relative_url }}">Tags</a></li>
-    <li><a href="{{ '/archives/' | relative_url }}">Archives</a></li>
-    <li><a href="{{ '/about/' | relative_url }}">About</a></li>
-  </ul>
-
-  {% include lang-switch.html %}
-</aside>
+{%- assign L = page.lang | default: site.lang | default: 'ko' -%}
+<ul class="nav">
+  <li><a href="{{ '/' | append: L | append: '/' | relative_url }}">{{ L == 'ko' ? '홈' : 'Home' }}</a></li>
+  <li><a href="{{ '/' | append: L | append: '/categories/' | relative_url }}">{{ L == 'ko' ? '카테고리' : 'Categories' }}</a></li>
+  <li><a href="{{ '/' | append: L | append: '/tags/' | relative_url }}">{{ L == 'ko' ? '태그' : 'Tags' }}</a></li>
+  <li><a href="{{ '/' | append: L | append: '/archives/' | relative_url }}">{{ L == 'ko' ? '아카이브' : 'Archives' }}</a></li>
+  <li><a href="{{ '/' | append: L | append: '/about/' | relative_url }}">{{ L == 'ko' ? '정보' : 'About' }}</a></li>
+</ul>
