@@ -1,16 +1,21 @@
 {%- assign current_lang = page.lang | default: site.lang | default: 'ko' -%}
 <ul class="nav flex-column">
   {% for item in site.data.navigation.main %}
-    {% if item.url %}
-      {% assign localized_url = item.url %}
-      {% unless localized_url contains current_lang %}
-        {% assign localized_url = '/' | append: current_lang | append: item.url %}
-      {% endunless %}
-      <li class="nav-item{% if page.url == localized_url %} active{% endif %}">
-        <a href="{{ localized_url | relative_url }}" class="nav-link">
-          {{ item.title }}
-        </a>
-      </li>
+    {% assign base = item.url %}
+    {% if base == "/" %}
+      {% assign localized = "/" | append: current_lang | append: "/" %}
+    {% else %}
+      {% assign base_clean = base %}
+      {% if base_clean startswith "/ko/" %}
+        {% assign base_clean = base_clean | remove_first: "/ko" %}
+      {% elsif base_clean startswith "/en/" %}
+        {% assign base_clean = base_clean | remove_first: "/en" %}
+      {% endif %}
+      {% assign localized = "/" | append: current_lang | append: base_clean %}
     {% endif %}
+
+    <li class="nav-item{% if page.url == localized %} active{% endif %}">
+      <a class="nav-link" href="{{ localized | relative_url }}">{{ item.title }}</a>
+    </li>
   {% endfor %}
 </ul>
