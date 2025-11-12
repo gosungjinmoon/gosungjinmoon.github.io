@@ -1,25 +1,23 @@
+{%- comment -%} Minimal, robust sidebar {%- endcomment -%}
+<aside class="sidebar" role="complementary">
+  <div class="brand">
+    <a class="brand-link" href="{{ '/' | relative_url }}">
+      <img src="{{ '/assets/img/logo-light.svg' | relative_url }}" alt="gofunwith." style="height: 28px;">
+    </a>
+    <p class="tagline">Explore. Create. Share.</p>
+  </div>
 
-{%- assign current_lang = page.lang | default: site.lang | default: 'ko' -%}
-<ul class="nav flex-column">
-  {% for item in site.data.navigation.main %}
-    {% assign base = item.url %}
-    {% if base == "/" %}
-      {% assign localized = "/" | append: current_lang | append: "/" %}
-    {% else %}
-      {% assign base_clean = base %}
-      {% if base_clean contains '/ko/' %}
-        {% assign base_clean = base_clean | remove_first: '/ko' %}
-      {% elsif base_clean contains '/en/' %}
-        {% assign base_clean = base_clean | remove_first: '/en' %}
-      {% endif %}
-      {% assign localized = '/' | append: current_lang | append: base_clean %}
-    {% endif %}
-    <li class="nav-item{% if page.url == localized %} active{% endif %}">
-      <a class="nav-link" href="{{ localized | relative_url }}">{{ item.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
-<div class="mt-3 small opacity-75">
-  <a href="/ko{{ page.url | remove_first: '/en' }}">한국어</a> ·
-  <a href="/en{{ page.url | remove_first: '/ko' }}">English</a>
-</div>
+  <nav class="sidebar-nav" aria-label="Primary">
+    <ul>
+      <li><a href="{{ '/' | relative_url }}">Home</a></li>
+      <li><a href="{{ '/categories/' | relative_url }}">Categories</a></li>
+      <li><a href="{{ '/tags/' | relative_url }}">Tags</a></li>
+      <li><a href="{{ '/archives/' | relative_url }}">Archives</a></li>
+      <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-langs">
+    {% include lang-switch.html %}
+  </div>
+</aside>
