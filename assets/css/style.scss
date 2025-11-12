@@ -1,1 +1,11 @@
-@import "main";
+---
+# GOFUNWITH custom style overrides
+---
+
+@import "jekyll-theme-chirpy";
+
+/* 필요하면 여기부터 override */
+:root {
+  --brand-color: #1e90ff;
+  --accent-color: #ffc53d;
+}
