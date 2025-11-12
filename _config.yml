@@ -1,18 +1,12 @@
 # ============================================
-# ✅ GOFUNWITH Blog Configuration (i18n Fixed)
+# ✅ GOFUNWITH Blog Configuration (Stable i18n + Chirpy)
 # ============================================
-
-include:
-  - admin
-# - _includes/head
 theme: jekyll-theme-chirpy
 
 lang: ko
 langs: ["ko", "en"]
 timezone: Asia/Seoul
 
-brand: "GOFUNWITH – Explore. Create. Share."
-domain: "blog.gofunwith.com"
 title: GOFUNWITH Blog
 tagline: Explore. Create. Share.
 description: "기술, DIY, 삶에 대한 즐거운 탐험과 창조의 기록"
@@ -20,17 +14,11 @@ description: "기술, DIY, 삶에 대한 즐거운 탐험과 창조의 기록"
 url: "https://blog.gofunwith.com"
 baseurl: ""
 
+brand: "GOFUNWITH – Explore. Create. Share."
+domain: "blog.gofunwith.com"
+
 github:
   username: gosungjinmoon
-twitter:
-  username: eric_moon
-
-social:
-  name: GOFUNWITH
-  email: example@domain.com
-  links:
-    - https://github.com/gosungjinmoon
-    - https://twitter.com/username
 
 analytics:
   google:
@@ -42,9 +30,8 @@ avatar: /assets/img/logo-light.svg
 favicon: /assets/img/favicon.svg
 
 toc: true
-plugins:
-  - jekyll-seo-tag
-  - jekyll-feed
+paginate: 10
+
 comments:
   provider: giscus
   giscus:
@@ -52,78 +39,22 @@ comments:
     repo_id: "R_kgDOQODShw"
     category: "Show and tell"
     category_id: "DIC_kwDOQODSh84CxYII"
-    mapping: "pathname"       # ✅ 중요: URL이 아닌 Pathname 기준
+    mapping: "pathname"
     strict: "0"
     input_position: "bottom"
     lang: "ko"
     reactions_enabled: "1"
 
-paginate: 10
-
 collections:
   tabs:
     output: true
     sort_by: order
-    
-# ============================================
-# ✅ 다국어 permalink 구조
-# ============================================
-permalink: /:lang/:categories/:title/
 
-defaults:
-  - scope:
-      path: "_posts/ko"
-      type: posts
-    values:
-      lang: ko
-      permalink: /ko/:title/
-      layout: post
-      comments: true
-      toc: true
-
-  - scope:
-      path: "_posts/en"
-      type: posts
-    values:
-      lang: en
-      permalink: /en/:title/
-      layout: post
-      comments: true
-      toc: true
-
-  - scope:
-      path: "_drafts"
-    values:
-      comments: false
-
-  - scope:
-      path: ""
-      type: tabs # see `site.collections`
-    values:
-      layout: page
-      permalink: /:title/
-
-sass:
-  style: compressed
-
-compress_html:
-  clippings: all
-  comments: all
-  endings: all
-  blanklines: false
-  ignore:
-    envs: [development]
-
-exclude:
-  - "*.gem"
-  - "*.gemspec"
-  - docs
-  - tools
-  - README.md
-  - LICENSE
-  - purgecss.js
-  - "*.config.js"
-  - "package*.json"
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-archives
 
 jekyll-archives:
   enabled:
@@ -135,3 +66,13 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  blanklines: false
+  ignore:
+    envs: [development]
+
+permalink: /:lang/:categories/:title/
