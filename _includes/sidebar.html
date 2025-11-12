@@ -1,8 +1,0 @@
-{%- assign L = page.lang | default: site.lang | default: 'ko' -%}
-<ul class="nav">
-  <li><a href="{{ '/' | append: L | append: '/' | relative_url }}">{{ L == 'ko' ? '홈' : 'Home' }}</a></li>
-  <li><a href="{{ '/' | append: L | append: '/categories/' | relative_url }}">{{ L == 'ko' ? '카테고리' : 'Categories' }}</a></li>
-  <li><a href="{{ '/' | append: L | append: '/tags/' | relative_url }}">{{ L == 'ko' ? '태그' : 'Tags' }}</a></li>
-  <li><a href="{{ '/' | append: L | append: '/archives/' | relative_url }}">{{ L == 'ko' ? '아카이브' : 'Archives' }}</a></li>
-  <li><a href="{{ '/' | append: L | append: '/about/' | relative_url }}">{{ L == 'ko' ? '정보' : 'About' }}</a></li>
-</ul>
