@@ -3,9 +3,3 @@ layout: home
 lang: ko
 permalink: /ko/
 ---
-
-{% assign posts_lang = site.posts | where: "lang", page.lang %}
-{% for post in posts_lang %}
-  <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-  <p>{{ post.excerpt }}</p>
-{% endfor %}
