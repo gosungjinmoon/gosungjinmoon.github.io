@@ -1,23 +1,14 @@
-<div class="lang-switch" style="position:absolute;top:1rem;right:2rem;">
-  {% assign current_lang = page.lang | default: "ko" %}
-  {% if current_lang == "ko" %}
-    <a href="/en/" class="lang-btn">English</a>
-  {% else %}
-    <a href="/ko/" class="lang-btn">한국어</a>
-  {% endif %}
-</div>
+{%- comment -%}
+  Single source of truth for language switching.
+  Avoids double prefixes like /ko/ko/ and works from any page.
+{%- endcomment -%}
 
-<style>
-.lang-btn {
-  font-size: 0.9rem;
-  padding: 4px 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  text-decoration: none;
-  color: var(--text-muted);
-}
-.lang-btn:hover {
-  color: var(--text);
-  border-color: var(--text);
-}
-</style>
+{%- assign current = page.lang | default: site.lang | default: 'ko' -%}
+{%- assign ko_root = '/ko/' | relative_url -%}
+{%- assign en_root = '/en/' | relative_url -%}
+
+<nav class="lang-switch">
+  <a href="{{ ko_root }}" {% if current == 'ko' %}aria-current="page" class="active"{% endif %}>한국어</a>
+  <span aria-hidden="true"> · </span>
+  <a href="{{ en_root }}" {% if current == 'en' %}aria-current="page" class="active"{% endif %}>English</a>
+</nav>
