@@ -1,10 +1,18 @@
-<nav id="sidebar" class="sidebar">
-  <div class="sidebar-content">
-    {% include sidebar/navigation.html %}
-    <hr>
-    <div class="language-switch">
-      <a href="/ko{{ page.url | remove_first: '/en' }}">한국어</a> |
-      <a href="/en{{ page.url | remove_first: '/ko' }}">English</a>
-    </div>
+<aside class="sidebar">
+  <div class="brand">
+    <a href="{{ '/' | relative_url }}">
+      <img src="{{ '/assets/img/logo-light.svg' | relative_url }}" alt="GOFUNWITH" />
+    </a>
+    <p class="tagline">Explore. Create. Share.</p>
   </div>
-</nav>
+
+  <ul class="nav">
+    <li><a href="{{ '/' | relative_url }}">Home</a></li>
+    <li><a href="{{ '/categories/' | relative_url }}">Categories</a></li>
+    <li><a href="{{ '/tags/' | relative_url }}">Tags</a></li>
+    <li><a href="{{ '/archives/' | relative_url }}">Archives</a></li>
+    <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+  </ul>
+
+  {% include lang-switch.html %}
+</aside>
