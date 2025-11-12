@@ -1,26 +1,16 @@
-{%- assign current_lang = page.lang | default: site.lang -%}
-{%- assign lang_prefix = current_lang | prepend: '/' -%}
-
-<nav class="sidebar-nav">
-  <ul>
-    <li><a href="{{ lang_prefix | append: '/' | relative_url }}">
-      {{ site.data.locales[current_lang].tabs.home | default: '홈' }}
-    </a></li>
-
-    <li><a href="{{ lang_prefix | append: '/categories/' | relative_url }}">
-      {{ site.data.locales[current_lang].tabs.categories | default: '카테고리' }}
-    </a></li>
-
-    <li><a href="{{ lang_prefix | append: '/tags/' | relative_url }}">
-      {{ site.data.locales[current_lang].tabs.tags | default: '태그' }}
-    </a></li>
-
-    <li><a href="{{ lang_prefix | append: '/archives/' | relative_url }}">
-      {{ site.data.locales[current_lang].tabs.archives | default: '아카이브' }}
-    </a></li>
-
-    <li><a href="{{ lang_prefix | append: '/about/' | relative_url }}">
-      {{ site.data.locales[current_lang].tabs.about | default: '정보' }}
-    </a></li>
-  </ul>
-</nav>
+{%- assign current_lang = page.lang | default: site.lang | default: 'ko' -%}
+<ul class="nav flex-column">
+  {% for item in site.data.navigation.main %}
+    {% if item.url %}
+      {% assign localized_url = item.url %}
+      {% unless localized_url contains current_lang %}
+        {% assign localized_url = '/' | append: current_lang | append: item.url %}
+      {% endunless %}
+      <li class="nav-item{% if page.url == localized_url %} active{% endif %}">
+        <a href="{{ localized_url | relative_url }}" class="nav-link">
+          {{ item.title }}
+        </a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
