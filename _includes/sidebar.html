@@ -1,0 +1,10 @@
+<nav id="sidebar" class="sidebar">
+  <div class="sidebar-content">
+    {% include sidebar/navigation.html %}
+    <hr>
+    <div class="language-switch">
+      <a href="/ko{{ page.url | remove_first: '/en' }}">한국어</a> |
+      <a href="/en{{ page.url | remove_first: '/ko' }}">English</a>
+    </div>
+  </div>
+</nav>
