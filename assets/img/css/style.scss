@@ -1,0 +1,22 @@
+---
+# Jekyll Theme Chirpy - GOFUNWITH Custom Overrides
+---
+
+/* ✅ 기본 테마 스타일은 remote_theme이 자동으로 불러옴.
+   여기서는 추가로 커스텀 스타일만 작성하세요. */
+
+:root {
+  --brand-color: #1e90ff;
+  --accent-color: #ffc53d;
+  --neutral-gray: #a0a7af;
+}
+
+.sidebar .brand {
+  font-weight: 700;
+  color: var(--brand-color);
+}
+
+.post-lang-toggle a {
+  color: var(--brand-color);
+  text-decoration: underline;
+}
