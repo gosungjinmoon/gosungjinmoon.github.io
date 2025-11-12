@@ -2,18 +2,12 @@
 layout: default
 ---
 
-<div class="layout">
-  {% include sidebar.html %}
-  <main class="content" role="main">
-    {%- assign current = page.lang | default: site.lang | default: 'ko' -%}
-    {%- assign posts_lang = site.posts | where: "lang", current -%}
-
-    {%- for post in posts_lang -%}
-      <article class="post-preview">
-        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-        <p>{{ post.excerpt | strip_html | truncatewords: 28 }}</p>
-        <small>{{ post.date | date: "%Y-%m-%d" }}</small>
-      </article>
-    {%- endfor -%}
-  </main>
-</div>
+{% include sidebar.html %}
+<main class="content">
+  {% assign current_lang = page.lang | default: site.lang %}
+  {% assign posts_lang = site.posts | where: "lang", current_lang %}
+  {% for post in posts_lang %}
+    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+    <p>{{ post.excerpt | strip_html | truncatewords: 24 }}</p>
+  {% endfor %}
+</main>
