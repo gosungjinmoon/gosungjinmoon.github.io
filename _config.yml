@@ -85,7 +85,7 @@ compress_html:
 
 # --- permalink 구조 ---
 # (lang 누락 시 기본 ko를 자동 주입)
-permalink: /:lang/:categories/:title/
+permalink: /:lang/:title/
 
 defaults:
   - scope:
