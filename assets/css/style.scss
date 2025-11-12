@@ -1,4 +1,18 @@
 ---
+# Only custom overrides here. The main theme CSS is automatically included.
 ---
 
-@import "jekyll-theme-chirpy";
+/* ✅ Chirpy Theme is already loaded by remote_theme
+   Add custom overrides below if needed */
+
+:root {
+  --brand-color: #1e90ff;
+  --accent-color: #ffc53d;
+}
+
+/* Example override: sidebar tagline spacing */
+.sidebar .tagline {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: var(--accent-color);
+}
