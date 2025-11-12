@@ -6,14 +6,13 @@
       {% assign localized = "/" | append: current_lang | append: "/" %}
     {% else %}
       {% assign base_clean = base %}
-      {% if base_clean startswith "/ko/" %}
-        {% assign base_clean = base_clean | remove_first: "/ko" %}
-      {% elsif base_clean startswith "/en/" %}
-        {% assign base_clean = base_clean | remove_first: "/en" %}
+      {% if base_clean contains '/ko/' %}
+        {% assign base_clean = base_clean | remove_first: '/ko' %}
+      {% elsif base_clean contains '/en/' %}
+        {% assign base_clean = base_clean | remove_first: '/en' %}
       {% endif %}
-      {% assign localized = "/" | append: current_lang | append: base_clean %}
+      {% assign localized = '/' | append: current_lang | append: base_clean %}
     {% endif %}
-
     <li class="nav-item{% if page.url == localized %} active{% endif %}">
       <a class="nav-link" href="{{ localized | relative_url }}">{{ item.title }}</a>
     </li>
